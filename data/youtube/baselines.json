@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-25T16:09:24.380Z",
+  "computedAt": "2026-11-26T16:06:38.308Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -1205,10 +1205,10 @@
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
           "unit": "회",
-          "n": 29,
-          "median": 6,
-          "upper": 9,
-          "spreadRatio": 1.5,
+          "n": 30,
+          "median": 7,
+          "upper": 11,
+          "spreadRatio": 1.5714285714285714,
           "promoteRule": "비율",
           "champion": {
             "videoId": "ROks87qezuU",
@@ -1218,7 +1218,7 @@
             "value": 46,
             "views": 46
           },
-          "promoteAbove": 69,
+          "promoteAbove": 72.28571428571428,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
           "excluded": [
@@ -1235,22 +1235,22 @@
           "label": "공개 7일 평균 시청 시간",
           "meaning": "훅·화면·대본(내용). 영상이 길수록 유리해서 길이를 같이 본다",
           "unit": "초",
-          "n": 16,
-          "median": 117,
-          "upper": 195,
-          "spreadRatio": 1.6666666666666667,
+          "n": 15,
+          "median": 106,
+          "upper": 193,
+          "spreadRatio": 1.820754716981132,
           "promoteRule": "비율",
           "champion": {
-            "videoId": "-V1lwpEF7Ik",
-            "title": "왜 CAT은 '캣'인데 KING은 '킹'일까? C와 K의 비밀 | 영어 읽기 잘하는법 | 영어 #영어기초 #C와K의차이 #이해하면쉬운영어",
-            "publishedAt": "2026-07-08T12:57:50Z",
-            "durationSeconds": 535,
-            "value": 354,
-            "views": 6
+            "videoId": "8Ul_lkCkUCI",
+            "title": "외국인 앞에서 \"배불러요\" 했는데 '바보'로 들리는 아찔한 이유",
+            "publishedAt": "2026-11-12T14:00:25Z",
+            "durationSeconds": 781,
+            "value": 272,
+            "views": 8
           },
-          "promoteAbove": 590,
+          "promoteAbove": 495.2452830188679,
           "lowSample": true,
-          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 6회로 100회 미만 — 참고용(가설)",
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 8회로 100회 미만 — 참고용(가설)",
           "excluded": [],
           "confidence": "가설"
         },
@@ -1258,22 +1258,22 @@
           "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
           "unit": "명",
-          "n": 29,
+          "n": 30,
           "median": 0,
           "upper": 0,
           "spreadRatio": null,
           "promoteRule": "차이",
           "champion": {
-            "videoId": "ROks87qezuU",
-            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
-            "publishedAt": "2026-09-24T11:00:13Z",
-            "durationSeconds": 415,
+            "videoId": "UDwLERu-Tu8",
+            "title": "미드에서 Right와 Light가 다르게 들렸던 진짜 이유 | 영어 R L 발음",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
             "value": 1,
-            "views": 46
+            "views": 31
           },
           "promoteAbove": 1,
           "lowSample": true,
-          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 31회로 100회 미만 — 참고용(가설)",
           "excluded": [],
           "confidence": "가설"
         },
@@ -1281,42 +1281,35 @@
           "label": "공개 7일 썸네일 노출수",
           "meaning": "유튜브가 얼마나 보여 줬는가(포장의 앞 단계). 스튜디오 값",
           "unit": "회",
-          "n": 29,
-          "median": 45,
-          "upper": 125,
-          "spreadRatio": 2.7777777777777777,
+          "n": 30,
+          "median": 47,
+          "upper": 131,
+          "spreadRatio": 2.7872340425531914,
           "promoteRule": "비율",
           "champion": {
-            "videoId": "YoaCRYCWpws",
-            "title": "PICTURE를 '픽투어'로 읽으면 외국인이 못 알아듣는 이유",
-            "publishedAt": "2026-08-10T05:51:39Z",
-            "durationSeconds": 367,
-            "value": 443,
-            "views": 443,
-            "impressions": 443,
-            "clicks": 19,
+            "videoId": "UDwLERu-Tu8",
+            "title": "미드에서 Right와 Light가 다르게 들렸던 진짜 이유 | 영어 R L 발음",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 1884,
+            "views": 1884,
+            "impressions": 1884,
+            "clicks": 14,
             "abTest": null
           },
-          "promoteAbove": 1230.5555555555554,
-          "lowSample": true,
-          "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 443회로 1000회 미만 — 참고용(가설)",
+          "promoteAbove": 5251.148936170212,
+          "lowSample": false,
+          "sampleNote": null,
           "abTestedCount": 16,
           "mixedNote": null,
           "coverage": {
-            "have": 29,
-            "recorded": 29,
-            "eligible": 29
+            "have": 30,
+            "recorded": 30,
+            "eligible": 30
           },
           "catchingUp": false,
           "catchingUpNote": null,
-          "excluded": [
-            {
-              "videoId": "4of_mgeLazQ",
-              "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
-              "value": 840,
-              "reason": "빈 조회 의심: 평균 시청 0초, 영상 길이의 0%"
-            }
-          ],
+          "excluded": [],
           "confidence": "가설"
         },
         "ctr7d": {
@@ -1342,12 +1335,12 @@
           "promoteAbove": 9.864421364985162,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 140회로 1000회 미만 — 참고용(가설)",
-          "abTestedCount": 8,
+          "abTestedCount": 7,
           "mixedNote": "기준 영상에 제목·썸네일 A/B 테스트가 걸려 있어 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)",
           "coverage": {
             "have": 15,
-            "recorded": 29,
-            "eligible": 29
+            "recorded": 30,
+            "eligible": 30
           },
           "catchingUp": false,
           "catchingUpNote": null,
@@ -1355,9 +1348,15 @@
           "confidence": "가설"
         }
       },
-      "lengthMedianSeconds": 420,
+      "lengthMedianSeconds": 429,
       "recent": {
         "views7d": [
+          {
+            "videoId": "UDwLERu-Tu8",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 31
+          },
           {
             "videoId": "8Ul_lkCkUCI",
             "publishedAt": "2026-11-12T14:00:25Z",
@@ -1535,6 +1534,12 @@
         ],
         "watchSeconds7d": [
           {
+            "videoId": "UDwLERu-Tu8",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 38
+          },
+          {
             "videoId": "8Ul_lkCkUCI",
             "publishedAt": "2026-11-12T14:00:25Z",
             "durationSeconds": 781,
@@ -1711,6 +1716,12 @@
         ],
         "subs7d": [
           {
+            "videoId": "UDwLERu-Tu8",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 1
+          },
+          {
             "videoId": "8Ul_lkCkUCI",
             "publishedAt": "2026-11-12T14:00:25Z",
             "durationSeconds": 781,
@@ -1886,6 +1897,14 @@
           }
         ],
         "impressions7d": [
+          {
+            "videoId": "UDwLERu-Tu8",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 1884,
+            "impressions": 1884,
+            "clicks": 14
+          },
           {
             "videoId": "8Ul_lkCkUCI",
             "publishedAt": "2026-11-12T14:00:25Z",
@@ -2120,6 +2139,14 @@
           }
         ],
         "ctr7d": [
+          {
+            "videoId": "UDwLERu-Tu8",
+            "publishedAt": "2026-11-16T14:00:08Z",
+            "durationSeconds": 745,
+            "value": 0.74,
+            "impressions": 1884,
+            "clicks": 14
+          },
           {
             "videoId": "8Ul_lkCkUCI",
             "publishedAt": "2026-11-12T14:00:25Z",
@@ -2356,18 +2383,18 @@
       },
       "reference": {
         "subsPer1000Views": {
-          "value": 4.705882352941176,
-          "totalSubs": 2,
-          "totalViews": 425,
-          "n": 29
+          "value": 6.578947368421052,
+          "totalSubs": 3,
+          "totalViews": 456,
+          "n": 30
         },
         "watchRatio": {
           "median": 0.2146118721461187,
-          "n": 29
+          "n": 30
         },
         "totalWatchMinutes": {
-          "median": 10.95,
-          "n": 29
+          "median": 11.266666666666667,
+          "n": 30
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       }
@@ -2482,6 +2509,48 @@
       "period": "4_weeks",
       "retiredAt": "2026-11-24T16:10:36.790Z",
       "replacedBy": "ogCglr1VNYE",
+      "reason": "더 높은 기록이 나옴"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "watchSeconds7d",
+      "videoId": "-V1lwpEF7Ik",
+      "title": "왜 CAT은 '캣'인데 KING은 '킹'일까? C와 K의 비밀 | 영어 읽기 잘하는법 | 영어 #영어기초 #C와K의차이 #이해하면쉬운영어",
+      "publishedAt": "2026-07-08T12:57:50Z",
+      "durationSeconds": 535,
+      "value": 354,
+      "views": 6,
+      "retiredAt": "2026-11-26T16:06:38.308Z",
+      "replacedBy": "8Ul_lkCkUCI",
+      "reason": "더 높은 기록이 나옴"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "subs7d",
+      "videoId": "ROks87qezuU",
+      "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+      "publishedAt": "2026-09-24T11:00:13Z",
+      "durationSeconds": 415,
+      "value": 1,
+      "views": 46,
+      "retiredAt": "2026-11-26T16:06:38.308Z",
+      "replacedBy": "UDwLERu-Tu8",
+      "reason": "더 높은 기록이 나옴"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "impressions7d",
+      "videoId": "YoaCRYCWpws",
+      "title": "PICTURE를 '픽투어'로 읽으면 외국인이 못 알아듣는 이유",
+      "publishedAt": "2026-08-10T05:51:39Z",
+      "durationSeconds": 367,
+      "value": 443,
+      "views": 443,
+      "impressions": 443,
+      "clicks": 19,
+      "abTest": null,
+      "retiredAt": "2026-11-26T16:06:38.308Z",
+      "replacedBy": "UDwLERu-Tu8",
       "reason": "더 높은 기록이 나옴"
     }
   ]

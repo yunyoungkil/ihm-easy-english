@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 1,
+  "videoId": "7B9CASK8qgE",
+  "analyzedAt": "2026-11-26T16:04:53.844Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 11,
+  "meta": {
+    "videoId": "7B9CASK8qgE",
+    "title": "여차친구가 뭘 잘 못먹은거같을때 쓰는말 #생활영어 #쇼츠영어",
+    "channelId": "UCrCHcL8bVvyU-WLoKmH_Kkg",
+    "channelTitle": "예쁜외국어",
+    "publishedAt": "2026-09-26T08:00:19Z",
+    "viewCount": 1754625,
+    "likeCount": 7036,
+    "commentCount": 46,
+    "durationSeconds": 11,
+    "thumbnail": "https://i.ytimg.com/vi/7B9CASK8qgE/maxresdefault.jpg",
+    "description": "괜찮냐고 두 번이나 물었는데 대답이 없다.\n마지막 한마디가 나오기까지 10초, 끝까지 보면 이유가 보여요.\n\n━━━━━ 오늘 배우는 표현 ━━━━━\n\n① Are you okay?  ·  괜찮아?\n   걱정될 때 가장 기본으로 쓰는 말\n   → 넘어졌거나 표정이 안 좋을 때 바로 튀어나오는 말\n\n② You good?  ·  괜찮은 거지? / 별일 없지?\n   Are you good? 에서 Are 를 뺀 말\n   → 친구끼리 가볍게 묻는 말투라 부담이 덜하다\n\n③ What happened?  ·  무슨 일이야?\n   이미 벌어진 일을 물을 때 쓴다\n   → 놀라거나 걱정될 때 '대체 왜 그래?'에 가까운 말\n\n━━━━━ 원작 ━━━━━\n\n원작자를 확인하지 못했습니다. 아시는 분은 댓글로 알려 주시면 바로 표기하겠습니다.\nhttps://www.instagram.com/reel/DdjgWh4RSLD/\n\n원작자의 요청이 있으면 즉시 내리겠습니다.\n\n#영어회화 #영어표현 #생활영어 #원어민표현 #쇼츠영어 #영어공부 #예쁜외국어\n\n맨위로",
+    "tags": []
+  },
+  "subscriberCount": 71200,
+  "viewsPerSubscriber": 24.64,
+  "outlierRatio": 25.64,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-26T16:03:45.507Z",
+  "ratioDenominator": 68442.5,
+  "ratioPeerCount": 50,
+  "channelPeers": [
+    {
+      "videoId": "MDtmWwjYCnI",
+      "title": "오버핏 입고 나왔는데, 썸남이 지나갈 때 ㅎㅎㅎㅎ #쇼츠외국어 #생활외국어 #외국어공부 #외국어표현 #예쁜외국어",
+      "viewCount": 43962,
+      "durationSeconds": 9,
+      "publishedAt": "2026-11-16"
+    },
+    {
+      "videoId": "oPsE4ylv7Vs",
+      "title": "어릴 때 못생겼다고 함부로 대하면 안 되는 이유ㄷㄷ #쇼츠외국어 #생활외국어 #외국어공부 #외국어표현 #예쁜외국어",
+      "viewCount": 53322,
+      "durationSeconds": 9,
+      "publishedAt": "2026-11-17"
+    },
+    {
+      "videoId": "NJSNHyMGqrU",
+      "title": "자체 특수효과?? 자세가 완벽하네 ....ㅋㅋㅋ #쇼츠외국어 #생활외국어 #외국어공부 #외국어표현 #예쁜외국어",
+      "viewCount": 68545,
+      "durationSeconds": 13,
+      "publishedAt": "2026-11-17"
+    },
+    {
+      "videoId": "dYyP4hinLYQ",
+      "title": "남자가 가장 조심해야할 것. 핸드폰 PART 2 ... #쇼츠외국어 #생활외국어 #외국어공부 #외국어표현 #예쁜외국어",
+      "viewCount": 99450,
+      "durationSeconds": 15,
+      "publishedAt": "2026-11-17"
+    },
+    {
+      "videoId": "sgBwNayF_-c",
+      "title": "그녀가 짚라인을 타는 법. 아오 아프겠다 ㅋㅋ #쇼츠외국어 #생활외국어 #외국어공부 #외국어표현 #예쁜외국어",
+      "viewCount": 112019,
+      "durationSeconds": 6,
+      "publishedAt": "2026-11-17"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-26T16:00:12.500Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 2,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 40
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 11
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 3,
+    "stats": {
+      "sentences": 3,
+      "lengthSum": 18,
+      "lengthMedian": 6,
+      "endings": {
+        "question": 3,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 0
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 3,
+      "pastConclusionSentences": 1
+    },
+    "qualityMetrics": {
+      "sentences": 3,
+      "hangulChars": 15,
+      "hangulRatio": 1,
+      "uniqueWordRatio": 1,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 11,
+    "hangulPerSec": 1.36,
+    "computedAt": "2026-11-26T16:04:43.394Z",
+    "note": "품질 낮음: 문장 3개(8개 미만), 한글 15자(150자 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "여성 캐릭터가 이상한 것을 먹은 듯한 상황을 제시하여 시청자의 호기심을 유발한다",
+      "titleQuote": "여차친구가 뭘 잘 못먹은거같을때 쓰는말 #생활영어 #쇼츠영어",
+      "thumbnailText": "괜찮냐고 묻는 세 가지 말 예쁜외국어 @LovelyLanguages",
+      "thumbnailWordCount": 7,
+      "thumbnailVisual": "흰색 원피스를 입은 긴 머리 여성이 입을 가린 채 찡그린 표정을 짓고 있으며, 상단에 붉은색 글씨와 하단에 채널 로고가 배치되어 있다.",
+      "thumbnailVsTitle": "썸네일은 상황에 대처하는 영어 표현 교육을 암시하고, 제목은 여자친구가 무엇인가를 잘못 먹었을 때 쓰는 구체적인 상황을 설명하여 서로 다른 정보를 보탠다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "흰색 원피스를 입은 여성이 부엌 쪽에서 헛구역질을 하거나 무언가를 입에 넣었다가 빼는 듯한 충격받은 표정을 지으며 등장하고, 영어 자막과 한국어 해설 자막이 나타난다.",
+      "quote": "괜찮아요? 괜찮은 거야? 무슨 일 있었어?",
+      "reasonToKeepWatching": "여성이 갑자기 충격적인 행동을 한 뒤 어떤 상황인지, 그리고 이에 대처하는 영어 표현이 무엇인지 궁금증을 유발하여 계속 보게 만든다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "흰색 원피스를 입은 긴 머리 여성이 손으로 입을 가리고 찡그린 표정을 지으며 헛구역질하는 듯한 동작을 하고, 화면에 영어 대사와 함께 한국어 해설 자막이 뜬다.",
+      "quote": "괜찮아요? 괜찮은 거야?",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "여성이 입을 가리고 인상을 찌푸리며 당황한 표정을 짓고, 영어 표현과 자막이 나타난다.",
+        "quote": "괜찮아요? 괜찮은 거야?",
+        "quoteVerified": true
+      },
+      {
+        "start": 4,
+        "end": 11,
+        "what": "여성이 주방으로 걸어가 싱크대 쪽에서 행동을 이어가고, 무슨 일인지 묻는 영어 표현과 해설이 자막으로 제시된다.",
+        "quote": "무슨 일 있었어?",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "여성이 한 손으로 입을 가리고 눈을 찡그린 채 헛구역질하는 듯한 동작을 시작함",
+        "purpose": "놀라거나 당황스러운 상황을 시각적으로 강하게 전달한다"
+      },
+      {
+        "t": 1,
+        "what": "화면 중앙에 영어 대사 자막과 하단에 한국어 해설 상자가 나타남",
+        "purpose": "상황에 맞는 영어 표현을 시청자가 읽을 수 있도록 제공한다"
+      },
+      {
+        "t": 3,
+        "what": "여성이 뒤로 돌아서서 부엌 안쪽으로 빠르게 걸어감",
+        "purpose": "상황의 장소가 주방임을 보여주며 이어지는 행동을 암시한다"
+      },
+      {
+        "t": 4,
+        "what": "부엌 싱크대 쪽에서 여성이 고개를 숙이고 무언가를 뱉거나 처리하는 듯한 자세를 취함",
+        "purpose": "제목에서 언급된 '뭘 잘못 먹은 것 같은' 상황을 구체적으로 시각화한다"
+      }
+    ],
+    "ending": {
+      "what": "여성이 주방 싱크대 쪽에서 정리하고 고개를 들어 다시 카메라 쪽을 보며 마무리된다.",
+      "quote": "무슨 일 있었어?",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "영상의 아슬아슬한 상황 설정과 유머러스한 분위기에 농담으로 화답함",
+          "quote": "꿀꺽 했으면 조강지처 였을건디",
+          "quoteVerified": true
+        },
+        {
+          "point": "상황극의 내용을 다국적 시청자들이 각자의 언어로 이해하고 유쾌하게 받아들임",
+          "quote": "Spitters are quitters",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "이 영상을 올린 원본 채널이나 등장인물에 대해 궁금해함",
+          "quote": "이 영상이 올라온 원본 채널은 어디인가요?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "상황에 따라 쓸 수 있는 영어 표현 3가지를 순서대로 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "분홍색",
+      "highlightMethod": "박스와 색상 대비를 사용",
+      "textAmount": "한두 문장 분량",
+      "changeTiming": "말이 바뀔 때마다 화면 전환과 함께 갱신됨"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "가볍고 경쾌한 리듬의 음악",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "상황의 긴박함이나 동작에 맞춰 미세한 효과음이 삽입됨",
+      "voiceVsMusic": "배경음악이 깔린 상태에서 자막 읽는 목소리와 효과음이 어우러짐"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "여성이 무언가를 잘못 먹고 괴로워하는 자극적인 상황을 첫 화면에 배치함",
+        "quote": "괜찮아요? 괜찮은 거야?",
+        "type": "시각적 충격과 호기심 유발",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "여성이 왜 저런 행동을 하는지 궁금증을 유발함",
+          "quote": "괜찮아요? 괜찮은 거야?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 4,
+          "what": "주방에서 벌어진 구체적인 상황과 관련 표현을 보여줌",
+          "quote": "무슨 일 있었어?",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "여성의 돌발적인 행동이 먼저 제시되고, 그 상황에 쓸 수 있는 영어 표현들이 뒤이어 설명으로 연결된다.",
+        "examples": [
+          {
+            "t": 0,
+            "what": "여성이 헛구역질하는 행동 뒤에 안부를 묻는 영어 표현이 나옴",
+            "quote": "괜찮아요? 괜찮은 거야?",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 4,
+        "what": "상황에 맞는 세 가지 표현 중 마지막 표현과 해설을 보여주며 마무리함",
+        "quote": "무슨 일 있었어?",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "여성이 무언가를 삼키지 못하고 뱉는 듯한 파격적인 연출",
+        "reaction": "시청자들이 대담하고 은유적인 농담을 댓글로 남김",
+        "quote": "꿀꺽 했으면 조강지처 였을건디",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "일상적인 상황극을 넘어 성적으로 자극적이거나 아슬아슬한 유머 코드를 시각적으로 강하게 연출하여 글로벌 시청자들의 폭발적인 반응과 댓글 참여를 이끌어냈기 때문이다.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영어 발음이나 듣기 원리를 가르치는 것이 아니라, 특정 상황극과 자막을 통해 영어 표현을 가볍게 소개하는 클립이다.",
+    "forUs": {
+      "adopt": "첫 화면에서 시청자의 이목을 사로잡는 강렬하고 직관적인 상황극 연출을 그대로 가져온다.",
+      "differentiate": "자극적인 상황극에 의존하기보다 30~60대 성인 학습자가 일상에서 실제로 쓸 수 있는 명확한 영어 소리의 원리와 발음 교정에 집중한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 15,
+    "verified": 15,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5135,
+    "candidatesTokenCount": 2087,
+    "totalTokenCount": 7222,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 921
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3114
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

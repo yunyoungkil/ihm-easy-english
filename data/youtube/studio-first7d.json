@@ -5537,9 +5537,85 @@
           "views": null
         }
       ]
+    },
+    "UDwLERu-Tu8": {
+      "startDate": "2026-11-16",
+      "endDate": "2026-11-22",
+      "fetchedAt": "2026-11-26T16:05:19.826Z",
+      "source": "studio-video-day-table",
+      "impressions": 1884,
+      "clicks": 14,
+      "ctrPercent": 0.74,
+      "ctrMethod": "exact-clicks",
+      "viewsSum": 31,
+      "apiViews7d": 31,
+      "windowCheck": {
+        "status": "match",
+        "best": 0,
+        "diffByShift": {
+          "0": 0,
+          "1": 12,
+          "-1": 4
+        }
+      },
+      "missingDays": [],
+      "uncomputableDays": [],
+      "missingTreatedAsZero": false,
+      "usable": true,
+      "unusableReason": null,
+      "days": [
+        {
+          "date": "2026-11-16",
+          "impressions": 1010,
+          "ctrPercent": 0.69,
+          "views": 12
+        },
+        {
+          "date": "2026-11-17",
+          "impressions": 790,
+          "ctrPercent": 0.25,
+          "views": 3
+        },
+        {
+          "date": "2026-11-18",
+          "impressions": 49,
+          "ctrPercent": 4.08,
+          "views": 10
+        },
+        {
+          "date": "2026-11-19",
+          "impressions": 19,
+          "ctrPercent": 5.26,
+          "views": 2
+        },
+        {
+          "date": "2026-11-20",
+          "impressions": 5,
+          "ctrPercent": 0,
+          "views": null
+        },
+        {
+          "date": "2026-11-21",
+          "impressions": 4,
+          "ctrPercent": 0,
+          "views": null
+        },
+        {
+          "date": "2026-11-22",
+          "impressions": 7,
+          "ctrPercent": 28.57,
+          "views": 4
+        },
+        {
+          "date": "2026-11-23",
+          "impressions": 7,
+          "ctrPercent": 0,
+          "views": null
+        }
+      ]
     }
   },
   "failures": {},
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-24T16:09:19.190Z"
+  "updatedAt": "2026-11-26T16:05:19.826Z"
 }

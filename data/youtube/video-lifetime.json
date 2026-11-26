@@ -2177,7 +2177,16 @@
       "views": 0,
       "averageViewPercentage": 0,
       "averageViewDuration": 0,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-11-16",
+        "endDate": "2026-11-22",
+        "fetchedAt": "2026-11-26T16:04:54.678Z",
+        "views": 31,
+        "averageViewDuration": 38,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 11
+      }
     },
     "Ng6amm9qFrI": {
       "fetchedAt": "2026-11-19T16:22:49.505Z",
@@ -2234,5 +2243,5 @@
       "subscribersGained": 0
     }
   },
-  "updatedAt": "2026-11-25T16:08:22.843Z"
+  "updatedAt": "2026-11-26T16:04:54.678Z"
 }

@@ -2,26 +2,26 @@
   "schemaVersion": 2,
   "region": "KR",
   "retentionDays": 14,
-  "collectedAt": "2026-11-25T16:09:25.003Z",
-  "lastAttemptAt": "2026-11-25T16:09:25.003Z",
+  "collectedAt": "2026-11-26T16:06:38.405Z",
+  "lastAttemptAt": "2026-11-26T16:06:38.405Z",
   "sources": {
     "googleTrendsKr": {
       "ok": true,
-      "fetchedAt": "2026-11-25T16:09:25.003Z",
+      "fetchedAt": "2026-11-26T16:06:38.405Z",
       "count": 10,
       "stale": false,
       "error": null
     },
     "youtubePopularKr": {
       "ok": true,
-      "fetchedAt": "2026-11-25T16:09:25.003Z",
+      "fetchedAt": "2026-11-26T16:06:38.405Z",
       "count": 20,
       "stale": false,
       "error": null
     },
     "overseasKoreanYt": {
       "ok": true,
-      "fetchedAt": "2026-11-25T16:09:25.003Z",
+      "fetchedAt": "2026-11-26T16:06:38.405Z",
       "count": 10,
       "stale": false,
       "error": null
@@ -30,215 +30,231 @@
   "googleTrends": [
     {
       "source": "google-trends-kr",
-      "keyword": "성시경",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-25T15:00:00.000Z",
-      "newsItems": [
-        {
-          "title": "‘40돌’ KBS 연예대상, 신동엽·성시경·나연 MC 발탁",
-          "source": "문화일보",
-          "url": "https://www.munhwa.com/article/11634103"
-        },
-        {
-          "title": "[잇슈 컬처] 장성규·최수영·문상민, ‘2026 KBS 연기대상’ MC 호흡",
-          "source": "KBS 뉴스",
-          "url": "https://news.kbs.co.kr/news/view.do?ncd=8719552"
-        },
-        {
-          "title": "[공식] 신동엽·성시경·나연, ‘2026 KBS 연예대상’ MC 확정",
-          "source": "스포츠동아",
-          "url": "https://sports.donga.com/ent/article/all/20261125/135087899/1"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "시그널",
-      "approxTraffic": "1000+",
-      "publishedAt": "2026-11-25T14:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "김은희 작가의 '시그널2', 조진웅 복귀 무대 되나",
-          "source": "YTN",
-          "url": "https://www.ytn.co.kr/_ln/0117_202611240841278214"
-        },
-        {
-          "title": "“소년범이 TV에 나와도 되나요?”…‘시그널2’ 첫 티저에 싸늘한 반응",
-          "source": "스포츠경향",
-          "url": "https://sports.khan.co.kr/article/202611240740003"
-        },
-        {
-          "title": "’시그널2’ 첫 티저 공개…이제훈·김혜수 목소리만",
-          "source": "연합뉴스TV",
-          "url": "https://www.yonhapnewstv.co.kr/news/MYH202611250516386A8"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "성유리",
-      "approxTraffic": "1000+",
-      "publishedAt": "2026-11-25T14:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "성유리, 중학교 성적표 공개…전 과목 '수' 받은 모범생",
-          "source": "뉴시스",
-          "url": "https://www.newsis.com/view/NISX20261125_0003882889"
-        },
-        {
-          "title": "\"오빠가 의사\"..성유리, 의대 대신 핑클 데뷔..전 과목 '올 수' 성적표 공개",
-          "source": "조선일보",
-          "url": "https://www.chosun.com/entertainments/broadcast/2026/11/25/G4YDQZTGMM3GIOBYGVSTSZRZMU/"
-        },
-        {
-          "title": "성유리, 중학생 때 모든 과목 '수' 성적표 공개…교수父· 의사 오빠 잇던 수재",
-          "source": "뉴스1",
-          "url": "https://www.news1.kr/entertain/celebrity-topic/6365969"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "공포지수",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-25T14:40:00.000Z",
-      "newsItems": []
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "공포탐욕지수",
-      "approxTraffic": "200+",
-      "publishedAt": "2026-11-25T14:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "업비트 종합지수 전주 대비 6.04% 하락…\"새 상장종목 대응전략 공유 활발\"",
-          "source": "빅데이터뉴스",
-          "url": "https://www.thebigdata.co.kr/view.php?ud=202611231439246548d0a8833aad_23"
-        },
-        {
-          "title": "공포·탐욕 지수 '극단적 공포'...암호화폐 6종, 90일간 12% 이상 급등",
-          "source": "코인리더스",
-          "url": "https://www.coinreaders.com/273266"
-        },
-        {
-          "title": "[주간 디지털 자산 시장 브리핑] 업비트 지수 10.59% 하락, 거래대금은 21.47% 상승",
-          "source": "경향게임스",
-          "url": "https://www.khgames.co.kr/news/articleView.html?idxno=310539"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "양준혁",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-25T14:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "이벤트 원조 ‘자선야구대회’ 왜 멈춰섰나",
-          "source": "미주중앙일보",
-          "url": "https://www.koreadaily.com/article/20261125070147086"
-        },
-        {
-          "title": "양준혁, 자선야구대회 취소 입장문…“준비 부족해”",
-          "source": "헤럴드경제",
-          "url": "https://biz.heraldcorp.com/article/10948394"
-        },
-        {
-          "title": "\"내 야구 인생의 자부심이었는데…\" 양준혁, 자선야구대회 취소에 삼킨 아쉬움",
-          "source": "노컷뉴스",
-          "url": "https://www.nocutnews.co.kr/news/6612161"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "박보검",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-25T13:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "사라진 고경표, 나타난 조진웅...연예인 직업의식은 어디에 [자막뉴스]",
-          "source": "YTN",
-          "url": "https://www.ytn.co.kr/_ln/0134_202611251034284891"
-        },
-        {
-          "title": "'만취 음주운전' 고경표 하차에 박보검도 대책 세웠다..지수·안은진 투입(보검매직컬2)",
-          "source": "조선일보",
-          "url": "https://www.chosun.com/entertainments/broadcast/2026/11/25/MNSDEYRZMQ2DKYRUHAYDANRWHA/"
-        },
-        {
-          "title": "박보검 이번엔 통영 바닷가로…‘보검 매직컬2’ 촬영지 관심",
-          "source": "스포츠동아",
-          "url": "https://sports.donga.com/ent/article/all/20261125/135079946/1"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "금연",
-      "approxTraffic": "200+",
-      "publishedAt": "2026-11-25T13:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "\"술은 관계와 관계없다\"…음주폐해 예방의 달 기념식",
-          "source": "연합뉴스",
-          "url": "https://www.yna.co.kr/view/AKR20261125054000530"
-        },
-        {
-          "title": "모임·회식 많아지는 연말연시…\"술은 관계와 관계없어요\"",
-          "source": "뉴시스",
-          "url": "https://www.newsis.com/view/NISX20261125_0003882164"
-        },
-        {
-          "title": "천선휴 뉴스1 기자, 음주폐해예방 유공 복지부 장관 표창",
-          "source": "뉴스1",
-          "url": "https://www.news1.kr/bio/welfare-medical/6365989"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "유은성",
-      "approxTraffic": "200+",
-      "publishedAt": "2026-11-25T13:30:00.000Z",
-      "newsItems": [
-        {
-          "title": "김정화·유은성, 부부싸움에 경찰까지 출동…뉴욕서 무슨 일 - 머니투데이",
-          "source": "머니투데이",
-          "url": "https://www.mt.co.kr/entertainment/2026/11/25/2026112516172443727"
-        },
-        {
-          "title": "김정화, 남편과 뉴욕서 첫 부부싸움…경찰까지 출동했다",
-          "source": "뉴시스",
-          "url": "https://www.newsis.com/view/NISX20261125_0003882970"
-        },
-        {
-          "title": "유은성 \"♥김정화와 뉴욕서 부부 싸움…한밤중 호텔 나가 경찰까지 와\"",
-          "source": "뉴스1",
-          "url": "https://www.news1.kr/entertain/celebrity-topic/6366117"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "추미애",
+      "keyword": "회계사",
       "approxTraffic": "500+",
-      "publishedAt": "2026-11-25T13:30:00.000Z",
+      "publishedAt": "2026-11-26T14:20:00.000Z",
       "newsItems": [
         {
-          "title": "추미애 \"공직자의 판단 기준은 상부 지시 아닌 헌법\"... 새내기 공무원에 강조",
-          "source": "OhmyNews",
-          "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003288477"
+          "title": "전국 60개 대학 AI·SW 성과 한자리에",
+          "source": "YTN 사이언스",
+          "url": "https://m.science.ytn.co.kr/program/view_today.php?s_mcd=0082&key=202611261108002181"
         },
         {
-          "title": "추미애 지사, 신규 공직자에게 \"상부 지시에 익숙해질 때면 헌법을 기준 삼으세요\"",
-          "source": "아시아경제",
-          "url": "https://view.asiae.co.kr/article/2026112517290794068"
+          "title": "회계사 선발 중장기 계획 세운다더니 제외…업계 후폭풍",
+          "source": "마켓인",
+          "url": "https://marketin.edaily.co.kr/News/ReadE?newsId=03739206645649656"
         },
         {
-          "title": "추미애 \"상부 지시보다 헌법 기준으로 판단을\"",
-          "source": "뉴시스",
-          "url": "https://www.newsis.com/view/NISX20261125_0003883383"
+          "title": "청년공인회계사회 “2027년 1,100명 선발, 미지정 현실 외면”",
+          "source": "법률저널",
+          "url": "https://www.lec.co.kr/news/articleView.html?idxno=753080"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "스파이",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-26T14:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "From Chinese Factory Town to the Nvidia Scandal: The Rise of Alice Huang",
+          "source": "The New York Times",
+          "url": "https://www.nytimes.com/2026/11/24/business/nvidia-alice-huang-china.html"
+        },
+        {
+          "title": "No Evidence China Orchestrated Jensen Huang’s Affair, Officials Brief Congress",
+          "source": "WSJ",
+          "url": "https://www.wsj.com/politics/national-security/no-evidence-china-orchestrated-jensen-huangs-affair-officials-brief-congress-00228bb7"
+        },
+        {
+          "title": "EXCLUSIVE: Alice Huang-linked firms listed $270 million in AI servers in China, records show",
+          "source": "Reuters",
+          "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "크리스 리벤",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-26T14:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "\"맞자마자 반칙이라고 생각\" 추성훈에게 맞고 안와골절…'사커킥 맞은 순간' 떠올린 크리스 리벤",
+          "source": "SPOTV NEWS",
+          "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1022153"
+        },
+        {
+          "title": "“용돈 괜찮으니 아프지 마”…폭풍성장 사랑이 ‘은퇴’ 추성훈 응원",
+          "source": "중앙일보",
+          "url": "https://www.joongang.co.kr/article/25481707"
+        },
+        {
+          "title": "'15세' 추사랑, 벌써 키 172cm..유창한 영어로 국제학교 친구들 소개 ('편스토랑')",
+          "source": "조선일보",
+          "url": "https://www.chosun.com/entertainments/broadcast/2026/11/26/MVSTMOLGHE2TQMLGHFRTMNTCG4/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "강소휘",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-26T14:00:00.000Z",
+      "newsItems": [
+        {
+          "title": "[영상] 기업은행 노장의 분노, 그리고 이소영 딜레마?",
+          "source": "KBS 뉴스",
+          "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8723375"
+        },
+        {
+          "title": "마나베 IBK 감독 \"적이 우리 코트에 있다…자멸한 경기\"",
+          "source": "연합뉴스",
+          "url": "https://www.yna.co.kr/view/AKR20261125179400007"
+        },
+        {
+          "title": "'모마·마미, 13점씩' 도로공사, 6연승 질주",
+          "source": "YTN",
+          "url": "https://www.ytn.co.kr/_ln/0107_202611252322000702"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "반도체 메모리",
+      "approxTraffic": "2000+",
+      "publishedAt": "2026-11-26T13:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "\"이재용, '반도체 장기구매할게' 머스크에 '그럼 뭘 해줄건데'\"",
+          "source": "연합뉴스",
+          "url": "https://www.yna.co.kr/view/AKR20261126188000009"
+        },
+        {
+          "title": "“장기 구매할게” 머스크에 이재용 “뭘 더 해줄 건데”⋯메모리 쟁탈전",
+          "source": "브릿지경제",
+          "url": "https://www.viva100.com/article/20261126501737"
+        },
+        {
+          "title": "삼성전자·SK하이닉스 장기공급계약 '물음표'…장부에 받은 돈이 없다",
+          "source": "연합인포맥스",
+          "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4446775"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "송파구",
+      "approxTraffic": "5000+",
+      "publishedAt": "2026-11-26T13:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "李대통령이 옳았나…송파 집값, 4년만에 역대급 추락했다",
+          "source": "매일경제",
+          "url": "https://www.mk.co.kr/news/realestate/12219258"
+        },
+        {
+          "title": "한강벨트 9개 구 하락‥금리 인상에 강북도 꺾이나",
+          "source": "MBC 뉴스",
+          "url": "https://imnews.imbc.com/replay/2026/nw2500/article/6868926_36989.html"
+        },
+        {
+          "title": "서울 아파트값 떨어지나? 한강벨트까지 하락세 전환",
+          "source": "한겨레",
+          "url": "https://www.hani.co.kr/arti/economy/property/1289263.html"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "u17 việt nam",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-26T13:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "Việt Nam thua Mali, bị loại khỏi U17 World Cup",
+          "source": "VnExpress",
+          "url": "https://vnexpress.net/ket-qua-u17-world-cup-viet-nam-mali-5149345.html"
+        },
+        {
+          "title": "HLV Mali gọi U17 Việt Nam là \"đội bóng mạnh\", yêu cầu đội nhà cảnh giác",
+          "source": "Tin tức 24h",
+          "url": "https://www.24h.com.vn/bong-da/hlv-mali-goi-u17-viet-nam-la-doi-bong-manh-yeu-cau-doi-nha-canh-giac-c48a1814068.html"
+        },
+        {
+          "title": "Nguyễn Lực góp dấu giày vào 60% số bàn thắng của U.17 Việt Nam, tiếp tục bùng nổ trước Mali?",
+          "source": "Báo Thanh Niên",
+          "url": "https://thanhnien.vn/nguyen-luc-gop-dau-giay-vao-60-so-ban-thang-cua-u17-viet-nam-tiep-tuc-bung-no-truoc-mali-185261126100910406.htm"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "수디르만컵",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-26T13:00:00.000Z",
+      "newsItems": [
+        {
+          "title": "'꿈은 이뤄졌다'배드민턴 메이저대회 '수디르만컵' 한국서 열린다…2029년 대회 개최 확정, 한국 셔틀콕 오랜 숙원 해결 '쾌거'",
+          "source": "조선일보",
+          "url": "https://www.chosun.com/sports/sports_general/2026/11/26/HBRTQZLFMY2WEZBTG5QTOYRTGU/"
+        },
+        {
+          "title": "'안세영 독주 견제하려는 것 아닌가' 15점제가 끝이 아니었다…BWF 대격변 공식발표! 세계선수권+국가대항전 싹 바뀐다→\"근거 없는 억측\"",
+          "source": "SPOTV NEWS",
+          "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1021959"
+        },
+        {
+          "title": "[속보]'일장춘몽'해프닝으로 끝난 수디르만컵 한국 유치…BWF 공식발표에도, 전주시 \"체육관 건립 지연 등으로 개최 포기\"",
+          "source": "스포츠조선",
+          "url": "https://www.sportschosun.com/sports-news/2026-11-26/202611260100166490015388"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "삼성반도체",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-26T13:00:00.000Z",
+      "newsItems": [
+        {
+          "title": "[단독] 삼성 “반도체 공장 무인화”… 로봇팀 꾸렸다",
+          "source": "전자신문",
+          "url": "https://www.etnews.com/20261126000296"
+        },
+        {
+          "title": "삼성·SK 신규 팹에 로봇 길 만든다…반도체 AMR 시장 개화",
+          "source": "녹색경제신문",
+          "url": "https://www.greened.kr/news/articleView.html?idxno=355648"
+        },
+        {
+          "title": "[초점]“삼성이 만들어 달라” 안 통하는 피지컬 AI…관 주도 로봇 칩의 착각 By 알파경제 alphabiz",
+          "source": "Investing.com 한국어",
+          "url": "https://kr.investing.com/news/stock-market-news/article-2188092"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "올림픽선수기자촌",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-26T12:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "[현장] 올선 재건축, 구의회 문턱도 못 갔다…주민들 “10일 내 답변하라” 법적 대응 예고",
+          "source": "에너지경제신문",
+          "url": "https://m.ekn.kr/view.php?key=20261126024275133"
+        },
+        {
+          "title": "\"상가 쏙 빼고 짓자\" 올림픽선수촌 재건축에 송파구 제동, 내년 결판난다",
+          "source": "땅집고",
+          "url": "https://realty.chosun.com/site/data/html_dir/2026/11/19/2026111902059.html"
+        },
+        {
+          "title": "올림픽선수기자촌 재건축 ‘현수막 맞불’…송파구 “상가 참여 의사 확인 후 절차 검토”",
+          "source": "에너지경제신문",
+          "url": "https://m.ekn.kr/view.php?key=20261126029274906"
         }
       ]
     }
@@ -252,37 +268,7 @@
       "channelTitle": "Yim Siwan - Topic",
       "publishedAt": "2026-11-24T09:01:29.000Z",
       "categoryId": "10",
-      "viewCount": 120238
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "Oae1ZnQ15gQ",
-      "title": "[어벤져스: 둠스데이] 메인 예고편",
-      "channelId": "UCSB5FOwUVnAhGo_o99IhxYA",
-      "channelTitle": "MarvelKorea",
-      "publishedAt": "2026-11-23T14:19:20.000Z",
-      "categoryId": "24",
-      "viewCount": 4531743
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "gfVF1LRvluY",
-      "title": "Welcome Back Home, Zeus",
-      "channelId": "UCJprx3bX49vNl6Bcw01Cwfg",
-      "channelTitle": "T1",
-      "publishedAt": "2026-11-25T10:06:33.000Z",
-      "categoryId": "20",
-      "viewCount": 1427656
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "5e5Q-_ZdEK4",
-      "title": "Irony of Love",
-      "channelId": "UCySyAK2DUXbLP8JwfT7Uhpw",
-      "channelTitle": "YIYA - Topic",
-      "publishedAt": "2026-11-23T03:03:08.000Z",
-      "categoryId": "10",
-      "viewCount": 286076
+      "viewCount": 186807
     },
     {
       "source": "youtube-popular-kr",
@@ -292,7 +278,7 @@
       "channelTitle": "무비띵크_Movie Think",
       "publishedAt": "2026-11-25T07:35:19.000Z",
       "categoryId": "1",
-      "viewCount": 765878
+      "viewCount": 1280338
     },
     {
       "source": "youtube-popular-kr",
@@ -302,17 +288,77 @@
       "channelTitle": "랄로",
       "publishedAt": "2026-11-25T07:50:08.000Z",
       "categoryId": "20",
-      "viewCount": 621301
+      "viewCount": 1089999
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "1EoSuiE3cJE",
-      "title": "Love Again (feat. ZENA of RESCENE)",
-      "channelId": "UCt1WK4B4Tu8OKs1kJ2JPI6g",
-      "channelTitle": "Hanhae - Topic",
-      "publishedAt": "2026-11-23T09:00:11.000Z",
+      "videoId": "c12fD7gMMHg",
+      "title": "IWALY (Remain in Love)",
+      "channelId": "UC9Om0aDfMMzXtElCJWF41FQ",
+      "channelTitle": "izna - Topic",
+      "publishedAt": "2026-11-25T09:03:11.000Z",
       "categoryId": "10",
-      "viewCount": 337326
+      "viewCount": 133624
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Oae1ZnQ15gQ",
+      "title": "[어벤져스: 둠스데이] 메인 예고편",
+      "channelId": "UCSB5FOwUVnAhGo_o99IhxYA",
+      "channelTitle": "MarvelKorea",
+      "publishedAt": "2026-11-23T14:19:20.000Z",
+      "categoryId": "24",
+      "viewCount": 5283610
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "gfVF1LRvluY",
+      "title": "Welcome Back Home, Zeus",
+      "channelId": "UCJprx3bX49vNl6Bcw01Cwfg",
+      "channelTitle": "T1",
+      "publishedAt": "2026-11-25T10:06:33.000Z",
+      "categoryId": "20",
+      "viewCount": 2202685
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "UPwKwJuV8mw",
+      "title": "Imperfect Christmas",
+      "channelId": "UCy_chGIsdShihFYBoXZyTdg",
+      "channelTitle": "KISS OF LIFE - Topic",
+      "publishedAt": "2026-11-25T09:04:57.000Z",
+      "categoryId": "10",
+      "viewCount": 73986
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "DzgorMtx38c",
+      "title": "Avengers Doomsday | Magneto vs Doom | Get Your Tickets at TGV Now",
+      "channelId": "UCS0iQJmoV4Jajja_ZA8ES4g",
+      "channelTitle": "TGV Cinemas",
+      "publishedAt": "2026-11-26T04:00:26.000Z",
+      "categoryId": "22",
+      "viewCount": 1872246
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "fMFULAizUZ0",
+      "title": "1승의 악마",
+      "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
+      "channelTitle": "괴물쥐 유튜브",
+      "publishedAt": "2026-11-25T13:05:01.000Z",
+      "categoryId": "20",
+      "viewCount": 566475
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "7cxlLN3iGpQ",
+      "title": "아님의 무게",
+      "channelId": "UCUUPndfCXVm8-srwV6dzXcg",
+      "channelTitle": "HYUKOH - Topic",
+      "publishedAt": "2026-11-25T09:01:09.000Z",
+      "categoryId": "10",
+      "viewCount": 42336
     },
     {
       "source": "youtube-popular-kr",
@@ -322,107 +368,7 @@
       "channelTitle": "잇츠뉴 It'sNEW",
       "publishedAt": "2026-11-23T22:30:01.000Z",
       "categoryId": "1",
-      "viewCount": 1019188
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "4thSglP8FXQ",
-      "title": "\"팀 확정했습니다\" 국민 프로듀서 분들이 뽑은 이번 팀은..!｜멸망전 EP.06",
-      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
-      "channelTitle": "저라뎃 JUSTLIKETHAT",
-      "publishedAt": "2026-11-24T10:30:18.000Z",
-      "categoryId": "20",
-      "viewCount": 345703
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "eZ_slVaJ9lo",
-      "title": "Please Be Happy",
-      "channelId": "UCjjXNVQndGgIP7OXv13eLYQ",
-      "channelTitle": "Roy Kim - Topic",
-      "publishedAt": "2026-11-22T09:00:29.000Z",
-      "categoryId": "10",
-      "viewCount": 349091
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "kikZn258jvE",
-      "title": "[듄: 파트 3] 파이널 예고편",
-      "channelId": "UC8AD5KHdsFzp8qoJvS4YSYg",
-      "channelTitle": "Warner Bros. Korea",
-      "publishedAt": "2026-11-25T03:23:59.000Z",
-      "categoryId": "1",
-      "viewCount": 90946
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "az4fzVk8YDI",
-      "title": "혼란의 멸망전 속 구원투수 꾸꾸냥이 등판 | 멸망전 EP.4",
-      "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
-      "channelTitle": "클리드",
-      "publishedAt": "2026-11-24T10:42:21.000Z",
-      "categoryId": "20",
-      "viewCount": 458235
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "IQI2qaqHFlg",
-      "title": "GiiiRIP",
-      "channelId": "UCI5OIwx9z32Zurb8t4Umzwg",
-      "channelTitle": "Bigbang - Topic",
-      "publishedAt": "2026-11-20T05:02:15.000Z",
-      "categoryId": "10",
-      "viewCount": 5538845
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "LmBzacUdafk",
-      "title": "드디어 떴다..! 낭만 미쳐버렸다는 역대급 둠스데이 트레일러..ㄷㄷ 이거 보고 지렸습니다.. 『어벤져스:둠스데이』 메인 예고편 분석하기!",
-      "channelId": "UCU_V25nBEDfgx4tXns1VMDw",
-      "channelTitle": "킬컷의 영화소개",
-      "publishedAt": "2026-11-23T21:59:50.000Z",
-      "categoryId": "22",
-      "viewCount": 102875
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "kxxhrYtx_C8",
-      "title": "감스트 GTA6 UFO 외계인 한국 최초 발견!! 초대박입니다..",
-      "channelId": "UCbFzvzDu17eDZ3RIeaLRswQ",
-      "channelTitle": "감스트GAMST",
-      "publishedAt": "2026-11-24T11:37:19.000Z",
-      "categoryId": "20",
-      "viewCount": 1023401
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "LE1Ps3U5oX8",
-      "title": "Magic (From \"Hexed\"/Korean Single Version)",
-      "channelId": "UCM9SwoeOLtalqxyuZXIGe2Q",
-      "channelTitle": "RESCENE - Topic",
-      "publishedAt": "2026-11-24T15:01:54.000Z",
-      "categoryId": "10",
-      "viewCount": 109925
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "9wVmu79PVPQ",
-      "title": "멸망전 신청 마감 당일날 터져버린 추맵교팀..",
-      "channelId": "UCBA9XaL5wCdHnC5EmEzwrqw",
-      "channelTitle": "튜브김민교",
-      "publishedAt": "2026-11-25T07:38:39.000Z",
-      "categoryId": "20",
-      "viewCount": 237354
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "GhciMYi0eoE",
-      "title": "Love Me Love Me",
-      "channelId": "UCM3RQ31cVYqRJNd5VeIl_VQ",
-      "channelTitle": "Boramiyu - Topic",
-      "publishedAt": "2026-11-24T09:00:01.000Z",
-      "categoryId": "10",
-      "viewCount": 43539
+      "viewCount": 1495508
     },
     {
       "source": "youtube-popular-kr",
@@ -432,30 +378,90 @@
       "channelTitle": "PAKA",
       "publishedAt": "2026-11-25T08:30:39.000Z",
       "categoryId": "20",
-      "viewCount": 237691
+      "viewCount": 447551
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "gjOJCOCuomQ",
-      "title": "Before Sunrise",
-      "channelId": "UCdNMDRSHlZiBEBYBmZeTGhQ",
-      "channelTitle": "웬디 - Topic",
-      "publishedAt": "2026-11-23T09:04:16.000Z",
+      "videoId": "LE1Ps3U5oX8",
+      "title": "Magic (From \"Hexed\"/Korean Single Version)",
+      "channelId": "UCM9SwoeOLtalqxyuZXIGe2Q",
+      "channelTitle": "RESCENE - Topic",
+      "publishedAt": "2026-11-24T15:01:54.000Z",
       "categoryId": "10",
-      "viewCount": 153046
+      "viewCount": 183369
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "kikZn258jvE",
+      "title": "[듄: 파트 3] 파이널 예고편",
+      "channelId": "UC8AD5KHdsFzp8qoJvS4YSYg",
+      "channelTitle": "Warner Bros. Korea",
+      "publishedAt": "2026-11-25T03:23:59.000Z",
+      "categoryId": "1",
+      "viewCount": 147753
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "43zftU0-SRM",
+      "title": "갈땐 가더라도 신지드 한판은 하자 | 멸망전 EP.5",
+      "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
+      "channelTitle": "클리드",
+      "publishedAt": "2026-11-25T11:34:37.000Z",
+      "categoryId": "20",
+      "viewCount": 367227
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Dp2xVG6YHf0",
+      "title": "있어도 그만 없어도 그만",
+      "channelId": "UCumxj48bP-H_YusbCXi7vkQ",
+      "channelTitle": "MEOMURU - Topic",
+      "publishedAt": "2026-11-26T03:00:07.000Z",
+      "categoryId": "10",
+      "viewCount": 37347
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "-htnBIywgfM",
+      "title": "Avengers: Doomsday | “DESTINY” TRAILER CONCEPT | Marvel Studios",
+      "channelId": "UCO2EFMFF07y9BikFGKGIlkw",
+      "channelTitle": "MovieTrailers Entertainment",
+      "publishedAt": "2026-11-25T14:30:01.000Z",
+      "categoryId": "24",
+      "viewCount": 2634110
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "LmEeROWay5U",
+      "title": "\"쿼드라킥 출격\" 우승후보 클리드팀 잡아보겠습니다｜멸망전 EP.07",
+      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+      "channelTitle": "저라뎃 JUSTLIKETHAT",
+      "publishedAt": "2026-11-25T14:27:12.000Z",
+      "categoryId": "20",
+      "viewCount": 304212
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "GhciMYi0eoE",
+      "title": "Love Me Love Me",
+      "channelId": "UCM3RQ31cVYqRJNd5VeIl_VQ",
+      "channelTitle": "Boramiyu - Topic",
+      "publishedAt": "2026-11-24T09:00:01.000Z",
+      "categoryId": "10",
+      "viewCount": 95973
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "_qb0yKFj2nc",
+      "title": "AVENGERS: DOOMSDAY | MAGNETO vs DOOM NEW TEASER TRAILER!",
+      "channelId": "UCEtsrrS5aG-CkVKuxx1s0vw",
+      "channelTitle": "OneVerse",
+      "publishedAt": "2026-11-26T07:00:06.000Z",
+      "categoryId": "24",
+      "viewCount": 203164
     }
   ],
   "overseasKorean": [
-    {
-      "source": "youtube-overseas-korean",
-      "videoId": "PpiArFoAYBE",
-      "title": "Get YouTube Premium and see the exclusive film from LISA. Terms apply. Cancel anytime.",
-      "channelId": "UCaxpAIn0XYokA8vLRjw8GHg",
-      "channelTitle": "YouTube Presents",
-      "publishedAt": "2026-11-18T17:15:22.000Z",
-      "categoryId": "24",
-      "viewCount": null
-    },
     {
       "source": "youtube-overseas-korean",
       "videoId": "cG-cf7ajXFE",
@@ -464,17 +470,17 @@
       "channelTitle": "Mu Mu Life Diary",
       "publishedAt": "2026-11-23T12:00:17.000Z",
       "categoryId": "26",
-      "viewCount": 38382908
+      "viewCount": 38765200
     },
     {
       "source": "youtube-overseas-korean",
-      "videoId": "SGovymtCzvA",
-      "title": "ATEEZ(에이티즈) - 'UP' Official MV",
-      "channelId": "UCQdq-lqPEq_yZ_wP_kuVB9Q",
-      "channelTitle": "KQ ENTERTAINMENT",
-      "publishedAt": "2026-11-13T05:00:03.000Z",
-      "categoryId": "10",
-      "viewCount": 35190126
+      "videoId": "fXu73RYxCBw",
+      "title": "一起来舞蹈吧 #gta #kpop #kpopdemonhunters #huntrix",
+      "channelId": "UCJn1sRkpKrVa0QnH0WwOQzA",
+      "channelTitle": "猎魔女团三人组",
+      "publishedAt": "2026-11-24T13:30:26.000Z",
+      "categoryId": "26",
+      "viewCount": 20931130
     },
     {
       "source": "youtube-overseas-korean",
@@ -484,7 +490,7 @@
       "channelTitle": "Mu Mu Life Diary",
       "publishedAt": "2026-11-20T13:00:39.000Z",
       "categoryId": "26",
-      "viewCount": 14756543
+      "viewCount": 14888674
     },
     {
       "source": "youtube-overseas-korean",
@@ -494,7 +500,17 @@
       "channelTitle": "Everything Eyekons",
       "publishedAt": "2026-11-13T09:00:10.000Z",
       "categoryId": "24",
-      "viewCount": 15794702
+      "viewCount": 16284476
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "nb0MxHSoCI4",
+      "title": "[#MMA2026] CORTIS - MONEYMONEYMONEY + REDRED + YOUNGCREATORCREW (4K) | #CORTIS #코르티스 #20261115",
+      "channelId": "UCpBlDSUyOpP1WqWVJxZpGLg",
+      "channelTitle": "멜론 Melon",
+      "publishedAt": "2026-11-15T12:09:54.000Z",
+      "categoryId": "24",
+      "viewCount": 11109528
     },
     {
       "source": "youtube-overseas-korean",
@@ -504,17 +520,7 @@
       "channelTitle": "Afiya's world",
       "publishedAt": "2026-11-18T12:30:09.000Z",
       "categoryId": "24",
-      "viewCount": 12241890
-    },
-    {
-      "source": "youtube-overseas-korean",
-      "videoId": "Ccx0CnMif0c",
-      "title": "katseye and cortis doing redred dance! 🤩 #katseye #kpop #fyp",
-      "channelId": "UCXOmrckdfRvVxGg8XOCBRTg",
-      "channelTitle": "pikabu",
-      "publishedAt": "2026-11-15T12:25:23.000Z",
-      "categoryId": "10",
-      "viewCount": 13686634
+      "viewCount": 12574932
     },
     {
       "source": "youtube-overseas-korean",
@@ -524,17 +530,27 @@
       "channelTitle": "Paramount Pictures",
       "publishedAt": "2026-11-23T14:00:15.000Z",
       "categoryId": "1",
-      "viewCount": 12676044
+      "viewCount": 13978274
     },
     {
       "source": "youtube-overseas-korean",
-      "videoId": "fBI3nenPtk0",
-      "title": "一个一个敲击#gta  #gta6  #shorts #kpop",
-      "channelId": "UCq07rx0fdqxLqFYZ1f6WxYA",
-      "channelTitle": "Mu Mu Life Diary",
-      "publishedAt": "2026-11-19T12:00:39.000Z",
-      "categoryId": "26",
-      "viewCount": 12885123
+      "videoId": "Ccx0CnMif0c",
+      "title": "katseye and cortis doing redred dance! 🤩 #katseye #kpop #fyp",
+      "channelId": "UCXOmrckdfRvVxGg8XOCBRTg",
+      "channelTitle": "pikabu",
+      "publishedAt": "2026-11-15T12:25:23.000Z",
+      "categoryId": "10",
+      "viewCount": 13875667
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "62IRDzG3wXc",
+      "title": "#kdrama #kdramaedit #kdramalovers #edit",
+      "channelId": "UC_b7aNIdfTRNkAc_52ICq4g",
+      "channelTitle": "love in blossom",
+      "publishedAt": "2026-11-21T13:33:29.000Z",
+      "categoryId": "22",
+      "viewCount": 10817624
     },
     {
       "source": "youtube-overseas-korean",
@@ -544,7 +560,7 @@
       "channelTitle": "猎魔女团三人组",
       "publishedAt": "2026-11-22T11:00:18.000Z",
       "categoryId": "26",
-      "viewCount": 11941003
+      "viewCount": 12227559
     }
   ],
   "history": [
@@ -2689,6 +2705,546 @@
           "publishedAt": "2026-11-22T11:00:18.000Z",
           "categoryId": "26",
           "viewCount": 11941003
+        }
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "collectedAt": "2026-11-26T16:06:38.405Z",
+      "googleTrends": [
+        {
+          "source": "google-trends-kr",
+          "keyword": "회계사",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-26T14:20:00.000Z",
+          "newsItems": [
+            {
+              "title": "전국 60개 대학 AI·SW 성과 한자리에",
+              "source": "YTN 사이언스",
+              "url": "https://m.science.ytn.co.kr/program/view_today.php?s_mcd=0082&key=202611261108002181"
+            },
+            {
+              "title": "회계사 선발 중장기 계획 세운다더니 제외…업계 후폭풍",
+              "source": "마켓인",
+              "url": "https://marketin.edaily.co.kr/News/ReadE?newsId=03739206645649656"
+            },
+            {
+              "title": "청년공인회계사회 “2027년 1,100명 선발, 미지정 현실 외면”",
+              "source": "법률저널",
+              "url": "https://www.lec.co.kr/news/articleView.html?idxno=753080"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "스파이",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-26T14:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "From Chinese Factory Town to the Nvidia Scandal: The Rise of Alice Huang",
+              "source": "The New York Times",
+              "url": "https://www.nytimes.com/2026/11/24/business/nvidia-alice-huang-china.html"
+            },
+            {
+              "title": "No Evidence China Orchestrated Jensen Huang’s Affair, Officials Brief Congress",
+              "source": "WSJ",
+              "url": "https://www.wsj.com/politics/national-security/no-evidence-china-orchestrated-jensen-huangs-affair-officials-brief-congress-00228bb7"
+            },
+            {
+              "title": "EXCLUSIVE: Alice Huang-linked firms listed $270 million in AI servers in China, records show",
+              "source": "Reuters",
+              "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "크리스 리벤",
+          "approxTraffic": "100+",
+          "publishedAt": "2026-11-26T14:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "\"맞자마자 반칙이라고 생각\" 추성훈에게 맞고 안와골절…'사커킥 맞은 순간' 떠올린 크리스 리벤",
+              "source": "SPOTV NEWS",
+              "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1022153"
+            },
+            {
+              "title": "“용돈 괜찮으니 아프지 마”…폭풍성장 사랑이 ‘은퇴’ 추성훈 응원",
+              "source": "중앙일보",
+              "url": "https://www.joongang.co.kr/article/25481707"
+            },
+            {
+              "title": "'15세' 추사랑, 벌써 키 172cm..유창한 영어로 국제학교 친구들 소개 ('편스토랑')",
+              "source": "조선일보",
+              "url": "https://www.chosun.com/entertainments/broadcast/2026/11/26/MVSTMOLGHE2TQMLGHFRTMNTCG4/"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "강소휘",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-26T14:00:00.000Z",
+          "newsItems": [
+            {
+              "title": "[영상] 기업은행 노장의 분노, 그리고 이소영 딜레마?",
+              "source": "KBS 뉴스",
+              "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8723375"
+            },
+            {
+              "title": "마나베 IBK 감독 \"적이 우리 코트에 있다…자멸한 경기\"",
+              "source": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261125179400007"
+            },
+            {
+              "title": "'모마·마미, 13점씩' 도로공사, 6연승 질주",
+              "source": "YTN",
+              "url": "https://www.ytn.co.kr/_ln/0107_202611252322000702"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "반도체 메모리",
+          "approxTraffic": "2000+",
+          "publishedAt": "2026-11-26T13:40:00.000Z",
+          "newsItems": [
+            {
+              "title": "\"이재용, '반도체 장기구매할게' 머스크에 '그럼 뭘 해줄건데'\"",
+              "source": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261126188000009"
+            },
+            {
+              "title": "“장기 구매할게” 머스크에 이재용 “뭘 더 해줄 건데”⋯메모리 쟁탈전",
+              "source": "브릿지경제",
+              "url": "https://www.viva100.com/article/20261126501737"
+            },
+            {
+              "title": "삼성전자·SK하이닉스 장기공급계약 '물음표'…장부에 받은 돈이 없다",
+              "source": "연합인포맥스",
+              "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4446775"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "송파구",
+          "approxTraffic": "5000+",
+          "publishedAt": "2026-11-26T13:40:00.000Z",
+          "newsItems": [
+            {
+              "title": "李대통령이 옳았나…송파 집값, 4년만에 역대급 추락했다",
+              "source": "매일경제",
+              "url": "https://www.mk.co.kr/news/realestate/12219258"
+            },
+            {
+              "title": "한강벨트 9개 구 하락‥금리 인상에 강북도 꺾이나",
+              "source": "MBC 뉴스",
+              "url": "https://imnews.imbc.com/replay/2026/nw2500/article/6868926_36989.html"
+            },
+            {
+              "title": "서울 아파트값 떨어지나? 한강벨트까지 하락세 전환",
+              "source": "한겨레",
+              "url": "https://www.hani.co.kr/arti/economy/property/1289263.html"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "u17 việt nam",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-26T13:40:00.000Z",
+          "newsItems": [
+            {
+              "title": "Việt Nam thua Mali, bị loại khỏi U17 World Cup",
+              "source": "VnExpress",
+              "url": "https://vnexpress.net/ket-qua-u17-world-cup-viet-nam-mali-5149345.html"
+            },
+            {
+              "title": "HLV Mali gọi U17 Việt Nam là \"đội bóng mạnh\", yêu cầu đội nhà cảnh giác",
+              "source": "Tin tức 24h",
+              "url": "https://www.24h.com.vn/bong-da/hlv-mali-goi-u17-viet-nam-la-doi-bong-manh-yeu-cau-doi-nha-canh-giac-c48a1814068.html"
+            },
+            {
+              "title": "Nguyễn Lực góp dấu giày vào 60% số bàn thắng của U.17 Việt Nam, tiếp tục bùng nổ trước Mali?",
+              "source": "Báo Thanh Niên",
+              "url": "https://thanhnien.vn/nguyen-luc-gop-dau-giay-vao-60-so-ban-thang-cua-u17-viet-nam-tiep-tuc-bung-no-truoc-mali-185261126100910406.htm"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "수디르만컵",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-26T13:00:00.000Z",
+          "newsItems": [
+            {
+              "title": "'꿈은 이뤄졌다'배드민턴 메이저대회 '수디르만컵' 한국서 열린다…2029년 대회 개최 확정, 한국 셔틀콕 오랜 숙원 해결 '쾌거'",
+              "source": "조선일보",
+              "url": "https://www.chosun.com/sports/sports_general/2026/11/26/HBRTQZLFMY2WEZBTG5QTOYRTGU/"
+            },
+            {
+              "title": "'안세영 독주 견제하려는 것 아닌가' 15점제가 끝이 아니었다…BWF 대격변 공식발표! 세계선수권+국가대항전 싹 바뀐다→\"근거 없는 억측\"",
+              "source": "SPOTV NEWS",
+              "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1021959"
+            },
+            {
+              "title": "[속보]'일장춘몽'해프닝으로 끝난 수디르만컵 한국 유치…BWF 공식발표에도, 전주시 \"체육관 건립 지연 등으로 개최 포기\"",
+              "source": "스포츠조선",
+              "url": "https://www.sportschosun.com/sports-news/2026-11-26/202611260100166490015388"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "삼성반도체",
+          "approxTraffic": "100+",
+          "publishedAt": "2026-11-26T13:00:00.000Z",
+          "newsItems": [
+            {
+              "title": "[단독] 삼성 “반도체 공장 무인화”… 로봇팀 꾸렸다",
+              "source": "전자신문",
+              "url": "https://www.etnews.com/20261126000296"
+            },
+            {
+              "title": "삼성·SK 신규 팹에 로봇 길 만든다…반도체 AMR 시장 개화",
+              "source": "녹색경제신문",
+              "url": "https://www.greened.kr/news/articleView.html?idxno=355648"
+            },
+            {
+              "title": "[초점]“삼성이 만들어 달라” 안 통하는 피지컬 AI…관 주도 로봇 칩의 착각 By 알파경제 alphabiz",
+              "source": "Investing.com 한국어",
+              "url": "https://kr.investing.com/news/stock-market-news/article-2188092"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "올림픽선수기자촌",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-26T12:40:00.000Z",
+          "newsItems": [
+            {
+              "title": "[현장] 올선 재건축, 구의회 문턱도 못 갔다…주민들 “10일 내 답변하라” 법적 대응 예고",
+              "source": "에너지경제신문",
+              "url": "https://m.ekn.kr/view.php?key=20261126024275133"
+            },
+            {
+              "title": "\"상가 쏙 빼고 짓자\" 올림픽선수촌 재건축에 송파구 제동, 내년 결판난다",
+              "source": "땅집고",
+              "url": "https://realty.chosun.com/site/data/html_dir/2026/11/19/2026111902059.html"
+            },
+            {
+              "title": "올림픽선수기자촌 재건축 ‘현수막 맞불’…송파구 “상가 참여 의사 확인 후 절차 검토”",
+              "source": "에너지경제신문",
+              "url": "https://m.ekn.kr/view.php?key=20261126029274906"
+            }
+          ]
+        }
+      ],
+      "youtubePopular": [
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "cS7xovz4DH0",
+          "title": "Like You",
+          "channelId": "UCUqRM79Z4NvV4RmwcLY6Dig",
+          "channelTitle": "Yim Siwan - Topic",
+          "publishedAt": "2026-11-24T09:01:29.000Z",
+          "categoryId": "10",
+          "viewCount": 186807
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "6OtftMffaD4",
+          "title": "와.. 충격의 레전드 등장.. ≪어벤져스: 둠스데이≫ 메인 예고편 나노 분석 2탄 & 떡밥 총정리",
+          "channelId": "UCKBzr20577Xcn0LJoRVES_A",
+          "channelTitle": "무비띵크_Movie Think",
+          "publishedAt": "2026-11-25T07:35:19.000Z",
+          "categoryId": "1",
+          "viewCount": 1280338
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "32KECPoRi2U",
+          "title": "랄부",
+          "channelId": "UCD2YO_A_PVMgMDN9jpRrpVA",
+          "channelTitle": "랄로",
+          "publishedAt": "2026-11-25T07:50:08.000Z",
+          "categoryId": "20",
+          "viewCount": 1089999
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "c12fD7gMMHg",
+          "title": "IWALY (Remain in Love)",
+          "channelId": "UC9Om0aDfMMzXtElCJWF41FQ",
+          "channelTitle": "izna - Topic",
+          "publishedAt": "2026-11-25T09:03:11.000Z",
+          "categoryId": "10",
+          "viewCount": 133624
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "Oae1ZnQ15gQ",
+          "title": "[어벤져스: 둠스데이] 메인 예고편",
+          "channelId": "UCSB5FOwUVnAhGo_o99IhxYA",
+          "channelTitle": "MarvelKorea",
+          "publishedAt": "2026-11-23T14:19:20.000Z",
+          "categoryId": "24",
+          "viewCount": 5283610
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "gfVF1LRvluY",
+          "title": "Welcome Back Home, Zeus",
+          "channelId": "UCJprx3bX49vNl6Bcw01Cwfg",
+          "channelTitle": "T1",
+          "publishedAt": "2026-11-25T10:06:33.000Z",
+          "categoryId": "20",
+          "viewCount": 2202685
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "UPwKwJuV8mw",
+          "title": "Imperfect Christmas",
+          "channelId": "UCy_chGIsdShihFYBoXZyTdg",
+          "channelTitle": "KISS OF LIFE - Topic",
+          "publishedAt": "2026-11-25T09:04:57.000Z",
+          "categoryId": "10",
+          "viewCount": 73986
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "DzgorMtx38c",
+          "title": "Avengers Doomsday | Magneto vs Doom | Get Your Tickets at TGV Now",
+          "channelId": "UCS0iQJmoV4Jajja_ZA8ES4g",
+          "channelTitle": "TGV Cinemas",
+          "publishedAt": "2026-11-26T04:00:26.000Z",
+          "categoryId": "22",
+          "viewCount": 1872246
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "fMFULAizUZ0",
+          "title": "1승의 악마",
+          "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
+          "channelTitle": "괴물쥐 유튜브",
+          "publishedAt": "2026-11-25T13:05:01.000Z",
+          "categoryId": "20",
+          "viewCount": 566475
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "7cxlLN3iGpQ",
+          "title": "아님의 무게",
+          "channelId": "UCUUPndfCXVm8-srwV6dzXcg",
+          "channelTitle": "HYUKOH - Topic",
+          "publishedAt": "2026-11-25T09:01:09.000Z",
+          "categoryId": "10",
+          "viewCount": 42336
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "aVvQcM9RvQ4",
+          "title": "[고딩형사] 1차 예고편",
+          "channelId": "UC2-VHbcGqGxNRUv0YIekMkA",
+          "channelTitle": "잇츠뉴 It'sNEW",
+          "publishedAt": "2026-11-23T22:30:01.000Z",
+          "categoryId": "1",
+          "viewCount": 1495508
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "o0tuI_73ZxA",
+          "title": "카리아나",
+          "channelId": "UCJpAwvQaZyCI5spAz7tipGA",
+          "channelTitle": "PAKA",
+          "publishedAt": "2026-11-25T08:30:39.000Z",
+          "categoryId": "20",
+          "viewCount": 447551
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "LE1Ps3U5oX8",
+          "title": "Magic (From \"Hexed\"/Korean Single Version)",
+          "channelId": "UCM9SwoeOLtalqxyuZXIGe2Q",
+          "channelTitle": "RESCENE - Topic",
+          "publishedAt": "2026-11-24T15:01:54.000Z",
+          "categoryId": "10",
+          "viewCount": 183369
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "kikZn258jvE",
+          "title": "[듄: 파트 3] 파이널 예고편",
+          "channelId": "UC8AD5KHdsFzp8qoJvS4YSYg",
+          "channelTitle": "Warner Bros. Korea",
+          "publishedAt": "2026-11-25T03:23:59.000Z",
+          "categoryId": "1",
+          "viewCount": 147753
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "43zftU0-SRM",
+          "title": "갈땐 가더라도 신지드 한판은 하자 | 멸망전 EP.5",
+          "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
+          "channelTitle": "클리드",
+          "publishedAt": "2026-11-25T11:34:37.000Z",
+          "categoryId": "20",
+          "viewCount": 367227
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "Dp2xVG6YHf0",
+          "title": "있어도 그만 없어도 그만",
+          "channelId": "UCumxj48bP-H_YusbCXi7vkQ",
+          "channelTitle": "MEOMURU - Topic",
+          "publishedAt": "2026-11-26T03:00:07.000Z",
+          "categoryId": "10",
+          "viewCount": 37347
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "-htnBIywgfM",
+          "title": "Avengers: Doomsday | “DESTINY” TRAILER CONCEPT | Marvel Studios",
+          "channelId": "UCO2EFMFF07y9BikFGKGIlkw",
+          "channelTitle": "MovieTrailers Entertainment",
+          "publishedAt": "2026-11-25T14:30:01.000Z",
+          "categoryId": "24",
+          "viewCount": 2634110
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "LmEeROWay5U",
+          "title": "\"쿼드라킥 출격\" 우승후보 클리드팀 잡아보겠습니다｜멸망전 EP.07",
+          "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+          "channelTitle": "저라뎃 JUSTLIKETHAT",
+          "publishedAt": "2026-11-25T14:27:12.000Z",
+          "categoryId": "20",
+          "viewCount": 304212
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "GhciMYi0eoE",
+          "title": "Love Me Love Me",
+          "channelId": "UCM3RQ31cVYqRJNd5VeIl_VQ",
+          "channelTitle": "Boramiyu - Topic",
+          "publishedAt": "2026-11-24T09:00:01.000Z",
+          "categoryId": "10",
+          "viewCount": 95973
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "_qb0yKFj2nc",
+          "title": "AVENGERS: DOOMSDAY | MAGNETO vs DOOM NEW TEASER TRAILER!",
+          "channelId": "UCEtsrrS5aG-CkVKuxx1s0vw",
+          "channelTitle": "OneVerse",
+          "publishedAt": "2026-11-26T07:00:06.000Z",
+          "categoryId": "24",
+          "viewCount": 203164
+        }
+      ],
+      "overseasKorean": [
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "cG-cf7ajXFE",
+          "title": "#gta  #gta6  #shorts #kpop",
+          "channelId": "UCq07rx0fdqxLqFYZ1f6WxYA",
+          "channelTitle": "Mu Mu Life Diary",
+          "publishedAt": "2026-11-23T12:00:17.000Z",
+          "categoryId": "26",
+          "viewCount": 38765200
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "fXu73RYxCBw",
+          "title": "一起来舞蹈吧 #gta #kpop #kpopdemonhunters #huntrix",
+          "channelId": "UCJn1sRkpKrVa0QnH0WwOQzA",
+          "channelTitle": "猎魔女团三人组",
+          "publishedAt": "2026-11-24T13:30:26.000Z",
+          "categoryId": "26",
+          "viewCount": 20931130
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "-TnzNzu8bvo",
+          "title": "是什么声音在召唤鲁米#gta  #gta6  #shorts #kpop",
+          "channelId": "UCq07rx0fdqxLqFYZ1f6WxYA",
+          "channelTitle": "Mu Mu Life Diary",
+          "publishedAt": "2026-11-20T13:00:39.000Z",
+          "categoryId": "26",
+          "viewCount": 14888674
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "e6dABv5v_U0",
+          "title": "Not Sophia teasing Daniela 😭 #katseye",
+          "channelId": "UCJKjY6nqpxrkjzzcGpOPoWw",
+          "channelTitle": "Everything Eyekons",
+          "publishedAt": "2026-11-13T09:00:10.000Z",
+          "categoryId": "24",
+          "viewCount": 16284476
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "nb0MxHSoCI4",
+          "title": "[#MMA2026] CORTIS - MONEYMONEYMONEY + REDRED + YOUNGCREATORCREW (4K) | #CORTIS #코르티스 #20261115",
+          "channelId": "UCpBlDSUyOpP1WqWVJxZpGLg",
+          "channelTitle": "멜론 Melon",
+          "publishedAt": "2026-11-15T12:09:54.000Z",
+          "categoryId": "24",
+          "viewCount": 11109528
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "txE4kMXdGCE",
+          "title": "weird skills of idols😭✨ #kpop #fyp #shorts #hearts2hearts #kiiikiii #blackpink #izna #illit #ive",
+          "channelId": "UCtuTiAJE5UkNWjmdJbOYBKg",
+          "channelTitle": "Afiya's world",
+          "publishedAt": "2026-11-18T12:30:09.000Z",
+          "categoryId": "24",
+          "viewCount": 12574932
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "_eco9F8FXK0",
+          "title": "K-POP: THE DEBUT | Official Trailer (2027 Movie) 케이팝 슈퍼스타 | 공식 예고편 (2027 개봉작)",
+          "channelId": "UCF9imwPMSGz4Vq1NiTWCC7g",
+          "channelTitle": "Paramount Pictures",
+          "publishedAt": "2026-11-23T14:00:15.000Z",
+          "categoryId": "1",
+          "viewCount": 13978274
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "Ccx0CnMif0c",
+          "title": "katseye and cortis doing redred dance! 🤩 #katseye #kpop #fyp",
+          "channelId": "UCXOmrckdfRvVxGg8XOCBRTg",
+          "channelTitle": "pikabu",
+          "publishedAt": "2026-11-15T12:25:23.000Z",
+          "categoryId": "10",
+          "viewCount": 13875667
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "62IRDzG3wXc",
+          "title": "#kdrama #kdramaedit #kdramalovers #edit",
+          "channelId": "UC_b7aNIdfTRNkAc_52ICq4g",
+          "channelTitle": "love in blossom",
+          "publishedAt": "2026-11-21T13:33:29.000Z",
+          "categoryId": "22",
+          "viewCount": 10817624
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "VUQVtbd60Wo",
+          "title": "跳起来#gta #kpop #kpopdemonhunters #huntrix",
+          "channelId": "UCJn1sRkpKrVa0QnH0WwOQzA",
+          "channelTitle": "猎魔女团三人组",
+          "publishedAt": "2026-11-22T11:00:18.000Z",
+          "categoryId": "26",
+          "viewCount": 12227559
         }
       ]
     }

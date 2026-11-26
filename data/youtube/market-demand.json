@@ -956,7 +956,7 @@
       "totalResults": 1000000,
       "videoCount": 13,
       "firstSeenAt": "2026-11-17T09:05:57.495Z",
-      "lastD7SyncedAt": "2026-11-26T02:20:45.873Z",
+      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
       "d7OutOfActiveSince": null,
       "analyzedAt": "2026-11-17T09:10:50.394Z",
       "topOutliers": [
@@ -1264,7 +1264,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T02:20:45.873Z",
+      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1355,7 +1355,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T02:20:45.873Z",
+      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1640,7 +1640,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T02:20:45.873Z",
+      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1921,7 +1921,7 @@
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 0,
@@ -2168,7 +2168,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2508,7 +2508,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2757,7 +2757,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3006,7 +3006,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3255,7 +3255,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3377,7 +3377,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "SbQVBQoRciA"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -3620,7 +3620,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "pvPBD9PLuyk"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -3875,7 +3875,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "8-3QjaGbMHU"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4006,7 +4006,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "G5unshk12zk"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -4142,7 +4142,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "rooxbEm1oRc"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4182,7 +4182,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "Ux_M00VVmEU"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4313,7 +4313,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "Bxd1XRx25KQ"
       },
-      "statusUpdatedAt": "2026-11-26T02:20:45.873Z",
+      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -4518,12 +4518,28 @@
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-26T02:20:45.873Z",
+  "lifecycleSyncedAt": "2026-11-26T16:00:10.796Z",
   "d7ProcessedVideoIds": [
     "oMrCtSBbibc",
     "ogCglr1VNYE"
   ],
   "episodeOutcomes": [
+    {
+      "label": "EP26",
+      "slug": "ep26-r-vs-l",
+      "videoId": "UDwLERu-Tu8",
+      "title": "미드에서 Right와 Light가 다르게 들렸던 진짜 이유 | 영어 R L 발음",
+      "publishedAt": "2026-11-16T14:00:08Z",
+      "verdict": "hold",
+      "ratio": 4.1,
+      "reason": "7일 조회 31회 — 100회 미만이라 운과 실력을 가릴 수 없음",
+      "views": 31,
+      "views7d": 31,
+      "baselineViews7d": 7.5,
+      "competitors": [],
+      "audience": null,
+      "hasSources": false
+    },
     {
       "label": "EP25 쇼츠",
       "slug": "ep25-shorts-pool-pull",
@@ -4547,11 +4563,11 @@
       "title": "외국인 앞에서 \"배불러요\" 했는데 '바보'로 들리는 아찔한 이유",
       "publishedAt": "2026-11-12T14:00:25Z",
       "verdict": "hold",
-      "ratio": 1.3,
+      "ratio": 0.9,
       "reason": "7일 조회 8회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 13,
       "views7d": 8,
-      "baselineViews7d": 6,
+      "baselineViews7d": 9,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4579,11 +4595,11 @@
       "title": "Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
       "publishedAt": "2026-11-09T14:00:32Z",
       "verdict": "hold",
-      "ratio": 1.8,
+      "ratio": 1.5,
       "reason": "7일 조회 11회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 13,
       "views7d": 11,
-      "baselineViews7d": 6,
+      "baselineViews7d": 7.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4595,11 +4611,11 @@
       "title": "Coffee, Hello 왜 두 글자인데 한 번만 낼까? 원어민 발음 18분 훈련 | 영어 겹자음 발음",
       "publishedAt": "2026-10-28T13:00:32Z",
       "verdict": "hold",
-      "ratio": 0.7,
+      "ratio": 0.5,
       "reason": "7일 조회 5회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 9,
       "views7d": 5,
-      "baselineViews7d": 7.5,
+      "baselineViews7d": 9.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4611,11 +4627,11 @@
       "title": "[집중 듣기] 영어 과거형 끝소리 3가지 비밀, 원리 하나로 귀가 뚫립니다 | -ED 발음 규칙",
       "publishedAt": "2026-10-12T11:30:03Z",
       "verdict": "hold",
-      "ratio": 1.1,
+      "ratio": 0.7,
       "reason": "7일 조회 7회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 10,
       "views7d": 7,
-      "baselineViews7d": 6.5,
+      "baselineViews7d": 9.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4627,11 +4643,11 @@
       "title": "사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리",
       "publishedAt": "2026-10-02T14:00:08Z",
       "verdict": "hold",
-      "ratio": 0.4,
+      "ratio": 0.3,
       "reason": "7일 조회 3회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 14,
       "views7d": 3,
-      "baselineViews7d": 7.5,
+      "baselineViews7d": 9.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4647,7 +4663,7 @@
       "reason": "7일 조회 1회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 3,
       "views7d": 1,
-      "baselineViews7d": 7.5,
+      "baselineViews7d": 9.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4659,11 +4675,11 @@
       "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
       "publishedAt": "2026-09-26T11:00:34Z",
       "verdict": "hold",
-      "ratio": 33.8,
-      "reason": "작은 표본 — 같은 형식 최근 3편 7일 조회 중앙값 8회(300회 미만), 배수는 참고만",
+      "ratio": 27.1,
+      "reason": "작은 표본 — 같은 형식 최근 3편 7일 조회 중앙값 11회(300회 미만), 배수는 참고만",
       "views": 205,
       "views7d": 203,
-      "baselineViews7d": 6,
+      "baselineViews7d": 7.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4675,11 +4691,11 @@
       "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
       "publishedAt": "2026-09-24T11:00:13Z",
       "verdict": "hold",
-      "ratio": 7.7,
+      "ratio": 6.1,
       "reason": "7일 조회 46회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 195,
+      "views": 196,
       "views7d": 46,
-      "baselineViews7d": 6,
+      "baselineViews7d": 7.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4691,11 +4707,11 @@
       "title": "HER, BIRD, FUR 철자가 다 다른데 원어민은 왜 똑같이 읽을까?",
       "publishedAt": "2026-09-22T11:00:04Z",
       "verdict": "hold",
-      "ratio": 0.5,
+      "ratio": 0.4,
       "reason": "7일 조회 4회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 32,
       "views7d": 4,
-      "baselineViews7d": 7.5,
+      "baselineViews7d": 9.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4707,11 +4723,11 @@
       "title": "여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초",
       "publishedAt": "2026-09-20T11:00:18Z",
       "verdict": "hold",
-      "ratio": 2.2,
+      "ratio": 1.7,
       "reason": "7일 조회 13회 — 100회 미만이라 운과 실력을 가릴 수 없음",
       "views": 20,
       "views7d": 13,
-      "baselineViews7d": 6,
+      "baselineViews7d": 7.5,
       "competitors": [],
       "audience": null,
       "hasSources": false
@@ -4798,9 +4814,9 @@
     }
   ],
   "d7AutonomousCycle": {
-    "lastRunAt": "2026-11-26T02:20:45.873Z",
+    "lastRunAt": "2026-11-26T16:00:10.796Z",
     "applied": [],
-    "holdCount": 15,
+    "holdCount": 16,
     "promotedChannels": [],
     "registeredChannels": [],
     "unregisteredChannels": [],

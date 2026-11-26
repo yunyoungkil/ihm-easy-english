@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-25T16:05:46.485Z",
+  "computedAt": "2026-11-26T16:04:53.891Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계와 다채널 실제 말 덩어리(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -10,7 +10,7 @@
     "UNIQUE_WORD_MIN": 0.4,
     "UNIQUE_SENTENCE_MIN": 0.8
   },
-  "excludedLowQuality": 28,
+  "excludedLowQuality": 29,
   "unmeasured": 20,
   "long": {
     "videoCount": 13,

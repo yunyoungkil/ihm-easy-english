@@ -1,6 +1,6 @@
 // 대표님 1:1 발음 과외방 HTML / CSS / 클라이언트 스크립트 렌더러 (2026-11-26)
 // 비교 시트(scripts/outlier-report-view.mjs) 아래에 독립 섹션으로 붙는다.
-// 기존 승인 관문과 제작 흐름을 건드리지 않으며, 400px 모바일에서도 가로 넘침 없이 동작한다.
+// 기존 승인 관문과 제작 흐름을 건드리지 않으며, 질문 즉시 답변·맞춤 피드백·꼬리 질문까지 화면 안에서 바로 처리한다.
 
 import {buildViewerScriptBlocks, resolveFocusWords} from './creator-study.mjs';
 
@@ -24,7 +24,7 @@ export const CREATOR_STUDY_CSS = `<style>
 .study-seg button.active{background:var(--accent-glow);color:var(--accent)}
 .study-btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:border-color .15s,background .15s,color .15s}
 .study-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hover)}
-.study-btn:disabled{opacity:0.5;cursor:default}
+.study-btn:disabled{opacity:0.55;cursor:default}
 .study-btn.primary{background:var(--accent);color:#06131f;border-color:var(--accent)}
 .study-btn.primary:hover{opacity:0.92;color:#06131f}
 .study-btn.ok-active{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
@@ -40,7 +40,7 @@ export const CREATOR_STUDY_CSS = `<style>
 .en-chip button{appearance:none;border:none;background:transparent;color:var(--accent);cursor:pointer;padding:0 3px;font-size:13px;font-weight:800;line-height:1}
 .en-chip button:hover{color:var(--ink)}
 .notion-lines{display:flex;flex-direction:column;gap:8px}
-.notion-line{position:relative;padding:11px 14px;border-radius:10px;border-left:3px solid transparent;background:transparent;transition:background .16s ease,border-color .16s ease,transform .12s ease}
+.notion-line{position:relative;padding:11px 14px;border-radius:10px;border-left:3px solid transparent;background:transparent;transition:background .16s ease,border-color .16s ease}
 .notion-line:hover,.notion-line:focus-within,.notion-line.is-editing{background:rgba(56,189,248,0.085);border-left-color:var(--accent)}
 .notion-line-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .notion-text{flex:1;min-width:0;font-size:16px;line-height:1.88;letter-spacing:-0.01em;color:var(--ink);word-break:keep-all;cursor:text}
@@ -56,7 +56,14 @@ export const CREATOR_STUDY_CSS = `<style>
 .study-textarea:focus,.study-input:focus{border-color:var(--accent)}
 .notion-q-inline{margin-top:8px;padding:10px 12px;border-radius:9px;background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.28);display:none;flex-direction:column;gap:8px}
 .notion-q-inline.open{display:flex}
-.notion-q-bubble{margin-top:8px;padding:9px 12px;border-radius:9px;background:rgba(168,85,247,0.08);border-left:3px solid var(--accent-purple);font-size:13.5px;line-height:1.6}
+.notion-q-bubble{margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(168,85,247,0.07);border-left:3px solid var(--accent-purple);font-size:13.5px;line-height:1.65}
+.study-answer-text{white-space:pre-line;word-break:keep-all;line-height:1.72;color:var(--ink)}
+.study-teacher-reply{margin-top:8px;padding:10px 12px;border-radius:9px;background:rgba(16,185,129,0.09);border:1px solid rgba(16,185,129,0.28);font-size:13.5px}
+.study-thread{margin-top:8px;display:flex;flex-direction:column;gap:6px;padding-left:10px;border-left:2px dashed var(--line)}
+.study-thread-student{padding:7px 10px;border-radius:8px;background:rgba(168,85,247,0.08);font-size:13px;line-height:1.55}
+.study-thread-teacher{padding:8px 10px;border-radius:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);font-size:13.5px;line-height:1.65}
+.study-followup-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.study-followup-row input{flex:1;min-width:min(200px,100%);font-size:13px;padding:7px 10px}
 .study-words-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin:10px 0}
 .study-word-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
 .study-word-card.st-got{border-color:rgba(52,211,153,0.45)}
@@ -73,6 +80,9 @@ export const CREATOR_STUDY_CSS = `<style>
 .study-q-title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.55;flex:1;min-width:0;word-break:keep-all}
 .study-teacher-box{display:none;padding:11px 14px;border-radius:10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.28);font-size:14px;line-height:1.7;color:var(--ink)}
 .study-teacher-box.open{display:block}
+.study-feedback-box{display:none;padding:11px 14px;border-radius:10px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.32);font-size:14px;line-height:1.7;color:var(--ink)}
+.study-feedback-box.open{display:block}
+.study-loading{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--accent)}
 .study-toast{position:fixed;bottom:20px;right:20px;z-index:80;background:#0f172a;color:#f8fafc;border:1px solid rgba(56,189,248,0.45);padding:9px 14px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,0.3);opacity:0;pointer-events:none;transition:opacity .2s}
 .study-toast.show{opacity:1}
 @media (max-width:600px){
@@ -83,6 +93,20 @@ export const CREATOR_STUDY_CSS = `<style>
   .notion-text{font-size:15.5px}
 }
 </style>`;
+
+function renderThreadHtml(thread = []) {
+  if (!Array.isArray(thread) || !thread.length) return '';
+  return `<div class="study-thread" data-thread-box="1">${thread.map((t) => (t.role === 'teacher'
+    ? `<div class="study-thread-teacher"><div class="study-answer-text"><b>👩‍🏫 선생님:</b> ${escapeHtml(t.text)}</div></div>`
+    : `<div class="study-thread-student"><b>💬 이어서 질문:</b> ${escapeHtml(t.text)}</div>`)).join('')}</div>`;
+}
+
+function renderFollowUpForm(kind, id) {
+  return `<div class="study-followup-row" data-followup-wrap="${escapeHtml(kind)}" data-followup-id="${escapeHtml(id)}">
+    <input type="text" class="study-input" placeholder="이해가 덜 된 부분이나 궁금한 점을 바로 이어서 물어보세요" data-followup-input="1">
+    <button type="button" class="study-btn" data-send-followup="1">💬 이어 묻기</button>
+  </div>`;
+}
 
 export function renderCreatorStudySection(sheet, study, reviewItems = []) {
   const sid = String(sheet?.episodeId || sheet?.sourceVideoId || '');
@@ -144,7 +168,15 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         const sentenceLines = b.sentences.length ? b.sentences : [b.currentNarration];
         const sentencesHtml = sentenceLines.map((sent, sIdx) => {
           const attached = qByCutSent.get(`${b.cutIndex}:${sIdx}`) || [];
-          const bubbles = attached.map((lq) => `<div class="notion-q-bubble" data-lq-id="${escapeHtml(lq.id)}"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><b>❓ 내 질문:</b> ${escapeHtml(lq.question)}</div><button type="button" class="notion-mini-btn" data-del-lq="${escapeHtml(lq.id)}">삭제</button></div>${lq.answer ? `<div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)"><b>👩‍🏫 선생님 답:</b> ${escapeHtml(lq.answer)}</div>` : '<div class="meta" style="margin-top:4px">선생님 설명 대기 중 — 대화에서 “과외방 질문 답해 줘”라고 하면 쉬운 설명을 채워 드려요.</div>'}</div>`).join('');
+          const bubbles = attached.map((lq) => `<div class="notion-q-bubble" data-lq-id="${escapeHtml(lq.id)}">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+              <div><b>❓ 내 질문:</b> ${escapeHtml(lq.question)}</div>
+              <button type="button" class="notion-mini-btn" data-del-lq="${escapeHtml(lq.id)}">삭제</button>
+            </div>
+            ${lq.answer
+              ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\n${escapeHtml(lq.answer)}</div></div>${renderThreadHtml(lq.thread)}${renderFollowUpForm('line', lq.id)}`
+              : `<div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button type="button" class="study-btn primary" data-retry-answer="line" data-id="${escapeHtml(lq.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
+          </div>`).join('');
           return `<div class="notion-line" data-cut="${b.cutIndex}" data-sent="${sIdx}">
             <div class="notion-line-row">
               <div class="notion-text" data-open-edit="1" title="눌러서 바로 고치기">${escapeHtml(sent)}</div>
@@ -162,9 +194,9 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
               </div>
             </div>
             <div class="notion-q-inline" data-q-box="1">
-              <textarea class="study-textarea" rows="2" placeholder="이 문장에서 이해 안 되는 점, 말이 어려운 부분, 왜 이렇게 읽는지 편하게 적어 주세요." data-q-input="1"></textarea>
-              <div style="display:flex;gap:6px;align-items:center">
-                <button type="button" class="study-btn primary" data-save-q="1">질문 남기기</button>
+              <textarea class="study-textarea" rows="2" placeholder="이 문장에서 이해 안 되는 점, 왜 이렇게 읽는지 물어보면 선생님이 바로 답해 드려요." data-q-input="1"></textarea>
+              <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+                <button type="button" class="study-btn primary" data-save-q="1">👩‍🏫 질문하고 바로 답 듣기</button>
                 <button type="button" class="study-btn" data-cancel-q="1">닫기</button>
               </div>
             </div>
@@ -224,7 +256,9 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         </div>
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
-      ${q.answer ? `<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(16,185,129,0.08);font-size:13.5px;line-height:1.6"><b>👩‍🏫 선생님 설명:</b> ${escapeHtml(q.answer)}</div>` : ''}
+      ${q.answer
+        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\n${escapeHtml(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('line', q.id)}`
+        : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="line" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
     ...freeQuestions.map((q) => `<div class="card" style="padding:12px 14px;border-left:3px solid var(--accent)" data-q-summary="free" data-id="${escapeHtml(q.id)}">
       <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
@@ -235,11 +269,13 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         </div>
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
-      ${q.answer ? `<div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(16,185,129,0.08);font-size:13.5px;line-height:1.6"><b>👩‍🏫 선생님 설명:</b> ${escapeHtml(q.answer)}</div>` : ''}
+      ${q.answer
+        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\n${escapeHtml(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('free', q.id)}`
+        : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="free" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
   ].join('');
 
-  // 3단: 시청자 질문 10가지 (선생님 설명 기본 숨김!)
+  // 3단: 시청자 질문 10가지 (선생님 설명 기본 숨김 + 내 생각 맞춤 피드백 + 꼬리 질문!)
   const viewerQHtml = viewerQuestions.length
     ? `<div class="study-q-list">${viewerQuestions.map((vq, idx) => `<div class="study-q-card${vq.curious ? ' is-curious' : ''}" data-vq-id="${escapeHtml(vq.id)}">
         <div class="study-q-head">
@@ -249,18 +285,23 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button type="button" class="study-btn${vq.curious ? ' purple-active' : ''}" data-vq-curious="1">${vq.curious ? '🙋 나도 궁금함 ✓' : '🙋 나도 궁금해'}</button>
-            <button type="button" class="study-btn" data-vq-reveal="1">${vq.revealed ? '👩‍🏫 설명 접기' : '👩‍🏫 선생님 설명 보기'}</button>
+            <button type="button" class="study-btn" data-vq-reveal="1">${vq.revealed ? '👩‍🏫 기본 설명 접기' : '👩‍🏫 기본 설명 보기'}</button>
           </div>
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <input type="text" class="study-input" style="flex:1;min-width:min(220px,100%);font-size:13.5px;padding:8px 11px" placeholder="내 생각엔 ~ 아닐까? (기초라 몰라도 비워 둬도 괜찮아요!)" value="${escapeHtml(vq.guess || '')}" data-vq-guess="1">
-          <button type="button" class="study-btn" data-vq-save-guess="1">적어 두기</button>
+          <input type="text" class="study-input" style="flex:1;min-width:min(220px,100%);font-size:13.5px;padding:8px 11px" placeholder="내 생각엔 ~ 아닐까? (적고 누르면 선생님이 바로 맞춤 피드백을 드려요)" value="${escapeHtml(vq.guess || '')}" data-vq-guess="1">
+          <button type="button" class="study-btn primary" data-vq-feedback-btn="1">👩‍🏫 선생님께 확인받기</button>
+        </div>
+        <div class="study-feedback-box${vq.guessFeedback ? ' open' : ''}" data-vq-feedback-box="1">
+          <div class="study-answer-text" data-vq-feedback-text="1"><b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>\n${escapeHtml(vq.guessFeedback || '')}</div>
         </div>
         <div class="study-teacher-box${vq.revealed ? ' open' : ''}" data-vq-answer="1">
-          <b>👩‍🏫 선생님 1:1 설명:</b> ${escapeHtml(vq.teacherAnswer || '아직 설명이 채워지지 않았습니다. 대화에서 “시청자 질문 설명 채워 줘”라고 말씀해 주세요.')}
+          <div class="study-answer-text"><b>👩‍🏫 기본 1:1 설명:</b> ${escapeHtml(vq.teacherAnswer || '아직 기본 설명이 없습니다. 위 확인받기 버튼을 누르면 선생님이 바로 답해 드려요.')}</div>
         </div>
+        ${renderThreadHtml(vq.thread)}
+        ${renderFollowUpForm('viewer', vq.id)}
       </div>`).join('')}</div>`
-    : '<div class="card meta">이 비교 시트에는 아직 시청자 질문 10가지가 생성되지 않았습니다. 아래에서 궁금한 질문을 직접 추가하거나, 대화에서 “이 편 과외방 질문 10개 채워 줘”라고 말씀해 주세요.</div>';
+    : '<div class="card meta">이 비교 시트에는 아직 시청자 질문 10가지가 생성되지 않았습니다. 아래에서 궁금한 질문을 직접 추가해 바로 물어보실 수 있어요.</div>';
 
   const addVqHtml = viewerQuestions.length < 10
     ? `<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
@@ -278,12 +319,25 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     toastEl.textContent=msg;
     toastEl.classList.add('show');
     if(toastTimer)clearTimeout(toastTimer);
-    toastTimer=setTimeout(function(){toastEl.classList.remove('show');},2200);
+    toastTimer=setTimeout(function(){toastEl.classList.remove('show');},2600);
   }
-  function postStudy(payload){
+  function postJson(url,payload){
     payload.videoId=sid;
-    return fetch('/api/creator-study',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-      .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'저장 실패');return d;});});
+    return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'처리 실패');return d;});});
+  }
+  function postStudy(payload){return postJson('/api/creator-study',payload);}
+  function postTutor(payload){return postJson('/api/creator-study-tutor',payload);}
+  function escText(s){
+    var d=document.createElement('div');
+    d.textContent=String(s||'');
+    return d.innerHTML;
+  }
+  function makeFollowUpHtml(kind,id){
+    return '<div class="study-followup-row" data-followup-wrap="'+escText(kind)+'" data-followup-id="'+escText(id)+'">'
+      +'<input type="text" class="study-input" placeholder="이해가 덜 된 부분이나 궁금한 점을 바로 이어서 물어보세요" data-followup-input="1">'
+      +'<button type="button" class="study-btn" data-send-followup="1">💬 이어 묻기</button>'
+      +'</div>';
   }
   function speakEn(text,rate){
     if(!('speechSynthesis' in window)){showToast('이 브라우저에서는 음성 재생을 지원하지 않습니다');return;}
@@ -317,11 +371,17 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     var applyBtn=document.getElementById('btn-apply-study-script');
     if(applyBtn)applyBtn.disabled=(cnt===0);
   }
+  function updateQuestionCount(delta){
+    var el=document.getElementById('study-q-total');
+    if(!el)return;
+    var cur=Number(el.textContent||0)+delta;
+    el.textContent=String(Math.max(0,cur));
+  }
 
   var root=document.getElementById('sec-study-room');
   if(!root)return;
 
-  // 보기 전환: 한 문장씩 vs 컷(문단) 단위
+  // 보기 전환: 한 문장씩 넓게 vs 조금 촘촘하게
   var modeBtns=root.querySelectorAll('[data-view-mode]');
   for(var i=0;i<modeBtns.length;i++){
     modeBtns[i].addEventListener('click',function(){
@@ -330,13 +390,9 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       var doc=document.getElementById('study-notion-doc');
       if(!doc)return;
       var lines=doc.querySelectorAll('.notion-line');
-      for(var k=0;k<lines.length;k++){
-        lines[k].style.padding=(mode==='compact')?'6px 10px':'';
-      }
+      for(var k=0;k<lines.length;k++)lines[k].style.padding=(mode==='compact')?'6px 10px':'';
       var groups=doc.querySelectorAll('.notion-lines');
-      for(var g=0;g<groups.length;g++){
-        groups[g].style.gap=(mode==='compact')?'2px':'';
-      }
+      for(var g=0;g<groups.length;g++)groups[g].style.gap=(mode==='compact')?'2px':'';
     });
   }
 
@@ -368,7 +424,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       return;
     }
 
-    // 3. 노션 문장 편집 열기
+    // 3. 노션 문장 편집 열기/취소/저장
     if(btn.hasAttribute('data-open-edit')){
       var line=btn.closest('.notion-line');
       if(!line)return;
@@ -377,15 +433,11 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       if(ta){ta.value=(line.querySelector('.notion-text').textContent||'').trim();ta.focus();}
       return;
     }
-
-    // 4. 문장 편집 취소
     if(btn.hasAttribute('data-cancel-edit')){
       var line=btn.closest('.notion-line');
       if(line)line.classList.remove('is-editing');
       return;
     }
-
-    // 5. 문장 편집 저장
     if(btn.hasAttribute('data-save-edit')){
       var line=btn.closest('.notion-line');
       var cutCard=btn.closest('.notion-cut');
@@ -399,25 +451,20 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       var orig=cutCard.getAttribute('data-original')||'';
       var cutIdx=Number(cutCard.getAttribute('data-cut-card'));
       postStudy({action:'set_cut_edit',cutIndex:cutIdx,text:fullText,originalText:orig}).then(function(){
-        var changed=fullText!==orig;
-        cutCard.classList.toggle('is-edited',changed);
+        cutCard.classList.toggle('is-edited',fullText!==orig);
         updateEditBadge();
         showToast('💾 고친 문장을 저장했습니다');
       }).catch(function(err){alert(err.message);});
       return;
     }
-
-    // 6. 컷 원문 복구
     if(btn.hasAttribute('data-reset-cut')){
       var cutIdx=Number(btn.getAttribute('data-reset-cut'));
       if(!confirm('이 장면의 문장을 원래 대본으로 되돌릴까요?'))return;
-      postStudy({action:'reset_cut_edit',cutIndex:cutIdx}).then(function(){
-        location.reload();
-      }).catch(function(err){alert(err.message);});
+      postStudy({action:'reset_cut_edit',cutIndex:cutIdx}).then(function(){location.reload();}).catch(function(err){alert(err.message);});
       return;
     }
 
-    // 7. 인라인 질문 창 열기/닫기/저장
+    // 4. 문장 인라인 질문 -> 저장과 동시에 선생님 즉답 받기 (새로고침 없음!)
     if(btn.hasAttribute('data-open-q')){
       var line=btn.closest('.notion-line');
       var box=line&&line.querySelector('[data-q-box]');
@@ -439,13 +486,86 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       var sentIdx=Number(line.getAttribute('data-sent'));
       var excerpt=(line.querySelector('.notion-text').textContent||'').trim().slice(0,120);
       btn.disabled=true;
-      postStudy({action:'add_line_question',cutIndex:cutIdx,sentenceIndex:sentIdx,excerpt:excerpt,question:qText}).then(function(){
-        location.reload();
-      }).catch(function(err){btn.disabled=false;alert(err.message);});
+      btn.textContent='⏳ 선생님 답변 중...';
+      var bubblesWrap=line.querySelector('.notion-q-bubbles');
+      var tempBubble=document.createElement('div');
+      tempBubble.className='notion-q-bubble';
+      tempBubble.innerHTML='<div><b>❓ 내 질문:</b> '+escText(qText)+'</div><div class="study-teacher-reply"><span class="study-loading">👩‍🏫 선생님이 왕초보 눈높이로 쉽게 정리하고 있어요...</span></div>';
+      if(bubblesWrap)bubblesWrap.appendChild(tempBubble);
+      if(ta)ta.value='';
+      if(box)box.classList.remove('open');
+      postTutor({mode:'ask_line',cutIndex:cutIdx,sentenceIndex:sentIdx,excerpt:excerpt,question:qText}).then(function(res){
+        btn.disabled=false;
+        btn.textContent='👩‍🏫 질문하고 바로 답 듣기';
+        tempBubble.setAttribute('data-lq-id',res.id);
+        tempBubble.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><b>❓ 내 질문:</b> '+escText(qText)+'</div><button type="button" class="notion-mini-btn" data-del-lq="'+escText(res.id)+'">삭제</button></div>'
+          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\\n'+escText(res.answer)+'</div></div>'
+          +makeFollowUpHtml('line',res.id);
+        updateQuestionCount(1);
+        showToast('👩‍🏫 선생님 답변이 도착했습니다');
+      }).catch(function(err){
+        btn.disabled=false;
+        btn.textContent='👩‍🏫 질문하고 바로 답 듣기';
+        tempBubble.innerHTML='<div><b>❓ 내 질문:</b> '+escText(qText)+'</div><div class="meta" style="color:var(--bad);margin-top:6px">'+escText(err.message)+'</div>';
+      });
       return;
     }
 
-    // 8. 질문 삭제 / 해결 토글
+    // 5. 기존 미답변 질문 재시도
+    if(btn.hasAttribute('data-retry-answer')){
+      var kind=btn.getAttribute('data-retry-answer');
+      var id=btn.getAttribute('data-id');
+      btn.disabled=true;
+      btn.textContent='⏳ 선생님 답변 중...';
+      postTutor({mode:'retry_answer',kind:kind,id:id}).then(function(){
+        location.reload();
+      }).catch(function(err){
+        btn.disabled=false;
+        btn.textContent='👩‍🏫 선생님 답변 바로 받기';
+        alert(err.message);
+      });
+      return;
+    }
+
+    // 6. 꼬리 질문 (이어 묻기) -> 바로 그 자리에서 대화 이어가기!
+    if(btn.hasAttribute('data-send-followup')){
+      var wrap=btn.closest('[data-followup-wrap]');
+      if(!wrap)return;
+      var kind=wrap.getAttribute('data-followup-wrap');
+      var id=wrap.getAttribute('data-followup-id');
+      var inp=wrap.querySelector('[data-followup-input]');
+      var qText=(inp&&inp.value||'').trim();
+      if(!qText){alert('이어서 물어볼 내용을 입력해 주세요.');return;}
+      var parent=wrap.parentElement;
+      var threadBox=parent.querySelector('[data-thread-box]');
+      if(!threadBox){
+        threadBox=document.createElement('div');
+        threadBox.className='study-thread';
+        threadBox.setAttribute('data-thread-box','1');
+        parent.insertBefore(threadBox,wrap);
+      }
+      var stDiv=document.createElement('div');
+      stDiv.className='study-thread-student';
+      stDiv.innerHTML='<b>💬 이어서 질문:</b> '+escText(qText);
+      var tcDiv=document.createElement('div');
+      tcDiv.className='study-thread-teacher';
+      tcDiv.innerHTML='<span class="study-loading">👩‍🏫 선생님이 이어서 설명하고 있어요...</span>';
+      threadBox.appendChild(stDiv);
+      threadBox.appendChild(tcDiv);
+      inp.value='';
+      btn.disabled=true;
+      postTutor({mode:'followup',kind:kind,id:id,question:qText}).then(function(res){
+        btn.disabled=false;
+        tcDiv.innerHTML='<div class="study-answer-text"><b>👩‍🏫 선생님:</b> '+escText(res.answer)+'</div>';
+        showToast('👩‍🏫 이어진 답변이 도착했습니다');
+      }).catch(function(err){
+        btn.disabled=false;
+        tcDiv.innerHTML='<span class="meta" style="color:var(--bad)">'+escText(err.message)+'</span>';
+      });
+      return;
+    }
+
+    // 7. 질문 삭제 / 해결 토글
     if(btn.hasAttribute('data-del-lq')){
       postStudy({action:'delete_line_question',id:btn.getAttribute('data-del-lq')}).then(function(){location.reload();}).catch(function(err){alert(err.message);});
       return;
@@ -461,7 +581,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       return;
     }
 
-    // 9. 핵심 단어 상태 버튼
+    // 8. 핵심 단어 상태 버튼
     if(btn.hasAttribute('data-word-status')){
       var card=btn.closest('[data-word-card]');
       var st=btn.getAttribute('data-word-status');
@@ -486,7 +606,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       return;
     }
 
-    // 10. 시청자 질문 10가지: 나도 궁금해 / 설명 보기 / 내 추측 저장
+    // 9. 시청자 질문 10가지: 나도 궁금해 / 기본 설명 보기 / 내 생각 맞춤 선생님 피드백!
     if(btn.hasAttribute('data-vq-curious')){
       var qCard=btn.closest('[data-vq-id]');
       var nextCurious=!qCard.classList.contains('is-curious');
@@ -503,26 +623,46 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       var ansBox=qCard.querySelector('[data-vq-answer]');
       var nextOpen=!ansBox.classList.contains('open');
       ansBox.classList.toggle('open',nextOpen);
-      btn.textContent=nextOpen?'👩‍🏫 설명 접기':'👩‍🏫 선생님 설명 보기';
+      btn.textContent=nextOpen?'👩‍🏫 기본 설명 접기':'👩‍🏫 기본 설명 보기';
       postStudy({action:'update_viewer_question',id:qCard.getAttribute('data-vq-id'),revealed:nextOpen}).catch(function(){});
       return;
     }
-    if(btn.hasAttribute('data-vq-save-guess')){
+    if(btn.hasAttribute('data-vq-feedback-btn')){
       var qCard=btn.closest('[data-vq-id]');
       var inp=qCard.querySelector('[data-vq-guess]');
-      postStudy({action:'update_viewer_question',id:qCard.getAttribute('data-vq-id'),guess:inp?inp.value:''}).then(function(){
-        showToast('📝 내 생각을 저장했습니다');
-      }).catch(function(err){alert(err.message);});
+      var fbBox=qCard.querySelector('[data-vq-feedback-box]');
+      var fbText=qCard.querySelector('[data-vq-feedback-text]');
+      var guess=(inp&&inp.value||'').trim();
+      btn.disabled=true;
+      btn.textContent='⏳ 피드백 중...';
+      if(fbBox)fbBox.classList.add('open');
+      if(fbText)fbText.innerHTML='<span class="study-loading">👩‍🏫 선생님이 대표님 생각을 보고 맞춤 설명을 적고 있어요...</span>';
+      postTutor({mode:'vq_feedback',id:qCard.getAttribute('data-vq-id'),guess:guess}).then(function(res){
+        btn.disabled=false;
+        btn.textContent='👩‍🏫 선생님께 확인받기';
+        if(fbText)fbText.innerHTML='<b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>\\n'+escText(res.guessFeedback);
+        showToast('👩‍🏫 맞춤 선생님 피드백이 도착했습니다');
+      }).catch(function(err){
+        btn.disabled=false;
+        btn.textContent='👩‍🏫 선생님께 확인받기';
+        if(fbText)fbText.innerHTML='<span class="meta" style="color:var(--bad)">'+escText(err.message)+'</span>';
+      });
       return;
     }
   });
 
-  // Ctrl+Enter로 문장 수정 즉시 저장
+  // 엔터키 단축 처리 (문장 수정 Ctrl+Enter, 꼬리 질문 Enter)
   root.addEventListener('keydown',function(e){
     if(e.target&&e.target.hasAttribute('data-edit-input')&&(e.ctrlKey||e.metaKey)&&e.key==='Enter'){
       var line=e.target.closest('.notion-line');
       var saveBtn=line&&line.querySelector('[data-save-edit]');
       if(saveBtn)saveBtn.click();
+    }
+    if(e.target&&e.target.hasAttribute('data-followup-input')&&e.key==='Enter'){
+      e.preventDefault();
+      var wrap=e.target.closest('[data-followup-wrap]');
+      var sendBtn=wrap&&wrap.querySelector('[data-send-followup]');
+      if(sendBtn)sendBtn.click();
     }
   });
 
@@ -544,7 +684,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     }
   });
 
-  // 자유 질문 등록
+  // 자유 질문 등록 + 즉시 선생님 답변!
   var freeBtn=document.getElementById('btn-add-free-q');
   if(freeBtn){
     freeBtn.addEventListener('click',function(){
@@ -552,7 +692,33 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       var qText=(ta&&ta.value||'').trim();
       if(!qText){alert('궁금한 내용을 입력해 주세요.');return;}
       freeBtn.disabled=true;
-      postStudy({action:'add_free_question',question:qText}).then(function(){location.reload();}).catch(function(err){freeBtn.disabled=false;alert(err.message);});
+      freeBtn.textContent='⏳ 선생님 답변 중...';
+      var listWrap=document.getElementById('study-asked-list');
+      var emptyMsg=document.getElementById('study-asked-empty');
+      if(emptyMsg)emptyMsg.remove();
+      var card=document.createElement('div');
+      card.className='card';
+      card.style.padding='12px 14px';
+      card.style.borderLeft='3px solid var(--accent)';
+      card.innerHTML='<div class="meta">자유 질문</div><div style="margin-top:6px;font-weight:700">❓ '+escText(qText)+'</div><div class="study-teacher-reply"><span class="study-loading">👩‍🏫 선생님이 왕초보 눈높이로 쉽게 정리하고 있어요...</span></div>';
+      if(listWrap)listWrap.insertBefore(card,listWrap.firstChild);
+      ta.value='';
+      postTutor({mode:'ask_free',question:qText}).then(function(res){
+        freeBtn.disabled=false;
+        freeBtn.textContent='👩‍🏫 질문하고 바로 답 듣기';
+        card.setAttribute('data-q-summary','free');
+        card.setAttribute('data-id',res.id);
+        card.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="meta">자유 질문</span><div style="display:flex;gap:6px"><button type="button" class="notion-mini-btn" data-toggle-resolved="free" data-id="'+escText(res.id)+'">아직 궁금</button><button type="button" class="notion-mini-btn" data-del-fq="'+escText(res.id)+'">삭제</button></div></div>'
+          +'<div style="margin-top:6px;font-weight:700">❓ '+escText(qText)+'</div>'
+          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\\n'+escText(res.answer)+'</div></div>'
+          +makeFollowUpHtml('free',res.id);
+        updateQuestionCount(1);
+        showToast('👩‍🏫 선생님 답변이 도착했습니다');
+      }).catch(function(err){
+        freeBtn.disabled=false;
+        freeBtn.textContent='👩‍🏫 질문하고 바로 답 듣기';
+        card.innerHTML='<div class="meta">자유 질문</div><div style="margin-top:6px;font-weight:700">❓ '+escText(qText)+'</div><div class="meta" style="color:var(--bad);margin-top:6px">'+escText(err.message)+'</div>';
+      });
     });
   }
 
@@ -589,7 +755,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
           <h2>🎓 대표님 1:1 발음 과외방</h2>
           <span class="study-badge">개인 학습 전용 · 승인 무관</span>
         </div>
-        <p class="study-sub">강사처럼 고칠 필요 없이, <b>1번 학생</b>으로 소리 듣고 막히는 곳만 편하게 표시하세요. 바쁜 날은 건너뛰어도 제작 흐름에 전혀 지장이 없습니다.</p>
+        <p class="study-sub">강사처럼 고칠 필요 없이, <b>1번 학생</b>으로 소리 듣고 궁금한 걸 물어보시면 <b>그 자리에서 바로 1:1 선생님 답변</b>이 나옵니다. 바쁜 날은 건너뛰어도 됩니다.</p>
       </div>
     </div>
     ${reviewHtml}
@@ -620,18 +786,18 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     ${wordsHtml}
 
     <div class="study-block-title" style="margin-top:26px">
-      <h3>내가 막힌 부분 질문칸 (${lineQuestions.length + freeQuestions.length}개)</h3>
-      <span class="meta">대본 문장에 단 질문과 자유 질문이 한곳에 모입니다</span>
+      <h3>내가 막힌 부분 질문칸 (<span id="study-q-total">${lineQuestions.length + freeQuestions.length}</span>개)</h3>
+      <span class="meta">질문을 남기면 3~5초 안에 1:1 선생님이 바로 답하고, 이어서 더 물어볼 수도 있어요</span>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-      <textarea id="study-free-q-input" class="study-textarea" rows="2" style="flex:1;min-width:min(260px,100%)" placeholder="이번 편을 보면서 이해가 안 되거나 궁금한 점을 편하게 적어 주세요."></textarea>
-      <button type="button" id="btn-add-free-q" class="study-btn primary" style="align-self:flex-start">❓ 질문 남기기</button>
+      <textarea id="study-free-q-input" class="study-textarea" rows="2" style="flex:1;min-width:min(260px,100%)" placeholder="이번 편을 보면서 이해가 안 되거나 궁금한 점을 편하게 물어보세요."></textarea>
+      <button type="button" id="btn-add-free-q" class="study-btn primary" style="align-self:flex-start">👩‍🏫 질문하고 바로 답 듣기</button>
     </div>
-    ${allAskedHtml || '<div class="meta" style="padding:4px 2px">아직 남긴 질문이 없습니다. 위 대본 문장에 마우스를 올려 <b>❓ 질문</b>을 누르거나 여기 자유롭게 적어 보세요.</div>'}
+    <div id="study-asked-list">${allAskedHtml || '<div id="study-asked-empty" class="meta" style="padding:4px 2px">아직 남긴 질문이 없습니다. 위 대본 문장에 마우스를 올려 <b>❓ 질문</b>을 누르거나 여기 자유롭게 물어보세요.</div>'}</div>
 
     <div class="study-block-title" style="margin-top:30px">
       <h3>3단계 · 시청자가 궁금해할 질문 10가지 (설명 기본 숨김)</h3>
-      <span class="meta">정답을 맞히지 않아도 됩니다. 궁금한 것에 체크하거나 감이 오는 1~2개만 편하게 찍어 본 뒤 선생님 설명을 열어 보세요.</span>
+      <span class="meta">내 생각을 짧게 적고 ‘선생님께 확인받기’를 누르면 내 생각에 맞춘 1:1 피드백이 바로 나와요.</span>
     </div>
     ${viewerQHtml}
     ${addVqHtml}

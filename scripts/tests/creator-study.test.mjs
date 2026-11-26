@@ -15,6 +15,7 @@ import {
   summarizeCreatorStudy,
 } from '../creator-study.mjs';
 import {renderCreatorStudySection} from '../creator-study-view.mjs';
+import {buildQuestionPrompt, buildGuessFeedbackPrompt, callGeminiTutor} from '../creator-study-tutor.mjs';
 
 const makeSheet = (status = 'draft') => ({
   schemaVersion: 4,
@@ -131,4 +132,55 @@ test('renderCreatorStudySection: HTML 이스케이프·설명 기본 숨김·클
   const match = html.match(/<script>([\s\S]*?)<\/script>/);
   assert.ok(match, '클라이언트 스크립트가 있어야 한다');
   assert.doesNotThrow(() => new Function(match[1]));
+});
+
+test('creator-study-tutor: 프롬프트에 왕초보 눈높이·전문용어 금지·예시 단어 안내가 들어가고 모델 폴백이 작동한다', async () => {
+  const sheet = makeSheet('draft');
+  const qPrompt = buildQuestionPrompt({
+    sheet,
+    question: '왜 salmon에서 L을 안 읽어요?',
+    excerpt: '연어 살몬, 영어에선 엘을 안 읽어요.',
+    cutEnglish: ['salmon'],
+    thread: [{role: 'student', text: '처음 질문'}, {role: 'teacher', text: '처음 답'}],
+  });
+  assert.ok(qPrompt.includes('절대 금지'));
+  assert.ok(qPrompt.includes('비슷한 쉬운 예시 단어 2~3개'));
+  assert.ok(qPrompt.includes('학생의 꼬리 질문'));
+
+  const gPrompt = buildGuessFeedbackPrompt({
+    sheet,
+    viewerQuestion: {q: '왜 L이 남아 있나요?', teacherAnswer: '라틴어 어원 때문'},
+    guess: '옛날 사람이 오타를 낸 것 같아요',
+  });
+  assert.ok(gPrompt.includes('옛날 사람이 오타를 낸 것 같아요'));
+
+  let calls = 0;
+  const fakeFetch = async () => {
+    calls += 1;
+    if (calls === 1) return {ok: false, status: 503, json: async () => ({error: {message: 'busy'}})};
+    return {ok: true, status: 200, json: async () => ({candidates: [{content: {parts: [{text: '쉽게 설명해 드릴게요!'}]}}]})};
+  };
+  const res = await callGeminiTutor(qPrompt, {apiKey: 'test-key', fetchImpl: fakeFetch, models: ['m1', 'm2']});
+  assert.equal(res.model, 'm2');
+  assert.equal(res.text, '쉽게 설명해 드릴게요!');
+  assert.equal(calls, 2);
+});
+
+test('patchCreatorStudy: 꼬리 질문(thread)과 시청자 질문 맞춤 피드백(guessFeedback)을 저장한다', () => {
+  let st = {
+    sheetId: 'ep99-test-study',
+    lineQuestions: [],
+    freeQuestions: [],
+    viewerQuestions: [{id: 'vq-1', q: '질문1', source: '테스트', teacherAnswer: '기본 답', curious: false, guess: '', revealed: false}],
+  };
+  st = patchCreatorStudy(st, {action: 'add_free_question', id: 'fq-1', question: '첫 질문', answer: '첫 답'});
+  st = patchCreatorStudy(st, {action: 'append_question_thread', kind: 'free', id: 'fq-1', question: '꼬리 질문', answer: '꼬리 답'});
+  assert.equal(st.freeQuestions[0].thread.length, 2);
+  assert.equal(st.freeQuestions[0].thread[0].role, 'student');
+  assert.equal(st.freeQuestions[0].thread[1].role, 'teacher');
+
+  st = patchCreatorStudy(st, {action: 'update_viewer_question', id: 'vq-1', guess: '내 생각', guessFeedback: '맞춤 피드백'});
+  assert.equal(st.viewerQuestions[0].guessFeedback, '맞춤 피드백');
+  st = patchCreatorStudy(st, {action: 'append_question_thread', kind: 'viewer', id: 'vq-1', question: '추가 궁금증', answer: '추가 설명'});
+  assert.equal(st.viewerQuestions[0].thread.length, 2);
 });

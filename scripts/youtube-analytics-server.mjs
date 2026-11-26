@@ -51,7 +51,8 @@ import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from 
 import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, classifySheetProblems, approveSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
-import { loadCreatorStudy, saveCreatorStudy, loadAllCreatorStudies, collectReviewItems, patchCreatorStudy, applyStudyEditsToSheet, SAFE_SHEET_ID_RE } from './creator-study.mjs';
+import { loadCreatorStudy, saveCreatorStudy, loadAllCreatorStudies, collectReviewItems, patchCreatorStudy, applyStudyEditsToSheet, extractCutEnglish, SAFE_SHEET_ID_RE } from './creator-study.mjs';
+import { answerStudentQuestion, feedbackViewerGuess } from './creator-study-tutor.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6000,6 +6001,119 @@ const server = createServer(async (req, res) => {
         if (appliedCount > 0) await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
         return json(res, 200, {ok: true, appliedCount});
       } catch (e) { return json(res, 400, {error: e.message}); }
+    }
+    if (url.pathname === '/api/creator-study-tutor' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const vid = String(body.videoId || '');
+      if (!SAFE_SHEET_ID_RE.test(vid)) return json(res, 400, {error: '시트 ID가 이상합니다.'});
+      const file = join(transformSheetsDir, vid + '.json');
+      if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
+      const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+      try {
+        const sheet = await loadJson(file);
+        const cuts = ((sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts) || [];
+        const mode = String(body.mode || '');
+
+        if (mode === 'ask_line' || mode === 'ask_free') {
+          const question = String(body.question || '').trim();
+          if (!question) return json(res, 400, {error: '질문 내용을 입력해 주세요.'});
+          const qId = `${mode === 'ask_line' ? 'lq' : 'fq'}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+          // 먼저 질문을 안전하게 저장한다(AI 호출이 실패해도 질문 유실 방지)
+          let st = loadCreatorStudy(vid);
+          st = patchCreatorStudy(st, mode === 'ask_line'
+            ? {action: 'add_line_question', id: qId, cutIndex: body.cutIndex, sentenceIndex: body.sentenceIndex, excerpt: body.excerpt, question}
+            : {action: 'add_free_question', id: qId, question});
+          saveCreatorStudy(vid, st);
+
+          const cut = mode === 'ask_line' ? cuts[Number(body.cutIndex)] : null;
+          const aiRes = await answerStudentQuestion({
+            sheet,
+            question,
+            excerpt: mode === 'ask_line' ? String(body.excerpt || '') : '',
+            cutNarration: cut ? String(cut.narration || '') : '',
+            cutEnglish: cut ? extractCutEnglish(cut) : [],
+            apiKey,
+          });
+          st = patchCreatorStudy(loadCreatorStudy(vid), {action: 'set_question_answer', kind: mode === 'ask_line' ? 'line' : 'free', id: qId, answer: aiRes.text});
+          saveCreatorStudy(vid, st);
+          return json(res, 200, {ok: true, id: qId, question, answer: aiRes.text, model: aiRes.model});
+        }
+
+        if (mode === 'retry_answer') {
+          const kind = body.kind === 'line' ? 'line' : 'free';
+          const id = String(body.id || '');
+          const st = loadCreatorStudy(vid);
+          const list = kind === 'line' ? st.lineQuestions : st.freeQuestions;
+          const target = list.find((q) => q.id === id);
+          if (!target) return json(res, 404, {error: '질문을 찾지 못했습니다.'});
+          const cut = kind === 'line' ? cuts[Number(target.cutIndex)] : null;
+          const aiRes = await answerStudentQuestion({
+            sheet,
+            question: target.question,
+            excerpt: target.excerpt || '',
+            cutNarration: cut ? String(cut.narration || '') : '',
+            cutEnglish: cut ? extractCutEnglish(cut) : [],
+            apiKey,
+          });
+          const updated = patchCreatorStudy(loadCreatorStudy(vid), {action: 'set_question_answer', kind, id, answer: aiRes.text});
+          saveCreatorStudy(vid, updated);
+          return json(res, 200, {ok: true, id, answer: aiRes.text, model: aiRes.model});
+        }
+
+        if (mode === 'followup') {
+          const kind = body.kind === 'line' ? 'line' : (body.kind === 'viewer' ? 'viewer' : 'free');
+          const id = String(body.id || '');
+          const followUp = String(body.question || '').trim();
+          if (!followUp) return json(res, 400, {error: '이어서 물어볼 내용을 입력해 주세요.'});
+          const st = loadCreatorStudy(vid);
+          const list = kind === 'line' ? st.lineQuestions : (kind === 'viewer' ? st.viewerQuestions : st.freeQuestions);
+          const target = list.find((q) => q.id === id);
+          if (!target) return json(res, 404, {error: '원래 질문을 찾지 못했습니다.'});
+          const cut = kind === 'line' ? cuts[Number(target.cutIndex)] : null;
+          const baseThread = [];
+          if (kind === 'viewer') {
+            baseThread.push({role: 'student', text: `시청자 질문: ${target.q}${target.guess ? ` (내 생각: ${target.guess})` : ''}`});
+            if (target.guessFeedback || target.teacherAnswer) {
+              baseThread.push({role: 'teacher', text: target.guessFeedback || target.teacherAnswer});
+            }
+          } else {
+            baseThread.push({role: 'student', text: target.question});
+            if (target.answer) baseThread.push({role: 'teacher', text: target.answer});
+          }
+          for (const t of target.thread || []) baseThread.push(t);
+          const aiRes = await answerStudentQuestion({
+            sheet,
+            question: followUp,
+            excerpt: target.excerpt || '',
+            cutNarration: cut ? String(cut.narration || '') : '',
+            cutEnglish: cut ? extractCutEnglish(cut) : [],
+            thread: baseThread,
+            apiKey,
+          });
+          const updated = patchCreatorStudy(loadCreatorStudy(vid), {action: 'append_question_thread', kind, id, question: followUp, answer: aiRes.text});
+          saveCreatorStudy(vid, updated);
+          return json(res, 200, {ok: true, id, question: followUp, answer: aiRes.text, model: aiRes.model});
+        }
+
+        if (mode === 'vq_feedback') {
+          const id = String(body.id || '');
+          const guess = String(body.guess || '').trim();
+          let st = loadCreatorStudy(vid);
+          const target = st.viewerQuestions.find((vq) => vq.id === id);
+          if (!target) return json(res, 404, {error: '해당 시청자 질문을 찾지 못했습니다.'});
+          st = patchCreatorStudy(st, {action: 'update_viewer_question', id, guess});
+          saveCreatorStudy(vid, st);
+
+          const aiRes = await feedbackViewerGuess({sheet, viewerQuestion: target, guess, apiKey});
+          st = patchCreatorStudy(loadCreatorStudy(vid), {action: 'update_viewer_question', id, guess, guessFeedback: aiRes.text});
+          saveCreatorStudy(vid, st);
+          return json(res, 200, {ok: true, id, guess, guessFeedback: aiRes.text, model: aiRes.model});
+        }
+
+        return json(res, 400, {error: '알 수 없는 과외 요청입니다.'});
+      } catch (e) {
+        return json(res, 500, {error: e.message || '선생님 답변 생성 중 오류가 발생했습니다.'});
+      }
     }
     if (url.pathname === '/api/transform-sheet-approve' && req.method === 'POST') {
       const body = await readJsonBody(req);

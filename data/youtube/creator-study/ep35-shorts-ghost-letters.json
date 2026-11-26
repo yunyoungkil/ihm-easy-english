@@ -1,10 +1,59 @@
 {
   "schemaVersion": 1,
   "sheetId": "ep35-shorts-ghost-letters",
-  "updatedAt": "2026-11-26T04:02:55.844Z",
+  "updatedAt": "2026-11-26T04:35:16.265Z",
   "scriptEdits": {},
-  "lineQuestions": [],
-  "freeQuestions": [],
+  "lineQuestions": [
+    {
+      "id": "lq-1795667079640-509",
+      "question": "l을 전부 안 읽지 않을 것 같은데. 규칙이 있어?",
+      "answer": "",
+      "resolved": false,
+      "createdAt": "2026-11-26T04:24:39.640Z",
+      "cutIndex": 2,
+      "sentenceIndex": 0,
+      "excerpt": "연어부터 볼까요?"
+    },
+    {
+      "id": "lq-1795667161433-11",
+      "question": "이 것도 p만 안 읽는 규칙이 있어?",
+      "answer": "",
+      "resolved": false,
+      "createdAt": "2026-11-26T04:26:01.433Z",
+      "cutIndex": 5,
+      "sentenceIndex": 0,
+      "excerpt": "피 자 빼고 리싯으로 읽어요."
+    },
+    {
+      "id": "lq-1795667268679-866",
+      "question": "e 뒤에 오는 글자는 대부분 안 읽는거야?",
+      "answer": "",
+      "resolved": false,
+      "createdAt": "2026-11-26T04:27:48.679Z",
+      "cutIndex": 7,
+      "sentenceIndex": 0,
+      "excerpt": "비 자 없이 깔끔하게 뎃!"
+    },
+    {
+      "id": "lq-1795667338775-644",
+      "question": "이런 단어들은 외우는 방법 뿐인가?",
+      "answer": "",
+      "resolved": false,
+      "createdAt": "2026-11-26T04:28:58.775Z",
+      "cutIndex": 8,
+      "sentenceIndex": 0,
+      "excerpt": "섬은 착각해서 에스를 넣었대요."
+    }
+  ],
+  "freeQuestions": [
+    {
+      "id": "fq-1795667716265-493",
+      "question": "이런 종류들의 단어들을 쉽게 알 수 있는 방법 있어. 단어를 전부 외우고 듣고 쓰고 말하는 방법 뿐인가? 이런 단어를 읽는 방법을 알아야 발전이 있을 것 같은데",
+      "answer": "",
+      "resolved": false,
+      "createdAt": "2026-11-26T04:35:16.265Z"
+    }
+  ],
   "focusWords": [
     {
       "word": "salmon",

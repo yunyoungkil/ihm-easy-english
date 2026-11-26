@@ -78,6 +78,17 @@ export function normalizeStudy(sheetId, raw = null) {
     }
   }
 
+  const normalizeThread = (arr) => (Array.isArray(arr) ? arr : [])
+    .map((t) => {
+      if (!t || typeof t !== 'object') return null;
+      const role = t.role === 'teacher' ? 'teacher' : 'student';
+      const text = cleanText(t.text, 2000);
+      if (!text) return null;
+      return {role, text, createdAt: t.createdAt ? String(t.createdAt) : null};
+    })
+    .filter(Boolean)
+    .slice(-16);
+
   const normalizeQ = (item, idx, prefix) => {
     if (!item || typeof item !== 'object') return null;
     const question = cleanText(item.question, 1000);
@@ -86,6 +97,7 @@ export function normalizeStudy(sheetId, raw = null) {
       id: cleanText(item.id, 60) || `${prefix}-${idx + 1}`,
       question,
       answer: cleanText(item.answer, 2000),
+      thread: normalizeThread(item.thread),
       resolved: Boolean(item.resolved),
       createdAt: item.createdAt ? String(item.createdAt) : null,
     };
@@ -132,6 +144,8 @@ export function normalizeStudy(sheetId, raw = null) {
         teacherAnswer: cleanText(vq.teacherAnswer, 1200),
         curious: Boolean(vq.curious),
         guess: cleanText(vq.guess, 500),
+        guessFeedback: cleanText(vq.guessFeedback, 2000),
+        thread: normalizeThread(vq.thread),
         revealed: Boolean(vq.revealed),
       };
     })
@@ -341,12 +355,13 @@ export function patchCreatorStudy(current, patch = {}) {
     const question = cleanText(patch.question, 1000);
     if (!question) throw new Error('질문 내용을 입력해 주세요.');
     next.lineQuestions.push({
-      id: `lq-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      id: cleanText(patch.id, 60) || `lq-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       cutIndex: Number.isInteger(Number(patch.cutIndex)) ? Number(patch.cutIndex) : 0,
       sentenceIndex: Number.isInteger(Number(patch.sentenceIndex)) ? Number(patch.sentenceIndex) : 0,
       excerpt: cleanText(patch.excerpt, 160),
       question,
-      answer: '',
+      answer: cleanText(patch.answer, 2000),
+      thread: [],
       resolved: false,
       createdAt: new Date().toISOString(),
     });
@@ -370,12 +385,39 @@ export function patchCreatorStudy(current, patch = {}) {
     const question = cleanText(patch.question, 1000);
     if (!question) throw new Error('질문 내용을 입력해 주세요.');
     next.freeQuestions.push({
-      id: `fq-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      id: cleanText(patch.id, 60) || `fq-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       question,
-      answer: '',
+      answer: cleanText(patch.answer, 2000),
+      thread: [],
       resolved: false,
       createdAt: new Date().toISOString(),
     });
+    return next;
+  }
+
+  if (patch.action === 'set_question_answer') {
+    const id = cleanText(patch.id, 60);
+    const list = patch.kind === 'line' ? next.lineQuestions : next.freeQuestions;
+    const target = list.find((q) => q.id === id);
+    if (!target) throw new Error('답변할 질문을 찾지 못했습니다.');
+    target.answer = cleanText(patch.answer, 2000);
+    return next;
+  }
+
+  if (patch.action === 'append_question_thread') {
+    const id = cleanText(patch.id, 60);
+    const studentText = cleanText(patch.question, 1000);
+    const teacherText = cleanText(patch.answer, 2000);
+    if (!studentText) throw new Error('꼬리 질문을 입력해 주세요.');
+    const list = patch.kind === 'line'
+      ? next.lineQuestions
+      : (patch.kind === 'viewer' ? next.viewerQuestions : next.freeQuestions);
+    const target = list.find((q) => q.id === id);
+    if (!target) throw new Error('이어서 물어볼 질문을 찾지 못했습니다.');
+    if (!Array.isArray(target.thread)) target.thread = [];
+    const nowIso = new Date().toISOString();
+    target.thread.push({role: 'student', text: studentText, createdAt: nowIso});
+    if (teacherText) target.thread.push({role: 'teacher', text: teacherText, createdAt: nowIso});
     return next;
   }
 
@@ -418,6 +460,7 @@ export function patchCreatorStudy(current, patch = {}) {
     if (!target) throw new Error('해당 질문을 찾지 못했습니다.');
     if (patch.curious !== undefined) target.curious = Boolean(patch.curious);
     if (patch.guess !== undefined) target.guess = cleanText(patch.guess, 500);
+    if (patch.guessFeedback !== undefined) target.guessFeedback = cleanText(patch.guessFeedback, 2000);
     if (patch.revealed !== undefined) target.revealed = Boolean(patch.revealed);
     return next;
   }

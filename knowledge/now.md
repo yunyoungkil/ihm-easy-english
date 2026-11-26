@@ -5,7 +5,6 @@
 ## ▶ 다음 할 일
 
 급한 순서로 적는다. 새 대화의 시작 브리핑에 그대로 나온다. 끝난 항목은 바로 지우고, 새 일이 생기면 여기에 적는다.
-- [ ] **집 PC(DESKTOP-UA9AKL2) 이어서 할 일: AI 티 검사기(slop-rewrite) 및 취향 파일 프로젝트 내장화 (11/26 낮 사용자 지시)**: 검사기 본체와 사용자 지적 누적 취향 파일이 집 PC 다운로드 폴더(`C:\Users\yunyo\Downloads\slop-rewrite`)에만 있어 노트북에서는 검사가 건너뛰어졌음. 집 PC에서 할 일: ① 집 PC의 `slop-rewrite`(취향 규칙 포함)를 저장소(`tools/slop-rewrite/`)로 복사/편입 ② `scripts/production-gate.mjs` 및 `scripts/blog/check-post.mjs` 경로를 프로젝트 내부 `tools/slop-rewrite/`로 변경 ③ 검사기 없을 때 조용히 넘어가지 않고 차단(fail-closed)하도록 안전선 강화 ④ 커밋·푸시하여 노트북과 동기화.
 - [ ] **12/07(월) 23:00 공개 직후 EP36 롱폼(`d9ywtP-2i2U`) 사후 관리**: 공개 직후 고정 댓글(`output/upload-packages/ep36-everyday-words-unheard/pinned-comment.txt`) 게시·상단 고정 및 마지막 9초 끝 화면(구독 + 다음 추천 영상) 확인.
 - [ ] **12/14(월) 이후 성과 정산**: EP36 새 포맷 롱폼(`d9ywtP-2i2U`, 12/07 23:00 공개) 공개 7일 노출수·클릭률·평균 시청 비율·구독 전환 정산 및 `style-experiments.md` #7 기록.
 - [ ] **노트북(DESKTOP-GPI3LM1) 다음 실행 시 PC 공유 받기 확인**: 집 PC(DESKTOP-UA9AKL2) 첫 공유·자동 실행 등록과 EP35 최종 재료·완성 영상 동기화까지 마쳤다(11/24 저녁). 노트북에서 `npm run pc-sync:status`로 받기 완료와 11/25 아침 `git pull`이 상태 파일 때문에 멈추지 않는지(`6b715d5`) 확인한다.

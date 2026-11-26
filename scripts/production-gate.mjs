@@ -19,8 +19,13 @@ export const ALLOW_RENDER_GATE = 'ALLOW_RENDER_GATE';
 export const ALLOW_BANNED_TERMS = 'ALLOW_BANNED_TERMS';
 export const MIN_MOBILE_FONT_PX = 34; // allow-literal: 1층 불변 모바일 최소 글자 크기(knowledge/rule-tiers.md 14번)
 export const MIN_FACT_CHECK_CHARS = 100; // allow-literal: 빈 껍데기 FACT-CHECK.md 방지 하한
-const EXTERNAL_SLOP_DIR = 'C:\\Users\\yunyo\\Downloads\\slop-rewrite';
-export const EXTERNAL_SLOP_SCRIPT = join(EXTERNAL_SLOP_DIR, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_ai_tells.py');
+const INTERNAL_SLOP_DIR = join(fileURLToPath(import.meta.url), '..', '..', 'tools', 'slop-rewrite');
+const EXTERNAL_SLOP_DIR_FALLBACK = 'C:\\Users\\yunyo\\Downloads\\slop-rewrite';
+const VENDOR_SLOP_SCRIPT = join(INTERNAL_SLOP_DIR, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_ai_tells.py');
+const FALLBACK_SLOP_SCRIPT = join(EXTERNAL_SLOP_DIR_FALLBACK, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_ai_tells.py');
+
+export const EXTERNAL_SLOP_DIR = existsSync(VENDOR_SLOP_SCRIPT) ? INTERNAL_SLOP_DIR : EXTERNAL_SLOP_DIR_FALLBACK;
+export const EXTERNAL_SLOP_SCRIPT = existsSync(VENDOR_SLOP_SCRIPT) ? VENDOR_SLOP_SCRIPT : FALLBACK_SLOP_SCRIPT;
 
 const VOICE_COMMAND = /(?:^|[;&|\s])(?:node\s+)?["']?(?:[^"'\s]*[\\/])?(?:generate-aistudio-speech|generate-tts)\.mjs\b/;
 
@@ -171,7 +176,7 @@ function walkHtml(dir) {
 
 function runOptionalExternalSlop(scriptPath) {
   if (!existsSync(EXTERNAL_SLOP_SCRIPT)) {
-    return {available: false, blockers: [], note: '외부 slop-rewrite 미설치 PC — 내장 한국어 자연스러움 검사로 검증했습니다.'};
+    return {available: false, blockers: ['필수 AI 티 검사기(slop-rewrite)를 찾을 수 없습니다. tools/slop-rewrite 설치를 확인하세요.'], note: ''};
   }
   try {
     execFileSync('python', ['-X', 'utf8', EXTERNAL_SLOP_SCRIPT, resolve(scriptPath), '--genre', '줄글', '--strict'], {

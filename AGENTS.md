@@ -56,6 +56,8 @@
 새 작업은 HyperFrames의 `/hyperframes` 스킬 진입점부터 시작한다.
 근거: [HyperFrames 전면 전환 결정](knowledge/decisions/2026-08-26-hyperframes-full-migration.md).
 
+**블로그 운영 규칙의 유일한 원본은 [`knowledge/playbooks/blog-operations.md`](knowledge/playbooks/blog-operations.md)이며, 슬로건과 공통 안전선(동일 애드센스 계정 보호, 경험 날조 금지, 성과 숫자 실제 데이터 원칙, AI 티 검사 필수, 저작권 준수)만 유튜브와 함께 공유한다 (2026-11-26 사용자 확정).**
+
 **제작 진행 상태·우선순위는 [`knowledge/`](knowledge/index.md)가 유일한 원본이다.** `knowledge/now.md`부터 읽을 것.
 
 ---

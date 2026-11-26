@@ -49,6 +49,11 @@ const COUPANG_URL_RE = /(?:^|\/\/|\.)coupang\.com(?:\/|$|\?)|(?:^|\/\/|\.)coupa\
 
 const normalizeWs = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
+const normalizeQuotes = (s) =>
+  String(s || '')
+    .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"')
+    .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'");
+
 function decodeEntities(s) {
   return String(s || '')
     .replace(/&nbsp;/gi, ' ')
@@ -226,11 +231,17 @@ export async function checkTechPost(
     ),
   ];
   const badUrls = [];
+  const urlPageTexts = new Map();
   for (const url of urls) {
     try {
       const res = await fetchImpl(url, {method: 'GET', headers: {'User-Agent': BROWSER_USER_AGENT}});
       if (res?.status !== 200) { // allow-literal: HTTP 성공 코드
         badUrls.push(`${url} (${res?.status ?? 'no-status'})`);
+      } else if (typeof res?.text === 'function') {
+        try {
+          const rawText = await res.text();
+          urlPageTexts.set(url, normalizeQuotes(htmlToText(rawText)));
+        } catch { /* ignore text extraction error */ }
       }
     } catch (err) {
       badUrls.push(`${url} (${err.message})`);
@@ -238,6 +249,22 @@ export async function checkTechPost(
   }
   if (badUrls.length) {
     problems.push({id: 'source-unreachable', text: `출처를 열지 못했습니다: ${badUrls.join(', ')}`});
+  }
+
+  // 출처 인용문 1:1 대조 검사 (2026-11-26 사용자 확정: 사람 확인 대신 프로그램 대조)
+  const badQuotes = [];
+  for (const step of steps) {
+    const q = normalizeQuotes(normalizeWs(step?.source?.quote));
+    const url = String(step?.source?.url || '').trim();
+    if (q && url && urlPageTexts.has(url)) {
+      const pageText = urlPageTexts.get(url);
+      if (pageText && !pageText.includes(q)) {
+        badQuotes.push(`"${q}" in ${url}`);
+      }
+    }
+  }
+  if (badQuotes.length) {
+    problems.push({id: 'source-quote-mismatch', text: `출처 페이지에서 인용문을 찾지 못했습니다: ${badQuotes.join('; ')}`});
   }
 
   // 모든 글은 대표 그림 설계도(heroImage)가 있어야 한다(설계 2026-11-25 D절). 값은 정하지 않고 빈칸·안전선만 본다.

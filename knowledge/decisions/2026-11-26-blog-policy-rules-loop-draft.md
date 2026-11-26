@@ -1,7 +1,7 @@
-# 블로그 정책·규칙·결과 루프 초안 (2026-11-26)
+# 블로그 정책·규칙·결과 루프 (2026-11-26 확정)
 
-> 상태: **초안**. 사용자가 보고 정하기 전에는 글쓰기 지침(`scripts/blog/prompts/tech-post.md`), 점검 코드, `AGENTS.md`를 바꾸지 않는다.
-> 원래 대화: DESKTOP-GPI3LM1 · Claude Code · `6b81acaa-73fc-4cde-a720-f9a0ae88ad38`.
+> 상태: **확정 (2026-11-26 사용자 승인)**. 사용자 3대 결정 확정: ① 사람 확인 대신 프로그램 출처 1:1 대조 검사 적용 ② 4주간 노출 0인 글 제목·도입부 수정 허용 ③ AGENTS.md 공통 안전선 및 원본 위치 명시.
+> 원래 대화: DESKTOP-GPI3LM1 · Claude Code · `6b81acaa-73fc-4cde-a720-f9a0ae88ad38` 및 DESKTOP-UA9AKL2 · Gemini · `33131065-ff87-48e0-b91e-0df7311b956e`.
 > 재료: [자료집](../blog-seo-affiliate-research-2026-11-26.md)(11/26 새벽 제미나이, 검색 결과 요약만 보고 씀) → 11/26 낮에 핵심 주장을 원문으로 다시 확인(보조 AI 2명, 주소는 11절). 기존 규칙: [설계](2026-11-24-d40m-two-blogs-design.md), [운영 지침](../playbooks/blog-operations.md), 글쓰기 지침.
 
 ## 0. 한 줄 요약

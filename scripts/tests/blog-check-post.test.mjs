@@ -156,6 +156,50 @@ test('출처 fetchImpl이 403을 반환하면 source-unreachable (GET + User-Age
   assert.ok(seen[0].init?.headers?.['User-Agent']);
 });
 
+test('출처 페이지 텍스트에 인용문이 없으면 source-quote-mismatch', async () => {
+  const draft = makeValidDraft({
+    steps: [
+      {
+        text: VALID_STEP,
+        source: {url: VALID_SOURCE_URL, quote: '이 문장은 출처 페이지에 없습니다.'},
+      },
+    ],
+  });
+  const res = await checkTechPost(
+    draft,
+    okDeps({
+      fetchImpl: async () => ({
+        status: 200,
+        text: async () => '<html><body><p>다른 내용만 있는 공식 고객지원 페이지입니다.</p></body></html>',
+      }),
+    }),
+  );
+  assert.equal(res.ok, false);
+  assert.deepEqual(problemIds(res), ['source-quote-mismatch']);
+});
+
+test('출처 페이지 텍스트에 인용문이 따옴표 차이(“ ” vs ")가 있어도 정규화 후 통과한다', async () => {
+  const draft = makeValidDraft({
+    steps: [
+      {
+        text: VALID_STEP,
+        source: {url: VALID_SOURCE_URL, quote: '“어댑터가 콘센트에 단단히 꽂혔는지” 확인하세요.'},
+      },
+    ],
+  });
+  const res = await checkTechPost(
+    draft,
+    okDeps({
+      fetchImpl: async () => ({
+        status: 200,
+        text: async () => '<html><body><p>"어댑터가 콘센트에 단단히 꽂혔는지" 확인하세요.</p></body></html>',
+      }),
+    }),
+  );
+  assert.equal(res.ok, true);
+  assert.deepEqual(problemIds(res), []);
+});
+
 test('runSlop이 {ok: false}면 slop', async () => {
   const res = await checkTechPost(makeValidDraft(), okDeps({runSlop: async () => ({ok: false})}));
   assert.equal(res.ok, false);

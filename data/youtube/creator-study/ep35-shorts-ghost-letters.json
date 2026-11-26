@@ -1,59 +1,10 @@
 {
   "schemaVersion": 1,
   "sheetId": "ep35-shorts-ghost-letters",
-  "updatedAt": "2026-11-26T04:35:16.265Z",
+  "updatedAt": "2026-11-26T09:45:46.325Z",
   "scriptEdits": {},
-  "lineQuestions": [
-    {
-      "id": "lq-1795667079640-509",
-      "question": "l을 전부 안 읽지 않을 것 같은데. 규칙이 있어?",
-      "answer": "",
-      "resolved": false,
-      "createdAt": "2026-11-26T04:24:39.640Z",
-      "cutIndex": 2,
-      "sentenceIndex": 0,
-      "excerpt": "연어부터 볼까요?"
-    },
-    {
-      "id": "lq-1795667161433-11",
-      "question": "이 것도 p만 안 읽는 규칙이 있어?",
-      "answer": "",
-      "resolved": false,
-      "createdAt": "2026-11-26T04:26:01.433Z",
-      "cutIndex": 5,
-      "sentenceIndex": 0,
-      "excerpt": "피 자 빼고 리싯으로 읽어요."
-    },
-    {
-      "id": "lq-1795667268679-866",
-      "question": "e 뒤에 오는 글자는 대부분 안 읽는거야?",
-      "answer": "",
-      "resolved": false,
-      "createdAt": "2026-11-26T04:27:48.679Z",
-      "cutIndex": 7,
-      "sentenceIndex": 0,
-      "excerpt": "비 자 없이 깔끔하게 뎃!"
-    },
-    {
-      "id": "lq-1795667338775-644",
-      "question": "이런 단어들은 외우는 방법 뿐인가?",
-      "answer": "",
-      "resolved": false,
-      "createdAt": "2026-11-26T04:28:58.775Z",
-      "cutIndex": 8,
-      "sentenceIndex": 0,
-      "excerpt": "섬은 착각해서 에스를 넣었대요."
-    }
-  ],
-  "freeQuestions": [
-    {
-      "id": "fq-1795667716265-493",
-      "question": "이런 종류들의 단어들을 쉽게 알 수 있는 방법 있어. 단어를 전부 외우고 듣고 쓰고 말하는 방법 뿐인가? 이런 단어를 읽는 방법을 알아야 발전이 있을 것 같은데",
-      "answer": "",
-      "resolved": false,
-      "createdAt": "2026-11-26T04:35:16.265Z"
-    }
-  ],
+  "lineQuestions": [],
+  "freeQuestions": [],
   "focusWords": [
     {
       "word": "salmon",
@@ -99,6 +50,8 @@
       "teacherAnswer": "옛날 사람들이 원래 '새먼'이라고 말하던 단어인데, 15~16세기 학자들이 라틴어 어원(salmo)을 살려 멋을 내려고 글자에만 L을 끼워 넣었어요. 글자는 바뀌었는데 사람들 입에는 원래 소리가 그대로 남은 거예요.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -108,6 +61,8 @@
       "teacherAnswer": "초밥집이나 식당처럼 맥락이 확실하면 눈치로 알아듣기도 하지만, 소리만 들으면 전혀 다른 단어처럼 들려 한 번 더 되묻는 경우가 많아요. L을 빼고 '새먼'이라고만 해도 훨씬 잘 통합니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -117,6 +72,8 @@
       "teacherAnswer": "철자는 비슷해 보이지만 소리는 확 달라요. 영수증 receipt는 P를 안 읽어 '리씨트', 요리법 recipe는 P를 또박또박 읽어 '레서피'예요. 두 개를 세트로 구분해 두면 안 헷갈립니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -126,6 +83,8 @@
       "teacherAnswer": "한국어처럼 '리씨트!' 하고 끝을 세게 내릴 필요는 없어요. '리씨'까지 힘 있게 말하고, 마지막 T는 혀끝만 살짝 막았다가 숨만 툭 빼는 느낌으로 아주 가볍게 끝내면 원어민에 가까워집니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -135,6 +94,8 @@
       "teacherAnswer": "좋은 질문이에요! debt는 혀끝을 윗니 뒤에 대고 끊는 '데트', death는 혀끝을 윗니·아랫니 사이에 살짝 끼우고 바람을 빼는 '데쓰'예요. 끝소리가 끊기느냐(트) 바람이 새느냐(쓰)로 구분됩니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -144,6 +105,8 @@
       "teacherAnswer": "섬(island)은 S가 묵음이라 '아일랜드', 나라 이름 Iceland는 얼음(ice)의 S를 살려서 '아이슬란드'라고 읽어요. S 소리가 들리면 나라, 안 들리면 섬이라고 기억하시면 쉽습니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -153,6 +116,8 @@
       "teacherAnswer": "다 안 읽는 건 아니에요! 아쉽게도 '유령 글자'는 역사 때문에 남은 것들이라 만능 공식보다는 자주 쓰는 10~15개(salmon, walk, talk, debt, doubt, island, receipt 등)를 눈과 귀로 몇 번만 익히는 게 훨씬 빠릅니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -162,6 +127,8 @@
       "teacherAnswer": "맞아요! walk(워크), talk(토크), half(해프), calm(캄)도 전부 L을 안 읽어요. 눈으로 L이 보여도 혀를 들지 않고 바로 다음 소리로 넘어가는 같은 가족이라고 보시면 됩니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -171,6 +138,8 @@
       "teacherAnswer": "일상에서 자주 보는 debt(빚), doubt(의심), subtle(미묘한)처럼 -bt가 붙은 단어는 대부분 B를 안 읽어요. 반대로 obtain(얻다)처럼 앞뒤 음절이 나뉘는 단어(ob-tain)는 B를 읽습니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     },
     {
@@ -180,6 +149,8 @@
       "teacherAnswer": "유령 글자(안 읽는 글자) 규칙은 미국식·영국식 둘 다 똑같아요! 어느 나라를 가든 salmon의 L, receipt의 P, debt·doubt의 B, island의 S는 읽지 않습니다.",
       "curious": false,
       "guess": "",
+      "guessFeedback": "",
+      "thread": [],
       "revealed": false
     }
   ]

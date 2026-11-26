@@ -134,7 +134,7 @@ test('renderCreatorStudySection: HTML 이스케이프·설명 기본 숨김·클
   assert.doesNotThrow(() => new Function(match[1]));
 });
 
-test('creator-study-tutor: 프롬프트에 왕초보 눈높이·전문용어 금지·예시 단어 안내가 들어가고 모델 폴백이 작동한다', async () => {
+test('creator-study-tutor: 프롬프트에 왕초보 눈높이·전문용어 금지·질문 본질 안내가 들어가고 모델 폴백이 작동한다', async () => {
   const sheet = makeSheet('draft');
   const qPrompt = buildQuestionPrompt({
     sheet,
@@ -143,9 +143,9 @@ test('creator-study-tutor: 프롬프트에 왕초보 눈높이·전문용어 금
     cutEnglish: ['salmon'],
     thread: [{role: 'student', text: '처음 질문'}, {role: 'teacher', text: '처음 답'}],
   });
-  assert.ok(qPrompt.includes('절대 금지'));
-  assert.ok(qPrompt.includes('비슷한 쉬운 예시 단어 2~3개'));
+  assert.ok(qPrompt.includes('전문 용어'));
   assert.ok(qPrompt.includes('학생의 꼬리 질문'));
+  assert.ok(qPrompt.includes('탈템플릿 원칙'));
 
   const gPrompt = buildGuessFeedbackPrompt({
     sheet,

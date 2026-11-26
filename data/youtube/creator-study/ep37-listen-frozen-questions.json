@@ -50,7 +50,8 @@
       "teacherAnswer": "영어는 뜻이 중요한 단어(장소·행동)만 크고 길게 읽고, 연결하는 작은 단어(do, to, the, a)는 숨을 아끼려고 아주 작고 빠르게 흘려 버려요. 못 들은 게 아니라 원래 작게 말한 겁니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-2",
@@ -59,7 +60,8 @@
       "teacherAnswer": "네, 실제 원어민도 모든 단어를 다 듣지 않고 핵심 단어만 귀로 잡아요. 'Get... Seoul Station?'만 들려도 '서울역 가는 길 묻는구나' 하고 'Take Line 1'이라고 짧게 답하면 100% 통합니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-3",
@@ -68,7 +70,8 @@
       "teacherAnswer": "소리를 그냥 배경음악처럼 흘려보내면 효과가 약하지만, 1부에서 '어디가 작아지고 붙는지' 한 번 짚어 준 뒤 2부에서 반복해 들으면 귀가 그 소리를 알아차리기 시작해요. 산책·설거지하면서 핵심 단어만 잡아 보는 게 좋습니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-4",
@@ -77,7 +80,8 @@
       "teacherAnswer": "앞 단어 끝의 받침(n)이 뒤 단어의 모음(I)과 만나면, 입을 멈추지 않고 자연스럽게 이어 버려요. 한국어에서 '안 아파'를 '아나파'라고 말하는 것과 똑같은 원리입니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-5",
@@ -86,7 +90,8 @@
       "teacherAnswer": "맞아요! does 끝의 '즈' 소리가 뒤의 it과 바로 붙어 '더짓' 한 덩어리가 돼요. 귀로 '더짓'을 한 단어처럼 익혀 두면 다음에 훨씬 편하게 들립니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-6",
@@ -95,7 +100,8 @@
       "teacherAnswer": "길게 말할 필요 없어요. 'Sorry? One more time, please.' 또는 그냥 'Slowly, please.' 한 마디면 누구나 천천히 다시 말해 줍니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-7",
@@ -104,7 +110,8 @@
       "teacherAnswer": "길 안내할 때 'Take Line 1'은 무례하지 않고 아주 자연스러운 안내 표현이에요. 조금 더 부드럽게 말하고 싶으면 웃으면서 'You can take Line 1' 정도만 붙이면 충분합니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-8",
@@ -113,7 +120,8 @@
       "teacherAnswer": "get 끝의 T와 to 앞의 T가 똑같은 자리에서 부딪히기 때문에, 두 번 끊어 읽지 않고 한 번만 묶어서 '게투/게터'처럼 넘어가요. 우리말 '갓 쓴'을 부드럽게 이어 읽는 것과 비슷합니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-9",
@@ -122,7 +130,8 @@
       "teacherAnswer": "혼자 있을 때 아주 작은 목소리로라도 딱 한 번만 소리 내어 말해 보세요. 눈으로만 들을 때보다 입을 움직여 내 귀로 한 번 들으면 기억에 훨씬 오래 남고, 남이 말할 때도 그 소리가 더 잘 들립니다.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     },
     {
       "id": "vq-10",
@@ -131,7 +140,8 @@
       "teacherAnswer": "절대 다 외울 필요 없어요! 오늘은 딱 1장 길 묻기 중 제일 익숙한 1~2문장만 귀에 남기셔도 충분합니다. 며칠 뒤에 틀어 놓으면 나머지도 슬슬 들리기 시작해요.",
       "curious": false,
       "guess": "",
-      "revealed": false
+      "revealed": false,
+      "guessFeedback": ""
     }
   ]
 }

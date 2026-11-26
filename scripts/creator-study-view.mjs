@@ -7,6 +7,22 @@ import {buildViewerScriptBlocks, resolveFocusWords} from './creator-study.mjs';
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+function renderAnswerBody(text) {
+  if (!text) return '';
+  const clean = String(text || '').trim();
+  const html = clean
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/^###\s*(.+)$/gm, '<div style="font-weight:700;color:var(--text);margin-top:14px;margin-bottom:6px;font-size:15px">📌 $1</div>')
+    .replace(/^##\s*(.+)$/gm, '<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">📌 $1</div>')
+    .replace(/^---\s*$/gm, '<hr style="border:none;border-top:1px dashed var(--border);margin:12px 0;">')
+    .replace(/\*\*([^*]+)\*\*/g, '<b style="color:var(--accent);font-weight:700">$1</b>')
+    .replace(/`([^`]+)`/g, '<code style="background:var(--code-bg,rgba(255,255,255,0.08));padding:1px 5px;border-radius:4px;font-family:monospace;font-size:14px">$1</code>')
+    .replace(/^\*\s*(.+)$/gm, '<div style="padding-left:14px;position:relative;margin:3px 0"><span style="position:absolute;left:2px;color:var(--accent)">•</span>$1</div>')
+    .replace(/\n\n+/g, '<div style="height:10px"></div>')
+    .replace(/\n/g, '<br>');
+  return `<div style="margin-top:8px">${html}</div>`;
+}
+
 export const CREATOR_STUDY_CSS = `<style>
 .study-room{margin:28px 0 32px;padding:22px 20px 24px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(56,189,248,0.045),rgba(168,85,247,0.025) 45%,transparent 100%)}
 .study-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
@@ -257,7 +273,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
       ${q.answer
-        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\n${escapeHtml(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('line', q.id)}`
+        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('line', q.id)}`
         : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="line" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
     ...freeQuestions.map((q) => `<div class="card" style="padding:12px 14px;border-left:3px solid var(--accent)" data-q-summary="free" data-id="${escapeHtml(q.id)}">
@@ -270,7 +286,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
       ${q.answer
-        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\n${escapeHtml(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('free', q.id)}`
+        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('free', q.id)}`
         : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="free" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
   ].join('');
@@ -332,6 +348,21 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     var d=document.createElement('div');
     d.textContent=String(s||'');
     return d.innerHTML;
+  }
+  function formatReplyHtml(text){
+    if(!text)return '';
+    var clean=String(text||'').trim();
+    // 마크다운 헤더(###, ##)와 구분선(---)을 읽기 쉬운 시각적 구분으로 치환
+    var html=clean
+      .split('\\n\\n').map(function(para){
+        var p=para.trim();
+        if(!p)return '';
+        if(p.indexOf('###')===0)return '<div style="font-weight:700;color:var(--text);margin-top:14px;margin-bottom:6px;font-size:15px">📌 '+escText(p.replace(/^###\\s*/,''))+'</div>';
+        if(p.indexOf('##')===0)return '<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">📌 '+escText(p.replace(/^##\\s*/,''))+'</div>';
+        if(p==='---')return '<hr style="border:none;border-top:1px dashed var(--border);margin:12px 0;">';
+        return '<div style="margin:6px 0;line-height:1.7">'+escText(p).replace(/\\n/g,'<br>')+'</div>';
+      }).join('');
+    return html;
   }
   function makeFollowUpHtml(kind,id){
     return '<div class="study-followup-row" data-followup-wrap="'+escText(kind)+'" data-followup-id="'+escText(id)+'">'
@@ -499,7 +530,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         btn.textContent='👩‍🏫 질문하고 바로 답 듣기';
         tempBubble.setAttribute('data-lq-id',res.id);
         tempBubble.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><b>❓ 내 질문:</b> '+escText(qText)+'</div><button type="button" class="notion-mini-btn" data-del-lq="'+escText(res.id)+'">삭제</button></div>'
-          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\\n'+escText(res.answer)+'</div></div>'
+          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b><div style="margin-top:8px">'+formatReplyHtml(res.answer)+'</div></div></div>'
           +makeFollowUpHtml('line',res.id);
         updateQuestionCount(1);
         showToast('👩‍🏫 선생님 답변이 도착했습니다');
@@ -556,7 +587,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       btn.disabled=true;
       postTutor({mode:'followup',kind:kind,id:id,question:qText}).then(function(res){
         btn.disabled=false;
-        tcDiv.innerHTML='<div class="study-answer-text"><b>👩‍🏫 선생님:</b> '+escText(res.answer)+'</div>';
+        tcDiv.innerHTML='<div class="study-answer-text"><b>👩‍🏫 선생님:</b><div style="margin-top:8px">'+formatReplyHtml(res.answer)+'</div></div>';
         showToast('👩‍🏫 이어진 답변이 도착했습니다');
       }).catch(function(err){
         btn.disabled=false;
@@ -710,7 +741,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         card.setAttribute('data-id',res.id);
         card.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="meta">자유 질문</span><div style="display:flex;gap:6px"><button type="button" class="notion-mini-btn" data-toggle-resolved="free" data-id="'+escText(res.id)+'">아직 궁금</button><button type="button" class="notion-mini-btn" data-del-fq="'+escText(res.id)+'">삭제</button></div></div>'
           +'<div style="margin-top:6px;font-weight:700">❓ '+escText(qText)+'</div>'
-          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>\\n'+escText(res.answer)+'</div></div>'
+          +'<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b><div style="margin-top:8px">'+formatReplyHtml(res.answer)+'</div></div></div>'
           +makeFollowUpHtml('free',res.id);
         updateQuestionCount(1);
         showToast('👩‍🏫 선생님 답변이 도착했습니다');

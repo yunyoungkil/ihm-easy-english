@@ -180,3 +180,17 @@ test('--compare 구조 경고(2026-11-24): 권유 어미 과다와 입말 끊김
   assert.match(joined, /권유·지시 어미/);
   assert.match(joined, /명사·입말 끊김/);
 });
+
+test('lecture-style(2026-11-26): 딱딱한 강의체 2회 이상이면 비차단 warn, 1회 이하는 통과', () => {
+  const stiff = wrap(
+    '이번 시간에는 두 가지 표현을 알아보도록 하겠습니다.',
+    '따라서 문맥을 정확히 파악하셔야 합니다.',
+  );
+  const r = checkNarration(stiff);
+  const hit = r.issues.find((i) => i.kind === 'lecture-style');
+  assert.ok(hit);
+  assert.equal(hit.severity, 'warn');
+
+  const natural = wrap('오늘은 두 가지만 비교해 볼게요.', '쉽게 말하면 방향 차이예요.');
+  assert.ok(!kinds(natural).includes('lecture-style'));
+});

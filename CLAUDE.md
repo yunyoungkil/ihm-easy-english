@@ -7,7 +7,7 @@
 
 ## 상위 주도·하위 분업과 토큰 절약 (`opusplan` + `opus-expert` / `sonnet-worker`, 2026-11-26 개정, 모든 PC)
 
-프로젝트 설정(`.claude/settings.json`)에 `"model": "opusplan"`이 들어가 있어 **`git pull`만 하면 두 PC 모두 자동 적용**된다. **계획 모드(`Shift+Tab`·`/plan`)에서는 자동으로 Opus가 진단·설계·분업을 정하고, 실행에 들어가면 자동으로 Sonnet으로 내려와 토큰을 아낀다.** 일반 실행 모드에서 판단이 꼬이거나 어려운 문제가 나오면 `opus-expert`(`.claude/agents/opus-expert.md`)에게 먼저 묻고, 설계가 정해진 구현·정리·테스트는 `sonnet-worker`(`.claude/agents/sonnet-worker.md`)·`haiku`에 맡긴다.
+프로젝트 설정(`.claude/settings.json`)에 `"model": "opusplan"`이 들어가 있어 **`git pull`만 하면 두 PC 모두 자동 적용**된다. **계획 모드(`Shift+Tab`·`/plan`)에서는 자동으로 Opus가 진단·설계·분업을 정하고, 실행에 들어가면 자동으로 Sonnet으로 내려와 토큰을 아낀다.** 일반 실행 모드에서 판단이 꼬이거나 어려운 문제가 나오면 `opus-expert`(`.claude/agents/opus-expert.md`)에게 먼저 묻는다. 설계가 정해진 구현·정리·테스트는 `sonnet-worker`(`.claude/agents/sonnet-worker.md`)·`haiku`에 맡긴다.
 
 - **`opus-expert`에게 묻는 때**: 계획 모드 밖에서 규칙끼리 부딪히는 판단, 여러 문서에 걸친 분류·정리, 분석·성장 루프·데이터 구조의 설계와 검증, 여러 파일에 걸친 큰 수정의 설계, 코드 리뷰, 두 번 이상 틀린 문제, 사용자가 "어렵다"·"판단해 줘"라고 한 일.
 - **안 묻는 때**: 파일 읽기, 문서 정리, 브리핑, 단순 수정, 테스트 실행. 사용자 결정이 필요한 것(불변 규칙, 방향, 우선순위)은 Opus에게도 맡기지 않고 사용자에게 묻는다. Opus는 근거와 권고만 낸다.

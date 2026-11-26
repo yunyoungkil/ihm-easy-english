@@ -22,6 +22,7 @@ export const T = Object.freeze({
   UNIFORM_BLOCKS_CV_MAX: 0.25, // allow-literal: 컷당 문장 수 변동계수가 이보다 낮으면 모든 컷이 똑같은 요약 슬라이드
   UNIFORM_BLOCKS_MAX_SENTS: 6, // allow-literal: 컷마다 6문장 이하로 쪼개진 경우에만 요약 카드 의심
   SYMMETRY_PARALLELS_MIN: 4, // allow-literal: '똑같-/마찬가지/역시' 병렬 연결 4회 이상이면 교과서 대칭 경고
+  LECTURE_STYLE_MIN: 2, // allow-literal: 딱딱한 강의체·문어 접속어가 한 대본에서 2회 이상 뭉치면 입말 참고 경고(2026-11-26 6개 채널 실측)
 });
 
 // 끝맺음 틀: 어미 앞 틀을 이름으로 묶는다
@@ -42,6 +43,7 @@ const BANNED = [
 ];
 
 const FABRICATED = /(?:제가|저는|저도|제 경험|내가)[^.?!]{0,24}(?:직접[^.?!]{0,12}(?:해봤|해 봤|들어봤|들어 봤|확인했|녹음)|녹음해서|뜯어봤|뜯어 봤|들어봤|분석해 봤|분석해봤|써봤|써 봤)/;
+const LECTURE_STYLE = /알아보도록 하겠|말씀드린 바와|하셔야 합니다|사용하여|이용하여|따라서\s|주의하시기 바랍|숙지하시기 바랍/g;
 const PARTICLE_MISSING = /(?:^|\s)(귀|소리|입|혀|발음|실력)\s+(?:확실하게\s+|활짝\s+|제대로\s+)?(뚫어|뚫|열어|트여|꿰뚫어)/;
 
 const META_LINE = /^[-*]\s|^\*\*|:\*\*|^[가-힣A-Za-z ]{1,10}:(?:\s|$)/; // 블록 안에 섞인 제작 메모(목록, **라벨:**, 라벨: 값)
@@ -201,6 +203,17 @@ export function checkNarration(markdown) {
     } else if (parallels.length >= T.SYMMETRY_PARALLELS_MIN + 2) {
       add('ai-symmetry-tics', 'warn', sentences[0], `병렬(${parallels.length}회)`, '"똑같-/마찬가지/역시" 병렬 연결 과다 — 변주 권장');
     }
+  }
+
+  // lecture-style: 딱딱한 강의체·문어 접속어 뭉침 감지(2026-11-26, 비차단 warn)
+  const lectureHits = [];
+  sentences.forEach((s) => {
+    const ms = s.text.match(LECTURE_STYLE);
+    if (ms) ms.forEach((hit) => lectureHits.push({ s, hit: hit.trim() }));
+  });
+  if (lectureHits.length >= T.LECTURE_STYLE_MIN) {
+    const sample = [...new Set(lectureHits.map((x) => x.hit))].slice(0, 4).join(', ');
+    add('lecture-style', 'warn', lectureHits[0].s, `${sample} (${lectureHits.length}회)`, '딱딱한 강의체·문어 접속어 뭉침 — 담백한 입말로 풀기 권장');
   }
 
   return { sentenceCount: sentences.length, issues };

@@ -14,7 +14,7 @@ import {
   applyStudyEditsToSheet,
   summarizeCreatorStudy,
 } from '../creator-study.mjs';
-import {renderCreatorStudySection} from '../creator-study-view.mjs';
+import {renderCreatorStudySection, renderAnswerBody} from '../creator-study-view.mjs';
 import {buildQuestionPrompt, buildGuessFeedbackPrompt, callGeminiTutor} from '../creator-study-tutor.mjs';
 
 const makeSheet = (status = 'draft') => ({
@@ -183,4 +183,26 @@ test('patchCreatorStudy: 꼬리 질문(thread)과 시청자 질문 맞춤 피드
   assert.equal(st.viewerQuestions[0].guessFeedback, '맞춤 피드백');
   st = patchCreatorStudy(st, {action: 'append_question_thread', kind: 'viewer', id: 'vq-1', question: '추가 궁금증', answer: '추가 설명'});
   assert.equal(st.viewerQuestions[0].thread.length, 2);
+});
+
+test('renderAnswerBody: 소제목·중첩 목록·굵은 글씨·코드·인용·수식 화살표를 날것 기호 없이 HTML로 변환한다', () => {
+  const md = [
+    '### 1. 자음 + L 패턴',
+    '#### ① `-alm` 묶음',
+    '* **-alm**: `salmon` $\\rightarrow$ 새먼',
+    '  * walk, talk, half',
+    '> 규칙과 예외를 나눠 보면 쉽습니다.',
+  ].join('\n');
+  const html = renderAnswerBody(md);
+  assert.ok(html.includes('1. 자음 + L 패턴'));
+  assert.ok(html.includes('①'));
+  assert.ok(html.includes('→'));
+  assert.ok(html.includes('<b '));
+  assert.ok(html.includes('<code '));
+  assert.ok(html.includes('list-style-type:circle'));
+  assert.ok(!html.includes('####'));
+  assert.ok(!html.includes('###'));
+  assert.ok(!html.includes('**'));
+  assert.ok(!html.includes('`'));
+  assert.ok(!html.includes('\\rightarrow'));
 });

@@ -7,20 +7,81 @@ import {buildViewerScriptBlocks, resolveFocusWords} from './creator-study.mjs';
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-function renderAnswerBody(text) {
+export function renderAnswerBody(text) {
   if (!text) return '';
-  const clean = String(text || '').trim();
-  const html = clean
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/^###\s*(.+)$/gm, '<div style="font-weight:700;color:var(--text);margin-top:14px;margin-bottom:6px;font-size:15px">📌 $1</div>')
-    .replace(/^##\s*(.+)$/gm, '<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">📌 $1</div>')
-    .replace(/^---\s*$/gm, '<hr style="border:none;border-top:1px dashed var(--border);margin:12px 0;">')
-    .replace(/\*\*([^*]+)\*\*/g, '<b style="color:var(--accent);font-weight:700">$1</b>')
-    .replace(/`([^`]+)`/g, '<code style="background:var(--code-bg,rgba(255,255,255,0.08));padding:1px 5px;border-radius:4px;font-family:monospace;font-size:14px">$1</code>')
-    .replace(/^\*\s*(.+)$/gm, '<div style="padding-left:14px;position:relative;margin:3px 0"><span style="position:absolute;left:2px;color:var(--accent)">•</span>$1</div>')
-    .replace(/\n\n+/g, '<div style="height:10px"></div>')
-    .replace(/\n/g, '<br>');
-  return `<div style="margin-top:8px">${html}</div>`;
+  const clean = String(text || '').replace(/\r\n/g, '\n').trim();
+  const lines = clean.split('\n');
+  const rendered = [];
+  let inList = false;
+
+  const closeList = () => {
+    if (inList) { rendered.push('</ul>'); inList = false; }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i];
+    const indent = (rawLine.match(/^(\s*)/)?.[1] || '').replace(/\t/g, '  ').length;
+    const line = rawLine.trim();
+    if (!line) {
+      closeList();
+      rendered.push('<div style="height:8px"></div>');
+      continue;
+    }
+
+    if (/^####\s+/.test(line)) {
+      closeList();
+      const content = line.replace(/^####\s+/, '');
+      rendered.push(`<div style="font-weight:700;color:var(--ink);margin-top:11px;margin-bottom:4px;font-size:14.5px">${formatInlineMd(content)}</div>`);
+      continue;
+    }
+    if (/^###\s+/.test(line)) {
+      closeList();
+      const content = line.replace(/^###\s+/, '');
+      rendered.push(`<div style="font-weight:700;color:var(--ink);margin-top:14px;margin-bottom:6px;font-size:15px">${formatInlineMd(content)}</div>`);
+      continue;
+    }
+    if (/^##\s+/.test(line)) {
+      closeList();
+      const content = line.replace(/^##\s+/, '');
+      rendered.push(`<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">${formatInlineMd(content)}</div>`);
+      continue;
+    }
+    if (/^---\s*$/.test(line)) {
+      closeList();
+      rendered.push('<hr style="border:none;border-top:1px dashed var(--line, #475569);margin:12px 0;">');
+      continue;
+    }
+    if (/^>\s*/.test(line)) {
+      closeList();
+      const content = line.replace(/^>\s*/, '');
+      rendered.push(`<div style="margin:8px 0;padding:8px 12px;border-left:3px solid var(--accent);background:rgba(56,189,248,0.06);border-radius:0 8px 8px 0;line-height:1.65">${formatInlineMd(content)}</div>`);
+      continue;
+    }
+    if (/^[*•-]\s+/.test(line)) {
+      if (!inList) { rendered.push('<ul style="margin:6px 0;padding-left:20px;list-style-type:disc">'); inList = true; }
+      const content = line.replace(/^[*•-]\s+/, '');
+      const nestedStyle = indent >= 2 ? 'margin:3px 0 3px 16px;list-style-type:circle;line-height:1.65' : 'margin:4px 0;line-height:1.65';
+      rendered.push(`<li style="${nestedStyle}">${formatInlineMd(content)}</li>`);
+      continue;
+    }
+
+    closeList();
+    rendered.push(`<div style="margin:4px 0;line-height:1.7">${formatInlineMd(line)}</div>`);
+  }
+  closeList();
+
+  return `<div style="margin-top:8px">${rendered.join('')}</div>`;
+}
+
+function formatInlineMd(str) {
+  let s = escapeHtml(str)
+    .replace(/\$\\rightarrow\$/g, '→')
+    .replace(/\$\\leftarrow\$/g, '←')
+    .replace(/\$\\leftrightarrow\$/g, '↔');
+  s = s.replace(/`([^`]+)`/g, '<code style="background:rgba(148,163,184,0.18);padding:1px 5px;border-radius:4px;font-family:monospace;font-size:13.5px">$1</code>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<b style="color:var(--accent);font-weight:700">$1</b>');
+  s = s.replace(/\*([^*]+)\*/g, '<i style="color:var(--ink)">$1</i>');
+  return s;
 }
 
 export const CREATOR_STUDY_CSS = `<style>
@@ -110,11 +171,23 @@ export const CREATOR_STUDY_CSS = `<style>
 }
 </style>`;
 
-function renderThreadHtml(thread = []) {
+function renderThreadHtml(thread = [], kind = 'free', qid = '') {
   if (!Array.isArray(thread) || !thread.length) return '';
-  return `<div class="study-thread" data-thread-box="1">${thread.map((t) => (t.role === 'teacher'
-    ? `<div class="study-thread-teacher"><div class="study-answer-text"><b>👩‍🏫 선생님:</b> ${escapeHtml(t.text)}</div></div>`
-    : `<div class="study-thread-student"><b>💬 이어서 질문:</b> ${escapeHtml(t.text)}</div>`)).join('')}</div>`;
+  return `<div class="study-thread" data-thread-box="1">${thread.map((t, idx) => (t.role === 'teacher'
+    ? `<div class="study-thread-teacher" data-turn-box="${idx}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+          <div class="study-answer-text"><b>👩‍🏫 선생님:</b>${renderAnswerBody(t.text)}</div>
+          <div style="display:flex;gap:4px;flex-shrink:0">
+            <button type="button" class="notion-mini-btn" data-retry-thread="${escapeHtml(kind)}" data-id="${escapeHtml(qid)}" data-idx="${idx}" title="이 답변만 새 교수법으로 다시 받기">🔄 다시 받기</button>
+          </div>
+        </div>
+      </div>`
+    : `<div class="study-thread-student">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+          <div><b>💬 이어서 질문:</b> ${escapeHtml(t.text)}</div>
+          <button type="button" class="notion-mini-btn" style="color:var(--bad);opacity:0.8" data-del-thread-pair="${escapeHtml(kind)}" data-id="${escapeHtml(qid)}" data-idx="${idx}" title="이 질문과 답변 함께 삭제">질문+답변 삭제</button>
+        </div>
+      </div>`)).join('')}</div>`;
 }
 
 function renderFollowUpForm(kind, id) {
@@ -273,7 +346,12 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
       ${q.answer
-        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('line', q.id)}`
+        ? `<div class="study-teacher-reply">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div>
+              <button type="button" class="notion-mini-btn" data-retry-answer="line" data-id="${escapeHtml(q.id)}" title="선생님 답변 다시 받기">🔄 다시 받기</button>
+            </div>
+          </div>${renderThreadHtml(q.thread, 'line', q.id)}${renderFollowUpForm('line', q.id)}`
         : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="line" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
     ...freeQuestions.map((q) => `<div class="card" style="padding:12px 14px;border-left:3px solid var(--accent)" data-q-summary="free" data-id="${escapeHtml(q.id)}">
@@ -281,12 +359,18 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
         <span class="meta">자유 질문</span>
         <div style="display:flex;gap:6px">
           <button type="button" class="notion-mini-btn" data-toggle-resolved="free" data-id="${escapeHtml(q.id)}">${q.resolved ? '✓ 알겠어요(완료)' : '아직 궁금'}</button>
-          <button type="button" class="notion-mini-btn" data-del-fq="${escapeHtml(q.id)}">삭제</button>
+          <button type="button" class="notion-mini-btn" data-retry-answer="free" data-id="${escapeHtml(q.id)}" title="선생님 답변 다시 받기">🔄 답변 갱신</button>
+          <button type="button" class="notion-mini-btn" style="color:var(--bad)" data-del-fq="${escapeHtml(q.id)}">전체 삭제</button>
         </div>
       </div>
       <div style="margin-top:6px;font-weight:700">❓ ${escapeHtml(q.question)}</div>
       ${q.answer
-        ? `<div class="study-teacher-reply"><div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div></div>${renderThreadHtml(q.thread)}${renderFollowUpForm('free', q.id)}`
+        ? `<div class="study-teacher-reply">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div class="study-answer-text"><b>👩‍🏫 선생님 1:1 답변:</b>${renderAnswerBody(q.answer)}</div>
+              <button type="button" class="notion-mini-btn" data-retry-answer="free" data-id="${escapeHtml(q.id)}" title="새 교수법으로 답변 다시 생성">🔄 다시 받기</button>
+            </div>
+          </div>${renderThreadHtml(q.thread, 'free', q.id)}${renderFollowUpForm('free', q.id)}`
         : `<div style="margin-top:8px"><button type="button" class="study-btn primary" data-retry-answer="free" data-id="${escapeHtml(q.id)}">👩‍🏫 선생님 답변 바로 받기</button></div>`}
     </div>`),
   ].join('');
@@ -309,12 +393,12 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
           <button type="button" class="study-btn primary" data-vq-feedback-btn="1">👩‍🏫 선생님께 확인받기</button>
         </div>
         <div class="study-feedback-box${vq.guessFeedback ? ' open' : ''}" data-vq-feedback-box="1">
-          <div class="study-answer-text" data-vq-feedback-text="1"><b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>\n${escapeHtml(vq.guessFeedback || '')}</div>
+          <div class="study-answer-text" data-vq-feedback-text="1"><b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>${renderAnswerBody(vq.guessFeedback || '')}</div>
         </div>
         <div class="study-teacher-box${vq.revealed ? ' open' : ''}" data-vq-answer="1">
           <div class="study-answer-text"><b>👩‍🏫 기본 1:1 설명:</b> ${escapeHtml(vq.teacherAnswer || '아직 기본 설명이 없습니다. 위 확인받기 버튼을 누르면 선생님이 바로 답해 드려요.')}</div>
         </div>
-        ${renderThreadHtml(vq.thread)}
+        ${renderThreadHtml(vq.thread, 'viewer', vq.id)}
         ${renderFollowUpForm('viewer', vq.id)}
       </div>`).join('')}</div>`
     : '<div class="card meta">이 비교 시트에는 아직 시청자 질문 10가지가 생성되지 않았습니다. 아래에서 궁금한 질문을 직접 추가해 바로 물어보실 수 있어요.</div>';
@@ -349,20 +433,67 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
     d.textContent=String(s||'');
     return d.innerHTML;
   }
+  function formatInlineMd(str){
+    var s=escText(str)
+      .replace(/\\$\\\\rightarrow\\$/g,'→')
+      .replace(/\\$\\\\leftarrow\\$/g,'←')
+      .replace(/\\$\\\\leftrightarrow\\$/g,'↔');
+    s=s.replace(/\\x60([^\\x60]+)\\x60/g,'<code style="background:rgba(148,163,184,0.18);padding:1px 5px;border-radius:4px;font-family:monospace;font-size:13.5px">$1</code>');
+    s=s.replace(/\\*\\*([^*]+)\\*\\*/g,'<b style="color:var(--accent);font-weight:700">$1</b>');
+    s=s.replace(/\\*([^*]+)\\*/g,'<i style="color:var(--ink)">$1</i>');
+    return s;
+  }
   function formatReplyHtml(text){
     if(!text)return '';
-    var clean=String(text||'').trim();
-    // 마크다운 헤더(###, ##)와 구분선(---)을 읽기 쉬운 시각적 구분으로 치환
-    var html=clean
-      .split('\\n\\n').map(function(para){
-        var p=para.trim();
-        if(!p)return '';
-        if(p.indexOf('###')===0)return '<div style="font-weight:700;color:var(--text);margin-top:14px;margin-bottom:6px;font-size:15px">📌 '+escText(p.replace(/^###\\s*/,''))+'</div>';
-        if(p.indexOf('##')===0)return '<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">📌 '+escText(p.replace(/^##\\s*/,''))+'</div>';
-        if(p==='---')return '<hr style="border:none;border-top:1px dashed var(--border);margin:12px 0;">';
-        return '<div style="margin:6px 0;line-height:1.7">'+escText(p).replace(/\\n/g,'<br>')+'</div>';
-      }).join('');
-    return html;
+    var clean=String(text||'').replace(/\\r\\n/g,'\\n').trim();
+    var lines=clean.split('\\n');
+    var rendered=[];
+    var inList=false;
+    for(var i=0;i<lines.length;i++){
+      var raw=lines[i];
+      var indent=(raw.match(/^(\\s*)/)||['',''])[1].replace(/\\t/g,'  ').length;
+      var line=raw.trim();
+      if(!line){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<div style="height:8px"></div>');
+        continue;
+      }
+      if(/^####\\s+/.test(line)){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<div style="font-weight:700;color:var(--ink);margin-top:11px;margin-bottom:4px;font-size:14.5px">'+formatInlineMd(line.replace(/^####\\s+/,''))+'</div>');
+        continue;
+      }
+      if(/^###\\s+/.test(line)){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<div style="font-weight:700;color:var(--ink);margin-top:14px;margin-bottom:6px;font-size:15px">'+formatInlineMd(line.replace(/^###\\s+/,''))+'</div>');
+        continue;
+      }
+      if(/^##\\s+/.test(line)){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<div style="font-weight:800;color:var(--accent);margin-top:16px;margin-bottom:8px;font-size:16px">'+formatInlineMd(line.replace(/^##\\s+/,''))+'</div>');
+        continue;
+      }
+      if(/^---\\s*$/.test(line)){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<hr style="border:none;border-top:1px dashed var(--line,#475569);margin:12px 0;">');
+        continue;
+      }
+      if(/^>\\s*/.test(line)){
+        if(inList){rendered.push('</ul>');inList=false;}
+        rendered.push('<div style="margin:8px 0;padding:8px 12px;border-left:3px solid var(--accent);background:rgba(56,189,248,0.06);border-radius:0 8px 8px 0;line-height:1.65">'+formatInlineMd(line.replace(/^>\\s*/,''))+'</div>');
+        continue;
+      }
+      if(/^[*•-]\\s+/.test(line)){
+        if(!inList){rendered.push('<ul style="margin:6px 0;padding-left:20px;list-style-type:disc">');inList=true;}
+        var nStyle=indent>=2?'margin:3px 0 3px 16px;list-style-type:circle;line-height:1.65':'margin:4px 0;line-height:1.65';
+        rendered.push('<li style="'+nStyle+'">'+formatInlineMd(line.replace(/^[*•-]\\s+/,''))+'</li>');
+        continue;
+      }
+      if(inList){rendered.push('</ul>');inList=false;}
+      rendered.push('<div style="margin:4px 0;line-height:1.7">'+formatInlineMd(line)+'</div>');
+    }
+    if(inList)rendered.push('</ul>');
+    return '<div style="margin-top:8px">'+rendered.join('')+'</div>';
   }
   function makeFollowUpHtml(kind,id){
     return '<div class="study-followup-row" data-followup-wrap="'+escText(kind)+'" data-followup-id="'+escText(id)+'">'
@@ -542,17 +673,32 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       return;
     }
 
-    // 5. 기존 미답변 질문 재시도
+    // 5. 기존 미답변 질문 재시도 및 답변 다시 받기
     if(btn.hasAttribute('data-retry-answer')){
       var kind=btn.getAttribute('data-retry-answer');
       var id=btn.getAttribute('data-id');
       btn.disabled=true;
-      btn.textContent='⏳ 선생님 답변 중...';
+      btn.textContent='⏳ 답변 생성 중...';
       postTutor({mode:'retry_answer',kind:kind,id:id}).then(function(){
         location.reload();
       }).catch(function(err){
         btn.disabled=false;
-        btn.textContent='👩‍🏫 선생님 답변 바로 받기';
+        btn.textContent='🔄 다시 받기';
+        alert(err.message);
+      });
+      return;
+    }
+    if(btn.hasAttribute('data-retry-thread')){
+      var kind=btn.getAttribute('data-retry-thread');
+      var id=btn.getAttribute('data-id');
+      var turnIdx=btn.getAttribute('data-idx');
+      btn.disabled=true;
+      btn.textContent='⏳ 생성 중...';
+      postTutor({mode:'retry_thread_turn',kind:kind,id:id,turnIndex:turnIdx}).then(function(){
+        location.reload();
+      }).catch(function(err){
+        btn.disabled=false;
+        btn.textContent='🔄 다시 받기';
         alert(err.message);
       });
       return;
@@ -596,12 +742,24 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       return;
     }
 
-    // 7. 질문 삭제 / 해결 토글
+    // 7. 질문 삭제 / 해결 토글 / 이어 묻기 질문+답변 쌍 삭제
+    if(btn.hasAttribute('data-del-thread-pair')){
+      if(!confirm('이 질문과 답변을 함께 삭제할까요?'))return;
+      var kind=btn.getAttribute('data-del-thread-pair');
+      var id=btn.getAttribute('data-id');
+      var idx=btn.getAttribute('data-idx');
+      postStudy({action:'delete_question_thread_pair',kind:kind,id:id,studentIndex:idx}).then(function(){
+        location.reload();
+      }).catch(function(err){alert(err.message);});
+      return;
+    }
     if(btn.hasAttribute('data-del-lq')){
+      if(!confirm('이 질문과 나눈 모든 대화를 삭제할까요?'))return;
       postStudy({action:'delete_line_question',id:btn.getAttribute('data-del-lq')}).then(function(){location.reload();}).catch(function(err){alert(err.message);});
       return;
     }
     if(btn.hasAttribute('data-del-fq')){
+      if(!confirm('이 질문과 나눈 모든 대화를 삭제할까요?'))return;
       postStudy({action:'delete_free_question',id:btn.getAttribute('data-del-fq')}).then(function(){location.reload();}).catch(function(err){alert(err.message);});
       return;
     }
@@ -671,7 +829,7 @@ export function renderCreatorStudySection(sheet, study, reviewItems = []) {
       postTutor({mode:'vq_feedback',id:qCard.getAttribute('data-vq-id'),guess:guess}).then(function(res){
         btn.disabled=false;
         btn.textContent='👩‍🏫 선생님께 확인받기';
-        if(fbText)fbText.innerHTML='<b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>\\n'+escText(res.guessFeedback);
+        if(fbText)fbText.innerHTML='<b>👩‍🏫 대표님 생각에 대한 선생님 피드백:</b>'+formatReplyHtml(res.guessFeedback);
         showToast('👩‍🏫 맞춤 선생님 피드백이 도착했습니다');
       }).catch(function(err){
         btn.disabled=false;

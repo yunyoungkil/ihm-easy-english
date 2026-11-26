@@ -43,6 +43,21 @@ import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageS
 import { syncAllTrackedChannels, runD7AutonomousCycle, loadPlannedSources, loadOutlierReportChannels, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
+
+// 비교 시트 동시 저장(추천 조합 원클릭 등) 시 파일 깨짐을 막는 시트별 직렬 잠금 + 원자적 저장
+const sheetWriteLocks = new Map();
+function withSheetLock(id, fn) {
+  const prev = sheetWriteLocks.get(id) || Promise.resolve();
+  const next = prev.catch(() => {}).then(fn);
+  sheetWriteLocks.set(id, next);
+  next.finally(() => { if (sheetWriteLocks.get(id) === next) sheetWriteLocks.delete(id); });
+  return next;
+}
+async function writeJsonAtomic(file, data) {
+  const tmp = `${file}.${process.pid}.${randomBytes(4).toString('hex')}.tmp`;
+  await writeFile(tmp, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  await rename(tmp, file);
+}
 import { resolveVideoFormat } from './video-format.mjs';
 import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary, pickReportTargetsDetailed } from './outlier-report.mjs';
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex, renderPackagingCasesPage } from './outlier-report-view.mjs';
@@ -6039,6 +6054,51 @@ const server = createServer(async (req, res) => {
           return json(res, 200, {ok: true, id: qId, question, answer: aiRes.text, model: aiRes.model});
         }
 
+        if (mode === 'retry_thread_turn') {
+          const kind = body.kind === 'line' ? 'line' : (body.kind === 'viewer' ? 'viewer' : 'free');
+          const id = String(body.id || '');
+          const turnIdx = Number(body.turnIndex);
+          const st = loadCreatorStudy(vid);
+          const list = kind === 'line' ? st.lineQuestions : (kind === 'viewer' ? st.viewerQuestions : st.freeQuestions);
+          const target = list.find((q) => q.id === id);
+          if (!target) return json(res, 404, {error: '원래 질문을 찾지 못했습니다.'});
+          if (!Array.isArray(target.thread) || turnIdx < 0 || turnIdx >= target.thread.length) {
+            return json(res, 400, {error: '해당 대화 순번을 찾을 수 없습니다.'});
+          }
+          // 다시 생성할 질문 찾기 (현재 turn이 teacher면 바로 앞의 student 발언)
+          let studentPrompt = '';
+          if (target.thread[turnIdx].role === 'teacher' && turnIdx > 0) {
+            studentPrompt = target.thread[turnIdx - 1].text;
+          } else {
+            studentPrompt = target.thread[turnIdx].text;
+          }
+          const baseThread = [];
+          if (kind === 'viewer') {
+            baseThread.push({role: 'student', text: `시청자 질문: ${target.q}`});
+            if (target.guessFeedback || target.teacherAnswer) baseThread.push({role: 'teacher', text: target.guessFeedback || target.teacherAnswer});
+          } else {
+            baseThread.push({role: 'student', text: target.question});
+            if (target.answer) baseThread.push({role: 'teacher', text: target.answer});
+          }
+          for (let i = 0; i < turnIdx; i++) {
+            if (target.thread[i].role === 'student' && i === turnIdx - 1) continue;
+            baseThread.push(target.thread[i]);
+          }
+          const cut = kind === 'line' ? cuts[Number(target.cutIndex)] : null;
+          const aiRes = await answerStudentQuestion({
+            sheet,
+            question: studentPrompt,
+            excerpt: target.excerpt || '',
+            cutNarration: cut ? String(cut.narration || '') : '',
+            cutEnglish: cut ? extractCutEnglish(cut) : [],
+            thread: baseThread,
+            apiKey,
+          });
+          const updated = patchCreatorStudy(loadCreatorStudy(vid), {action: 'update_question_thread_turn', kind, id, turnIndex: turnIdx, text: aiRes.text});
+          saveCreatorStudy(vid, updated);
+          return json(res, 200, {ok: true, id, turnIndex: turnIdx, answer: aiRes.text, model: aiRes.model});
+        }
+
         if (mode === 'retry_answer') {
           const kind = body.kind === 'line' ? 'line' : 'free';
           const id = String(body.id || '');
@@ -6122,11 +6182,14 @@ const server = createServer(async (req, res) => {
       const file = join(transformSheetsDir, vid + '.json');
       if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
       try {
-        const sheet = await loadJson(file);
-        const allSheets = loadTransformSheets();
-        const {sheet: next, warnings} = approveSheet(sheet, {imageExists: sheetImageExists, allSheets, requirePicks: true});
-        await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
-        return json(res, 200, {ok: true, status: next.status, approvedAt: next.approvedAt, warnings});
+        const result = await withSheetLock(vid, async () => {
+          const sheet = await loadJson(file);
+          const allSheets = loadTransformSheets();
+          const {sheet: next, warnings} = approveSheet(sheet, {imageExists: sheetImageExists, allSheets, requirePicks: true});
+          await writeJsonAtomic(file, next);
+          return {ok: true, status: next.status, approvedAt: next.approvedAt, warnings};
+        });
+        return json(res, 200, result);
       } catch (e) {
         return json(res, 400, {error: e.message, blockers: e.blockers || [], warnings: e.warnings || []});
       }
@@ -6138,10 +6201,13 @@ const server = createServer(async (req, res) => {
       const file = join(transformSheetsDir, vid + '.json');
       if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
       try {
-        const pick = body.kind === 'title' ? setTitlePick : setThumbnailPick;
-        const next = pick(await loadJson(file), String(body.image || ''), body.picked === true);
-        await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
-        return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks, titlePicks: next.titlePicks});
+        const result = await withSheetLock(vid, async () => {
+          const pick = body.kind === 'title' ? setTitlePick : setThumbnailPick;
+          const next = pick(await loadJson(file), String(body.image || ''), body.picked === true);
+          await writeJsonAtomic(file, next);
+          return {ok: true, thumbnailPicks: next.thumbnailPicks, titlePicks: next.titlePicks};
+        });
+        return json(res, 200, result);
       } catch (e) { return json(res, 400, {error: e.message}); }
     }
     const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{3,60})\/((?:cuts\d*\/|raw\/)?[\w.-]{1,60}\.(?:jpg|png))$/);

@@ -82,7 +82,7 @@ export function normalizeStudy(sheetId, raw = null) {
     .map((t) => {
       if (!t || typeof t !== 'object') return null;
       const role = t.role === 'teacher' ? 'teacher' : 'student';
-      const text = cleanText(t.text, 2000);
+      const text = cleanText(t.text, 4000);
       if (!text) return null;
       return {role, text, createdAt: t.createdAt ? String(t.createdAt) : null};
     })
@@ -96,7 +96,7 @@ export function normalizeStudy(sheetId, raw = null) {
     const out = {
       id: cleanText(item.id, 60) || `${prefix}-${idx + 1}`,
       question,
-      answer: cleanText(item.answer, 2000),
+      answer: cleanText(item.answer, 4000),
       thread: normalizeThread(item.thread),
       resolved: Boolean(item.resolved),
       createdAt: item.createdAt ? String(item.createdAt) : null,
@@ -387,7 +387,7 @@ export function patchCreatorStudy(current, patch = {}) {
     next.freeQuestions.push({
       id: cleanText(patch.id, 60) || `fq-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       question,
-      answer: cleanText(patch.answer, 2000),
+      answer: cleanText(patch.answer, 4000),
       thread: [],
       resolved: false,
       createdAt: new Date().toISOString(),
@@ -400,14 +400,14 @@ export function patchCreatorStudy(current, patch = {}) {
     const list = patch.kind === 'line' ? next.lineQuestions : next.freeQuestions;
     const target = list.find((q) => q.id === id);
     if (!target) throw new Error('답변할 질문을 찾지 못했습니다.');
-    target.answer = cleanText(patch.answer, 2000);
+    target.answer = cleanText(patch.answer, 4000);
     return next;
   }
 
   if (patch.action === 'append_question_thread') {
     const id = cleanText(patch.id, 60);
     const studentText = cleanText(patch.question, 1000);
-    const teacherText = cleanText(patch.answer, 2000);
+    const teacherText = cleanText(patch.answer, 4000);
     if (!studentText) throw new Error('꼬리 질문을 입력해 주세요.');
     const list = patch.kind === 'line'
       ? next.lineQuestions
@@ -424,6 +424,40 @@ export function patchCreatorStudy(current, patch = {}) {
   if (patch.action === 'delete_free_question') {
     const id = cleanText(patch.id, 60);
     next.freeQuestions = next.freeQuestions.filter((q) => q.id !== id);
+    return next;
+  }
+
+  if (patch.action === 'update_question_thread_turn') {
+    const id = cleanText(patch.id, 60);
+    const turnIndex = Number(patch.turnIndex);
+    const text = cleanText(patch.text, 4000);
+    const list = patch.kind === 'line'
+      ? next.lineQuestions
+      : (patch.kind === 'viewer' ? next.viewerQuestions : next.freeQuestions);
+    const target = list.find((q) => q.id === id);
+    if (!target) throw new Error('대화를 찾지 못했습니다.');
+    if (Array.isArray(target.thread) && turnIndex >= 0 && turnIndex < target.thread.length) {
+      target.thread[turnIndex].text = text;
+    }
+    return next;
+  }
+
+  if (patch.action === 'delete_question_thread_pair') {
+    const id = cleanText(patch.id, 60);
+    const studentIdx = Number(patch.studentIndex);
+    const list = patch.kind === 'line'
+      ? next.lineQuestions
+      : (patch.kind === 'viewer' ? next.viewerQuestions : next.freeQuestions);
+    const target = list.find((q) => q.id === id);
+    if (!target) throw new Error('대화를 찾지 못했습니다.');
+    if (Array.isArray(target.thread) && studentIdx >= 0 && studentIdx < target.thread.length) {
+      // student 발언과 그 바로 뒤따르는 teacher 답변(있으면)을 한 세트로 함께 삭제
+      let deleteCount = 1;
+      if (studentIdx + 1 < target.thread.length && target.thread[studentIdx + 1].role === 'teacher') {
+        deleteCount = 2;
+      }
+      target.thread.splice(studentIdx, deleteCount);
+    }
     return next;
   }
 

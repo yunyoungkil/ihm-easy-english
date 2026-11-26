@@ -1,5 +1,5 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "episodeId": "ep29-b-vs-v",
   "title": "원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기",
   "recommendedPublishAt": "2026-10-15T14:00:00Z",
@@ -9,14 +9,18 @@
   "endScreenDuration": "10초 (402.59s ~ 412.59s)",
   "thumbnailsCount": 4,
   "generatedAt": "2026-10-12T10:29:18.341Z",
-  "lastSyncedAt": "2026-11-23T16:10:54.962Z",
+  "lastSyncedAt": "2026-11-26T14:48:45.071Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "9f974e26cf3b675f5e4226e0b5b91f0685f8200d7024324c49785c2b10be8864",
     "approvedAt": "2026-11-07T13:55:02.454Z"
   },
-  "pinnedCommentPending": true,
+  "pinnedCommentPending": false,
   "videoId": "cW9pREzzrt0",
   "scheduledFor": "2026-11-26T14:00:00Z",
-  "uploadedAt": "2026-11-09T06:09:05.538Z"
+  "uploadedAt": "2026-11-09T06:09:05.538Z",
+  "publishedAt": "2026-11-26T14:00:13Z",
+  "publishedAtSource": "youtube",
+  "pinnedCommentAt": "2026-11-26T14:35:38.000Z",
+  "pinnedCommentId": "Ugx_LxESipifrI-v0HJ4AaABAg"
 }

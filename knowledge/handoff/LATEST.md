@@ -11,6 +11,7 @@
 ## 제작 현황
 - **EP27 쇼츠 `videos/ep27-shorts-dogs-cats`**: **11/21 토 20:00 KST 공개 완료** (ID `blowoldSorE`). 사후 관리(고정 댓글 게시 `Ugxsd1ZaMjj4l5zV3554AaABAg`, 쇼츠 퀴즈 시즌1 재생목록 확인, 롱폼 `a4E6XlTbTW0` 관련동영상 확인) 완결. 11/28 토 이후 공개 7일 성과 정산 예정.
 - **EP28 F vs P 롱폼 `91aunP3N8mQ` · 짝 쇼츠 `bQNoYraxFY8`**: 롱폼 **11/23 월 23:00 KST 공개 완료** · 사후 관리 끝냄(11/24 새벽: 고정 댓글·끝 화면·관련 동영상·커뮤니티 글). 짝 쇼츠 **11/24 화 20:00 KST 공개 완료** · 사후 관리 끝냄(11/24 밤: 고정 댓글 `Ugz_qumIvPkNqXsLJjJ4AaABAg` 게시·상단 고정, 재생목록·관련 동영상·AI 표시 '예'·자막 확인). 11/30 월 이후 롱폼 7일 정산, 12/01 화 이후 쇼츠 7일 정산.
+- **EP29 B vs V 롱폼 `cW9pREzzrt0` · 짝 쇼츠 `JL_yQNB7TWY`**: 롱폼 **11/26 목 23:00 KST 공개 완료** · 사후 관리 끝냄(11/26 밤: 고정 댓글 `Ugx_LxESipifrI-v0HJ4AaABAg` 게시·상단 고정, 끝 화면 EP28+구독 6:42:29~6:52:18, 짝 쇼츠 `JL_yQNB7TWY` 관련 동영상 연결, 재생목록·AI 표시 '예'·한국어 자막 확인, 커뮤니티 글은 11/27 예약 유지로 생략). 11/28 토 20:00 짝 쇼츠 공개 후 고정 댓글 확인 · 12/03 목 이후 롱폼 7일 정산.
 - **EP30 쇼츠 `videos/ep30-shorts-chocolate`**: 11/18 수 20:00 공개 완료 (ID `Ng6amm9qFrI`). 11/25 수 이후 공개 7일 결과 정산 예정.
 - **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`). 12/08 화 이후 공개 7일 결과 정산 예정.
 - **EP32 쇼츠 `videos/ep32-shorts-word-merge`**: **12/05 토 20:00 KST 예약 완료** (ID `YKaokru2ugg`, 교육 27, 한국어 ko, 40.4s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 게시, `community-post.json` 예습 퀴즈 `2026-12-05T09:00:00Z`).

@@ -21,6 +21,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {DISCLOSURE} from './check-post.mjs';
+import {formatVolume, normalizeKeyword} from './keyword-volume.mjs';
 
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_TEMPLATE_PATH = path.join(MODULE_DIR, 'prompts', 'tech-post.md');
@@ -75,6 +76,13 @@ export function resolveClaudeExe({
   return null;
 }
 
+// 주 검색어 옆에 붙일 실측 검색량(keyword-volume.mjs가 대기열에 적은 값). 값이 없으면 아무것도 붙이지 않는다.
+function targetVolumeNote(topic) {
+  const v = topic?.searchVolume;
+  if (!v || v.found === false || normalizeKeyword(v.keyword) !== normalizeKeyword(topic.targetKeyword)) return '';
+  return ` (네이버 ${formatVolume(v)}, ${v.checkedAt || '날짜 미기록'} 조회)`;
+}
+
 /** 글쓰기 지침 + 주제 + 중복 방지용 기존 글 목록 + 저장 경로를 합친 프롬프트를 만든다. */
 export async function buildWriterPrompt(
   topic,
@@ -114,6 +122,9 @@ export async function buildWriterPrompt(
     `- 제목 방향(title): ${topic?.title || ''}`,
     `- 글 종류(kind): ${topic?.kind || 'fix'}`,
     `- 검색어(searchQuery): ${topic?.searchQuery || ''}`,
+    ...(topic?.targetKeyword
+      ? [`- 주 검색어(targetKeyword, 지침 1절 6항): ${topic.targetKeyword}${targetVolumeNote(topic)}`]
+      : []),
     `- 참고 출처 힌트(sourceHints): ${sourceHints}`,
     `- 물건 힌트(productHint): ${topic?.productHint ?? '없음(글에 도움이 되는 물건을 직접 찾아 product를 채운다)'}`,
     `- 저장할 초안 파일 경로(draftPath): ${draftPath}`,

@@ -1,51 +1,185 @@
 [
   {
-    "topicId": "iphone-apple-pay-transit-not-working",
+    "topicId": "samsung-pay-transit-card-error",
     "cluster": "휴대폰 결제·교통카드·액세서리",
     "kind": "fix",
-    "title": "아이폰 애플페이 교통카드가 안 찍힐 때 확인할 것",
-    "searchQuery": "아이폰 교통카드 인식 안됨",
+    "title": "삼성페이 교통카드가 안 될 때 점검 순서",
+    "searchQuery": "삼성페이 교통카드 안됨",
+    "targetKeyword": "삼성페이 교통카드",
     "sourceHints": [
-      "애플 지원 Apple Pay 교통카드·익스프레스 모드 안내(공식 일반 웹페이지)",
-      "카드사(현대카드 등) 애플페이 교통카드 이용 안내 공식 페이지",
-      "서울시·티머니 교통카드 이용 안내"
+      "삼성 월렛(삼성페이) 교통카드 공식 고객지원 페이지",
+      "삼성전자서비스 NFC·교통카드 오류 해결 안내(일반 웹페이지)"
     ],
-    "productHint": "카드 중복인식 방지 카드"
-  },
-  {
-    "topicId": "dishwasher-install-conditions-check",
-    "cluster": "큰 가전 설치 전 확인",
-    "kind": "before-buy",
-    "title": "식기세척기 사기 전에 싱크대 공간·수전·배수부터 확인할 것",
-    "searchQuery": "식기세척기 설치 조건",
-    "sourceHints": [
-      "삼성전자·LG전자·SK매직 식기세척기 설치 안내 공식 페이지(일반 웹페이지)"
-    ],
-    "productHint": "식기세척기 분배기"
-  },
-  {
-    "topicId": "power-bank-in-flight-rules-wh-check",
-    "title": "보조배터리 기내 반입 규정, 용량(Wh)·절연·지퍼백까지 확인하는 법",
-    "kind": "info",
-    "searchQuery": "보조배터리 기내반입 규정",
-    "sourceHints": [
-      "국토교통부·한국공항공사 항공 위험물(보조배터리) 안내 공식 페이지",
-      "대한항공·아시아나항공 보조배터리 기내 반입 안내 공식 페이지"
-    ],
-    "productHint": null,
-    "cluster": "휴대폰 결제·교통카드·액세서리"
+    "productHint": "갤럭시 케이스",
+    "searchVolume": {
+      "keyword": "삼성페이 교통카드",
+      "pc": 1080,
+      "mobile": 22500,
+      "total": 23580,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
   },
   {
     "topicId": "home-cam-install-cost-check",
     "title": "홈캠 설치 비용, 직접 설치와 업체 설치 비교해서 확인할 것",
     "kind": "before-buy",
     "searchQuery": "홈캠 설치 비용",
+    "targetKeyword": "홈캠 설치",
     "sourceHints": [
       "통신사 홈캠 서비스 요금·설치 안내(공식 일반 웹페이지)",
       "홈캠 제조사 공식 설치 안내(일반 웹페이지)"
     ],
     "productHint": "홈캠",
-    "cluster": "큰 가전 설치 전 확인"
+    "cluster": "큰 가전 설치 전 확인",
+    "searchVolume": {
+      "keyword": "홈캠 설치",
+      "pc": 330,
+      "mobile": 2660,
+      "total": 2990,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "iphone-apple-pay-transit-not-working",
+    "cluster": "휴대폰 결제·교통카드·액세서리",
+    "kind": "fix",
+    "title": "아이폰 애플페이 교통카드가 안 찍힐 때 확인할 것",
+    "searchQuery": "아이폰 교통카드 인식 안됨",
+    "targetKeyword": "애플페이 교통카드",
+    "sourceHints": [
+      "애플 지원 Apple Pay 교통카드·익스프레스 모드 안내(공식 일반 웹페이지)",
+      "카드사(현대카드 등) 애플페이 교통카드 이용 안내 공식 페이지",
+      "서울시·티머니 교통카드 이용 안내"
+    ],
+    "productHint": "카드 중복인식 방지 카드",
+    "searchVolume": {
+      "keyword": "애플페이 교통카드",
+      "pc": 900,
+      "mobile": 12700,
+      "total": 13600,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "dishwasher-install-conditions-check",
+    "cluster": "큰 가전 설치 전 확인",
+    "kind": "before-buy",
+    "title": "식기세척기 설치 전에 싱크대 공간·수전·배수부터 확인할 것",
+    "searchQuery": "식기세척기 설치 조건",
+    "targetKeyword": "식기세척기 설치",
+    "sourceHints": [
+      "삼성전자·LG전자·SK매직 식기세척기 설치 안내 공식 페이지(일반 웹페이지)"
+    ],
+    "productHint": "식기세척기 분배기",
+    "searchVolume": {
+      "keyword": "식기세척기 설치",
+      "pc": 260,
+      "mobile": 870,
+      "total": 1130,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "power-bank-in-flight-rules-wh-check",
+    "title": "보조배터리 기내 반입 규정, 용량(Wh)·절연·지퍼백까지 확인하는 법",
+    "kind": "info",
+    "searchQuery": "보조배터리 기내반입 규정",
+    "targetKeyword": "보조배터리 기내반입",
+    "sourceHints": [
+      "국토교통부·한국공항공사 항공 위험물(보조배터리) 안내 공식 페이지",
+      "대한항공·아시아나항공 보조배터리 기내 반입 안내 공식 페이지"
+    ],
+    "productHint": null,
+    "cluster": "휴대폰 결제·교통카드·액세서리",
+    "searchVolume": {
+      "keyword": "보조배터리 기내반입",
+      "pc": 1410,
+      "mobile": 9950,
+      "total": 11360,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "dryer-stacking-install-check",
+    "cluster": "큰 가전 설치 전 확인",
+    "kind": "before-buy",
+    "title": "세탁기 건조기 직렬 설치, 건조기를 위에 올리기 전에 확인할 것",
+    "searchQuery": "건조기 직렬 설치",
+    "targetKeyword": "세탁기 건조기 직렬 설치",
+    "sourceHints": [
+      "삼성전자·LG전자 건조기 직렬 설치 키트 공식 안내(일반 웹페이지)"
+    ],
+    "productHint": "건조기 직렬 설치 키트",
+    "searchVolume": {
+      "keyword": "세탁기 건조기 직렬 설치",
+      "pc": 90,
+      "mobile": 380,
+      "total": 470,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "galaxy-magsafe-card-wallet-check",
+    "cluster": "휴대폰 결제·교통카드·액세서리",
+    "kind": "before-buy",
+    "title": "갤럭시 맥세이프 카드지갑, 쓰기 전에 확인할 것",
+    "searchQuery": "갤럭시 맥세이프 카드지갑",
+    "targetKeyword": "갤럭시 맥세이프 카드지갑",
+    "sourceHints": [
+      "삼성전자 공식 무선 충전·액세서리 안내(일반 웹페이지)",
+      "서울시 교통카드 중복 인식 안내"
+    ],
+    "productHint": "맥세이프 링",
+    "searchVolume": {
+      "keyword": "갤럭시 맥세이프 카드지갑",
+      "pc": 250,
+      "mobile": 930,
+      "total": 1180,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "lg-membership-points-use-and-convert",
+    "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
+    "kind": "info",
+    "searchQuery": "lg 멤버십 포인트 사용처 전환",
+    "targetKeyword": "LG전자 멤버십 포인트",
+    "sourceHints": [
+      "LG전자 멤버십 혜택·포인트 안내 (https://www.lge.co.kr/benefits/membership)"
+    ],
+    "productHint": null,
+    "cluster": "큰 가전 설치 전 확인",
+    "searchVolume": {
+      "keyword": "LG전자 멤버십 포인트",
+      "pc": 40,
+      "mobile": 130,
+      "total": 170,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
   },
   {
     "topicId": "card-double-read-blocking-card-check",
@@ -53,90 +187,88 @@
     "kind": "before-buy",
     "title": "카드 중복인식 방지 카드, 사기 전에 확인할 것",
     "searchQuery": "카드 중복인식 방지",
+    "targetKeyword": "카드 중복인식 방지",
     "sourceHints": [
       "서울시 교통카드 중복 인식(카드 한 장만 대주세요) 안내",
       "티머니 고객센터 교통카드 이용 안내 공식 페이지"
     ],
-    "productHint": "RFID 차단 카드"
-  },
-  {
-    "topicId": "lg-membership-points-use-and-convert",
-    "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
-    "kind": "info",
-    "searchQuery": "lg 멤버십 포인트 사용처 전환",
-    "sourceHints": [
-      "LG전자 멤버십 혜택·포인트 안내 (https://www.lge.co.kr/benefits/membership)"
-    ],
-    "productHint": null,
-    "cluster": "큰 가전 설치 전 확인"
-  },
-  {
-    "topicId": "samsung-pay-transit-card-error",
-    "cluster": "휴대폰 결제·교통카드·액세서리",
-    "kind": "fix",
-    "title": "삼성페이 교통카드가 안 될 때 점검 순서",
-    "searchQuery": "삼성페이 교통카드 안됨",
-    "sourceHints": [
-      "삼성 월렛(삼성페이) 교통카드 공식 고객지원 페이지",
-      "삼성전자서비스 NFC·교통카드 오류 해결 안내(일반 웹페이지)"
-    ],
-    "productHint": "갤럭시 케이스"
-  },
-  {
-    "topicId": "dryer-stacking-install-check",
-    "cluster": "큰 가전 설치 전 확인",
-    "kind": "before-buy",
-    "title": "건조기를 세탁기 위에 올리기(직렬 설치) 전에 확인할 것",
-    "searchQuery": "건조기 직렬 설치",
-    "sourceHints": [
-      "삼성전자·LG전자 건조기 직렬 설치 키트 공식 안내(일반 웹페이지)"
-    ],
-    "productHint": "건조기 직렬 설치 키트"
-  },
-  {
-    "topicId": "galaxy-magsafe-card-wallet-check",
-    "cluster": "휴대폰 결제·교통카드·액세서리",
-    "kind": "before-buy",
-    "title": "갤럭시에 맥세이프 카드지갑 쓰기 전에 확인할 것",
-    "searchQuery": "갤럭시 맥세이프 카드지갑",
-    "sourceHints": [
-      "삼성전자 공식 무선 충전·액세서리 안내(일반 웹페이지)",
-      "서울시 교통카드 중복 인식 안내"
-    ],
-    "productHint": "맥세이프 링"
+    "productHint": "RFID 차단 카드",
+    "searchVolume": {
+      "keyword": "카드 중복인식 방지",
+      "pc": 10,
+      "mobile": 90,
+      "total": 100,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
   },
   {
     "topicId": "washer-dryer-stack-vs-side-by-side",
     "cluster": "큰 가전 설치 전 확인",
     "kind": "info",
-    "title": "세탁기·건조기 직렬 설치와 나란히 설치, 무엇이 다른가",
+    "title": "세탁기 건조기 병렬 설치와 직렬 설치, 무엇이 다른가",
     "searchQuery": "세탁기 건조기 직렬 병렬 차이",
+    "targetKeyword": "세탁기 건조기 병렬",
     "sourceHints": [
       "삼성전자·LG전자 건조기 설치 방식 안내 공식 페이지(일반 웹페이지)"
     ],
-    "productHint": null
-  },
-  {
-    "topicId": "fridge-install-clearance-check",
-    "cluster": "큰 가전 설치 전 확인",
-    "kind": "before-buy",
-    "title": "냉장고 설치 여유 공간, 벽과 얼마나 띄워야 하는지 확인할 것",
-    "searchQuery": "냉장고 설치 여유 공간",
-    "sourceHints": [
-      "삼성전자·LG전자 냉장고 설치 안내 공식 페이지(일반 웹페이지)"
-    ],
-    "productHint": null
+    "productHint": null,
+    "searchVolume": {
+      "keyword": "세탁기 건조기 병렬",
+      "pc": 20,
+      "mobile": 110,
+      "total": 130,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
   },
   {
     "topicId": "clear-case-yellowing-why-and-cleaning",
-    "title": "투명 케이스가 누렇게 변하는 이유와 안전하게 닦는 법",
+    "title": "투명 케이스 변색, 누렇게 변하는 이유와 안전하게 닦는 법",
     "kind": "fix",
     "searchQuery": "투명 케이스 변색 복원",
+    "targetKeyword": "케이스 변색",
     "sourceHints": [
       "애플 지원 iPhone 케이스 청소 안내(공식 일반 웹페이지)",
       "삼성전자 공식 휴대폰 케이스 관리 안내(일반 웹페이지)"
     ],
     "productHint": "휴대폰 케이스",
-    "cluster": "휴대폰 결제·교통카드·액세서리"
+    "cluster": "휴대폰 결제·교통카드·액세서리",
+    "searchVolume": {
+      "keyword": "케이스 변색",
+      "pc": 10,
+      "mobile": 30,
+      "total": 40,
+      "lowerBound": false,
+      "compIdx": "높음",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
+  },
+  {
+    "topicId": "fridge-install-clearance-check",
+    "cluster": "큰 가전 설치 전 확인",
+    "kind": "before-buy",
+    "title": "냉장고 설치 공간, 벽과 얼마나 띄워야 하는지 확인할 것",
+    "searchQuery": "냉장고 설치 여유 공간",
+    "targetKeyword": "냉장고 설치 공간",
+    "sourceHints": [
+      "삼성전자·LG전자 냉장고 설치 안내 공식 페이지(일반 웹페이지)"
+    ],
+    "productHint": null,
+    "searchVolume": {
+      "keyword": "냉장고 설치 공간",
+      "pc": 10,
+      "mobile": 40,
+      "total": 50,
+      "lowerBound": false,
+      "compIdx": "중간",
+      "source": "naver-searchad",
+      "checkedAt": "2026-11-27"
+    }
   }
 ]

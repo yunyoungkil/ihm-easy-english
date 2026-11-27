@@ -134,6 +134,9 @@ export function summarizeBlogStatus({
       ? `대기열 ${queueList.length}개(주제 보충 필요)`
       : `대기열 ${queueList.length}개`,
   );
+  // 주제는 실제 검색 수를 보고 고른다(2026-11-27 사용자 결정). 숫자를 안 잰 주제가 있으면 알린다.
+  const unmeasured = queueList.filter((t) => !t?.searchVolume).length;
+  if (unmeasured > 0) parts.push(`검색량 미확인 ${unmeasured}개(keyword-volume.mjs queue)`);
 
   if (isPaused) {
     parts.push(`멈춤(${pause.reason || '사유 미기록'}) — 다시 켜기는 사용자 승인`);

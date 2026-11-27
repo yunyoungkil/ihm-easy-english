@@ -428,3 +428,16 @@ test('buildWriterPrompt: 같은 갈래로 이미 올린 글만 링크 후보로 
   assert.ok(noCluster.includes('## 같은 갈래로 이미 올린 글'));
   assert.ok(!noCluster.slice(noCluster.indexOf('## 같은 갈래로 이미 올린 글')).includes('blog-post.html'));
 });
+
+test('buildWriterPrompt: 주 검색어와 실측 검색량을 넣고, 값이 다른 낱말 것이면 숫자를 붙이지 않는다(2026-11-27)', async () => {
+  const base = {topicId: 't', title: '애플페이 교통카드 안 찍힐 때', kind: 'fix', searchQuery: '아이폰 교통카드 인식 안됨', sourceHints: [], productHint: null};
+  const sv = {keyword: '애플페이 교통카드', pc: 900, mobile: 12700, total: 13600, lowerBound: false, checkedAt: '2026-11-27'};
+  const withVol = await buildWriterPrompt({...base, targetKeyword: '애플페이 교통카드', searchVolume: sv}, {draftPath: 'd.json'});
+  assert.ok(withVol.includes('주 검색어(targetKeyword, 지침 1절 6항): 애플페이 교통카드 (네이버 월 13,600회(PC 900 · 휴대폰 12700), 2026-11-27 조회)'));
+
+  const stale = await buildWriterPrompt({...base, targetKeyword: '아이폰 교통카드', searchVolume: sv}, {draftPath: 'd.json'});
+  assert.ok(stale.includes('주 검색어(targetKeyword, 지침 1절 6항): 아이폰 교통카드\n'));
+
+  const none = await buildWriterPrompt(base, {draftPath: 'd.json'});
+  assert.ok(!none.includes('- 주 검색어(targetKeyword, 지침'));
+});

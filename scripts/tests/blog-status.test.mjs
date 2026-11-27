@@ -71,6 +71,7 @@ test('since 이후 published 2건·deferred 1건, 대기열 5개, 멈춤, 8일 �
   assert.match(line, /건너뜀 1번\(링크 없음\)/);
   assert.match(line, /대기열 5개/);
   assert.match(line, /주제 보충 필요/);
+  assert.match(line, /검색량 미확인 5개/); // 2026-11-27: 실제 검색 수를 안 잰 주제 알림
   assert.match(line, /멈춤\(점검 실패 3회 연속\) — 다시 켜기는 사용자 승인/);
   assert.match(line, /경고 화면 점검 필요/);
 });

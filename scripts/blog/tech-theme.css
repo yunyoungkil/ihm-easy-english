@@ -362,9 +362,35 @@ body:not(.item-view) .post-header,
 
 body:not(.item-view) .post-bottom,
 .FeaturedPost .post-bottom {
-  border-top: 1px solid #EEF0EE;
-  margin-top: 16px !important;
-  padding-top: 4px !important;
+  border-top: none !important;
+  margin-top: 14px !important;
+  padding-top: 0 !important;
+}
+
+/* '자세한 내용 보기': 블로거 기본 파란색·마우스 올림 배경(구분선과 겹쳐 보임)을 빼고 딥 틸 글자 링크로 (2026-11-27 사용자) */
+.jump-link,
+.jump-link:hover,
+.jump-link:focus,
+.jump-link.flat-button:hover {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.jump-link a,
+.jump-link a:visited {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  color: #0F4C45 !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+}
+
+.jump-link a:hover {
+  color: #09332E !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
 }
 
 body:not(.item-view) .post-comment-link,

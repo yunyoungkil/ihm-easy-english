@@ -3,7 +3,12 @@
         글 본문 맨 위 대가 문구는 그대로 둔다(본문 <p>는 .snippet-item이 아니라 건드리지 않음).
         미리보기는 블로거가 본문 첫 글자부터 잘라 만들어, 모든 글이 같은 문장으로 시작해 목록이 광고 모음처럼 보였다.
      ② 날짜 '11월 27, 2026'을 '2026년 11월 27일'로 바꾼다(datetime 속성은 그대로라 검색엔진이 읽는 날짜는 안 바뀜).
-     블로거 레이아웃 → 왼쪽 메뉴 영역 → 가젯 추가 → HTML/JavaScript, 제목은 비워 둔다. -->
+     ③ '자세한 내용 보기'에 마우스를 올리면 잘린 제목 말풍선(title)이 뜨던 것과 누를 때 물결 효과(ripple)를 뺀다.
+     ④ 우리 글꼴 Pretendard를 실제로 불러온다(tech-theme.css에 이름만 있고 파일을 받는 줄이 없어 11/27까지 맑은 고딕 등으로 보였음).
+        블로거 'CSS 추가'는 다른 CSS 뒤에 붙어 @import가 무시되므로 여기서 link로 받는다. 공식 배포(jsDelivr, SIL OFL), 쓰는 글자 조각만 받는 dynamic-subset.
+     블로거 레이아웃 → 왼쪽 메뉴 영역 → 가젯 추가 → HTML/JavaScript, 제목은 비워 둔다(가젯 #HTML1은 tech-theme.css에서 숨김, 스크립트는 그대로 돈다). -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script>
 (function () {
   var DISCLOSURE = /^\s*이 포스팅은 쿠팡 파트너스 활동의 일환으로,?\s*이에 따른 일정액의 수수료를 제공받습니다\.?\s*/;
@@ -17,6 +22,12 @@
     for (var j = 0; j < times.length; j += 1) {
       var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(times[j].getAttribute('datetime'));
       if (m) times[j].textContent = m[1] + '년 ' + Number(m[2]) + '월 ' + Number(m[3]) + '일';
+    }
+    var jumps = document.querySelectorAll('.jump-link');
+    for (var k = 0; k < jumps.length; k += 1) {
+      jumps[k].classList.remove('ripple');
+      var a = jumps[k].querySelector('a');
+      if (a) a.removeAttribute('title');
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tidy);

@@ -8,6 +8,7 @@ import {promisify} from 'node:util';
 import {findBannedTerms} from '../banned-terms.mjs';
 import {EXTERNAL_SLOP_SCRIPT} from '../production-gate.mjs';
 import {validateHeroBrief} from './hero-image.mjs';
+import {SEARCH_DESCRIPTION_MAX_BYTES, utf8Bytes} from './blogger-post-settings.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -199,6 +200,19 @@ export async function checkTechPost(
     problems.push({id: 'step-not-in-body', text: '본문에 들어 있지 않은 해결 단계가 있습니다.'});
   }
 
+  // 쿠팡 상품은 본문이 말하는 종류와 맞아야 한다(2026-11-27: 본문 "유선", 붙은 상품 "무선 송신기" 사고).
+  // 검색어만으로는 종류를 못 가르므로 상품명에 꼭 들어갈 낱말(mustHave)을 쓰게 한다.
+  const product = draft?.product;
+  if (product && normalizeWs(product.query)) {
+    const mustHave = Array.isArray(product.mustHave) ? product.mustHave.filter((t) => normalizeWs(t)) : [];
+    if (mustHave.length === 0) {
+      problems.push({
+        id: 'product-no-must-have',
+        text: '쿠팡 상품 조건(product.mustHave)이 비어 있습니다. 본문이 말하는 물건 종류를 가르는 낱말을 적어야 엉뚱한 상품이 붙지 않습니다.',
+      });
+    }
+  }
+
   const fullText = `${title}\n${bodyText}\n${note}`;
   // 필수 안내 문구(notUsedNote)는 "직접 써 보지 않았다"는 부정문이라 써 본 척 패턴에 걸린다. 안내 문구는 no-not-used-note가 따로 보므로 경험 검사에서는 뺀다.
   const bodyForExperience = note ? bodyText.split(note).join(' ') : bodyText;
@@ -275,7 +289,22 @@ export async function checkTechPost(
   const heroCheck = validateHeroBrief(draft?.heroImage, {topic: {title: draft?.title, productHint: draft?.product?.query}});
   for (const p of heroCheck.problems) problems.push({id: `hero-${p.id}`, text: p.text});
 
-  const slop = await runSlop({title: draft?.title || '', bodyHtml});
+  // 검색 설명: 검색 결과·공유 미리보기에 대가 문구 대신 나갈 요약(2026-11-27). 블로거 한도는 UTF-8 150바이트.
+  const description = normalizeWs(draft?.description);
+  if (!description) {
+    problems.push({id: 'no-description', text: '검색 설명(description)이 비어 있습니다.'});
+  } else if (utf8Bytes(description) > SEARCH_DESCRIPTION_MAX_BYTES) {
+    problems.push({
+      id: 'description-too-long',
+      text: `검색 설명이 ${utf8Bytes(description)}바이트입니다. 블로거 한도 ${SEARCH_DESCRIPTION_MAX_BYTES}바이트(한글 약 45자) 안으로 줄여야 합니다.`,
+    });
+  } else if (description.includes('파트너스 활동')) {
+    problems.push({id: 'description-disclosure', text: '검색 설명에 대가 문구를 넣지 않습니다. 이 글이 푸는 문제와 첫 확인 순서를 씁니다.'});
+  }
+
+  // 검색 설명도 독자가 읽는 한국어라 AI 티 검사에 함께 넣는다.
+  const slopBody = description ? `${bodyHtml}<p>${description}</p>` : bodyHtml;
+  const slop = await runSlop({title: draft?.title || '', bodyHtml: slopBody});
   if (slop?.missing) {
     problems.push({id: 'slop-checker-missing', text: '외부 AI 티 검사기(slop-rewrite)를 찾지 못했습니다.'});
   } else if (!slop?.ok) {

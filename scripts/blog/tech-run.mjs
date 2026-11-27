@@ -23,7 +23,8 @@ import {checkRenderedHtml, checkTechPost} from './check-post.mjs';
 import {produceHero} from './hero-stage.mjs';
 import {deeplink, searchProducts} from './coupang-partners.mjs';
 import {getBlogAccessToken} from './google-auth.mjs';
-import {listTodayLivePosts, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
+import {listTodayLivePosts, publishDraft, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
+import {applyPostSettings, toPermalinkSlug} from './blogger-post-settings.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
 import {syncPaths} from '../loop-data-sync.mjs';
 import {safePull} from '../safe-pull.mjs';
@@ -35,22 +36,36 @@ const PULL_ERROR_MAX_CHARS = 300; // allow-literal: 오류 문구 길이 제한
 const MODULE_DIR =path.dirname(fileURLToPath(import.meta.url));
 const COUPANG_SHORT_PREFIX = 'https://link.coupang.com/';
 
-/** query의 핵심 낱말이 모두 상품명(대소문자 무시)에 들어간 첫 후보를 고른다. 없으면 null. */
-export function pickMatchingProduct(candidates, query) {
-  const keywords = String(query || '')
+const squash = (text) => String(text || '').toLowerCase().replace(/\s+/g, '');
+const termList = (list) => (Array.isArray(list) ? list : []).map((t) => String(t || '').trim()).filter(Boolean);
+
+/**
+ * 상품명(대소문자·띄어쓰기 무시)이 조건에 맞는 첫 후보를 고른다. 없으면 null.
+ * spec은 query 문자열 또는 draft.product 모양 {query, mustHave, mustNotHave}.
+ * - query의 핵심 낱말이 모두 들어가야 한다.
+ * - mustHave의 항목마다 하나 이상 들어가야 한다("케이블|젠더|어댑터"처럼 |로 나눈 것은 그중 하나).
+ * - mustNotHave의 낱말이 하나라도 들어가면 뺀다.
+ * 2026-11-27: 검색어 "HDMI 미러링"만으로 고르다 본문은 "유선"인데 무선 송신기가 붙은 사고로 추가.
+ */
+export function pickMatchingProduct(candidates, spec) {
+  const product = typeof spec === 'string' || spec == null ? {query: spec} : spec;
+  const keywords = String(product.query || '')
     .trim()
     .split(/\s+/)
     .map((w) => w.replace(/^[,.'"`()[\]{}]+|[,.'"`()[\]{}]+$/g, ''))
     .filter(Boolean)
-    .map((w) => w.toLowerCase());
+    .map(squash);
   if (keywords.length === 0) return null;
+  const mustHave = termList(product.mustHave).map((t) => t.split('|').map(squash).filter(Boolean)).filter((alts) => alts.length > 0);
+  const mustNotHave = termList(product.mustNotHave).map(squash);
 
   for (const candidate of candidates || []) {
-    const name = String(candidate?.productName || '').toLowerCase();
+    const name = squash(candidate?.productName);
     if (!name) continue;
-    if (keywords.every((kw) => name.includes(kw))) {
-      return candidate;
-    }
+    if (!keywords.every((kw) => name.includes(kw))) continue;
+    if (!mustHave.every((alts) => alts.some((t) => name.includes(t)))) continue;
+    if (mustNotHave.some((t) => name.includes(t))) continue;
+    return candidate;
   }
   return null;
 }
@@ -111,7 +126,7 @@ async function resolveProductLink(draft, absDraftPath, d) {
 
   let candidates;
   try {
-    const raw = await d.searchProducts(product.query, {limit: 5}); // allow-literal: 후보 5개 검색
+    const raw = await d.searchProducts(product.query, {limit: 10}); // allow-literal: 후보 10개 검색(조건 거르기 여유)
     candidates = (Array.isArray(raw) ? raw : []).map((c) => ({
       productId: c.productId,
       productName: c.productName,
@@ -125,7 +140,7 @@ async function resolveProductLink(draft, absDraftPath, d) {
   }
 
   product.candidates = candidates;
-  const chosen = pickMatchingProduct(candidates, product.query);
+  const chosen = pickMatchingProduct(candidates, product);
   if (!chosen) {
     await persistDraft(absDraftPath, draft);
     if (product.required) {
@@ -204,6 +219,8 @@ function buildDeps(deps = {}) {
     checkRenderedHtml,
     renderPostHtml,
     publishToBlogger,
+    publishDraft,
+    applyPostSettings,
     verifyLive,
     listTodayLivePosts,
     gitPull: defaultGitPull,
@@ -533,17 +550,32 @@ export async function runTechOnce({
     }
   }
 
-  const published = await d.publishToBlogger({
+  // 임시 글로 만든 뒤 글 주소(topicId)·검색 설명을 넣고 게시한다(2026-11-27: API에 두 칸이 없고 게시 뒤엔 주소를 못 바꾼다).
+  // 넣기가 실패해도 게시는 하고 경고만 남긴다(자동 주소·본문 첫 줄 설명으로 나간다).
+  const created = await d.publishToBlogger({
     blogId,
     title: draft.title,
     html,
     labels: draft.labels || [],
     token,
+    isDraft: true,
   });
+  const settingsWarnings = [];
+  const slug = toPermalinkSlug(topicId);
+  try {
+    await d.applyPostSettings({blogId, postId: created.postId, permalink: slug, description: draft.description});
+  } catch (err) {
+    settingsWarnings.push(`글 주소·검색 설명을 넣지 못했습니다: ${String(err?.message || err).slice(0, PULL_ERROR_MAX_CHARS)}`);
+  }
+  const published = await d.publishDraft({blogId, postId: created.postId, token});
+  if (slug && !String(published.url || '').includes(`/${slug}`)) {
+    settingsWarnings.push(`글 주소가 정한 이름(${slug})과 다릅니다: ${published.url}`);
+  }
   const live = await d.verifyLive(published.url);
-  const liveWarnings = !live?.ok
-    ? (live?.problems || []).map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean)
-    : [];
+  const liveWarnings = [
+    ...settingsWarnings,
+    ...(!live?.ok ? (live?.problems || []).map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean) : []),
+  ];
 
   await d.appendPost(blogDir, {
     date,
@@ -553,6 +585,7 @@ export async function runTechOnce({
     postId: published.postId,
     sources: (draft.sources || []).map((s) => s?.url).filter(Boolean),
     productUrl: productLink?.shortenUrl || null,
+    description: draft.description || null,
     hero: {url: hero.url, hash: hero.hash, brief: hero.brief},
   });
   await d.shiftQueue(blogDir, topicId);

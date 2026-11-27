@@ -24,6 +24,16 @@ function stripLeadingDisclosure(html) {
     .replace(new RegExp(`^<p\\b[^>]*>\\s*${DISCLOSURE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*</p>\\s*`, 'i'), '');
 }
 
+/**
+ * 쿠팡 상품명 뒤에 붙는 옵션 표기(", 블랙, 단일상품, 1개")를 떼고 상품 이름만 남긴다.
+ * 쿠팡은 "이름, 옵션, 수량" 순서로 쉼표를 붙인다. 쉼표가 없으면 그대로 둔다.
+ */
+export function displayProductName(name) {
+  const full = String(name || '').trim();
+  const head = full.split(',')[0].trim();
+  return head || full;
+}
+
 /** 초안과 선택된 쿠팡 링크·출처 목록으로 최종 Blogger 게시 HTML을 만든다. */
 export function renderPostHtml(draft, {productLink = null, hero = null} = {}) {
   const parts = [`<p>${DISCLOSURE}</p>`];
@@ -42,7 +52,7 @@ export function renderPostHtml(draft, {productLink = null, hero = null} = {}) {
     const whyHtml = draft?.product?.why
       ? `<p>${escapeHtml(draft.product.why)}</p>`
       : '';
-    const linkText = escapeHtml(productLink.productName || '관련 상품 확인하기');
+    const linkText = escapeHtml(displayProductName(productLink.productName) || '관련 상품 확인하기');
     const href = escapeHtml(productLink.shortenUrl);
     parts.push(
       `<section class="blog-product"><h2>필요한 제품 확인</h2>${whyHtml}<p><a href="${href}" rel="sponsored nofollow" target="_blank">${linkText}</a></p></section>`,
@@ -67,19 +77,23 @@ export function renderPostHtml(draft, {productLink = null, hero = null} = {}) {
   return parts.join('\n');
 }
 
-/** Blogger API v3로 글을 즉시 게시하고 {postId, url}을 돌려준다. */
+/**
+ * Blogger API v3로 글을 올리고 {postId, url}을 돌려준다.
+ * isDraft=true면 임시 글로만 만든다(주소·검색 설명을 넣은 뒤 publishDraft로 게시, 2026-11-27).
+ */
 export async function publishToBlogger({
   blogId,
   title,
   html,
   labels = [],
   token,
+  isDraft = false,
   fetchImpl = fetch,
 } = {}) {
   if (!blogId) throw new Error('blogId가 필요합니다.');
   if (!token) throw new Error('Blogger 인증 토큰이 필요합니다.');
 
-  const endpoint = `${BLOGGER_API_BASE}/blogs/${encodeURIComponent(blogId)}/posts/`;
+  const endpoint = `${BLOGGER_API_BASE}/blogs/${encodeURIComponent(blogId)}/posts/${isDraft ? '?isDraft=true' : ''}`;
   const res = await fetchImpl(endpoint, {
     method: 'POST',
     headers: {
@@ -104,6 +118,21 @@ export async function publishToBlogger({
     postId: String(data.id),
     url: String(data.url),
   };
+}
+
+/** 임시 글을 게시하고 {postId, url}을 돌려준다(posts.publish). */
+export async function publishDraft({blogId, postId, token, fetchImpl = fetch} = {}) {
+  if (!blogId || !postId) throw new Error('blogId·postId가 필요합니다.');
+  if (!token) throw new Error('Blogger 인증 토큰이 필요합니다.');
+  const endpoint = `${BLOGGER_API_BASE}/blogs/${encodeURIComponent(blogId)}/posts/${encodeURIComponent(postId)}/publish`;
+  const res = await fetchImpl(endpoint, {method: 'POST', headers: {Authorization: `Bearer ${token}`}});
+  if (!res?.ok) {
+    let detail = '';
+    try { detail = await res.text(); } catch { /* ignore */ }
+    throw new Error(`Blogger 임시 글 게시 실패(HTTP ${res?.status ?? 'no-status'})${detail ? `: ${detail}` : ''}`);
+  }
+  const data = await res.json();
+  return {postId: String(data.id), url: String(data.url)};
 }
 
 /**

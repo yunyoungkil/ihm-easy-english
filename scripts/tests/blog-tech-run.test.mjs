@@ -53,7 +53,7 @@ function makeTopic(topicId = 'dyson-v8-red-blink') {
   };
 }
 
-const DEFAULT_PRODUCT = {query: '다이슨 V8 어댑터', why: '교체용 확인', required: false};
+const DEFAULT_PRODUCT = {query: '다이슨 V8 어댑터', mustHave: ['어댑터'], why: '교체용 확인', required: false};
 
 function makeDraft(topicId = 'dyson-v8-red-blink', product = DEFAULT_PRODUCT) {
   return {
@@ -61,6 +61,7 @@ function makeDraft(topicId = 'dyson-v8-red-blink', product = DEFAULT_PRODUCT) {
     title: '다이슨 V8 빨간불 깜빡임 확인 순서',
     labels: ['가전', '무선청소기'],
     notUsedNote: '이 글은 직접 써 보지 않고 제조사 공식 안내를 정리했습니다.',
+    description: '다이슨 V8 빨간불이 깜빡이면 충전 어댑터 연결부터 확인합니다.',
     bodyHtml: '<p>이 글은 직접 써 보지 않고 제조사 공식 안내를 정리했습니다.</p><p>충전 어댑터를 콘센트에 다시 연결합니다.</p>',
     steps: [
       {
@@ -88,6 +89,10 @@ function makeBaseDeps(overrides = {}) {
     searchProducts: 0,
     deeplink: 0,
     publishToBlogger: 0,
+    publishDraft: 0,
+    applyPostSettings: 0,
+    applyPostSettingsArgs: [],
+    publishToBloggerArgs: [],
     verifyLive: 0,
     syncBlogData: 0,
     gitPull: 0,
@@ -117,9 +122,20 @@ function makeBaseDeps(overrides = {}) {
       return {ok: true, hero: {...FAKE_HERO}};
     },
     checkTechPost: async () => ({ok: true, problems: []}),
-    publishToBlogger: async ({blogId, title}) => {
+    publishToBlogger: async (args) => {
       calls.publishToBlogger += 1;
-      return {postId: 'post-101', url: `https://tech.d40m.com/${blogId}/${encodeURIComponent(title)}.html`};
+      calls.publishToBloggerArgs.push(args);
+      return {postId: 'post-101', url: 'https://tech.d40m.com/'};
+    },
+    applyPostSettings: async (args) => {
+      calls.applyPostSettings += 1;
+      calls.applyPostSettingsArgs.push(args);
+      return {ok: true};
+    },
+    publishDraft: async ({postId}) => {
+      calls.publishDraft += 1;
+      const slug = calls.applyPostSettingsArgs.at(-1)?.permalink || 'blog-post';
+      return {postId, url: `https://tech.d40m.com/2026/11/${slug}.html`};
     },
     verifyLive: async () => {
       calls.verifyLive += 1;
@@ -159,6 +175,25 @@ test('pickMatchingProduct: query 핵심 낱말이 모두 들어간 첫 후보를
   assert.equal(pickMatchingProduct(candidates, '다이슨 V8 정품 거치대'), null);
   assert.equal(pickMatchingProduct([], '다이슨 V8'), null);
   assert.equal(pickMatchingProduct(candidates, '   '), null);
+});
+
+test('pickMatchingProduct: mustHave·mustNotHave로 본문과 같은 종류만 고른다(11/27 실제 후보)', () => {
+  // data/blog/drafts/iphone-samsung-tv-mirroring-not-working.json의 실제 후보 이름 그대로
+  const candidates = [
+    {productId: 8609330249, productName: '넥스트유 미라칸 hdmi 4k 동글 미러링 송신기 블랙, 단일상품, 1개'},
+    {productId: 8948358136, productName: '쿠오 무선 초강력 벽뚫기 HDMI 미러링 디스플레이 송수신기세트'},
+    {productId: 7612618848, productName: '호후 아이폰미러링 케이블 티비연결 라이트닝 이젠더 HMG-L007-2PP, 1개, 화이트'},
+    {productId: 7343113562, productName: '구스페리 C타입 to HDMI 4K UHD 60Hz Ver2.0 미러링 케이블'},
+  ];
+  // 예전 방식(검색어만): 무선 송신기가 뽑혔다
+  assert.equal(pickMatchingProduct(candidates, 'HDMI 미러링')?.productId, 8609330249);
+  // 유선이라는 조건을 주면 유선 제품만
+  const wired = {query: '미러링', mustHave: ['케이블|젠더'], mustNotHave: ['무선', '동글', '송신기']};
+  assert.equal(pickMatchingProduct(candidates, wired)?.productId, 7612618848);
+  // 띄어쓰기가 달라도 맞춘다(상품명 "아이폰미러링" ↔ 조건 "아이폰 미러링")
+  assert.equal(pickMatchingProduct(candidates, {query: '아이폰 미러링', mustHave: ['라이트닝|8핀']})?.productId, 7612618848);
+  // 조건을 만족하는 후보가 없으면 null
+  assert.equal(pickMatchingProduct(candidates, {query: 'HDMI', mustHave: ['애플'], mustNotHave: []}), null);
 });
 
 test('1) 멈춤 상태이면 outcome=paused이고 글쓰기를 부르지 않는다', async () => {
@@ -380,7 +415,7 @@ test('9) 앞선 2번 rejected 뒤에 deferred만 나면 멈춤을 쓰지 않는�
     const {deps} = makeBaseDeps({
       runWriter: async () => ({
         ok: true,
-        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', why: '교체용', required: true}),
+        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', mustHave: ['어댑터'], why: '교체용', required: true}),
       }),
       searchProducts: async () => [
         {productId: 9, productName: '다이슨 V8 호환 어댑터 26.1V', productUrl: 'https://www.coupang.com/vp/9'},
@@ -403,7 +438,7 @@ test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 d
     const {deps: noMatchDeps, calls: noMatchCalls} = makeBaseDeps({
       runWriter: async () => ({
         ok: true,
-        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', why: '교체용', required: true}),
+        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', mustHave: ['어댑터'], why: '교체용', required: true}),
       }),
       searchProducts: async () => [
         {productId: 10, productName: '전혀 무관한 청소기 거치대', productUrl: 'https://www.coupang.com/vp/10'},
@@ -418,7 +453,7 @@ test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 d
     const {deps: optionalDeps, calls: optionalCalls} = makeBaseDeps({
       runWriter: async () => ({
         ok: true,
-        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', why: '보조', required: false}),
+        draft: makeDraft('dyson-v8-red-blink', {query: '다이슨 V8 어댑터 26.1V', mustHave: ['어댑터'], why: '보조', required: false}),
       }),
       searchProducts: async () => {
         throw new Error('API error');
@@ -546,7 +581,7 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
       },
       searchProducts: async (_q, opts) => {
         calls.searchProducts += 1;
-        assert.equal(opts.limit, 5);
+        assert.equal(opts.limit, 10);
         return [
           {productId: 101, productName: '타사 충전기', productUrl: 'https://www.coupang.com/vp/101'},
           {productId: 202, productName: '다이슨 V8 정격 호환 어댑터 26.1V', productUrl: 'https://www.coupang.com/vp/202'},
@@ -562,6 +597,16 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
     const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
     assert.equal(res.outcome, 'published');
     assert.equal(calls.publishToBlogger, 1);
+    // 임시 글로 만들고 → 주소·검색 설명 넣고 → 게시(2026-11-27)
+    assert.equal(calls.publishToBloggerArgs[0].isDraft, true);
+    assert.equal(calls.applyPostSettings, 1);
+    assert.deepEqual(
+      {permalink: calls.applyPostSettingsArgs[0].permalink, description: calls.applyPostSettingsArgs[0].description, postId: calls.applyPostSettingsArgs[0].postId},
+      {permalink: 'dyson-v8-red-blink', description: '다이슨 V8 빨간불이 깜빡이면 충전 어댑터 연결부터 확인합니다.', postId: 'post-101'},
+    );
+    assert.equal(calls.publishDraft, 1);
+    assert.equal(res.url, 'https://tech.d40m.com/2026/11/dyson-v8-red-blink.html');
+    assert.equal(res.reasons, undefined);
     assert.equal(calls.verifyLive, 1);
     assert.equal(calls.deeplink, 1);
     assert.equal(calls.syncBlogData, 1);
@@ -868,5 +913,24 @@ test('17-1) 받기가 예외를 던져도 계속 진행하고, 받기에 성공�
     const res2 = await runTechOnce({projectDir, now: KST_WED_2AM, deps: ok.deps});
     assert.equal(res2.outcome, 'published');
     assert.equal('pullFailed' in res2, false);
+  });
+});
+
+test('11-1) 주소·검색 설명 넣기가 실패해도 게시하고 경고만 남긴다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps({
+      applyPostSettings: async () => {
+        throw new Error('이 블로그 편집 화면을 여는 구글 계정을 자동화용 크롬에서 찾지 못했습니다(로그인 필요).');
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(calls.publishDraft, 1);
+    assert.equal(res.url, 'https://tech.d40m.com/2026/11/blog-post.html');
+    assert.ok(res.reasons.some((r) => r.includes('글 주소·검색 설명을 넣지 못했습니다')));
+    assert.ok(res.reasons.some((r) => r.includes('정한 이름(dyson-v8-red-blink)과 다릅니다')));
+    const post = (await readPosts(blogDir))[0];
+    assert.equal(post.description, '다이슨 V8 빨간불이 깜빡이면 충전 어댑터 연결부터 확인합니다.');
   });
 });

@@ -12,11 +12,20 @@ import {
   runWriter,
 } from '../blog/write-tech-post.mjs';
 import {
+  displayProductName,
   listTodayLivePosts,
+  publishDraft,
   publishToBlogger,
   renderPostHtml,
   verifyLive,
 } from '../blog/publish-post.mjs';
+
+test('displayProductName: 쿠팡 옵션 표기(", 블랙, 단일상품, 1개")를 떼고 이름만 남긴다', () => {
+  assert.equal(displayProductName('넥스트유 미라칸 hdmi 4k 동글 미러링 송신기 블랙, 단일상품, 1개'), '넥스트유 미라칸 hdmi 4k 동글 미러링 송신기 블랙');
+  assert.equal(displayProductName('구스페리 C타입 to HDMI 4K UHD 60Hz Ver2.0 미러링 케이블'), '구스페리 C타입 to HDMI 4K UHD 60Hz Ver2.0 미러링 케이블');
+  assert.equal(displayProductName(', 1개'), ', 1개');
+  assert.equal(displayProductName(''), '');
+});
 
 const HOME = 'C:\\Users\\tester';
 const EXT_DIR = path.join(HOME, '.vscode', 'extensions');
@@ -380,4 +389,23 @@ test('listTodayLivePosts: 글이 없으면 빈 배열, HTTP 오류·잘못된 �
   );
   await assert.rejects(() => listTodayLivePosts({blogId: '1', token: 't', date: '11/25'}), /YYYY-MM-DD/);
   await assert.rejects(() => listTodayLivePosts({blogId: '1', date: '2026-11-25'}), /토큰/);
+});
+
+test('publishToBlogger isDraft=true는 ?isDraft=true로 임시 글을 만들고, publishDraft는 /publish를 부른다', async () => {
+  const seen = [];
+  const fetchImpl = async (url, init) => {
+    seen.push({url, method: init.method});
+    return {ok: true, json: async () => ({id: '77', url: 'https://tech.d40m.com/2026/11/my-slug.html'})};
+  };
+  await publishToBlogger({blogId: 'B', title: 't', html: '<p>x</p>', token: 'tok', isDraft: true, fetchImpl});
+  assert.equal(seen[0].url, 'https://www.googleapis.com/blogger/v3/blogs/B/posts/?isDraft=true');
+  await publishToBlogger({blogId: 'B', title: 't', html: '<p>x</p>', token: 'tok', fetchImpl});
+  assert.equal(seen[1].url, 'https://www.googleapis.com/blogger/v3/blogs/B/posts/');
+  const res = await publishDraft({blogId: 'B', postId: '77', token: 'tok', fetchImpl});
+  assert.deepEqual(seen[2], {url: 'https://www.googleapis.com/blogger/v3/blogs/B/posts/77/publish', method: 'POST'});
+  assert.deepEqual(res, {postId: '77', url: 'https://tech.d40m.com/2026/11/my-slug.html'});
+  await assert.rejects(
+    publishDraft({blogId: 'B', postId: '77', token: 'tok', fetchImpl: async () => ({ok: false, status: 403, text: async () => 'no'})}),
+    /HTTP 403/,
+  );
 });

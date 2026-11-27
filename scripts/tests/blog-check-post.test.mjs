@@ -31,6 +31,7 @@ function makeValidDraft(overrides = {}) {
     title: '무선 청소기 충전 불량 확인 방법',
     labels: ['청소기', '충전'],
     notUsedNote: VALID_NOT_USED,
+    description: '무선 청소기가 충전되지 않으면 어댑터 연결 상태부터 확인합니다.',
     bodyHtml: `<p>${VALID_NOT_USED}</p><p>${VALID_STEP}</p>`,
     steps: [
       {
@@ -65,6 +66,37 @@ test('유효한 초안은 통과한다', async () => {
 
   const res = await checkTechPost(makeValidDraft(), okDeps());
   assert.deepEqual(res, {ok: true, problems: []});
+});
+
+test('검색 설명: 비었거나 150바이트를 넘거나 대가 문구가 들어가면 탈락한다', async () => {
+  assert.ok(problemIds(await checkTechPost(makeValidDraft({description: ''}), okDeps())).includes('no-description'));
+  // 11/27 실제로 블로거가 거절한 문구(UTF-8 154바이트)
+  const tooLong = '가전 디지털 기기가 갑자기 안 될 때 제조사 공식 안내로 확인한 점검 순서와 사기 전에 맞춰 볼 규격을 정리합니다.';
+  assert.ok(problemIds(await checkTechPost(makeValidDraft({description: tooLong}), okDeps())).includes('description-too-long'));
+  assert.ok(problemIds(await checkTechPost(makeValidDraft({description: DISCLOSURE.slice(0, 40)}), okDeps())).includes('description-disclosure'));
+  // 11/27 실제로 저장된 문구(130바이트)는 통과
+  const ok = await checkTechPost(makeValidDraft({description: '가전 기기가 갑자기 안 될 때 제조사 공식 안내로 확인한 점검 순서와 사기 전 규격을 정리합니다.'}), okDeps());
+  assert.deepEqual(ok, {ok: true, problems: []});
+});
+
+test('검색 설명도 AI 티 검사에 들어간다', async () => {
+  let seen = '';
+  await checkTechPost(makeValidDraft(), okDeps({runSlop: async ({bodyHtml}) => { seen = bodyHtml; return {ok: true}; }}));
+  assert.ok(seen.includes('어댑터 연결 상태부터 확인합니다.'));
+});
+
+test('쿠팡 상품 조건(mustHave)이 없으면 탈락하고, 있으면 통과한다', async () => {
+  const noMust = await checkTechPost(makeValidDraft({product: {query: '라이트닝 HDMI', why: '유선으로 연결합니다.'}}), okDeps());
+  assert.ok(problemIds(noMust).includes('product-no-must-have'));
+
+  const blankMust = await checkTechPost(makeValidDraft({product: {query: '라이트닝 HDMI', mustHave: ['  ']}}), okDeps());
+  assert.ok(problemIds(blankMust).includes('product-no-must-have'));
+
+  const withMust = await checkTechPost(
+    makeValidDraft({product: {query: '라이트닝 HDMI', mustHave: ['케이블|젠더'], mustNotHave: ['무선']}}),
+    okDeps(),
+  );
+  assert.equal(problemIds(withMust).includes('product-no-must-have'), false);
 });
 
 test('써 본 척 표현("직접 써 보니 편했다")은 experience-claim', async () => {

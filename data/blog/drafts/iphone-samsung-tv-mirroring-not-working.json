@@ -106,37 +106,71 @@
     }
   ],
   "product": {
-    "query": "HDMI 미러링",
-    "why": "AirPlay를 지원하지 않는 구형 TV나 Wi-Fi가 불안정한 집에서 아이폰 화면을 유선으로 TV에 띄울 수 있다.",
+    "query": "라이트닝 HDMI",
+    "why": "2018년 이전 TV이거나 Wi-Fi가 불안정하면 이런 유선 어댑터로 아이폰을 TV의 HDMI 단자에 바로 연결할 수 있습니다. 라이트닝 단자 아이폰용이니, USB-C 단자 아이폰은 C타입 제품을 고르세요.",
     "required": false,
     "candidates": [
       {
-        "productId": 8609330249,
-        "productName": "넥스트유 미라칸 hdmi 4k 동글 미러링 송신기 블랙, 단일상품, 1개",
-        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8609330249&itemId=24969190670&vendorItemId=92097240156&traceid=V0-153-3cb78c75d8e4e075&clickBeacon=cbac1780-ea12-11f1-8a8b-45a6875c1fbc%7E3&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=1&slot=1"
-      },
-      {
-        "productId": 8948358136,
-        "productName": "쿠오 무선 초강력 벽뚫기 HDMI 미러링 디스플레이 송수신기세트",
-        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8948358136&itemId=26173359260&vendorItemId=93153042037&traceid=V0-153-80e8e9995143faf5&clickBeacon=cbac1780-ea12-11f1-bbdd-91c91555b1a1%7E3&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=1&slot=2"
-      },
-      {
         "productId": 7612618848,
         "productName": "호후 아이폰미러링 케이블 티비연결 라이트닝 이젠더 HMG-L007-2PP, 1개, 화이트",
-        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=7612618848&itemId=23654321925&vendorItemId=90679680277&traceid=V0-153-656527174c92faac&clickBeacon=cbac1780-ea12-11f1-977c-265792b22246%7E3&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=1&slot=3"
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=7612618848&itemId=23654321925&vendorItemId=90679680277&traceid=V0-153-656527174c92faac&clickBeacon=7e607c80-ea28-11f1-87bb-6d578a4540d2%7E3&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=1&slot=1"
       },
       {
-        "productId": 7343113562,
-        "productName": "구스페리 C타입 to HDMI 4K UHD 60Hz Ver2.0 미러링 케이블",
-        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=7343113562&itemId=18878543209&vendorItemId=86007066928&traceid=V0-153-214734c4ebbc5d30&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=0&slot=4"
+        "productId": 2349330409,
+        "productName": "잇츠온 8핀 MHL 스마트폰 TV 미러링 케이블 4K IT-MHL8, 2m, 혼합색상, 1개",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=2349330409&itemId=4074207111&vendorItemId=72058240582&traceid=V0-153-60c84d335240fed5&clickBeacon=7e607c80-ea28-11f1-b112-a31b531922ce%7E3&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=1&slot=2"
       },
       {
-        "productId": 9591648271,
-        "productName": "Koogold TV 무선 미러링 MHL 동글 고해상도 미라캐스트 무선 화면 공유 기능 송수신기 미러링 TVING 유튜브 연결 휴대폰",
-        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9591648271&itemId=28632603990&vendorItemId=94258743507&traceid=V0-153-8abc0083af39ca3b&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=0&slot=5"
+        "productId": 6728630473,
+        "productName": "애니포트 8핀 TV 연결 아이폰전용 미러링 MHL 케이블 AP-MW8 PLUS, 2m, 단일색상, 1개",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=6728630473&itemId=15736442876&vendorItemId=82950368483&traceid=V0-153-c3693cb97a67880b&clickBeacon=7e607c80-ea28-11f1-b9cf-8a8c2244111b%7E3&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=1&slot=3"
+      },
+      {
+        "productId": 9501351737,
+        "productName": "프리라이프 lightning to hdmi 라이트닝 8핀 HDMI 어댑터 핸드폰 미러링 케이블",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9501351737&itemId=28306088354&vendorItemId=95805207516&traceid=V0-153-05b7cd3331e8a5b8&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=4"
+      },
+      {
+        "productId": 4833106447,
+        "productName": "슈퍼 OTG H1 아이폰 아이패드 HDMI 젠더 라이트닝 8핀",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=4833106447&itemId=6238985040&vendorItemId=73534787104&traceid=V0-153-4c689de0a979884f&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=5"
+      },
+      {
+        "productId": 122766895,
+        "productName": "코시 라이트닝8핀 HDMI 미러링 케이블",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=122766895&itemId=364123581&vendorItemId=87576455339&traceid=V0-153-e91639a456b1ca35&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=6"
+      },
+      {
+        "productId": 8427940366,
+        "productName": "온텐 iOS 8핀 HDMI 1080p 미러링 케이블 2m",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8427940366&itemId=24694064443&vendorItemId=91703830690&traceid=V0-153-58cfdf6183c7762f&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=7"
+      },
+      {
+        "productId": 6978270723,
+        "productName": "요이치 USB 3.0 A타입 to C타입 플로우 C2 OTG 변환 젠더",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=6978270723&itemId=17038636703&vendorItemId=84213534576&traceid=V0-153-9e7d77440ccc4e5f&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=8"
+      },
+      {
+        "productId": 5722635305,
+        "productName": "호후 이젠더 HMG-L007-2 플러스 젠더 HMG-L007-2P",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=5722635305&itemId=9575978721&vendorItemId=76860592938&traceid=V0-153-9f1a17922db25b96&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=9"
+      },
+      {
+        "productId": 8550927361,
+        "productName": "구스페리 애플펜슬 펜촉 무소음 소프트 팁스 샤프형",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8550927361&itemId=24663207207&vendorItemId=91673599949&traceid=V0-153-45d6ac25e1dc5b5e&requestid=20261127150506457082591743&token=31850C%7CMIXED&pt=0&slot=10"
       }
     ],
-    "chosenProductId": 8609330249
+    "chosenProductId": 9501351737,
+    "mustHave": [
+      "케이블|젠더|어댑터"
+    ],
+    "mustNotHave": [
+      "무선",
+      "동글",
+      "송신기",
+      "미라캐스트"
+    ]
   },
   "heroImage": {
     "moment": "late evening, a person sits on the floor in front of a low sofa holding a phone toward a large wall-mounted TV; the phone shows a small spinning connection indicator while the TV screen stays on a plain dark-blue idle background with nothing appearing",

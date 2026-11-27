@@ -18,7 +18,23 @@ test('항상 읽는 규칙 문서(AGENTS.md)와 스킬 문서가 지침 문서�
   const ytOps = read('knowledge/youtube-operations.md');
   assert.ok(agents.includes('knowledge/playbooks/comparison-sheet-playbook.md'));
   assert.ok(agents.includes('knowledge/youtube-operations.md'));
-  assert.ok(agents.includes('쇼츠 상단 0.5초 훅') || ytOps.includes('쇼츠 상단 0.5초 훅'));
+  // 쇼츠 위 훅 띠·아래 정보 띠는 사용자가 정한 불변 규칙(2026-11-16). 둘 다 항상 읽는 문서와 유튜브 허브에 있어야 한다.
+  // (2026-11-27 1차 개편 때 '또는' 조건으로 느슨해지고 아래 띠가 빠졌던 것을 되돌림)
+  for (const [name, text] of [['AGENTS.md', agents], ['youtube-operations.md', ytOps]]) {
+    assert.ok(text.includes('쇼츠 상단 0.5초 훅'), `${name}에 쇼츠 상단 0.5초 훅이 없다`);
+    assert.ok(text.includes('아래 정보 띠'), `${name}에 쇼츠 아래 정보 띠가 없다`);
+  }
+  // 블로그와 공유하는 공통 안전선과 음성 예산이 고정 안전선 목록에 있어야 한다(2026-11-27 감사에서 빠진 것 확인)
+  for (const phrase of ['경험·일화 날조 금지', '저작권 준수', '음성 예산 일치', '애드센스 계정 보호']) {
+    assert.ok(agents.includes(phrase), `AGENTS.md 고정 안전선에 "${phrase}"가 없다`);
+  }
+  // 안티그래비티는 렌더 뒤 패키지 복사 훅이 없다 — 직접 복사 안내가 유튜브 허브에 있어야 한다
+  assert.ok(ytOps.includes('안티그래비티는 렌더 뒤') && ytOps.includes('ALLOW_BANNED_TERMS'));
+  // 사후 마무리 스킬은 상태 파일을 손으로 고치지 않는다(production-rules "4번째 원인")
+  for (const side of ['.claude', '.agents']) {
+    const wrap = read(`${side}/skills/publish-wrapup/SKILL.md`);
+    assert.ok(wrap.includes('손으로 고치지 않는다') && wrap.includes('`status.json`을 만들지 않는다'), `${side} publish-wrapup에 상태 파일 금지 문구가 없다`);
+  }
   assert.ok(agents.includes('화면에 보이는 것을 바꿨으면 브라우저로 직접 열어 보고'));
   assert.ok(agents.includes('appliedTo') && agents.includes('origin'));
   assert.ok(read('.claude/skills/episode-planning/references/01-topic-and-data.md').includes('comparison-sheet-playbook.md'));

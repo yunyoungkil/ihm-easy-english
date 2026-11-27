@@ -23,6 +23,7 @@ import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, buildContinuationContext, extractNextActions} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
 import {startBackgroundSync} from './pc-sync.mjs';
+import {describeResult, safePull} from './safe-pull.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const args = process.argv.slice(2);
@@ -33,6 +34,20 @@ const statePath = process.env.BRIEFING_STATE_FILE || DEFAULT_BRIEFING_STATE_PATH
 
 // 1. 커밋 전 자동 검사 보장
 ensureGitHooks();
+
+// 1.1. 안전한 받기(2026-11-27): 담당 PC가 올린 자동 데이터 파일과 부딪히는 이 PC의 미커밋 변경을 백업 후 원격 것으로 맞추고 받는다.
+// 실패해도 브리핑은 계속한다. 알릴 만한 일이 있을 때만 결과 앞에 한 줄 붙인다(--no-sync·BRIEFING_NO_SYNC=1에서는 부르지 않는다).
+let pullNote = '';
+if (!noSync && process.env.BRIEFING_NO_SYNC !== '1') {
+  try {
+    const pulled = await safePull({projectDir});
+    if (pulled.ok === false || pulled.skipped === undefined && (pulled.restored.length > 0 || pulled.conflictsNonData.length > 0)) pullNote = `[git 받기] ${describeResult(pulled)}`;
+  } catch (err) {
+    pullNote = `[git 받기] 받기 실패: ${err.message}`;
+  }
+  if (pullNote) process.stderr.write(`${pullNote}
+`);
+}
 
 // 1.2. PC 2대 자료·대화 공유(2026-11-24): 구글 드라이브에서 다른 PC가 만든 재료·대화 사본을 받고 이 PC 것을 올린다(뒤에서 실행).
 if (!noSync) startBackgroundSync(projectDir);

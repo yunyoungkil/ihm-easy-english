@@ -24,6 +24,7 @@ import {
 } from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
 import {startBackgroundSync} from './pc-sync.mjs';
+import {describeResult, safePull} from './safe-pull.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -53,6 +54,22 @@ const readNextActions = () =>
 // 커밋 전 자동 검사(.githooks)는 PC마다 켜야 해서 대화를 시작할 때마다 맞춘다(2026-11-12).
 ensureGitHooks();
 
+// 대화 시작 때 원격 최신을 안전하게 받는다(2026-11-27): 담당 PC가 올린 자동 데이터 파일이 이 PC의 미커밋 변경과 부딪히면 백업 후 원격 것으로 맞춘다.
+// 실패해도 대화 시작은 막지 않는다. 알릴 만한 일(실패·부딪힘)이 있을 때만 브리핑 맨 앞에 한 줄 붙인다.
+let pullNote = '';
+if (process.env.BRIEFING_NO_SYNC !== '1') {
+  try {
+    const pulled = await safePull({projectDir});
+    if (pulled.ok === false || pulled.skipped === undefined && (pulled.restored.length > 0 || pulled.conflictsNonData.length > 0)) pullNote = `[git 받기] ${describeResult(pulled)}`;
+  } catch (err) {
+    pullNote = `[git 받기] 받기 실패: ${err.message}`;
+  }
+  if (pullNote) process.stderr.write(`${pullNote}
+`);
+}
+const withPullNote = (text) => (pullNote ? `${pullNote}
+${text}` : text);
+
 // 다른 PC가 만든 그림·영상·음성과 대화 사본을 구글 드라이브에서 받고 이 PC 것을 올린다(2026-11-24 사용자).
 // 같은 날 이어 가는 대화에도 매번 돈다. 뒤에서 돌아 대화 시작을 막지 않는다. 테스트(BRIEFING_NO_SYNC)에서는 끈다.
 if (process.env.BRIEFING_NO_SYNC !== '1') startBackgroundSync(projectDir);
@@ -70,7 +87,7 @@ if (checkDaily) {
       lastBriefingAt: state?.lastBriefingAt,
       handoffNote: handoffLine(latestHandoff(projectDir)),
     });
-    process.stdout.write(`${renderSessionStartOutput(continuation)}\n`);
+    process.stdout.write(`${renderSessionStartOutput(withPullNote(continuation))}\n`);
     process.exit(0);
   }
 }
@@ -108,4 +125,4 @@ if (check?.briefing?.data) {
 if (!skipSync || Boolean(process.env.BRIEFING_STATE_FILE)) {
   await recordBriefingDone({statePath});
 }
-process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions, handoffLine(latestHandoff(projectDir))))}\n`);
+process.stdout.write(`${renderSessionStartOutput(withPullNote(buildBriefingContext(check, nextActions, handoffLine(latestHandoff(projectDir)))))}\n`);

@@ -1,12 +1,10 @@
 // 쿠팡 블로그(tech.d40m.com) 1회 실행 오케스트레이터.
 // CLI: node scripts/blog/tech-run.mjs [--preview|--publish-draft <파일>|--force-day]
-import {execFile} from 'node:child_process';
 import {existsSync} from 'node:fs';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {hostname as osHostname} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {promisify} from 'node:util';
 
 import {
   appendPost,
@@ -28,12 +26,11 @@ import {getBlogAccessToken} from './google-auth.mjs';
 import {listTodayLivePosts, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
 import {syncPaths} from '../loop-data-sync.mjs';
+import {safePull} from '../safe-pull.mjs';
 
 export const WRITING_WEEKDAYS = [1, 3, 5]; // allow-literal: 설계 6-2 처음 4주 주 3편 가설
 export const MAX_CONSECUTIVE_REJECTS = 3; // allow-literal: 설계 6-7
 
-const execFileAsync = promisify(execFile);
-const GIT_PULL_TIMEOUT_MS = 2 * 60 * 1000; // allow-literal: 시작할 때 받기 제한 2분(멈춘 네트워크가 무인 실행을 붙잡지 않게)
 const PULL_ERROR_MAX_CHARS = 300; // allow-literal: 오류 문구 길이 제한
 const MODULE_DIR =path.dirname(fileURLToPath(import.meta.url));
 const COUPANG_SHORT_PREFIX = 'https://link.coupang.com/';
@@ -167,18 +164,12 @@ async function resolveProductLink(draft, absDraftPath, d) {
 
 /** 시작할 때 최신 기록을 받는다. 실패해도 던지지 않고 {ok:false, error}로 알린다(2026-11-27: PC 2대가 켜져 있는 쪽이 실행). */
 async function defaultGitPull({projectDir}) {
-  try {
-    await execFileAsync('git', ['pull', '--rebase', '--autostash'], {cwd: projectDir, timeout: GIT_PULL_TIMEOUT_MS});
-    return {ok: true};
-  } catch (err) {
-    // 부딪혀 rebase가 중간에 멈췄다면 되돌려 작업 폴더를 깨끗하게 둔다.
-    try {
-      await execFileAsync('git', ['rebase', '--abort'], {cwd: projectDir, timeout: GIT_PULL_TIMEOUT_MS});
-    } catch {
-      // 진행 중인 rebase가 없으면 무시
-    }
-    return {ok: false, error: String(err?.stderr || err?.message || err).trim().slice(0, PULL_ERROR_MAX_CHARS)};
-  }
+  // 부딪히는 자동 데이터 파일은 백업 후 원격 것으로 맞추고 받는다(scripts/safe-pull.mjs). 던지지 않는다.
+  const r = await safePull({projectDir});
+  if (r.skipped) return {ok: true};
+  // 코드·문서가 부딪히면 safePull이 받지 않고 ok:false(stage 'conflict')로 돌려준다.
+  if (!r.ok) return {ok: false, error: String(r.error || '').slice(0, PULL_ERROR_MAX_CHARS)};
+  return {ok: true};
 }
 
 /** 이번 실행 결과가 담긴 data/blog만 깃에 올린다(담당 PC 검사 없음). */

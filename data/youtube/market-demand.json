@@ -956,7 +956,7 @@
       "totalResults": 1000000,
       "videoCount": 13,
       "firstSeenAt": "2026-11-17T09:05:57.495Z",
-      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
+      "lastD7SyncedAt": "2026-11-27T01:46:28.776Z",
       "d7OutOfActiveSince": null,
       "analyzedAt": "2026-11-17T09:10:50.394Z",
       "topOutliers": [
@@ -1264,7 +1264,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
+      "lastD7SyncedAt": "2026-11-27T01:46:28.776Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1355,7 +1355,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
+      "lastD7SyncedAt": "2026-11-27T01:46:28.776Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1640,7 +1640,7 @@
           "isShort": true
         }
       ],
-      "lastD7SyncedAt": "2026-11-26T16:00:10.796Z",
+      "lastD7SyncedAt": "2026-11-27T01:46:28.776Z",
       "d7OutOfActiveSince": null,
       "confidence": "ok",
       "lowSampleWarning": null,
@@ -1921,7 +1921,7 @@
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 0,
@@ -2168,7 +2168,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2508,7 +2508,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2757,7 +2757,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3006,7 +3006,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3255,7 +3255,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -3377,7 +3377,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "SbQVBQoRciA"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -3620,7 +3620,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "pvPBD9PLuyk"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -3875,7 +3875,7 @@
         "slug": "ep30-shorts-chocolate",
         "videoId": "8-3QjaGbMHU"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4006,7 +4006,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "G5unshk12zk"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -4142,7 +4142,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "rooxbEm1oRc"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4182,7 +4182,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "Ux_M00VVmEU"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 0,
@@ -4313,7 +4313,7 @@
         "slug": "ep31-shorts-stress-shift",
         "videoId": "Bxd1XRx25KQ"
       },
-      "statusUpdatedAt": "2026-11-26T16:00:10.796Z",
+      "statusUpdatedAt": "2026-11-27T01:46:28.776Z",
       "consecutiveSuccesses": 0,
       "exhaustion": {
         "totalOutliers": 5,
@@ -4518,7 +4518,7 @@
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-26T16:00:10.796Z",
+  "lifecycleSyncedAt": "2026-11-27T01:46:28.776Z",
   "d7ProcessedVideoIds": [
     "oMrCtSBbibc",
     "ogCglr1VNYE"
@@ -4565,7 +4565,7 @@
       "verdict": "hold",
       "ratio": 0.9,
       "reason": "7일 조회 8회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 13,
+      "views": 14,
       "views7d": 8,
       "baselineViews7d": 9,
       "competitors": [],
@@ -4693,7 +4693,7 @@
       "verdict": "hold",
       "ratio": 6.1,
       "reason": "7일 조회 46회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 196,
+      "views": 197,
       "views7d": 46,
       "baselineViews7d": 7.5,
       "competitors": [],
@@ -4814,7 +4814,7 @@
     }
   ],
   "d7AutonomousCycle": {
-    "lastRunAt": "2026-11-26T16:00:10.796Z",
+    "lastRunAt": "2026-11-27T01:46:28.776Z",
     "applied": [],
     "holdCount": 16,
     "promotedChannels": [],

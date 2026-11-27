@@ -934,3 +934,22 @@ test('11-1) 주소·검색 설명 넣기가 실패해도 게시하고 경고만 
     assert.equal(post.description, '다이슨 V8 빨간불이 깜빡이면 충전 어댑터 연결부터 확인합니다.');
   });
 });
+
+test('11-2) --allow-second-today·--topic: 오늘 글이 있어도 손으로 고른 주제를 올린다(무인 기본값은 그대로 막음)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic('first-topic'), makeTopic()]));
+    await writeFile(path.join(blogDir, 'tech-posts.json'), JSON.stringify([{date: '2026-11-25', topicId: 'old', title: '오늘 먼저 올린 글', url: 'u', postId: 'p'}]));
+    const blocked = await runTechOnce({projectDir, now: KST_WED_2AM, deps: makeBaseDeps().deps});
+    assert.equal(blocked.outcome, 'already-posted-today');
+
+    const {deps, calls} = makeBaseDeps({listTodayLivePosts: async () => [{id: '1', title: '오늘 먼저 올린 글'}]});
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps, allowSecondToday: true, topicPick: 'dyson-v8-red-blink'});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.topicId, 'dyson-v8-red-blink');
+    assert.equal(calls.publishDraft, 1);
+    assert.deepEqual((await readQueue(blogDir)).map((t) => t.topicId), ['first-topic']);
+
+    const missing = await runTechOnce({projectDir, now: KST_WED_2AM, deps: makeBaseDeps().deps, allowSecondToday: true, topicPick: 'nope'});
+    assert.equal(missing.outcome, 'topic-not-in-queue');
+  });
+});

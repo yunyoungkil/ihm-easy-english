@@ -245,6 +245,9 @@ export async function runTechOnce({
   mode = 'auto',
   draftPath,
   forceDay = false,
+  // 사람이 손으로 돌릴 때만 쓰는 선택지(2026-11-27 사용자: 새 게시 순서를 실제 글로 시험). 무인 실행은 쓰지 않는다.
+  allowSecondToday = false,
+  topicPick = null,
   deps = {},
 } = {}) {
   const d = buildDeps(deps);
@@ -318,7 +321,7 @@ export async function runTechOnce({
   }
 
   const posts = await d.readPosts(blogDir);
-  if (mode !== 'preview' && posts.some((p) => p?.date === date)) {
+  if (mode !== 'preview' && !allowSecondToday && posts.some((p) => p?.date === date)) {
     return recordAndReturn({date, startedAt, outcome: 'already-posted-today'});
   }
 
@@ -360,7 +363,10 @@ export async function runTechOnce({
     if (!queue.length) {
       return recordAndReturn({date, startedAt, outcome: 'queue-empty'});
     }
-    const topic = queue[0];
+    const topic = topicPick ? queue.find((t) => t?.topicId === topicPick) : queue[0];
+    if (!topic) {
+      return recordAndReturn({date, startedAt, outcome: 'topic-not-in-queue', reasons: [`대기열에 없는 주제입니다: ${topicPick}`]});
+    }
     topicId = topic.topicId;
 
     if (mode === 'auto') {
@@ -531,7 +537,7 @@ export async function runTechOnce({
 
   // 올리기 직전 블로거에 오늘 올라간 글이 있는지 직접 확인한다(두 PC가 같은 날 올리는 사고 방지, 무인 실행만).
   // 확인이 실패하면 게시를 멈추지 않고 기록에 liveCheckFailed만 남긴다.
-  if (mode === 'auto') {
+  if (mode === 'auto' && !allowSecondToday) {
     let liveToday = [];
     try {
       liveToday = (await d.listTodayLivePosts({token, blogId, date})) || [];
@@ -609,6 +615,8 @@ function parseCliArgs(argv) {
   let mode = 'auto';
   let draftPath;
   let forceDay = false;
+  let allowSecondToday = false;
+  let topicPick = null;
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
@@ -616,6 +624,12 @@ function parseCliArgs(argv) {
       mode = 'preview';
     } else if (arg === '--force-day') {
       forceDay = true;
+    } else if (arg === '--allow-second-today') {
+      allowSecondToday = true;
+    } else if (arg === '--topic') {
+      topicPick = argv[i + 1];
+      i += 1;
+      if (!topicPick) throw new Error('--topic 뒤에 topicId가 필요합니다.');
     } else if (arg === '--publish-draft') {
       mode = 'publish-draft';
       draftPath = argv[i + 1];
@@ -629,7 +643,7 @@ function parseCliArgs(argv) {
       throw new Error(`알 수 없는 인자입니다: ${arg}`);
     }
   }
-  return {mode, draftPath, forceDay};
+  return {mode, draftPath, forceDay, allowSecondToday, topicPick};
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

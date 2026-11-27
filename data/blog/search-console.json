@@ -1,0 +1,55 @@
+{
+  "collectedAt": "2026-11-27T13:07:27.570Z",
+  "site": "sc-domain:d40m.com",
+  "host": "tech.d40m.com",
+  "range": {
+    "startDate": "2026-10-31",
+    "endDate": "2026-11-27"
+  },
+  "totals": {
+    "clicks": 0,
+    "impressions": 0
+  },
+  "pages": [
+    {
+      "url": "https://tech.d40m.com/2026/11/blog-post.html",
+      "topicId": "magsafe-wallet-transit-card-not-read",
+      "cluster": "휴대폰 결제·교통카드·액세서리",
+      "clicks": 0,
+      "impressions": 0,
+      "position": null,
+      "index": {
+        "verdict": "NEUTRAL",
+        "coverageState": "발견됨 - 현재 색인이 생성되지 않음",
+        "lastCrawlTime": null
+      }
+    },
+    {
+      "url": "https://tech.d40m.com/2026/11/tv.html",
+      "topicId": "iphone-samsung-tv-mirroring-not-working",
+      "cluster": null,
+      "clicks": 0,
+      "impressions": 0,
+      "position": null,
+      "index": {
+        "verdict": "NEUTRAL",
+        "coverageState": "발견됨 - 현재 색인이 생성되지 않음",
+        "lastCrawlTime": null
+      }
+    },
+    {
+      "url": "https://tech.d40m.com/2026/11/bespoke-ai-combo-install-space-check.html",
+      "topicId": "bespoke-ai-combo-install-space-check",
+      "cluster": "큰 가전 설치 전 확인",
+      "clicks": 0,
+      "impressions": 0,
+      "position": null,
+      "index": {
+        "verdict": "NEUTRAL",
+        "coverageState": "발견됨 - 현재 색인이 생성되지 않음",
+        "lastCrawlTime": null
+      }
+    }
+  ],
+  "queries": []
+}

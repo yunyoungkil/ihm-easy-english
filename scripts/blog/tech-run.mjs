@@ -26,6 +26,7 @@ import {getBlogAccessToken} from './google-auth.mjs';
 import {listTodayLivePosts, publishDraft, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
 import {applyPostSettings, toPermalinkSlug} from './blogger-post-settings.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
+import {collectSearchConsole} from './search-console.mjs';
 import {syncPaths} from '../loop-data-sync.mjs';
 import {safePull} from '../safe-pull.mjs';
 
@@ -225,6 +226,7 @@ function buildDeps(deps = {}) {
     listTodayLivePosts,
     gitPull: defaultGitPull,
     syncBlogData: defaultSyncBlogData,
+    collectSearchConsole,
     hostname: () => osHostname(),
     produceHero,
     ...deps,
@@ -274,6 +276,14 @@ export async function runTechOnce({
       rec.outcome !== 'other-pc-ran' &&
       (mode === 'auto' || (mode === 'publish-draft' && rec.outcome === 'published'));
     if (!shouldSync) return rec;
+    // 무인 실행마다 구글 서치 콘솔 실적·색인을 새로 모아 같이 올린다(2026-11-27 사용자 결정). 실패해도 실행 결과는 그대로.
+    if (mode === 'auto') {
+      try {
+        await d.collectSearchConsole({projectDir, now: now.getTime?.() ?? now});
+      } catch (err) {
+        rec.searchConsoleError = err?.message || String(err);
+      }
+    }
     try {
       await d.syncBlogData({projectDir, now, outcome: rec.outcome, host});
     } catch (err) {

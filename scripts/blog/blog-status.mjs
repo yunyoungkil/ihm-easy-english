@@ -13,6 +13,7 @@ const OPERATIONAL_FILES = Object.freeze({
   queue: 'tech-queue.json',
   pause: 'tech-paused.json',
   signalChecks: 'signal-checks.json',
+  searchConsole: 'search-console.json',
 });
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -83,6 +84,7 @@ export function summarizeBlogStatus({
   queue,
   pause,
   signalChecks,
+  searchConsole = null,
   since = null,
   now = new Date(),
   hasAnyFile = undefined,
@@ -137,6 +139,12 @@ export function summarizeBlogStatus({
   // 주제는 실제 검색 수를 보고 고른다(2026-11-27 사용자 결정). 숫자를 안 잰 주제가 있으면 알린다.
   const unmeasured = queueList.filter((t) => !t?.searchVolume).length;
   if (unmeasured > 0) parts.push(`검색량 미확인 ${unmeasured}개(keyword-volume.mjs queue)`);
+  // 구글 실제 성적(서치 콘솔, 무인 실행마다 수집, 2026-11-27). 서치 콘솔이 준 숫자만 쓴다.
+  if (searchConsole?.range && Array.isArray(searchConsole.pages)) {
+    const indexed = searchConsole.pages.filter((p) => p?.index?.verdict === 'PASS').length;
+    const t = searchConsole.totals || {};
+    parts.push(`구글 색인 ${indexed}/${searchConsole.pages.length}편 · 28일 노출 ${t.impressions ?? 0}·클릭 ${t.clicks ?? 0}(${String(searchConsole.collectedAt || '').slice(0, 10)} 수집)`);
+  }
 
   if (isPaused) {
     parts.push(`멈춤(${pause.reason || '사유 미기록'}) — 다시 켜기는 사용자 승인`);
@@ -181,6 +189,7 @@ export function loadBlogStatus(projectDir, {since = null, now = new Date()} = {}
   const queue = readJsonSync(paths.queue, []);
   const pause = readJsonSync(paths.pause, {paused: false});
   const signalChecks = readJsonSync(paths.signalChecks, []);
+  const searchConsole = readJsonSync(paths.searchConsole, null);
 
   return summarizeBlogStatus({
     runs,
@@ -188,6 +197,7 @@ export function loadBlogStatus(projectDir, {since = null, now = new Date()} = {}
     queue,
     pause,
     signalChecks,
+    searchConsole,
     since,
     now,
     hasAnyFile: true,

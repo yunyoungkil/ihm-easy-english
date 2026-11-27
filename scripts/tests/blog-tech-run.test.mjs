@@ -147,6 +147,10 @@ function makeBaseDeps(overrides = {}) {
       calls.syncBlogDataArgs.push(args);
       return {committed: 3, pushed: true};
     },
+    collectSearchConsole: async () => {
+      calls.collectSearchConsole = (calls.collectSearchConsole || 0) + 1;
+      return {};
+    },
     gitPull: async () => {
       calls.gitPull += 1;
       return {ok: true};
@@ -617,6 +621,7 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
     assert.equal(posts[0].topicId, 'dyson-v8-red-blink');
     assert.equal(posts[0].productUrl, 'https://link.coupang.com/a/matched202');
     assert.equal(posts[0].cluster, '큰 가전 설치 전 확인'); // 같은 갈래 링크 후보를 고르는 데 쓴다(2026-11-27)
+    assert.equal(calls.collectSearchConsole, 1); // 무인 실행마다 서치 콘솔 실적·색인 수집(2026-11-27)
 
     const queue = await readQueue(blogDir);
     assert.deepEqual(queue.map((t) => t.topicId), ['next-topic']);
@@ -953,5 +958,18 @@ test('11-2) --allow-second-today·--topic: 오늘 글이 있어도 손으로 고
 
     const missing = await runTechOnce({projectDir, now: KST_WED_2AM, deps: makeBaseDeps().deps, allowSecondToday: true, topicPick: 'nope'});
     assert.equal(missing.outcome, 'topic-not-in-queue');
+  });
+});
+
+test('서치 콘솔 수집이 실패해도 게시 결과는 그대로이고 searchConsoleError만 남는다(2026-11-27)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic(), makeTopic('next-topic')]));
+    const {deps, calls} = makeBaseDeps({
+      collectSearchConsole: async () => { throw new Error('서치 콘솔 응답 오류(403)'); },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.searchConsoleError, '서치 콘솔 응답 오류(403)');
+    assert.equal(calls.syncBlogData, 1);
   });
 });

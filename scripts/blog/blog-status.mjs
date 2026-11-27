@@ -85,6 +85,7 @@ export function summarizeBlogStatus({
   pause,
   signalChecks,
   searchConsole = null,
+  coupangReports = null,
   since = null,
   now = new Date(),
   hasAnyFile = undefined,
@@ -146,6 +147,14 @@ export function summarizeBlogStatus({
     parts.push(`구글 색인 ${indexed}/${searchConsole.pages.length}편 · 28일 노출 ${t.impressions ?? 0}·클릭 ${t.clicks ?? 0}(${String(searchConsole.collectedAt || '').slice(0, 10)} 수집)`);
   }
 
+  // 쿠팡 파트너스 실적(무인 실행마다 수집, 드라이브 공유, 2026-11-27). 쿠팡이 준 숫자만 쓴다.
+  if (coupangReports?.range && coupangReports.blog?.totals) {
+    const b = coupangReports.blog.totals;
+    const a = coupangReports.account?.totals;
+    const acct = a ? ` · 계정 전체 수수료 ${a.commission ?? 0}원` : '';
+    parts.push(`쿠팡 28일 블로그 링크 클릭 ${b.clicks ?? 0}·주문 ${b.orders ?? 0}·수수료 ${b.commission ?? 0}원${acct}(${String(coupangReports.collectedAt || '').slice(0, 10)} 수집)`);
+  }
+
   if (isPaused) {
     parts.push(`멈춤(${pause.reason || '사유 미기록'}) — 다시 켜기는 사용자 승인`);
   }
@@ -190,6 +199,8 @@ export function loadBlogStatus(projectDir, {since = null, now = new Date()} = {}
   const pause = readJsonSync(paths.pause, {paused: false});
   const signalChecks = readJsonSync(paths.signalChecks, []);
   const searchConsole = readJsonSync(paths.searchConsole, null);
+  // 수익 숫자는 공개 저장소에 두지 않고 드라이브 공유 폴더에 있다(coupang-reports.mjs OUT_REL).
+  const coupangReports = readJsonSync(path.join(projectDir, 'output', 'blog', 'private', 'coupang-reports.json'), null);
 
   return summarizeBlogStatus({
     runs,
@@ -198,6 +209,7 @@ export function loadBlogStatus(projectDir, {since = null, now = new Date()} = {}
     pause,
     signalChecks,
     searchConsole,
+    coupangReports,
     since,
     now,
     hasAnyFile: true,

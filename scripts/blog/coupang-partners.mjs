@@ -6,6 +6,8 @@
 // 엔드포인트:
 //   - 상품 검색: GET /v2/providers/affiliate_open_api/apis/openapi/products/search?keyword=...&limit=...&subId=...
 //   - 딥링크:   POST /v2/providers/affiliate_open_api/apis/openapi/v1/deeplink  JSON {coupangUrls, subId}
+//   - 실적:     GET /v2/providers/affiliate_open_api/apis/openapi/v1/reports/{commission|orders|clicks|cancels}?startDate=yyyyMMdd&endDate=yyyyMMdd&page=0
+//               (기간 최대 30일, 한 쪽 최대 1000줄, 매일 15시 갱신. 2026-11-27 실제 호출로 응답 칸 확인, 공식 안내는 partners.coupang.com 도움말)
 // HMAC-SHA256 서명 규칙:
 //   - signedDate: UTC `yyMMddTHHmmssZ` (예: `261125T053000Z`)
 //   - message: `${signedDate}${METHOD}${path}${query}` (query 앞 `?` 제외)
@@ -24,6 +26,8 @@ export const TECH_SUB_ID = 'techd40m';
 const BASE_URL = 'https://api-gateway.coupang.com';
 const SEARCH_PATH = '/v2/providers/affiliate_open_api/apis/openapi/products/search';
 const DEEPLINK_PATH = '/v2/providers/affiliate_open_api/apis/openapi/v1/deeplink';
+const REPORTS_PATH = '/v2/providers/affiliate_open_api/apis/openapi/v1/reports';
+export const REPORT_NAMES = Object.freeze(['commission', 'orders', 'clicks', 'cancels']);
 
 const DEFAULT_SEARCH_LIMIT = 10; // allow-literal: 기본 상품 검색 개수
 const SELFTEST_LIMIT = 5; // allow-literal: selftest 1회 호출 검색 개수
@@ -161,6 +165,23 @@ export const deeplink = async (
     originalUrl: item.originalUrl,
     shortenUrl: item.shortenUrl,
   }));
+};
+
+/**
+ * 실적 보고서 한 쪽. startDate·endDate는 yyyyMMdd. subId를 빼면 계정 전체(채널별 줄에 subId가 붙어 온다).
+ * 쿠팡이 준 줄(data 배열)을 그대로 돌려준다.
+ */
+export const fetchReport = async (
+  name,
+  {startDate, endDate, page = 0, subId, fetchImpl = fetch, env, projectDir, now} = {},
+) => {
+  if (!REPORT_NAMES.includes(name)) throw makeError('http', `모르는 쿠팡 보고서: ${name}`);
+  const params = {startDate: String(startDate), endDate: String(endDate)};
+  if (subId) params.subId = String(subId);
+  params.page = String(page);
+  const query = new URLSearchParams(params).toString();
+  const payload = await requestCoupang({method: 'GET', path: `${REPORTS_PATH}/${name}`, query, fetchImpl, env, projectDir, now});
+  return Array.isArray(payload?.data) ? payload.data : [];
 };
 
 const selftest = async () => {

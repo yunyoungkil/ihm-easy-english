@@ -201,3 +201,20 @@ test('서치 콘솔 수집본이 있으면 색인·노출·클릭을 그대로 �
   assert.match(line, /구글 색인 1\/3편 · 28일 노출 12·클릭 1\(2026-11-27 수집\)/);
   assert.doesNotMatch(line, /검색량 미확인/);
 });
+
+test('쿠팡 실적 수집본이 있으면 블로그 링크 클릭·주문·수수료와 계정 전체 수수료를 그대로 보여 준다(2026-11-27)', () => {
+  const base = {
+    runs: [], posts: [{topicId: 'a'}], queue: Array.from({length: 6}, (_, i) => ({topicId: `q-${i}`, searchVolume: {total: 1}})),
+    pause: {paused: false}, signalChecks: [], now: new Date('2026-11-27T14:00:00Z'),
+  };
+  const line = summarizeBlogStatus({
+    ...base,
+    coupangReports: {
+      collectedAt: '2026-11-27T13:30:00.000Z', range: {startDate: '2026-10-30', endDate: '2026-11-26'},
+      blog: {totals: {clicks: 3, orders: 1, cancels: 0, gmv: 12000, commission: 360}},
+      account: {totals: {clicks: 20, orders: 40, cancels: 5, gmv: 900000, commission: 27000}},
+    },
+  });
+  assert.match(line, /쿠팡 28일 블로그 링크 클릭 3·주문 1·수수료 360원 · 계정 전체 수수료 27000원\(2026-11-27 수집\)/);
+  assert.doesNotMatch(summarizeBlogStatus(base), /쿠팡 28일/);
+});

@@ -44,6 +44,8 @@ export const SYNC_ROOTS = [
   {rel: 'public/fonts/google', mediaOnly: false},
   {rel: 'output/blog/images', mediaOnly: false}, // 블로그 대표 그림과 hero.json(2026-11-27)
   {rel: 'output/blog/logs', mediaOnly: false}, // 블로그 글쓰기 과정 기록, 다른 PC에서 실패 원인을 보려고(2026-11-27)
+  // 쿠팡 파트너스 수익 실적(coupang-reports.mjs). 저장소가 공개라 git 대신 드라이브로만 나눈다(2026-11-27 사용자 결정).
+  {rel: 'output/blog/private', mediaOnly: false},
   // AI 티 검사(slop-rewrite)의 취향 규칙(writing-taste.md, W-01~W-08). 저장소가 공개라 git에는 올리지 않고(tools/slop-rewrite/.gitignore)
   // 드라이브로만 두 PC가 나눈다(2026-11-27 감사: 한 PC 다운로드 폴더에만 있어 다른 PC는 검사를 못 돌렸다).
   {rel: 'tools/slop-rewrite/taste', mediaOnly: false},

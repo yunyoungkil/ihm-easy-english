@@ -27,6 +27,7 @@ import {listTodayLivePosts, publishDraft, publishToBlogger, renderPostHtml, veri
 import {applyPostSettings, toPermalinkSlug} from './blogger-post-settings.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
 import {collectSearchConsole} from './search-console.mjs';
+import {collectCoupangReports} from './coupang-reports.mjs';
 import {syncPaths} from '../loop-data-sync.mjs';
 import {safePull} from '../safe-pull.mjs';
 
@@ -227,6 +228,7 @@ function buildDeps(deps = {}) {
     gitPull: defaultGitPull,
     syncBlogData: defaultSyncBlogData,
     collectSearchConsole,
+    collectCoupangReports,
     hostname: () => osHostname(),
     produceHero,
     ...deps,
@@ -282,6 +284,12 @@ export async function runTechOnce({
         await d.collectSearchConsole({projectDir, now: now.getTime?.() ?? now});
       } catch (err) {
         rec.searchConsoleError = err?.message || String(err);
+      }
+      // 쿠팡 파트너스 실적도 같이 모은다(2026-11-27). 결과는 드라이브 공유 폴더(output/blog/private)라 git에는 안 올라간다.
+      try {
+        await d.collectCoupangReports({projectDir, now: now.getTime?.() ?? now});
+      } catch (err) {
+        rec.coupangReportsError = err?.message || String(err);
       }
     }
     try {

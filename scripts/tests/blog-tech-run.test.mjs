@@ -151,6 +151,10 @@ function makeBaseDeps(overrides = {}) {
       calls.collectSearchConsole = (calls.collectSearchConsole || 0) + 1;
       return {};
     },
+    collectCoupangReports: async () => {
+      calls.collectCoupangReports = (calls.collectCoupangReports || 0) + 1;
+      return {};
+    },
     gitPull: async () => {
       calls.gitPull += 1;
       return {ok: true};
@@ -622,6 +626,7 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
     assert.equal(posts[0].productUrl, 'https://link.coupang.com/a/matched202');
     assert.equal(posts[0].cluster, '큰 가전 설치 전 확인'); // 같은 갈래 링크 후보를 고르는 데 쓴다(2026-11-27)
     assert.equal(calls.collectSearchConsole, 1); // 무인 실행마다 서치 콘솔 실적·색인 수집(2026-11-27)
+    assert.equal(calls.collectCoupangReports, 1); // 무인 실행마다 쿠팡 파트너스 실적 수집(2026-11-27)
 
     const queue = await readQueue(blogDir);
     assert.deepEqual(queue.map((t) => t.topicId), ['next-topic']);

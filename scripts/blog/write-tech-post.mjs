@@ -15,7 +15,7 @@
 //   - 즉 옵션 조합 수용·도구 차단 동작은 확인되었고, 모델 추론 응답은 한도 해제 후 실글 시험에서 추가 확인한다.
 
 import {spawn} from 'node:child_process';
-import {existsSync, readdirSync} from 'node:fs';
+import {createWriteStream, existsSync, readdirSync} from 'node:fs';
 import {mkdir, readFile, rm} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -24,7 +24,7 @@ import {DISCLOSURE} from './check-post.mjs';
 
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_TEMPLATE_PATH = path.join(MODULE_DIR, 'prompts', 'tech-post.md');
-const DEFAULT_TIMEOUT_MS = 600_000; // allow-literal: 글쓰기 한 편 최대 대기 시간(10분)
+const DEFAULT_TIMEOUT_MS = 1_200_000; // allow-literal: 글쓰기 한 편 최대 대기 시간(20분, 2026-11-27 실제 시험에서 10분 초과 2회. 스케줄러 한도 1시간 안)
 const RECENT_POSTS_LIMIT = 20; // allow-literal: 프롬프트에 넣을 최근 발행 제목 최대 개수
 const RECENT_BRIEFS_LIMIT = 5; // allow-literal: 프롬프트에 넣을 최근 그림 설계도 최대 개수(설계 C절)
 // 2026-11-25 사용자 결정: 글 작성은 Opus로 고정(기본 모델이 바뀌어도 글 품질이 흔들리지 않게)
@@ -134,6 +134,7 @@ export async function runWriter({
   timeoutMs = DEFAULT_TIMEOUT_MS,
   spawnImpl = spawn,
   cwd = process.cwd(),
+  logPath, // 주면 글쓰기 과정(stream-json)을 이 파일에 남기고, 시간 초과 때 마지막 도구 호출을 이유에 적는다(2026-11-27: 실패 원인이 안 남았음)
 } = {}) {
   if (!exe) {
     return {ok: false, error: 'claude 실행 파일을 찾을 수 없습니다.'};
@@ -154,7 +155,7 @@ export async function runWriter({
     '--allowedTools', 'WebSearch,WebFetch,Write',
     '--permission-mode', 'dontAsk',
     '--permission-prompts', 'none',
-    '--output-format', 'json',
+    ...(logPath ? ['--output-format', 'stream-json', '--verbose'] : ['--output-format', 'json']),
     '--no-session-persistence',
     '--strict-mcp-config',
     prompt,
@@ -169,18 +170,43 @@ export async function runWriter({
       stdio: ['ignore', 'pipe', 'pipe'],
       windowsHide: true,
     });
+    let logStream = null;
+    let lastTool = '';
+    if (logPath) {
+      try {
+        logStream = createWriteStream(logPath, {flags: 'a'});
+        logStream.on('error', () => { logStream = null; });
+      } catch { logStream = null; }
+      let buf = '';
+      child.stdout?.on?.('data', (chunk) => {
+        const text = String(chunk);
+        logStream?.write(text);
+        buf += text;
+        const lines = buf.split(/\r?\n/);
+        buf = lines.pop();
+        for (const line of lines) {
+          try {
+            const ev = JSON.parse(line);
+            for (const c of ev?.message?.content || []) {
+              if (c?.type === 'tool_use') lastTool = `${c.name} ${JSON.stringify(c.input || {}).slice(0, 160)}`; // allow-literal: 이유 줄 길이 제한
+            }
+          } catch { /* 줄이 잘렸거나 JSON이 아님 */ }
+        }
+      });
+    }
 
     const finish = (outcome) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      try { logStream?.end(); } catch { /* ignore */ }
       resolve(outcome);
     };
 
     const timer = setTimeout(() => {
       timedOut = true;
       try { child.kill('SIGTERM'); } catch { /* ignore */ }
-      finish({ok: false, error: `글쓰기 제한 시간(${timeoutMs}ms)을 초과했습니다.`});
+      finish({ok: false, error: `글쓰기 제한 시간(${timeoutMs}ms)을 초과했습니다.${lastTool ? ` 마지막 작업: ${lastTool}` : ''}`});
     }, timeoutMs);
 
     child.stderr?.on?.('data', (chunk) => { stderr += String(chunk); });

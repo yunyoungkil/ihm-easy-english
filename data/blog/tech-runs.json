@@ -78,5 +78,56 @@
     "reasons": [
       "해결·구매 전 확인 글에는 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다)."
     ]
+  },
+  {
+    "date": "2026-11-27",
+    "startedAt": "2026-11-27T02:41:05.911Z",
+    "outcome": "rejected",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "reasons": [
+      "써 본 척 표현이 포함됐습니다: 써 보고",
+      "출처 페이지에서 인용문을 찾지 못했습니다: \"AirPlay 호환 기기가 켜져 있고 서로 가까이 있는지 확인합니다.\" in https://support.apple.com/ko-kr/102587; \"본인의 기기와 동일한 커넥터(USB-C, Lightning 또는 30핀)를 사용하는 VGA, Digital AV 또는 HDMI 어댑터를 사용합니다.\" in https://support.apple.com/ko-kr/108399; \"위 단계를 시도한 후에도 여전히 AirPlay를 사용할 수 없는 경우에는 Apple 지원에 문의합니다.\" in https://support.apple.com/ko-kr/102587",
+      "그림 설계도에 브랜드 낱말이 있습니다. 브랜드 없는 일반 물체로 바꾸세요: 아이폰(글감에도 나옴)"
+    ]
+  },
+  {
+    "date": "2026-11-27",
+    "startedAt": "2026-11-27T02:50:43.694Z",
+    "outcome": "writer-failed",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "reasons": [
+      "글쓰기 제한 시간(600000ms)을 초과했습니다."
+    ],
+    "rewrites": 1,
+    "firstReasons": [
+      "그림 설계도에 브랜드 낱말이 있습니다. 브랜드 없는 일반 물체로 바꾸세요: 아이폰(글감에도 나옴)"
+    ]
+  },
+  {
+    "date": "2026-11-27",
+    "startedAt": "2026-11-27T03:14:49.264Z",
+    "outcome": "writer-failed",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "reasons": [
+      "글쓰기 제한 시간(600000ms)을 초과했습니다."
+    ]
+  },
+  {
+    "date": "2026-11-27",
+    "startedAt": "2026-11-27T03:27:42.911Z",
+    "outcome": "image-deferred",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "reasons": [
+      "그림 올리기 실패(send/gmail-not-ready)"
+    ]
+  },
+  {
+    "date": "2026-11-27",
+    "startedAt": "2026-11-27T04:39:14.393Z",
+    "outcome": "published",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "postId": "1820254105302642548",
+    "url": "https://tech.d40m.com/2026/11/tv.html",
+    "liveVerified": true
   }
 ]

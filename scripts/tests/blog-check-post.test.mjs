@@ -200,6 +200,59 @@ test('출처 페이지 텍스트에 인용문이 따옴표 차이(“ ” vs ")�
   assert.deepEqual(problemIds(res), []);
 });
 
+test('출처 페이지의 링크 태그 때문에 생기는 공백 차이("기기 가" vs "기기가")는 인용문 대조를 통과한다', async () => {
+  const quote = 'AirPlay 호환 기기가 켜져 있고 서로 가까이 있는지 확인합니다.';
+  const draft = makeValidDraft({
+    steps: [{text: VALID_STEP, source: {url: VALID_SOURCE_URL, quote}}],
+  });
+  const res = await checkTechPost(
+    draft,
+    okDeps({
+      fetchImpl: async () => ({
+        status: 200,
+        text: async () =>
+          '<html><body><p><a href="https://support.example.com/airplay">AirPlay 호환 기기</a>가 켜져 있고 서로 가까이 있는지 확인합니다.</p></body></html>',
+      }),
+    }),
+  );
+  assert.equal(res.ok, true);
+  assert.deepEqual(problemIds(res), []);
+
+  // 같은 페이지에 없는 다른 문장은 여전히 막힌다
+  const bad = makeValidDraft({
+    steps: [{text: VALID_STEP, source: {url: VALID_SOURCE_URL, quote: '페이지에 전혀 없는 다른 문장입니다.'}}],
+  });
+  const badRes = await checkTechPost(
+    bad,
+    okDeps({
+      fetchImpl: async () => ({
+        status: 200,
+        text: async () =>
+          '<html><body><p><a href="https://support.example.com/airplay">AirPlay 호환 기기</a>가 켜져 있고 서로 가까이 있는지 확인합니다.</p></body></html>',
+      }),
+    }),
+  );
+  assert.deepEqual(problemIds(badRes), ['source-quote-mismatch']);
+});
+
+test('필수 안내 문구 속 "써 보" 부정문은 experience-claim이 아니고, 본문 다른 곳의 "직접 써 보니"는 여전히 걸린다', async () => {
+  const note = '이 글은 제품을 직접 써 보고 쓴 글이 아니며, 애플과 삼성전자 공식 안내를 정리했습니다.';
+  const clean = makeValidDraft({
+    notUsedNote: note,
+    bodyHtml: `<p>${note}</p><p>${VALID_STEP}</p>`,
+  });
+  const cleanRes = await checkTechPost(clean, okDeps());
+  assert.ok(!problemIds(cleanRes).includes('experience-claim'));
+  assert.deepEqual(problemIds(cleanRes), []);
+
+  const claim = makeValidDraft({
+    notUsedNote: note,
+    bodyHtml: `<p>${note}</p><p>${VALID_STEP} 직접 써 보니 편했습니다.</p>`,
+  });
+  const claimRes = await checkTechPost(claim, okDeps());
+  assert.deepEqual(problemIds(claimRes), ['experience-claim']);
+});
+
 test('runSlop이 {ok: false}면 slop', async () => {
   const res = await checkTechPost(makeValidDraft(), okDeps({runSlop: async () => ({ok: false})}));
   assert.equal(res.ok, false);

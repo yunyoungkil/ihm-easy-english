@@ -2,20 +2,24 @@
 // 가짜 대화 줄은 실제 파일의 칸 이름을 그대로 쓴다(클로드 코드 jsonl: type·message.content·tool_use·tool_result·isSidechain·timestamp,
 // 안티그래비티 transcript.jsonl: type·content·created_at·tool_calls[].name/args·media[].uri).
 import assert from 'node:assert/strict';
-import {existsSync, mkdirSync, mkdtempSync, readFileSync, statSync, utimesSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, statSync, utimesSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import test from 'node:test';
 import {
+  SYNC_ROOTS,
   claudeProjectKey,
+  envKeys,
   exportChats,
   findMyDrive,
+  mergeEnvText,
   planCopies,
   renderChatIndex,
   shouldSyncFile,
   slimAntigravityTranscript,
   slimClaudeTranscript,
   syncFiles,
+  syncSecrets,
 } from '../pc-sync.mjs';
 
 test('shouldSyncFile: 영상 폴더는 그림·영상·음성과 생성 기록만, git 추적 파일과 캐시는 빼고, 참고 자료 폴더는 전부', () => {
@@ -185,4 +189,168 @@ test('exportChats: jsonl 파일을 줄 단위로 스트리밍해 클로드·안�
   assert.ok(indexMd.includes('집 PC 첫 테스트'));
   assert.ok(indexMd.includes('my-proj 대화'));
   assert.ok(readFileSync(join(remote, 'chats', 'claude', 'HOME-PC', '2026-11-24-sess-1.md'), 'utf8').includes('스트리밍 완료'));
+});
+
+// ---------- 비밀 파일 공유(2026-11-27) ----------
+// 가짜 값은 SECRET_VALUE_* 로만 쓰고, 로그·결과 어디에도 값이 나오지 않는지 확인한다. 실제 드라이브·실제 .env는 쓰지 않는다.
+
+const setTime = (p, sec) => utimesSync(p, new Date(sec * 1000), new Date(sec * 1000));
+function secretsSetup() {
+  const base = mkdtempSync(join(tmpdir(), 'pc-secrets-'));
+  const project = join(base, 'project');
+  const remote = join(base, 'drive');
+  const backupDir = join(base, 'backup');
+  mkdirSync(project, {recursive: true});
+  mkdirSync(join(remote, 'secrets'), {recursive: true});
+  return {project, remote, backupDir, rpath: (n) => join(remote, 'secrets', n), lpath: (n) => join(project, n)};
+}
+
+test('SYNC_ROOTS: 블로그 대표 그림 폴더도 나른다', () => {
+  assert.ok(SYNC_ROOTS.some((r) => r.rel === 'output/blog/images' && r.mediaOnly === false));
+});
+
+test('mergeEnvText: 한쪽에만 있는 키는 양쪽 모두 살고, 주석·빈 줄은 로컬 것을 유지한다', () => {
+  const local = '# 로컬 주석\nBLOGGER_TECH_POST_EMAIL=SECRET_VALUE_123\n\nONLY_LOCAL=a\n';
+  const remote = '# 드라이브 주석\nBLOGGER_TECH_POST_EMAIL=SECRET_VALUE_123\nONLY_REMOTE=b\n';
+  const m = mergeEnvText(local, remote, {localNewer: true});
+  assert.equal(m.text, '# 로컬 주석\nBLOGGER_TECH_POST_EMAIL=SECRET_VALUE_123\n\nONLY_LOCAL=a\nONLY_REMOTE=b\n');
+  assert.deepEqual(m.receivedKeys, ['ONLY_REMOTE']);
+  assert.deepEqual(m.sentKeys, ['ONLY_LOCAL']);
+  assert.deepEqual(envKeys(m.text).sort(), ['BLOGGER_TECH_POST_EMAIL', 'ONLY_LOCAL', 'ONLY_REMOTE']);
+});
+
+test('mergeEnvText: 같은 키에 값이 다르면 파일이 더 최근인 쪽 값', () => {
+  const local = 'K=local-value\nL=1\n';
+  const remote = 'K=remote-value\nL=1\n';
+  const localWins = mergeEnvText(local, remote, {localNewer: true});
+  assert.equal(localWins.text, local);
+  assert.deepEqual(localWins.sentKeys, ['K']);
+  assert.deepEqual(localWins.receivedKeys, []);
+  const remoteWins = mergeEnvText(local, remote, {localNewer: false});
+  assert.equal(remoteWins.text, 'K=remote-value\nL=1\n');
+  assert.deepEqual(remoteWins.receivedKeys, ['K']);
+  assert.deepEqual(remoteWins.sentKeys, []);
+});
+
+test('mergeEnvText: 줄바꿈이 CRLF인 로컬은 CRLF를 유지하고, 같은 키 값이 같으면 바뀐 키가 없다', () => {
+  const m = mergeEnvText('A=1\r\nB=2\r\n', 'A=1\nB=2\nC=3\n', {localNewer: true});
+  assert.equal(m.text, 'A=1\r\nB=2\r\nC=3\r\n');
+  const same = mergeEnvText('A=1\nB=2\n', 'B=2\nA=1\n', {localNewer: true});
+  assert.deepEqual(same.receivedKeys, []);
+  assert.deepEqual(same.sentKeys, []);
+  assert.equal(same.text, 'A=1\nB=2\n');
+});
+
+test('syncSecrets: .env 합치기 — 양쪽 키 합집합이 되고, 값은 로그·결과에 나오지 않으며, 덮어쓰기 전 백업이 남는다', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.env'), '# local\nSHARED=SECRET_VALUE_123\nLOCAL_ONLY=SECRET_VALUE_L\n');
+  writeFileSync(t.rpath('.env'), 'SHARED=SECRET_VALUE_123\nREMOTE_ONLY=SECRET_VALUE_R\n');
+  setTime(t.lpath('.env'), 2_000_000);
+  setTime(t.rpath('.env'), 1_000_000);
+  const logs = [];
+  const r = await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir, log: (m) => logs.push(m)});
+  const local = readFileSync(t.lpath('.env'), 'utf8');
+  const remote = readFileSync(t.rpath('.env'), 'utf8');
+  assert.deepEqual(envKeys(local).sort(), ['LOCAL_ONLY', 'REMOTE_ONLY', 'SHARED']);
+  assert.deepEqual(envKeys(remote).sort(), ['LOCAL_ONLY', 'REMOTE_ONLY', 'SHARED']);
+  assert.ok(local.startsWith('# local\n'), '로컬 주석 유지');
+  assert.deepEqual(r.envReceivedKeys, ['REMOTE_ONLY']);
+  assert.deepEqual(r.envSentKeys, ['LOCAL_ONLY']);
+  assert.equal(r.errors.length, 0);
+  const backups = readdirSync(t.backupDir).filter((f) => f.startsWith('.env.'));
+  assert.equal(backups.length, 1);
+  assert.ok(readFileSync(join(t.backupDir, backups[0]), 'utf8').includes('LOCAL_ONLY=SECRET_VALUE_L'), '백업은 덮어쓰기 전 로컬 내용');
+  const out = logs.join('\n') + JSON.stringify(r);
+  assert.ok(!out.includes('SECRET_VALUE'), '값이 로그·결과에 들어가면 안 된다');
+  assert.ok(out.includes('REMOTE_ONLY') && out.includes('LOCAL_ONLY'), '키 이름은 남긴다');
+});
+
+test('syncSecrets: .env 같은 키 다른 값은 더 최근 파일 값이 양쪽에 남는다', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.env'), 'K=old-local\n');
+  writeFileSync(t.rpath('.env'), 'K=new-remote\nZ=1\n');
+  setTime(t.lpath('.env'), 1_000_000);
+  setTime(t.rpath('.env'), 2_000_000);
+  await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir});
+  assert.equal(readFileSync(t.lpath('.env'), 'utf8'), 'K=new-remote\nZ=1\n');
+  assert.equal(readFileSync(t.rpath('.env'), 'utf8'), 'K=new-remote\nZ=1\n');
+});
+
+test('syncSecrets: .env 변화가 없으면 아무것도 쓰지 않는다(수정 시각·백업·결과 그대로)', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.env'), 'A=1\n# c\nB=2\n');
+  writeFileSync(t.rpath('.env'), 'B=2\nA=1\n'); // 순서·주석만 다르다
+  setTime(t.lpath('.env'), 1_000_000);
+  setTime(t.rpath('.env'), 1_000_500);
+  const lBefore = statSync(t.lpath('.env')).mtimeMs;
+  const rBefore = statSync(t.rpath('.env')).mtimeMs;
+  const r = await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir});
+  assert.equal(statSync(t.lpath('.env')).mtimeMs, lBefore);
+  assert.equal(statSync(t.rpath('.env')).mtimeMs, rBefore);
+  assert.deepEqual([r.received, r.sent, r.envReceivedKeys, r.envSentKeys, r.errors], [[], [], [], [], []]);
+  assert.equal(existsSync(t.backupDir), false, '바꾼 게 없으면 백업도 없다');
+});
+
+test('syncSecrets: 한쪽에만 있는 .env·토큰은 없는 쪽으로 복사된다', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.env'), 'A=SECRET_VALUE_123\n');
+  writeFileSync(t.rpath('.blogger-oauth-token.json'), '{"refresh_token":"SECRET_VALUE_123"}');
+  const logs = [];
+  const r = await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir, log: (m) => logs.push(m)});
+  assert.equal(readFileSync(t.rpath('.env'), 'utf8'), 'A=SECRET_VALUE_123\n');
+  assert.equal(readFileSync(t.lpath('.blogger-oauth-token.json'), 'utf8'), '{"refresh_token":"SECRET_VALUE_123"}');
+  assert.deepEqual(r.sent, ['.env']);
+  assert.deepEqual(r.received, ['.blogger-oauth-token.json']);
+  assert.ok(!(logs.join('\n') + JSON.stringify(r)).includes('SECRET_VALUE'));
+});
+
+test('syncSecrets: 토큰은 더 새로운 쪽이 이기고, 로컬을 덮어쓰기 전에 백업한다', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.youtube-oauth-token.json'), '{"v":"local-old"}');
+  writeFileSync(t.rpath('.youtube-oauth-token.json'), '{"v":"remote-new"}');
+  writeFileSync(t.lpath('.blogger-oauth-token.json'), '{"v":"local-new"}');
+  writeFileSync(t.rpath('.blogger-oauth-token.json'), '{"v":"remote-old"}');
+  setTime(t.lpath('.youtube-oauth-token.json'), 1_000_000);
+  setTime(t.rpath('.youtube-oauth-token.json'), 2_000_000);
+  setTime(t.lpath('.blogger-oauth-token.json'), 2_000_000);
+  setTime(t.rpath('.blogger-oauth-token.json'), 1_000_000);
+  const r = await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir});
+  assert.equal(readFileSync(t.lpath('.youtube-oauth-token.json'), 'utf8'), '{"v":"remote-new"}');
+  assert.equal(readFileSync(t.rpath('.blogger-oauth-token.json'), 'utf8'), '{"v":"local-new"}');
+  assert.deepEqual(r.received, ['.youtube-oauth-token.json']);
+  assert.deepEqual(r.sent, ['.blogger-oauth-token.json']);
+  const backups = readdirSync(t.backupDir);
+  assert.equal(backups.length, 1);
+  assert.ok(backups[0].startsWith('.youtube-oauth-token.json.'));
+  assert.equal(readFileSync(join(t.backupDir, backups[0]), 'utf8'), '{"v":"local-old"}');
+});
+
+test('syncSecrets: 깨진 JSON 토큰은 더 새로워도 복사하지 않고 알린다(값은 안 나온다)', async () => {
+  const t = secretsSetup();
+  writeFileSync(t.lpath('.youtube-oauth-token.json'), '{"v":"local-good"}');
+  writeFileSync(t.rpath('.youtube-oauth-token.json'), '{"v":"SECRET_VALUE_123", broken');
+  setTime(t.lpath('.youtube-oauth-token.json'), 1_000_000);
+  setTime(t.rpath('.youtube-oauth-token.json'), 2_000_000);
+  writeFileSync(t.rpath('.blogger-oauth-token.json'), '{{SECRET_VALUE_123'); // 로컬에 없는 쪽도 깨졌으면 복사 안 함
+  const logs = [];
+  const r = await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir, log: (m) => logs.push(m)});
+  assert.equal(readFileSync(t.lpath('.youtube-oauth-token.json'), 'utf8'), '{"v":"local-good"}');
+  assert.equal(existsSync(t.lpath('.blogger-oauth-token.json')), false);
+  assert.deepEqual(r.skippedInvalid.sort(), ['.blogger-oauth-token.json', '.youtube-oauth-token.json']);
+  assert.deepEqual(r.received, []);
+  assert.ok(!(logs.join('\n') + JSON.stringify(r)).includes('SECRET_VALUE'));
+});
+
+test('syncSecrets: 백업은 파일마다 최근 5개만 남긴다', async () => {
+  const t = secretsSetup();
+  mkdirSync(t.backupDir, {recursive: true});
+  for (let i = 1; i <= 6; i++) writeFileSync(join(t.backupDir, `.youtube-oauth-token.json.2026-01-0${i}T00-00-00-000Z`), '{}');
+  writeFileSync(t.lpath('.youtube-oauth-token.json'), '{"v":"old"}');
+  writeFileSync(t.rpath('.youtube-oauth-token.json'), '{"v":"new"}');
+  setTime(t.lpath('.youtube-oauth-token.json'), 1_000_000);
+  setTime(t.rpath('.youtube-oauth-token.json'), 2_000_000);
+  await syncSecrets({project: t.project, remoteRoot: t.remote, backupDir: t.backupDir});
+  const left = readdirSync(t.backupDir).filter((f) => f.startsWith('.youtube-oauth-token.json.'));
+  assert.equal(left.length, 5);
+  assert.ok(!left.includes('.youtube-oauth-token.json.2026-01-01T00-00-00-000Z'), '가장 오래된 것부터 지운다');
 });

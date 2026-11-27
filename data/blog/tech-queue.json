@@ -1,17 +1,5 @@
 [
   {
-    "topicId": "iphone-samsung-tv-mirroring-not-working",
-    "title": "아이폰 화면이 삼성 TV에 안 뜰 때 점검 순서",
-    "kind": "fix",
-    "searchQuery": "아이폰 삼성 tv 미러링 안됨",
-    "sourceHints": [
-      "애플 지원 AirPlay 화면 미러링 안내 (https://support.apple.com/ko-kr/102661)",
-      "애플 지원 AirPlay 연결 문제 해결 안내 (https://support.apple.com/ko-kr/102619)",
-      "삼성전자 공식 고객지원 AirPlay 연결 안내(일반 웹페이지)"
-    ],
-    "productHint": "HDMI 미러링"
-  },
-  {
     "topicId": "lg-membership-points-use-and-convert",
     "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
     "kind": "info",

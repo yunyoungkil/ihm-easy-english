@@ -274,6 +274,84 @@ test('8) 점검 실패 3번 연속(앞선 2번 + 중간 deferred/writer-failed +
   });
 });
 
+test('8-1) 첫 초안이 탈락해도 고쳐 쓴 두 번째 초안이 통과하면 게시되고 rewrites·firstReasons가 남는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const prompts = [];
+    let checks = 0;
+    const {deps, calls} = makeBaseDeps({
+      runWriter: async ({prompt}) => {
+        calls.runWriter += 1;
+        prompts.push(prompt);
+        return {ok: true, draft: makeDraft()};
+      },
+      checkTechPost: async () => {
+        checks += 1;
+        return checks === 1
+          ? {ok: false, problems: [{id: 'experience-claim', text: '써 본 척 표현이 포함됐습니다: 써 보'}]}
+          : {ok: true, problems: []};
+      },
+    });
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.rewrites, 1);
+    assert.deepEqual(res.firstReasons, ['써 본 척 표현이 포함됐습니다: 써 보']);
+    assert.equal(calls.runWriter, 2);
+    assert.equal(calls.publishToBlogger, 1);
+    assert.ok(prompts[1].startsWith(prompts[0]));
+    assert.match(prompts[1], /점검에서 탈락했다/);
+    assert.match(prompts[1], /- 써 본 척 표현이 포함됐습니다: 써 보/);
+    // 다시 쓰기는 새 조사 없이 앞 초안을 고친다(조사부터 다시 하면 10분 한도 초과, 2026-11-27 실제 시험)
+    assert.match(prompts[1], /웹 검색·새 조사는 하지 마라/);
+    assert.ok(prompts[1].includes(JSON.stringify(makeDraft(), null, 2)), '앞 초안 전체가 프롬프트에 들어가야 한다');
+    const runs = await readRuns(blogDir);
+    assert.equal(runs.length, 1);
+    assert.equal(runs[0].rewrites, 1);
+  });
+});
+
+test('8-2) 고쳐 써도 두 번째 점검까지 탈락하면 rejected 한 줄만 기록하고 글쓰기는 2번만 부른다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps({
+      runWriter: async () => {
+        calls.runWriter += 1;
+        return {ok: true, draft: makeDraft()};
+      },
+      checkTechPost: async () => ({ok: false, problems: [{id: 'slop', text: 'AI 티 검출'}]}),
+    });
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'rejected');
+    assert.equal(res.rewrites, 1);
+    assert.deepEqual(res.firstReasons, ['AI 티 검출']);
+    assert.deepEqual(res.reasons, ['AI 티 검출']);
+    assert.equal(calls.runWriter, 2);
+    assert.equal(calls.publishToBlogger, 0);
+    const runs = await readRuns(blogDir);
+    assert.equal(runs.length, 1);
+    assert.equal(runs[0].outcome, 'rejected');
+  });
+});
+
+test('8-3) 앞 실행의 image-deferred로 이어받은 초안이 탈락하면 고쳐 쓰지 않는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await mkdir(path.join(blogDir, 'drafts'), {recursive: true});
+    await writeFile(path.join(blogDir, 'drafts', 'dyson-v8-red-blink.json'), JSON.stringify(makeDraft()));
+    await appendRun(blogDir, {date: '2026-11-25', startedAt: 'x', outcome: 'image-deferred', topicId: 'dyson-v8-red-blink'});
+    const {deps, calls} = makeBaseDeps({
+      checkTechPost: async () => ({ok: false, problems: [{id: 'slop', text: 'AI 티 검출'}]}),
+    });
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'rejected');
+    assert.equal(res.rewrites, undefined);
+    assert.equal(calls.runWriter, 0);
+  });
+});
+
 test('9) 앞선 2번 rejected 뒤에 deferred만 나면 멈춤을 쓰지 않는다', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));

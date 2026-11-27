@@ -200,7 +200,10 @@ export async function checkTechPost(
   }
 
   const fullText = `${title}\n${bodyText}\n${note}`;
-  const expMatch = EXPERIENCE_PATTERNS.map((re) => fullText.match(re)).find(Boolean);
+  // 필수 안내 문구(notUsedNote)는 "직접 써 보지 않았다"는 부정문이라 써 본 척 패턴에 걸린다. 안내 문구는 no-not-used-note가 따로 보므로 경험 검사에서는 뺀다.
+  const bodyForExperience = note ? bodyText.split(note).join(' ') : bodyText;
+  const experienceText = `${title}\n${bodyForExperience}`;
+  const expMatch = EXPERIENCE_PATTERNS.map((re) => experienceText.match(re)).find(Boolean);
   if (expMatch) {
     problems.push({id: 'experience-claim', text: `써 본 척 표현이 포함됐습니다: ${expMatch[0]}`});
   }
@@ -258,7 +261,8 @@ export async function checkTechPost(
     const url = String(step?.source?.url || '').trim();
     if (q && url && urlPageTexts.has(url)) {
       const pageText = urlPageTexts.get(url);
-      if (pageText && !pageText.includes(q)) {
+      // 태그가 빈칸으로 바뀌어 "기기 가"처럼 벌어지므로 비교할 때만 모든 공백을 지운다.
+      if (pageText && !pageText.replace(/\s+/g, '').includes(q.replace(/\s+/g, ''))) {
         badQuotes.push(`"${q}" in ${url}`);
       }
     }

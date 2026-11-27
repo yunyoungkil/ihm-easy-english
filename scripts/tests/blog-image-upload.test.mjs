@@ -229,7 +229,11 @@ test('sendHeroEmail: 로그인 안 됐으면(accounts.google.com) gmail-not-read
 test('sendHeroEmail: 첨부 입력칸이 없으면 gmail-not-ready', async () => {
   const {connect} = makeFakeBrowser({fileInputs: 0});
   const r = await sendHeroEmail({...sendArgs, connect});
-  assert.deepEqual(r, {ok: false, error: 'gmail-not-ready'});
+  assert.equal(r.ok, false);
+  assert.equal(r.error, 'gmail-not-ready');
+  // 2026-11-27: 첨부 칸을 더 기다린 뒤 포기하고, 얼마나 기다렸는지 남긴다(주소는 남기지 않는다)
+  assert.match(r.detail, /작성 창 첨부 칸 없음/);
+  assert.ok(!r.detail.includes(sendArgs.to));
 });
 
 test('sendHeroEmail: 첨부 이름이 화면에 안 나타나면 attach-failed, 보내지 않는다', async () => {

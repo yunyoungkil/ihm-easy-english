@@ -188,6 +188,13 @@ function buildDeps(deps = {}) {
 }
 
 /** 쿠팡 블로그 무인/수동 1회 실행을 수행하고 실행 기록을 저장·반환한다. */
+// 글쓰기 과정 기록(output/blog/logs, 깃 제외·드라이브 공유). 시간 초과 원인을 다른 PC에서도 보게 한다(2026-11-27).
+async function writerLogPath(projectDir, date, name) {
+  const dir = path.join(projectDir, 'output', 'blog', 'logs');
+  await mkdir(dir, {recursive: true});
+  return path.join(dir, `${date}-${name}-${Date.now()}.jsonl`);
+}
+
 export async function runTechOnce({
   projectDir = process.cwd(),
   now = new Date(),
@@ -229,6 +236,8 @@ export async function runTechOnce({
   let topicId;
   let absDraftPath;
   let token = null;
+  // 이번 실행에서 글쓰기 AI로 새로 쓴 초안일 때만 탈락 시 1번 고쳐 쓴다(2026-11-27 시험: 오탐·실수 한 번에 탈락 방지).
+  let rewriteCtx = null;
 
   if (mode === 'publish-draft') {
     if (!draftPath) {
@@ -296,7 +305,7 @@ export async function runTechOnce({
       const exe = d.resolveClaudeExe();
       const recentBriefs = posts.slice(-5).map((p) => p?.hero?.brief).filter(Boolean); // allow-literal: 설계 C절 최근 설계도 5개
       const prompt = await d.buildWriterPrompt(topic, {posts, draftPath: relDraftPath, recentBriefs});
-      const writerRes = await d.runWriter({exe, prompt, draftPath: absDraftPath, cwd: projectDir});
+      const writerRes = await d.runWriter({exe, prompt, draftPath: absDraftPath, cwd: projectDir, logPath: await writerLogPath(projectDir, date, topicId)});
       if (!writerRes?.ok) {
         return recordAndReturn({
           date,
@@ -307,44 +316,91 @@ export async function runTechOnce({
         });
       }
       draft = writerRes.draft;
+      rewriteCtx = {exe, prompt};
     }
     if (draft?.topicId) topicId = draft.topicId;
   }
 
-  // 링크 때문에 미룬 글감은 대기열에서 빼지 않고 맨 뒤로 보낸다(무인 실행에서만).
-  // 맨 앞에 두면 다음 실행이 같은 글감을 다시 쓰고 또 미루기를 끝없이 되풀이한다(2026-11-26 스케줄러 시험에서 발견).
-  const deferTopic = async (reasons) => {
-    if (mode === 'auto') await d.rotateQueue(blogDir, topicId);
-    return recordAndReturn({date, startedAt, outcome: 'deferred', topicId, reasons});
+  // 쿠팡 링크 단계와 글 점검을 한 번 거친다. 결과: deferred | rejected | ok
+  const evaluateDraft = async () => {
+    const productRes = await resolveProductLink(draft, absDraftPath, d);
+    if (!productRes.ok) {
+      return {kind: 'deferred', reasons: [productRes.reason]};
+    }
+    const productLink = productRes.productLink;
+    // 2026-11-25 사용자 결정: 해결·구매 전 확인 글은 쿠팡 링크 1개 이상, 정보 설명형(info) 글은 링크 없이 게시 가능
+    const topicKind = (await d.readQueue(blogDir)).find((t) => t?.topicId === topicId)?.kind;
+    if (!productLink && topicKind !== 'info') {
+      return {
+        kind: 'deferred',
+        reasons: ['해결·구매 전 확인 글에는 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다).'],
+      };
+    }
+
+    const check = await d.checkTechPost(draft, {posts});
+    const textHtml = d.renderPostHtml(draft, {productLink});
+    const textHtmlProblems = d.checkRenderedHtml(textHtml);
+    const allProblems = [...(check?.problems || []), ...(textHtmlProblems || [])];
+
+    if (check?.ok === false || allProblems.length > 0) {
+      const reasons = allProblems.map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean);
+      if (reasons.length === 0) reasons.push('초안 점검에 실패했습니다.');
+      return {kind: 'rejected', reasons};
+    }
+    return {kind: 'ok', productLink};
   };
 
-  const productRes = await resolveProductLink(draft, absDraftPath, d);
-  if (!productRes.ok) {
-    return deferTopic([productRes.reason]);
-  }
-  const productLink = productRes.productLink;
-  // 2026-11-25 사용자 결정: 해결·구매 전 확인 글은 쿠팡 링크 1개 이상, 정보 설명형(info) 글은 링크 없이 게시 가능
-  const topicKind = (await d.readQueue(blogDir)).find((t) => t?.topicId === topicId)?.kind;
-  if (!productLink && topicKind !== 'info') {
-    return deferTopic(['해결·구매 전 확인 글에는 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다).']);
+  let extra = {};
+  let evalRes = await evaluateDraft();
+  if (evalRes.kind === 'rejected' && rewriteCtx) {
+    const firstReasons = evalRes.reasons;
+    // 다시 쓰기는 조사부터 새로 하면 10분 한도를 넘는다(2026-11-27 실제 시험: writer-failed 시간 초과).
+    // runWriter가 초안 파일을 지우고 시작하므로 앞 초안 전체를 프롬프트에 넣고, 걸린 부분만 고치게 한다.
+    const rewritePrompt = [
+      rewriteCtx.prompt,
+      '',
+      '앞 초안이 아래 이유로 점검에서 탈락했다. 이유를 모두 고쳐 같은 파일에 다시 써라.',
+      ...firstReasons.map((r) => `- ${r}`),
+      '',
+      '웹 검색·새 조사는 하지 마라. 아래 앞 초안에서 위 이유에 해당하는 부분만 고치고, 나머지 내용·출처·인용문은 그대로 둔 채 같은 JSON 형식으로 같은 파일에 Write 하라.',
+      '앞 초안:',
+      JSON.stringify(draft, null, 2),
+    ].join('\n');
+    const rewriteRes = await d.runWriter({exe: rewriteCtx.exe, prompt: rewritePrompt, draftPath: absDraftPath, cwd: projectDir, logPath: await writerLogPath(projectDir, date, `${topicId}-rewrite`)});
+    if (!rewriteRes?.ok) {
+      return recordAndReturn({
+        date,
+        startedAt,
+        outcome: 'writer-failed',
+        topicId,
+        reasons: [rewriteRes?.error || '글쓰기 실행에 실패했습니다.'],
+        rewrites: 1,
+        firstReasons,
+      });
+    }
+    draft = rewriteRes.draft;
+    if (draft?.topicId) topicId = draft.topicId;
+    extra = {rewrites: 1, firstReasons};
+    evalRes = await evaluateDraft();
   }
 
-  const check = await d.checkTechPost(draft, {posts});
-  const textHtml = d.renderPostHtml(draft, {productLink});
-  const textHtmlProblems = d.checkRenderedHtml(textHtml);
-  const allProblems = [...(check?.problems || []), ...(textHtmlProblems || [])];
-
-  if (check?.ok === false || allProblems.length > 0) {
-    const reasons = allProblems.map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean);
-    if (reasons.length === 0) reasons.push('초안 점검에 실패했습니다.');
+  // 링크 때문에 미룬 글감은 대기열에서 빼지 않고 맨 뒤로 보낸다(무인 실행에서만).
+  // 맨 앞에 두면 다음 실행이 같은 글감을 다시 쓰고 또 미루기를 끝없이 되풀이한다(2026-11-26 스케줄러 시험에서 발견).
+  if (evalRes.kind === 'deferred') {
+    if (mode === 'auto') await d.rotateQueue(blogDir, topicId);
+    return recordAndReturn({date, startedAt, outcome: 'deferred', topicId, reasons: evalRes.reasons, ...extra});
+  }
+  if (evalRes.kind === 'rejected') {
+    const reasons = evalRes.reasons;
     const priorRuns = await d.readRuns(blogDir);
-    const rec = {date, startedAt, outcome: 'rejected', topicId, reasons};
+    const rec = {date, startedAt, outcome: 'rejected', topicId, reasons, ...extra};
     await d.appendRun(blogDir, rec);
     if (countTrailingRejects([...priorRuns, rec]) >= MAX_CONSECUTIVE_REJECTS) {
       await d.writePause(blogDir, `점검 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${reasons.join('; ')}`, now);
     }
     return rec;
   }
+  const productLink = evalRes.productLink;
 
   // 글이 점검을 통과했을 때만 그림 한도를 쓴다(설계 C절). 그림이 실패한 날은 게시를 미룬다.
   const blogId = await resolveTechBlogId(projectDir, d.blogId);
@@ -358,6 +414,7 @@ export async function runTechOnce({
       outcome: 'image-deferred',
       topicId,
       reasons: heroRes?.reasons || ['대표 그림을 만들지 못했습니다.'],
+      ...extra,
     };
     await d.appendRun(blogDir, rec);
     if (mode !== 'preview' && countTrailingRejects([...priorRuns, rec], 'image-deferred') >= MAX_CONSECUTIVE_REJECTS) {
@@ -370,7 +427,7 @@ export async function runTechOnce({
   const finalProblems = d.checkRenderedHtml(html, heroRes.local ? {} : {hero});
   if (finalProblems.length > 0) {
     const reasons = finalProblems.map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean);
-    return recordAndReturn({date, startedAt, outcome: 'rejected', topicId, reasons});
+    return recordAndReturn({date, startedAt, outcome: 'rejected', topicId, reasons, ...extra});
   }
 
   if (mode === 'preview') {
@@ -378,7 +435,7 @@ export async function runTechOnce({
     const previewPath = path.join(previewDir, `${topicId}.html`);
     await mkdir(previewDir, {recursive: true});
     await writeFile(previewPath, html, 'utf8');
-    return recordAndReturn({date, startedAt, outcome: 'preview', topicId, previewPath});
+    return recordAndReturn({date, startedAt, outcome: 'preview', topicId, previewPath, ...extra});
   }
 
   const published = await d.publishToBlogger({
@@ -414,6 +471,7 @@ export async function runTechOnce({
     url: published.url,
     liveVerified: Boolean(live?.ok),
     ...(liveWarnings.length ? {reasons: liveWarnings} : {}),
+    ...extra,
   };
   await d.appendRun(blogDir, rec);
   await d.syncData({projectDir, now});

@@ -42,6 +42,8 @@ export const SYNC_ROOTS = [
   {rel: 'public/reference', mediaOnly: false},
   {rel: 'public/audio/BGM 35', mediaOnly: false},
   {rel: 'public/fonts/google', mediaOnly: false},
+  {rel: 'output/blog/images', mediaOnly: false}, // 블로그 대표 그림과 hero.json(2026-11-27)
+  {rel: 'output/blog/logs', mediaOnly: false}, // 블로그 글쓰기 과정 기록, 다른 PC에서 실패 원인을 보려고(2026-11-27)
 ];
 
 export function isMediaFile(name) {
@@ -175,6 +177,197 @@ export async function syncFiles({direction, project = projectDir, remoteRoot, tr
     }
   }
   return result;
+}
+
+// ---------- 비밀 파일 공유 (2026-11-27 사용자: 모든 데이터는 드라이브에 있어야 어느 PC에서든 작업된다) ----------
+// git에도 미디어 폴더에도 안 실리는 파일이 한 PC에만 있어 다른 PC에서 블로그 무인 실행이 안 됐다.
+// 값은 로그·출력·오류 문구에 절대 쓰지 않는다(파일 이름·키 이름·개수만).
+
+export const SECRET_FILES = ['.env', '.blogger-oauth-token.json', '.youtube-oauth-token.json'];
+const SECRET_BACKUP_KEEP = 5; // allow-literal: 덮어쓰기 전 백업은 파일마다 최근 5개만 남긴다
+const ENV_LINE = /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_.-]*)\s*=(.*)$/;
+
+function parseEnvLine(line) {
+  const raw = line.replace(/\r$/, '');
+  const m = ENV_LINE.exec(raw);
+  return m ? {key: m[1], value: m[2].trim(), raw} : null;
+}
+
+/** .env 텍스트의 KEY 목록(값은 돌려주지 않는다). */
+export function envKeys(text) {
+  const keys = new Set();
+  for (const line of String(text).split(/\r?\n/)) {
+    const p = parseEnvLine(line);
+    if (p) keys.add(p.key);
+  }
+  return [...keys];
+}
+
+/**
+ * 로컬 .env 텍스트를 바탕으로 드라이브 쪽 KEY=VALUE 줄을 합친다(키 합집합).
+ * 같은 키에 값이 다르면 localNewer가 true일 때 로컬 값, 아니면 드라이브 값. 한쪽에만 있는 키는 살린다.
+ * 주석·빈 줄·순서는 로컬 텍스트 그대로, 로컬에 없던 키는 끝에 붙인다.
+ * receivedKeys: 로컬에 새로 들어온 키(없던 키 + 값을 드라이브 것으로 바꾼 키), sentKeys: 드라이브에 없거나 값이 다른데 로컬이 이긴 키.
+ */
+export function mergeEnvText(localText, remoteText, {localNewer = true} = {}) {
+  const eol = String(localText).includes('\r\n') ? '\r\n' : '\n';
+  const lines = String(localText).split(/\r?\n/);
+  const localIdx = new Map();
+  const localVal = new Map();
+  lines.forEach((l, i) => {
+    const p = parseEnvLine(l);
+    if (p) {
+      localIdx.set(p.key, i);
+      localVal.set(p.key, p.value);
+    }
+  });
+  const remoteLine = new Map();
+  const remoteVal = new Map();
+  for (const l of String(remoteText).split(/\r?\n/)) {
+    const p = parseEnvLine(l);
+    if (p) {
+      remoteLine.set(p.key, p.raw);
+      remoteVal.set(p.key, p.value);
+    }
+  }
+  const receivedKeys = [];
+  const sentKeys = [];
+  const appended = [];
+  for (const [key, rv] of remoteVal) {
+    if (!localVal.has(key)) {
+      receivedKeys.push(key);
+      appended.push(remoteLine.get(key));
+    } else if (localVal.get(key) !== rv) {
+      if (localNewer) sentKeys.push(key);
+      else {
+        receivedKeys.push(key);
+        lines[localIdx.get(key)] = remoteLine.get(key);
+      }
+    }
+  }
+  for (const key of localVal.keys()) if (!remoteVal.has(key)) sentKeys.push(key);
+  if (appended.length) {
+    if (lines.length && lines[lines.length - 1] === '') lines.splice(lines.length - 1, 0, ...appended);
+    else lines.push(...appended);
+  }
+  return {text: lines.join(eol), receivedKeys, sentKeys};
+}
+
+function isValidJson(text) {
+  try {
+    JSON.parse(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function statOrNull(p) {
+  try {
+    return await stat(p);
+  } catch {
+    return null;
+  }
+}
+
+/** 로컬 파일을 덮어쓰기 전에 프로젝트 밖에 백업하고 파일마다 최근 SECRET_BACKUP_KEEP개만 남긴다. */
+async function backupSecret(localPath, name, backupDir) {
+  await mkdir(backupDir, {recursive: true});
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  await copyFile(localPath, join(backupDir, `${name}.${stamp}`));
+  const mine = (await readdir(backupDir)).filter((f) => f.startsWith(`${name}.`)).sort();
+  for (const old of mine.slice(0, Math.max(0, mine.length - SECRET_BACKUP_KEEP))) {
+    try {
+      await unlink(join(backupDir, old));
+    } catch { /* 이미 지워진 백업 */ }
+  }
+}
+
+const errCode = (err) => (err && err.code ? String(err.code) : '실패'); // 오류 문구에 파일 내용이 섞이지 않게 코드만 쓴다
+
+/**
+ * .env와 OAuth 토큰을 드라이브 secrets/ 폴더와 맞춘다. 반환값에도 값은 없다.
+ * received/sent: 파일 단위로 받은·올린 파일 이름, envReceivedKeys/envSentKeys: .env 키 이름.
+ */
+export async function syncSecrets({project = projectDir, remoteRoot, backupDir = join(stateDir(), 'secrets-backup'), log = () => {}}) {
+  const result = {received: [], sent: [], envReceivedKeys: [], envSentKeys: [], skippedInvalid: [], errors: []};
+  for (const name of SECRET_FILES) {
+    const localPath = join(project, name);
+    const remotePath = join(remoteRoot, 'secrets', name);
+    try {
+      const [l, r] = await Promise.all([statOrNull(localPath), statOrNull(remotePath)]);
+      if (!l && !r) continue;
+      const isEnv = name === '.env';
+      if (!l || !r) {
+        const [srcPath, dstPath, srcStat, toLocal] = l ? [localPath, remotePath, l, false] : [remotePath, localPath, r, true];
+        if (!isEnv && !isValidJson(await readFile(srcPath, 'utf8'))) {
+          result.skippedInvalid.push(name);
+          log(`${name}: JSON이 깨져 있어 복사하지 않음`);
+          continue;
+        }
+        await copyPreservingTime(srcPath, dstPath, srcStat.mtimeMs);
+        (toLocal ? result.received : result.sent).push(name);
+        log(`${name}: ${toLocal ? '드라이브에서 받음' : '드라이브로 올림'}(파일 통째)`);
+        continue;
+      }
+      const [localText, remoteText] = await Promise.all([readFile(localPath, 'utf8'), readFile(remotePath, 'utf8')]);
+      if (localText === remoteText) continue;
+      if (isEnv) {
+        const localNewer = l.mtimeMs >= r.mtimeMs;
+        const m = mergeEnvText(localText, remoteText, {localNewer});
+        if (m.receivedKeys.length) {
+          await backupSecret(localPath, name, backupDir);
+          await writeFile(localPath, m.text);
+          result.envReceivedKeys.push(...m.receivedKeys);
+          log(`${name} 키 ${m.receivedKeys.length}개 받음(${m.receivedKeys.join(', ')})`);
+        }
+        if (m.sentKeys.length) {
+          await writeFile(remotePath, mergeEnvText(remoteText, localText, {localNewer: !localNewer}).text);
+          result.envSentKeys.push(...m.sentKeys);
+          log(`${name} 키 ${m.sentKeys.length}개 올림(${m.sentKeys.join(', ')})`);
+        }
+        continue;
+      }
+      const diff = l.mtimeMs - r.mtimeMs;
+      if (Math.abs(diff) <= MTIME_TOLERANCE_MS) continue;
+      const fromLocal = diff > 0;
+      if (!isValidJson(fromLocal ? localText : remoteText)) {
+        result.skippedInvalid.push(name);
+        log(`${name}: ${fromLocal ? '이 PC' : '드라이브'} 쪽 JSON이 깨져 있어 복사하지 않음`);
+        continue;
+      }
+      if (fromLocal) {
+        await copyPreservingTime(localPath, remotePath, l.mtimeMs);
+        result.sent.push(name);
+        log(`${name}: 드라이브로 올림(이 PC가 더 새로움)`);
+      } else {
+        await backupSecret(localPath, name, backupDir);
+        await copyPreservingTime(remotePath, localPath, r.mtimeMs);
+        result.received.push(name);
+        log(`${name}: 드라이브에서 받음(드라이브가 더 새로움)`);
+      }
+    } catch (err) {
+      result.errors.push(`${name}: ${errCode(err)}`);
+    }
+  }
+  return result;
+}
+
+/** status용 한 줄: 파일 이름·개수만. */
+async function secretsStatusLine(project, remoteRoot) {
+  const describe = async (dir) => {
+    let keys = null;
+    let tokens = 0;
+    for (const name of SECRET_FILES) {
+      try {
+        if (name === '.env') keys = envKeys(await readFile(join(dir, name), 'utf8')).length;
+        else if (await statOrNull(join(dir, name))) tokens++;
+      } catch { /* 없는 파일 */ }
+    }
+    const tokenTotal = SECRET_FILES.length - 1;
+    return `.env(${keys === null ? '없음' : `키 ${keys}개`}) · 토큰 ${tokens === tokenTotal ? `${tokenTotal}개 있음` : tokens === 0 ? '없음' : `${tokens}/${tokenTotal}개`}`;
+  };
+  return `비밀 파일: 드라이브 ${await describe(join(remoteRoot, 'secrets'))} / 이 PC ${await describe(project)}`;
 }
 
 // ---------- 대화 기록 사본 ----------
@@ -628,6 +821,7 @@ async function main(argv) {
     say(`보관함: ${remoteRoot}`);
     for (const s of all) say(`- ${s.pc}: 마지막 실행 ${kst(s.at)} · 받기 ${s.pulled}개 · 올리기 ${s.pushed}개 · 대화 ${s.chats}개${s.errors ? ` · 오류 ${s.errors}개` : ''}`);
     say(`자동 실행(이 PC): ${scheduleInstalled() ? '있음' : '없음'}`);
+    say(await secretsStatusLine(projectDir, remoteRoot));
     return;
   }
   if (cmd === 'install-schedule') {
@@ -652,6 +846,24 @@ async function main(argv) {
     }
     const log = quiet ? () => {} : (m) => console.log(`  ${m}`);
     const summary = {pc, at: new Date().toISOString(), pulled: 0, pushed: 0, chats: 0, skippedForSpace: 0, errors: 0, errorSamples: []};
+    if (cmd === 'sync' || cmd === 'pull' || cmd === 'push') {
+      // 비밀 단계가 실패해도 미디어 동기화는 막지 않는다. 값은 출력하지 않고 이름·개수만 남긴다.
+      try {
+        const s = await syncSecrets({remoteRoot, log});
+        const parts = [];
+        if (s.received.length) parts.push(`받음 ${s.received.join(', ')}`);
+        if (s.sent.length) parts.push(`올림 ${s.sent.join(', ')}`);
+        if (s.envReceivedKeys.length) parts.push(`.env 키 ${s.envReceivedKeys.length}개 받음`);
+        if (s.envSentKeys.length) parts.push(`.env 키 ${s.envSentKeys.length}개 올림`);
+        if (s.skippedInvalid.length) parts.push(`깨진 JSON이라 복사 안 함 ${s.skippedInvalid.join(', ')}`);
+        say(`비밀 파일: ${parts.length ? parts.join(' · ') : '변화 없음'}`);
+        summary.errors += s.errors.length;
+        summary.errorSamples.push(...s.errors.slice(0, 5));
+      } catch (err) {
+        summary.errors++;
+        summary.errorSamples.push(`비밀 파일 단계: ${err && err.code ? err.code : '실패'}`);
+      }
+    }
     if (tracked && (cmd === 'sync' || cmd === 'pull')) {
       const r = await syncFiles({direction: 'pull', remoteRoot, tracked, log});
       Object.assign(summary, {pulled: r.copied, skippedForSpace: r.skippedForSpace});

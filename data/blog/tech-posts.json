@@ -25,5 +25,30 @@
         "medium": "gouache illustration with visible brush grain and slightly muted subway colors"
       }
     }
+  },
+  {
+    "date": "2026-11-27",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "title": "아이폰 화면이 삼성 TV에 안 뜰 때 점검 순서",
+    "url": "https://tech.d40m.com/2026/11/tv.html",
+    "postId": "1820254105302642548",
+    "sources": [
+      "https://support.apple.com/ko-kr/102661",
+      "https://support.apple.com/ko-kr/102587",
+      "https://www.samsungsvc.co.kr/solution/33970",
+      "https://www.samsungsvc.co.kr/solution/982458"
+    ],
+    "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8609330249&itemId=24969190670&vendorItemId=92097240156&traceid=V0-153-3cb78c75d8e4e075&clickBeacon=cbac1780-ea12-11f1-8a8b-45a6875c1fbc%7E3&requestid=20261127122947189181844773&token=31850C%7CMIXED&pt=1&slot=1",
+    "hero": {
+      "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8xvlzw5EftllEx7RgChJUpWHh-JxXjrlZDXxyA-hQ_et_rZwj2nHtXUhBV_tiBokyKErHkWiCT0gp85uUXmMVFY6uzpyLqakx5S65hGSNtz2EciE_JTZ6KyZeookPrnJtX94jpDyAGnwFgBWqA9qcEGLO8EXLRRlVPPmrWkAtw34ElHFnPorRcomlW_JP/s1600/cand-1-upload.jpg",
+      "hash": "121a3a8294a6c6a0",
+      "brief": {
+        "moment": "late evening, a person sits on the floor in front of a low sofa holding a phone toward a large wall-mounted TV; the phone shows a small spinning connection indicator while the TV screen stays on a plain dark-blue idle background with nothing appearing",
+        "angle": "high corner view from near the ceiling behind the sofa, looking down diagonally over the person's shoulder toward the TV",
+        "light": "dim room lit only by a single warm floor lamp at the far left and the cold glow of the idle TV, creating a warm-cool split across the person's back",
+        "lens": "24mm wide-angle equivalent from about three meters back, deep focus so the phone, the person and the TV are all sharp",
+        "medium": "two-color risograph print look in teal and warm orange with visible halftone dots and slight ink misregistration"
+      }
+    }
   }
 ]

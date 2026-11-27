@@ -29,6 +29,7 @@ const DEFAULT_ACCOUNT_INDEX = 1; // allow-literal: 시험한 지메일 계정 �
 const GMAIL_LOAD_WAIT_MS = 7000; // allow-literal: 작성 창이 뜰 때까지 기다린 시간(시험값)
 const ATTACH_TIMEOUT_MS = 30000; // allow-literal: 첨부 이름이 화면에 나타날 때까지 최대 대기
 const ATTACH_POLL_MS = 1000; // allow-literal: 첨부 확인 주기
+const COMPOSE_READY_MS = 30000; // allow-literal: 작성 창 첨부 칸을 더 기다리는 최대 시간(2026-11-27 시험: 7초로 부족한 때가 있었음)
 const SEND_WAIT_MS = 5000; // allow-literal: 보내기 단추를 누른 뒤 기다린 시간(시험값)
 const SEND_CONFIRM_MS = 60000; // allow-literal: "메시지 전송됨"이 뜰 때까지 최대 대기(2026-11-26 실측: 약 4.5초, 첫 글 시험에서 5초 만에 창을 닫아 메일이 안 나간 일이 있었음)
 const SENT_TEXT = /메시지 전송됨|메일을 보냈습니다|Message sent/;
@@ -109,6 +110,7 @@ export const sendHeroEmail = async ({
   attachTimeoutMs = ATTACH_TIMEOUT_MS,
   sendWaitMs = SEND_WAIT_MS,
   sendConfirmMs = SEND_CONFIRM_MS,
+  composeReadyMs = COMPOSE_READY_MS,
 }) => {
   let browser;
   let page;
@@ -128,7 +130,14 @@ export const sendHeroEmail = async ({
       return {ok: false, error: 'gmail-not-ready'};
     }
     const fileInput = page.locator('input[type=file]').first();
-    if ((await page.locator('input[type=file]').count()) === 0) return {ok: false, error: 'gmail-not-ready'};
+    // 그림을 만든 직후처럼 크롬이 바쁘면 작성 창이 늦게 뜬다(2026-11-27 노트북 시험: 7초 판정에서 gmail-not-ready, 다시 열면 정상).
+    // 첨부 칸이 생길 때까지 조금 더 기다린다.
+    let readyWaited = 0;
+    while ((await page.locator('input[type=file]').count()) === 0 && readyWaited < composeReadyMs) {
+      await page.waitForTimeout(ATTACH_POLL_MS);
+      readyWaited += ATTACH_POLL_MS;
+    }
+    if ((await page.locator('input[type=file]').count()) === 0) return {ok: false, error: 'gmail-not-ready', detail: `작성 창 첨부 칸 없음(${loadWaitMs + readyWaited}ms 대기, ${new URL(page.url()).pathname})`};
 
     stage = 'attach-failed';
     await fileInput.setInputFiles(imagePath);

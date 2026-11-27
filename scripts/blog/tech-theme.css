@@ -286,6 +286,147 @@ h1.post-title.entry-title,
   color: #0F4C45 !important;
 }
 
+/* 글 목록(첫 화면·갈래·검색 결과) 다듬기 (2026-11-27)
+ * 문제: ① 글 안 그림용 .post-body img 위 여백(1.2em)이 목록 작은 사진에도 걸려 사진이 20px 내려가 '댓글 쓰기'를 덮음
+ *       ② .post-body 가운데 정렬(max-width 700px)이 목록에도 걸려 사진이 제목보다 안쪽에서 시작
+ *       ③ 첫 화면 맨 위 '추천 글'만 큰 사진이라 다른 글과 모양이 다름
+ *       ④ 글이 적은 지금 '댓글 쓰기'와 'Powered by Blogger'가 빈 블로그 인상을 줌
+ * 글 화면(body.item-view)의 본문 그림·여백은 건드리지 않는다.
+ */
+body:not(.item-view) .Blog .post-body.entry-content {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body:not(.item-view) .Blog .post-body.entry-content::after,
+.FeaturedPost article.post::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+body:not(.item-view) .snippet-thumbnail,
+.FeaturedPost .snippet-thumbnail {
+  float: left !important;
+  width: 132px !important;
+  height: 132px !important;
+  max-width: 132px !important;
+  max-height: 132px !important;
+  margin: 4px 28px 8px 0 !important;
+  overflow: hidden;
+  border-radius: 10px;
+  text-align: left;
+}
+
+body:not(.item-view) .snippet-thumbnail img,
+.FeaturedPost .snippet-thumbnail img,
+.FeaturedPost img {
+  width: 132px !important;
+  height: 132px !important;
+  max-width: 132px !important;
+  max-height: 132px !important;
+  margin: 0 !important;
+  object-fit: cover;
+  border-radius: 10px !important;
+}
+
+body:not(.item-view) .post-title a,
+.FeaturedPost .post-title a,
+#page_body.section div.widget.FeaturedPost h3 a {
+  font-size: 23px !important;
+  line-height: 1.42 !important;
+}
+
+body:not(.item-view) .snippet-item,
+.FeaturedPost .snippet-item {
+  font-size: 15.5px !important;
+  line-height: 1.72 !important;
+  color: #4B5563 !important;
+}
+
+/* 미리보기는 사진 높이(132px)에 맞춰 딱 5줄(15.5px × 1.72 × 5 ≈ 133px)만 보여 마지막 줄이 반쯤 잘리지 않게 한다 */
+body:not(.item-view) .Blog .snippet-container,
+.FeaturedPost .snippet-container {
+  font-size: 15.5px !important;
+  line-height: 1.72 !important;
+  max-height: calc(15.5px * 1.72 * 5) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
+
+body:not(.item-view) .post-header,
+.FeaturedPost .post-header {
+  margin-bottom: 14px !important;
+}
+
+body:not(.item-view) .post-bottom,
+.FeaturedPost .post-bottom {
+  border-top: 1px solid #EEF0EE;
+  margin-top: 16px !important;
+  padding-top: 4px !important;
+}
+
+body:not(.item-view) .post-comment-link,
+.FeaturedPost .post-comment-link {
+  display: none !important;
+}
+
+.Attribution {
+  display: none !important;
+}
+
+/* 목록 다듬기 스크립트만 든 빈 가젯(scripts/blog/tech-list-tidy.html)이 왼쪽 메뉴 맨 위에 빈 칸·구분선을 만들지 않게 */
+#HTML1 {
+  display: none !important;
+}
+
+/* 블로그 이름 아래 소개 한 줄(블로거 설정의 '설명') */
+.Header .header-widget p {
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  margin: 10px auto 0 !important;
+  max-width: 560px;
+  word-break: keep-all;
+}
+
+@media screen and (max-width: 768px) {
+  body:not(.item-view) .snippet-thumbnail,
+  .FeaturedPost .snippet-thumbnail,
+  body:not(.item-view) .snippet-thumbnail img,
+  .FeaturedPost .snippet-thumbnail img,
+  .FeaturedPost img {
+    width: 92px !important;
+    height: 92px !important;
+    max-width: 92px !important;
+    max-height: 92px !important;
+  }
+
+  body:not(.item-view) .snippet-thumbnail,
+  .FeaturedPost .snippet-thumbnail {
+    margin: 4px 16px 6px 0 !important;
+  }
+
+  body:not(.item-view) .post-title a,
+  .FeaturedPost .post-title a,
+  #page_body.section div.widget.FeaturedPost h3 a {
+    font-size: 20px !important;
+  }
+
+  body:not(.item-view) .snippet-item,
+  .FeaturedPost .snippet-item,
+  body:not(.item-view) .Blog .snippet-container,
+  .FeaturedPost .snippet-container {
+    font-size: 15px !important;
+  }
+
+  body:not(.item-view) .Blog .snippet-container,
+  .FeaturedPost .snippet-container {
+    max-height: calc(15px * 1.72 * 4) !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .post-outer-container {
     padding: 22px 18px !important;

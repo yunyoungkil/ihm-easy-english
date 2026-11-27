@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-26T16:00:12.500Z",
+  "updatedAt": "2026-11-27T16:00:26.784Z",
   "filterVersion": 1,
   "runs": [
     {
@@ -363,6 +363,36 @@
       "goneSinceLastRun": 28,
       "ourTopicShare": 0.1016949152542373,
       "ms": 58827
+    },
+    {
+      "date": "2026-11-27",
+      "format": "LONGFORM",
+      "list": "outliers",
+      "listed": 839,
+      "endReason": "no-more",
+      "possibleCap": false,
+      "foldsMissing": 0,
+      "passedA": 140,
+      "passed": 30,
+      "newSinceLastRun": 41,
+      "goneSinceLastRun": 41,
+      "ourTopicShare": 0.03333333333333333,
+      "ms": 36772
+    },
+    {
+      "date": "2026-11-27",
+      "format": "SHORTS",
+      "list": "outliers",
+      "listed": 974,
+      "endReason": "no-more",
+      "possibleCap": false,
+      "foldsMissing": 0,
+      "passedA": 188,
+      "passed": 64,
+      "newSinceLastRun": 33,
+      "goneSinceLastRun": 42,
+      "ourTopicShare": 0.09375,
+      "ms": 59775
     }
   ],
   "candidates": {
@@ -391,12 +421,12 @@
       "publishedAt": "2026-10-13T23:00:05Z",
       "durationSeconds": 699,
       "studioFolds": 49,
-      "studioSubscribers": 10200,
+      "studioSubscribers": 10300,
       "studioViews": 130000,
       "studioRank": 6,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "xaTAV--wNxg": {
       "videoId": "xaTAV--wNxg",
@@ -409,10 +439,10 @@
       "studioFolds": 19,
       "studioSubscribers": 64800,
       "studioViews": 290000,
-      "studioRank": 10,
+      "studioRank": 11,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "huqNK3Mq03M": {
       "videoId": "huqNK3Mq03M",
@@ -425,10 +455,10 @@
       "studioFolds": 29,
       "studioSubscribers": 33000,
       "studioViews": 41000,
-      "studioRank": 13,
+      "studioRank": 14,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "gN1T27-WhVk": {
       "videoId": "gN1T27-WhVk",
@@ -443,8 +473,8 @@
       "studioViews": 85000,
       "studioRank": 15,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "4LShGRVrbuQ": {
       "videoId": "4LShGRVrbuQ",
@@ -455,12 +485,12 @@
       "publishedAt": "2026-09-02T11:14:45Z",
       "durationSeconds": 22738,
       "studioFolds": 23,
-      "studioSubscribers": 14200,
+      "studioSubscribers": 14300,
       "studioViews": 410000,
       "studioRank": 19,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "DPwalPjYRmI": {
       "videoId": "DPwalPjYRmI",
@@ -471,12 +501,12 @@
       "publishedAt": "2026-09-28T12:00:26Z",
       "durationSeconds": 710,
       "studioFolds": 33,
-      "studioSubscribers": 81700,
+      "studioSubscribers": 81800,
       "studioViews": 200000,
-      "studioRank": 68,
+      "studioRank": 69,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "eEizjMme90o": {
       "videoId": "eEizjMme90o",
@@ -491,8 +521,8 @@
       "studioViews": 190000,
       "studioRank": 27,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "AAjB95YXQxc": {
       "videoId": "AAjB95YXQxc",
@@ -523,8 +553,8 @@
       "studioViews": 96000,
       "studioRank": 32,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "_VUMngGcI6U": {
       "videoId": "_VUMngGcI6U",
@@ -535,12 +565,12 @@
       "publishedAt": "2026-11-03T10:00:06Z",
       "durationSeconds": 5437,
       "studioFolds": 31,
-      "studioSubscribers": 17000,
-      "studioViews": 130000,
+      "studioSubscribers": 17200,
+      "studioViews": 140000,
       "studioRank": 5,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "IT3BR0H95SE": {
       "videoId": "IT3BR0H95SE",
@@ -551,12 +581,12 @@
       "publishedAt": "2026-09-23T22:00:28Z",
       "durationSeconds": 2519,
       "studioFolds": 67,
-      "studioSubscribers": 10200,
+      "studioSubscribers": 10300,
       "studioViews": 120000,
-      "studioRank": 70,
+      "studioRank": 71,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "jPPyTLIzf5k": {
       "videoId": "jPPyTLIzf5k",
@@ -567,12 +597,12 @@
       "publishedAt": "2026-10-13T23:00:36Z",
       "durationSeconds": 345,
       "studioFolds": 25,
-      "studioSubscribers": 81700,
+      "studioSubscribers": 81800,
       "studioViews": 380000,
-      "studioRank": 97,
+      "studioRank": 99,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "_DG6x915tv0": {
       "videoId": "_DG6x915tv0",
@@ -583,12 +613,12 @@
       "publishedAt": "2026-10-23T06:11:40Z",
       "durationSeconds": 951,
       "studioFolds": 15,
-      "studioSubscribers": 51600,
-      "studioViews": 590000,
-      "studioRank": 142,
+      "studioSubscribers": 51700,
+      "studioViews": 600000,
+      "studioRank": 146,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "w9Hyda2gIqM": {
       "videoId": "w9Hyda2gIqM",
@@ -601,10 +631,10 @@
       "studioFolds": 48,
       "studioSubscribers": 10200,
       "studioViews": 300000,
-      "studioRank": 147,
+      "studioRank": 153,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "8Slu_lQ0sgw": {
       "videoId": "8Slu_lQ0sgw",
@@ -617,10 +647,10 @@
       "studioFolds": 14,
       "studioSubscribers": 20100,
       "studioViews": 15000,
-      "studioRank": 151,
+      "studioRank": 156,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "OcgFevPFPSs": {
       "videoId": "OcgFevPFPSs",
@@ -631,12 +661,12 @@
       "publishedAt": "2026-09-05T03:15:35Z",
       "durationSeconds": 13512,
       "studioFolds": 44,
-      "studioSubscribers": 66500,
+      "studioSubscribers": 66600,
       "studioViews": 110000,
-      "studioRank": 161,
+      "studioRank": 165,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "uXzL8aMnzGc": {
       "videoId": "uXzL8aMnzGc",
@@ -649,10 +679,10 @@
       "studioFolds": 13,
       "studioSubscribers": 21400,
       "studioViews": 110000,
-      "studioRank": 175,
+      "studioRank": 183,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "zSXX-dL4Mp4": {
       "videoId": "zSXX-dL4Mp4",
@@ -679,12 +709,12 @@
       "publishedAt": "2026-09-01T11:00:30Z",
       "durationSeconds": 1493,
       "studioFolds": 11,
-      "studioSubscribers": 41000,
+      "studioSubscribers": 41100,
       "studioViews": 120000,
-      "studioRank": 192,
+      "studioRank": 199,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "hHO-A8ti7Ss": {
       "videoId": "hHO-A8ti7Ss",
@@ -697,10 +727,10 @@
       "studioFolds": 10,
       "studioSubscribers": 1230,
       "studioViews": 72000,
-      "studioRank": 258,
+      "studioRank": 272,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Jdc0kFebXJY": {
       "videoId": "Jdc0kFebXJY",
@@ -729,10 +759,10 @@
       "studioFolds": 18,
       "studioSubscribers": 10200,
       "studioViews": 170000,
-      "studioRank": 311,
+      "studioRank": 331,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Wf5t9ww2bFg": {
       "videoId": "Wf5t9ww2bFg",
@@ -745,10 +775,10 @@
       "studioFolds": 41,
       "studioSubscribers": 13000,
       "studioViews": 360000,
-      "studioRank": 318,
+      "studioRank": 338,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "xAyXWGpE91M": {
       "videoId": "xAyXWGpE91M",
@@ -759,12 +789,12 @@
       "publishedAt": "2026-09-08T14:08:49Z",
       "durationSeconds": 14938,
       "studioFolds": 12,
-      "studioSubscribers": 66500,
-      "studioViews": 92000,
-      "studioRank": 374,
+      "studioSubscribers": 66600,
+      "studioViews": 93000,
+      "studioRank": 425,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Grk7LUWcV4s": {
       "videoId": "Grk7LUWcV4s",
@@ -775,12 +805,12 @@
       "publishedAt": "2026-10-12T23:00:21Z",
       "durationSeconds": 287,
       "studioFolds": 13,
-      "studioSubscribers": 81700,
+      "studioSubscribers": 81800,
       "studioViews": 200000,
-      "studioRank": 393,
+      "studioRank": 136,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "wxY9QSvbmB4": {
       "videoId": "wxY9QSvbmB4",
@@ -791,12 +821,12 @@
       "publishedAt": "2026-10-27T23:54:17Z",
       "durationSeconds": 541,
       "studioFolds": 23,
-      "studioSubscribers": 10200,
+      "studioSubscribers": 10300,
       "studioViews": 260000,
-      "studioRank": 371,
+      "studioRank": 398,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "YPg-FHROJ5c": {
       "videoId": "YPg-FHROJ5c",
@@ -809,10 +839,10 @@
       "studioFolds": 80,
       "studioSubscribers": 41600,
       "studioViews": 320000,
-      "studioRank": 5,
+      "studioRank": 6,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "FTOijpUiGX0": {
       "videoId": "FTOijpUiGX0",
@@ -839,28 +869,28 @@
       "publishedAt": "2026-10-13T04:56:22Z",
       "durationSeconds": 62,
       "studioFolds": 100,
-      "studioSubscribers": 93700,
-      "studioViews": 2400000,
-      "studioRank": 15,
+      "studioSubscribers": 94300,
+      "studioViews": 2410000,
+      "studioRank": 143,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "28q5G0UOJ48": {
       "videoId": "28q5G0UOJ48",
       "format": "SHORTS",
       "title": "발름하기 어려운 영어 단어들",
       "channelId": "UCpAUgkE9ViYCQQMMoMJWQcg",
-      "channelTitle": "はじめまして",
+      "channelTitle": "꼬꾸말랭이",
       "publishedAt": "2026-10-12T02:08:42Z",
       "durationSeconds": 51,
       "studioFolds": 61,
       "studioSubscribers": 13900,
       "studioViews": 1020000,
-      "studioRank": 17,
+      "studioRank": 20,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "2tvBBqQEoz0": {
       "videoId": "2tvBBqQEoz0",
@@ -871,12 +901,12 @@
       "publishedAt": "2026-11-07T14:47:03Z",
       "durationSeconds": 64,
       "studioFolds": 100,
-      "studioSubscribers": 21300,
+      "studioSubscribers": 21500,
       "studioViews": 1080000,
-      "studioRank": 137,
+      "studioRank": 147,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "1sUDrLZtk94": {
       "videoId": "1sUDrLZtk94",
@@ -889,10 +919,10 @@
       "studioFolds": 17,
       "studioSubscribers": 60900,
       "studioViews": 140000,
-      "studioRank": 23,
+      "studioRank": 25,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Wn-8gUliMWs": {
       "videoId": "Wn-8gUliMWs",
@@ -904,11 +934,11 @@
       "durationSeconds": 26,
       "studioFolds": 41,
       "studioSubscribers": 13300,
-      "studioViews": 360000,
+      "studioViews": 370000,
       "studioRank": 26,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "uHUyMvh6kWs": {
       "videoId": "uHUyMvh6kWs",
@@ -935,12 +965,12 @@
       "publishedAt": "2026-09-01T15:11:40Z",
       "durationSeconds": 26,
       "studioFolds": 19,
-      "studioSubscribers": 17900,
+      "studioSubscribers": 18000,
       "studioViews": 260000,
-      "studioRank": 33,
+      "studioRank": 35,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "pzyrnLfZ5JA": {
       "videoId": "pzyrnLfZ5JA",
@@ -953,10 +983,10 @@
       "studioFolds": 30,
       "studioSubscribers": 16900,
       "studioViews": 53000,
-      "studioRank": 34,
+      "studioRank": 40,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "d9vwu7P4y0U": {
       "videoId": "d9vwu7P4y0U",
@@ -969,10 +999,10 @@
       "studioFolds": 50,
       "studioSubscribers": 30700,
       "studioViews": 1370000,
-      "studioRank": 41,
+      "studioRank": 45,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "N0LEBxEo0bw": {
       "videoId": "N0LEBxEo0bw",
@@ -983,12 +1013,12 @@
       "publishedAt": "2026-10-17T03:00:03Z",
       "durationSeconds": 59,
       "studioFolds": 100,
-      "studioSubscribers": 19500,
-      "studioViews": 3390000,
-      "studioRank": 48,
+      "studioSubscribers": 19600,
+      "studioViews": 3420000,
+      "studioRank": 50,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "EuBUiMUMMQY": {
       "videoId": "EuBUiMUMMQY",
@@ -999,12 +1029,12 @@
       "publishedAt": "2026-11-02T06:00:29Z",
       "durationSeconds": 20,
       "studioFolds": 40,
-      "studioSubscribers": 4970,
+      "studioSubscribers": 5000,
       "studioViews": 1330000,
-      "studioRank": 31,
+      "studioRank": 32,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "k7ZeeVv9r50": {
       "videoId": "k7ZeeVv9r50",
@@ -1017,10 +1047,10 @@
       "studioFolds": 20,
       "studioSubscribers": 34500,
       "studioViews": 86000,
-      "studioRank": 44,
+      "studioRank": 47,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "_0IdBrVZxAQ": {
       "videoId": "_0IdBrVZxAQ",
@@ -1033,10 +1063,10 @@
       "studioFolds": 13,
       "studioSubscribers": 2810,
       "studioViews": 26000,
-      "studioRank": 53,
+      "studioRank": 54,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 10
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 11
     },
     "Bzwd5EdsQGk": {
       "videoId": "Bzwd5EdsQGk",
@@ -1049,10 +1079,10 @@
       "studioFolds": 100,
       "studioSubscribers": 12000,
       "studioViews": 1060000,
-      "studioRank": 52,
+      "studioRank": 53,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "eJR661M6bIA": {
       "videoId": "eJR661M6bIA",
@@ -1064,11 +1094,11 @@
       "durationSeconds": 20,
       "studioFolds": 33,
       "studioSubscribers": 27200,
-      "studioViews": 810000,
-      "studioRank": 66,
+      "studioViews": 820000,
+      "studioRank": 68,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "U2ntrEUPVDU": {
       "videoId": "U2ntrEUPVDU",
@@ -1095,12 +1125,12 @@
       "publishedAt": "2026-10-31T11:00:37Z",
       "durationSeconds": 23,
       "studioFolds": 19,
-      "studioSubscribers": 2610,
+      "studioSubscribers": 2640,
       "studioViews": 100000,
-      "studioRank": 61,
+      "studioRank": 64,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "cBZ3ca2OGCY": {
       "videoId": "cBZ3ca2OGCY",
@@ -1113,10 +1143,10 @@
       "studioFolds": 19,
       "studioSubscribers": 1500,
       "studioViews": 33000,
-      "studioRank": 67,
+      "studioRank": 69,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 7
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 8
     },
     "ClB657SEGxE": {
       "videoId": "ClB657SEGxE",
@@ -1127,12 +1157,12 @@
       "publishedAt": "2026-10-11T02:00:23Z",
       "durationSeconds": 26,
       "studioFolds": 20,
-      "studioSubscribers": 16800,
+      "studioSubscribers": 16900,
       "studioViews": 670000,
-      "studioRank": 65,
+      "studioRank": 66,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "dwTYJ9OlixQ": {
       "videoId": "dwTYJ9OlixQ",
@@ -1143,12 +1173,12 @@
       "publishedAt": "2026-09-24T00:00:29Z",
       "durationSeconds": 58,
       "studioFolds": 14,
-      "studioSubscribers": 6450,
+      "studioSubscribers": 6460,
       "studioViews": 54000,
-      "studioRank": 70,
+      "studioRank": 73,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "e0kEBFoyVF8": {
       "videoId": "e0kEBFoyVF8",
@@ -1159,12 +1189,12 @@
       "publishedAt": "2026-10-23T08:30:33Z",
       "durationSeconds": 18,
       "studioFolds": 11,
-      "studioSubscribers": 11600,
-      "studioViews": 2430000,
-      "studioRank": 83,
+      "studioSubscribers": 11700,
+      "studioViews": 2460000,
+      "studioRank": 90,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "F2bA-oPx2xk": {
       "videoId": "F2bA-oPx2xk",
@@ -1177,10 +1207,10 @@
       "studioFolds": 12,
       "studioSubscribers": 13300,
       "studioViews": 530000,
-      "studioRank": 89,
+      "studioRank": 96,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "c4B0oQdtfgU": {
       "videoId": "c4B0oQdtfgU",
@@ -1193,10 +1223,10 @@
       "studioFolds": 64,
       "studioSubscribers": 4470,
       "studioViews": 2090000,
-      "studioRank": 124,
+      "studioRank": 131,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "nNWyHFkw1-4": {
       "videoId": "nNWyHFkw1-4",
@@ -1209,10 +1239,10 @@
       "studioFolds": 100,
       "studioSubscribers": 64800,
       "studioViews": 1530000,
-      "studioRank": 563,
+      "studioRank": 16,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "pa5i9r7v4mo": {
       "videoId": "pa5i9r7v4mo",
@@ -1223,12 +1253,12 @@
       "publishedAt": "2026-10-16T12:50:24Z",
       "durationSeconds": 58,
       "studioFolds": 17,
-      "studioSubscribers": 93700,
+      "studioSubscribers": 94300,
       "studioViews": 220000,
-      "studioRank": 135,
+      "studioRank": 197,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "TAqRBlzm_MM": {
       "videoId": "TAqRBlzm_MM",
@@ -1239,12 +1269,12 @@
       "publishedAt": "2026-11-05T11:07:48Z",
       "durationSeconds": 69,
       "studioFolds": 84,
-      "studioSubscribers": 21300,
+      "studioSubscribers": 21500,
       "studioViews": 310000,
-      "studioRank": 11,
+      "studioRank": 12,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "ASay4Wog-Yk": {
       "videoId": "ASay4Wog-Yk",
@@ -1257,10 +1287,10 @@
       "studioFolds": 21,
       "studioSubscribers": 41600,
       "studioViews": 89000,
-      "studioRank": 138,
+      "studioRank": 148,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "otma1oPB_so": {
       "videoId": "otma1oPB_so",
@@ -1271,12 +1301,12 @@
       "publishedAt": "2026-10-07T13:00:23Z",
       "durationSeconds": 15,
       "studioFolds": 33,
-      "studioSubscribers": 70900,
+      "studioSubscribers": 71300,
       "studioViews": 1510000,
-      "studioRank": 140,
+      "studioRank": 151,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "W06X2tB0-Cs": {
       "videoId": "W06X2tB0-Cs",
@@ -1289,10 +1319,10 @@
       "studioFolds": 15,
       "studioSubscribers": 2810,
       "studioViews": 140000,
-      "studioRank": 159,
+      "studioRank": 169,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "kjGVKgPqruI": {
       "videoId": "kjGVKgPqruI",
@@ -1305,10 +1335,10 @@
       "studioFolds": 16,
       "studioSubscribers": 64800,
       "studioViews": 140000,
-      "studioRank": 25,
+      "studioRank": 149,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "RC3IVG_uvA4": {
       "videoId": "RC3IVG_uvA4",
@@ -1319,12 +1349,12 @@
       "publishedAt": "2026-09-27T05:17:58Z",
       "durationSeconds": 13,
       "studioFolds": 19,
-      "studioSubscribers": 70600,
+      "studioSubscribers": 71300,
       "studioViews": 240000,
-      "studioRank": 188,
+      "studioRank": 202,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "7B9CASK8qgE": {
       "videoId": "7B9CASK8qgE",
@@ -1335,12 +1365,12 @@
       "publishedAt": "2026-09-26T08:00:19Z",
       "durationSeconds": 11,
       "studioFolds": 100,
-      "studioSubscribers": 70900,
+      "studioSubscribers": 71300,
       "studioViews": 1750000,
-      "studioRank": 258,
+      "studioRank": 271,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "IYMO9Xzoaj0": {
       "videoId": "IYMO9Xzoaj0",
@@ -1351,12 +1381,12 @@
       "publishedAt": "2026-10-15T03:00:06Z",
       "durationSeconds": 41,
       "studioFolds": 72,
-      "studioSubscribers": 9770,
+      "studioSubscribers": 9950,
       "studioViews": 150000,
-      "studioRank": 598,
+      "studioRank": 614,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "J_pQfDuvevg": {
       "videoId": "J_pQfDuvevg",
@@ -1367,12 +1397,12 @@
       "publishedAt": "2026-09-17T04:00:02Z",
       "durationSeconds": 22,
       "studioFolds": 77,
-      "studioSubscribers": 26700,
-      "studioViews": 8580000,
-      "studioRank": 454,
+      "studioSubscribers": 27000,
+      "studioViews": 8660000,
+      "studioRank": 474,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "50uNdKlxqa8": {
       "videoId": "50uNdKlxqa8",
@@ -1399,12 +1429,12 @@
       "publishedAt": "2026-10-11T03:00:34Z",
       "durationSeconds": 13,
       "studioFolds": 37,
-      "studioSubscribers": 70900,
+      "studioSubscribers": 71300,
       "studioViews": 1820000,
-      "studioRank": 421,
+      "studioRank": 441,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "DUzqrPusXCw": {
       "videoId": "DUzqrPusXCw",
@@ -1415,12 +1445,12 @@
       "publishedAt": "2026-09-18T00:45:44Z",
       "durationSeconds": 20,
       "studioFolds": 15,
-      "studioSubscribers": 26700,
-      "studioViews": 3310000,
+      "studioSubscribers": 27000,
+      "studioViews": 3330000,
       "studioRank": 72,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "d4JX6uioj68": {
       "videoId": "d4JX6uioj68",
@@ -1433,10 +1463,10 @@
       "studioFolds": 18,
       "studioSubscribers": 16700,
       "studioViews": 400000,
-      "studioRank": 462,
+      "studioRank": 480,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "6spFTbjx310": {
       "videoId": "6spFTbjx310",
@@ -1447,12 +1477,12 @@
       "publishedAt": "2026-10-12T22:00:22Z",
       "durationSeconds": 17,
       "studioFolds": 28,
-      "studioSubscribers": 70600,
+      "studioSubscribers": 71300,
       "studioViews": 1460000,
-      "studioRank": 567,
+      "studioRank": 584,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "5lI0Djp_SKQ": {
       "videoId": "5lI0Djp_SKQ",
@@ -1465,10 +1495,10 @@
       "studioFolds": 24,
       "studioSubscribers": 16900,
       "studioViews": 40000,
-      "studioRank": 577,
+      "studioRank": 595,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "BaBiUIbDvjs": {
       "videoId": "BaBiUIbDvjs",
@@ -1481,10 +1511,10 @@
       "studioFolds": 18,
       "studioSubscribers": 34500,
       "studioViews": 270000,
-      "studioRank": 529,
+      "studioRank": 548,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Q_1ehBU62EM": {
       "videoId": "Q_1ehBU62EM",
@@ -1497,10 +1527,10 @@
       "studioFolds": 17,
       "studioSubscribers": 16900,
       "studioViews": 40000,
-      "studioRank": 676,
+      "studioRank": 681,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 11
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 12
     },
     "4rnQ6uc6NfI": {
       "videoId": "4rnQ6uc6NfI",
@@ -1511,12 +1541,12 @@
       "publishedAt": "2026-10-05T22:00:24Z",
       "durationSeconds": 60,
       "studioFolds": 11,
-      "studioSubscribers": 6450,
+      "studioSubscribers": 6460,
       "studioViews": 62000,
-      "studioRank": 201,
+      "studioRank": 215,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "Xc-H7tY8IXk": {
       "videoId": "Xc-H7tY8IXk",
@@ -1529,10 +1559,10 @@
       "studioFolds": 11,
       "studioSubscribers": 16900,
       "studioViews": 37000,
-      "studioRank": 162,
+      "studioRank": 175,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "sR3gHiP5UNI": {
       "videoId": "sR3gHiP5UNI",
@@ -1545,10 +1575,10 @@
       "studioFolds": 11,
       "studioSubscribers": 16900,
       "studioViews": 41000,
-      "studioRank": 782,
+      "studioRank": 784,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "jZbmrzepnpQ": {
       "videoId": "jZbmrzepnpQ",
@@ -1561,10 +1591,10 @@
       "studioFolds": 10,
       "studioSubscribers": 16900,
       "studioViews": 35000,
-      "studioRank": 825,
+      "studioRank": 820,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "DbCyXoUkMek": {
       "videoId": "DbCyXoUkMek",
@@ -1575,12 +1605,12 @@
       "publishedAt": "2026-10-12T18:00:00Z",
       "durationSeconds": 8,
       "studioFolds": 36,
-      "studioSubscribers": 70900,
+      "studioSubscribers": 71300,
       "studioViews": 1990000,
-      "studioRank": 512,
+      "studioRank": 529,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 12
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 13
     },
     "uSbB1E6UvJE": {
       "videoId": "uSbB1E6UvJE",
@@ -1593,10 +1623,10 @@
       "studioFolds": 22,
       "studioSubscribers": 10200,
       "studioViews": 34000,
-      "studioRank": 7,
+      "studioRank": 8,
       "firstSeenAt": "2026-11-15T05:20:04.415Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 11
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 12
     },
     "81-u37zSNCY": {
       "videoId": "81-u37zSNCY",
@@ -1609,10 +1639,10 @@
       "studioFolds": 14,
       "studioSubscribers": 1950,
       "studioViews": 180000,
-      "studioRank": 246,
+      "studioRank": 260,
       "firstSeenAt": "2026-11-15T16:00:47.541Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 11
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 12
     },
     "R8cDe03BMB0": {
       "videoId": "R8cDe03BMB0",
@@ -1623,12 +1653,12 @@
       "publishedAt": "2026-11-09T04:18:44Z",
       "durationSeconds": 61,
       "studioFolds": 15,
-      "studioSubscribers": 21300,
+      "studioSubscribers": 21500,
       "studioViews": 110000,
-      "studioRank": 263,
+      "studioRank": 274,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 10
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 11
     },
     "aJgJgJTwdQw": {
       "videoId": "aJgJgJTwdQw",
@@ -1641,10 +1671,10 @@
       "studioFolds": 43,
       "studioSubscribers": 1600,
       "studioViews": 500000,
-      "studioRank": 459,
+      "studioRank": 477,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 10
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 11
     },
     "bFq3ieCIqbI": {
       "videoId": "bFq3ieCIqbI",
@@ -1655,12 +1685,12 @@
       "publishedAt": "2026-11-10T21:45:10Z",
       "durationSeconds": 16,
       "studioFolds": 100,
-      "studioSubscribers": 7070,
-      "studioViews": 2790000,
-      "studioRank": 38,
+      "studioSubscribers": 7080,
+      "studioViews": 2850000,
+      "studioRank": 43,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 8
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 9
     },
     "9xwcJV53ros": {
       "videoId": "9xwcJV53ros",
@@ -1671,12 +1701,12 @@
       "publishedAt": "2026-11-13T08:57:12Z",
       "durationSeconds": 33,
       "studioFolds": 14,
-      "studioSubscribers": 1840,
-      "studioViews": 45000,
-      "studioRank": 345,
+      "studioSubscribers": 1850,
+      "studioViews": 46000,
+      "studioRank": 361,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 8
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 9
     },
     "Af7GoZoO94E": {
       "videoId": "Af7GoZoO94E",
@@ -1687,12 +1717,12 @@
       "publishedAt": "2026-11-08T09:11:42Z",
       "durationSeconds": 61,
       "studioFolds": 10,
-      "studioSubscribers": 21300,
+      "studioSubscribers": 21400,
       "studioViews": 47000,
-      "studioRank": 514,
+      "studioRank": 530,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 8
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 9
     },
     "_h58PepN2OY": {
       "videoId": "_h58PepN2OY",
@@ -1703,12 +1733,12 @@
       "publishedAt": "2026-11-04T08:00:30Z",
       "durationSeconds": 51,
       "studioFolds": 12,
-      "studioSubscribers": 11100,
+      "studioSubscribers": 11200,
       "studioViews": 450000,
-      "studioRank": 327,
+      "studioRank": 344,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 8
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 9
     },
     "t5aGEEwyzQ8": {
       "videoId": "t5aGEEwyzQ8",
@@ -1719,12 +1749,12 @@
       "publishedAt": "2026-11-10T06:56:28Z",
       "durationSeconds": 2953,
       "studioFolds": 23,
-      "studioSubscribers": 16500,
+      "studioSubscribers": 16400,
       "studioViews": 150000,
-      "studioRank": 208,
+      "studioRank": 216,
       "firstSeenAt": "2026-11-20T04:44:03.630Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 7
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 8
     },
     "nxslOfcccDk": {
       "videoId": "nxslOfcccDk",
@@ -1751,12 +1781,12 @@
       "publishedAt": "2026-11-09T14:27:49Z",
       "durationSeconds": 67,
       "studioFolds": 21,
-      "studioSubscribers": 21300,
+      "studioSubscribers": 21500,
       "studioViews": 240000,
-      "studioRank": 189,
+      "studioRank": 203,
       "firstSeenAt": "2026-11-20T04:44:03.630Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 7
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 8
     },
     "-vmdjsvaSuM": {
       "videoId": "-vmdjsvaSuM",
@@ -1767,12 +1797,12 @@
       "publishedAt": "2026-10-21T10:00:09Z",
       "durationSeconds": 3814,
       "studioFolds": 10,
-      "studioSubscribers": 17000,
-      "studioViews": 65000,
-      "studioRank": 63,
+      "studioSubscribers": 17200,
+      "studioViews": 66000,
+      "studioRank": 64,
       "firstSeenAt": "2026-11-21T16:00:27.549Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 6
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 7
     },
     "IltSZ2bOedE": {
       "videoId": "IltSZ2bOedE",
@@ -1785,10 +1815,10 @@
       "studioFolds": 14,
       "studioSubscribers": 78600,
       "studioViews": 150000,
-      "studioRank": 333,
+      "studioRank": 192,
       "firstSeenAt": "2026-11-21T16:00:27.549Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 6
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 7
     },
     "fVFzfF5iD6U": {
       "videoId": "fVFzfF5iD6U",
@@ -1800,11 +1830,11 @@
       "durationSeconds": 43,
       "studioFolds": 44,
       "studioSubscribers": 76400,
-      "studioViews": 3770000,
-      "studioRank": 9,
+      "studioViews": 4050000,
+      "studioRank": 7,
       "firstSeenAt": "2026-11-21T16:00:27.549Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 6
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 7
     },
     "yaNsmeMzC2A": {
       "videoId": "yaNsmeMzC2A",
@@ -1817,10 +1847,10 @@
       "studioFolds": 12,
       "studioSubscribers": 20100,
       "studioViews": 15000,
-      "studioRank": 312,
+      "studioRank": 332,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
     },
     "-XmqGYl523o": {
       "videoId": "-XmqGYl523o",
@@ -1831,12 +1861,12 @@
       "publishedAt": "2026-10-24T13:51:42Z",
       "durationSeconds": 13995,
       "studioFolds": 11,
-      "studioSubscribers": 66500,
-      "studioViews": 42000,
-      "studioRank": 321,
+      "studioSubscribers": 66600,
+      "studioViews": 43000,
+      "studioRank": 399,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
     },
     "y847em11NfY": {
       "videoId": "y847em11NfY",
@@ -1847,12 +1877,12 @@
       "publishedAt": "2026-11-12T08:00:17Z",
       "durationSeconds": 1035,
       "studioFolds": 12,
-      "studioSubscribers": 47900,
-      "studioViews": 120000,
-      "studioRank": 337,
+      "studioSubscribers": 48100,
+      "studioViews": 130000,
+      "studioRank": 345,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
     },
     "_P0VKdmFdqM": {
       "videoId": "_P0VKdmFdqM",
@@ -1863,12 +1893,12 @@
       "publishedAt": "2026-11-20T10:51:42Z",
       "durationSeconds": 61,
       "studioFolds": 21,
-      "studioSubscribers": 21300,
-      "studioViews": 1370000,
-      "studioRank": 427,
+      "studioSubscribers": 21500,
+      "studioViews": 1490000,
+      "studioRank": 448,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
     },
     "vDtyvYu-MB0": {
       "videoId": "vDtyvYu-MB0",
@@ -1879,12 +1909,12 @@
       "publishedAt": "2026-11-18T05:00:13Z",
       "durationSeconds": 43,
       "studioFolds": 11,
-      "studioSubscribers": 11200,
-      "studioViews": 350000,
-      "studioRank": 718,
+      "studioSubscribers": 11300,
+      "studioViews": 400000,
+      "studioRank": 717,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
     },
     "Tatx4URpfgk": {
       "videoId": "Tatx4URpfgk",
@@ -1895,12 +1925,124 @@
       "publishedAt": "2026-11-15T15:00:20Z",
       "durationSeconds": 46,
       "studioFolds": 16,
-      "studioSubscribers": 21000,
+      "studioSubscribers": 21100,
       "studioViews": 670000,
-      "studioRank": 921,
+      "studioRank": 931,
       "firstSeenAt": "2026-11-25T16:00:30.899Z",
-      "lastSeenAt": "2026-11-26T16:00:12.500Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 3
+    },
+    "tBvtX5_HFP4": {
+      "videoId": "tBvtX5_HFP4",
+      "format": "LONGFORM",
+      "title": "2026년 10월 모의고사 고1 영어 내신대비용 해설강의",
+      "channelId": "UCUyNNGDZUzy_RoGhWJYxBnw",
+      "channelTitle": "매튜쌤의 영어수업",
+      "publishedAt": "2026-10-24T14:15:52Z",
+      "durationSeconds": 14496,
+      "studioFolds": 13,
+      "studioSubscribers": 66600,
+      "studioViews": 58000,
+      "studioRank": 335,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "es5xumKgq50": {
+      "videoId": "es5xumKgq50",
+      "format": "SHORTS",
+      "title": "미국에서는 안통하는 한국영어🇰🇷🇺🇸 #영어공부",
+      "channelId": "UCCSBusSRUfkOdVGgKoaOldQ",
+      "channelTitle": "CalliTube",
+      "publishedAt": "2026-11-18T00:01:26Z",
+      "durationSeconds": 58,
+      "studioFolds": 87,
+      "studioSubscribers": 94300,
+      "studioViews": 590000,
+      "studioRank": 4,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "NBn3NdN5jJk": {
+      "videoId": "NBn3NdN5jJk",
+      "format": "SHORTS",
+      "title": "1년만에 영어 마스터한 리트만점자의 회화 실력",
+      "channelId": "UCFzn9AFXH5367flPq5xcS0Q",
+      "channelTitle": "삐약삐약",
+      "publishedAt": "2026-11-19T04:04:28Z",
+      "durationSeconds": 32,
+      "studioFolds": 13,
+      "studioSubscribers": 3890,
+      "studioViews": 41000,
+      "studioRank": 77,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "P3oCDg6fBzM": {
+      "videoId": "P3oCDg6fBzM",
+      "format": "SHORTS",
+      "title": "여에스더 영어 수학 공부하던 시절",
+      "channelId": "UC9nEtwBaRGRabyONoh-tPPA",
+      "channelTitle": "깡예능",
+      "publishedAt": "2026-11-20T07:47:11Z",
+      "durationSeconds": 28,
+      "studioFolds": 15,
+      "studioSubscribers": 5440,
+      "studioViews": 220000,
+      "studioRank": 81,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "1MGkg1bctN8": {
+      "videoId": "1MGkg1bctN8",
+      "format": "SHORTS",
+      "title": "영어만 하면 성격이 바뀌는 이유",
+      "channelId": "UC6yZnz9Q4p13VlwyreEpFpA",
+      "channelTitle": "예능감각",
+      "publishedAt": "2026-11-20T15:54:26Z",
+      "durationSeconds": 62,
+      "studioFolds": 10,
+      "studioSubscribers": 16500,
+      "studioViews": 450000,
+      "studioRank": 82,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "W5id95F-hG0": {
+      "videoId": "W5id95F-hG0",
+      "format": "SHORTS",
+      "title": "영어 안 느는 송소희에게 성시경이 건 무서운 조건",
+      "channelId": "UCBjXJI4DytKPrax5UBut0Pw",
+      "channelTitle": "모트리",
+      "publishedAt": "2026-11-21T11:50:22Z",
+      "durationSeconds": 54,
+      "studioFolds": 16,
+      "studioSubscribers": 73500,
+      "studioViews": 740000,
+      "studioRank": 299,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
+    },
+    "oisfSoTQWFE": {
+      "videoId": "oisfSoTQWFE",
+      "format": "SHORTS",
+      "title": "김지유 영어 가르치다 웃음 터진 명예영국인",
+      "channelId": "UCicnKwdmE8erQpt_ZWz8E8w",
+      "channelTitle": "라잌셀럽 ",
+      "publishedAt": "2026-11-17T09:30:02Z",
+      "durationSeconds": 61,
+      "studioFolds": 15,
+      "studioSubscribers": 21500,
+      "studioViews": 1550000,
+      "studioRank": 815,
+      "firstSeenAt": "2026-11-27T16:00:26.784Z",
+      "lastSeenAt": "2026-11-27T16:00:26.784Z",
+      "timesSeen": 1
     }
   }
 }

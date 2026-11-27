@@ -274,31 +274,31 @@
     "uqmVMRhT_1A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "beKA35yvxdk": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "AcNSDMpkR_A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "W7toujk6ER8": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "a2VrFQVjImI": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "f4wkmIvplCc": {
@@ -378,7 +378,7 @@
     "cu3EB5OJdMM": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-26T16:05:33.163Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z",
       "kind": []
     },
     "jRoYudL30DE": {
@@ -470,10 +470,18 @@
         "periodText": "완료된 테스트입니다. 2026년 9월 24일 20:00부터 2026년 10월 8일 20:48까지 실행되었습니다.",
         "checkedAt": "2026-11-22T08:01:11.575Z"
       }
+    },
+    "0YdM-5SACVw": {
+      "state": "completed",
+      "kind": [
+        "title"
+      ],
+      "firstSeenAt": "2026-11-27T16:10:46.590Z",
+      "lastSeenAt": "2026-11-27T16:10:46.590Z"
     }
   },
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-26T16:05:33.163Z",
+  "updatedAt": "2026-11-27T16:10:46.590Z",
   "scanned": {
     "8Ul_lkCkUCI": {
       "at": "2026-11-24T16:09:32.426Z",
@@ -486,22 +494,22 @@
       "reportChecked": true
     },
     "cW9pREzzrt0": {
-      "at": "2026-11-26T16:05:33.163Z",
+      "at": "2026-11-27T16:10:46.590Z",
       "hasTest": false,
       "reportChecked": true
     },
     "91aunP3N8mQ": {
-      "at": "2026-11-26T16:05:33.163Z",
+      "at": "2026-11-27T16:10:46.590Z",
       "hasTest": false,
       "reportChecked": true
     },
     "a4E6XlTbTW0": {
-      "at": "2026-11-26T16:05:33.163Z",
+      "at": "2026-11-27T16:10:46.590Z",
       "hasTest": false,
       "reportChecked": true
     },
     "UDwLERu-Tu8": {
-      "at": "2026-11-26T16:05:33.163Z",
+      "at": "2026-11-27T16:10:46.590Z",
       "hasTest": false,
       "reportChecked": true
     },
@@ -638,8 +646,13 @@
       "hasTest": false
     },
     "d9ywtP-2i2U": {
-      "at": "2026-11-26T16:05:33.163Z",
+      "at": "2026-11-27T16:10:46.590Z",
       "hasTest": false,
+      "reportChecked": true
+    },
+    "0YdM-5SACVw": {
+      "at": "2026-11-27T16:10:46.590Z",
+      "hasTest": true,
       "reportChecked": true
     }
   }

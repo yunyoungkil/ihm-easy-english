@@ -4,508 +4,508 @@
   "format": "SHORTS",
   "durationSeconds": 21,
   "startDate": "2026-07-22",
-  "endDate": "2026-11-12",
-  "fetchedAt": "2026-11-13T06:48:28.468Z",
+  "endDate": "2026-11-26",
+  "fetchedAt": "2026-11-27T16:11:55.841Z",
   "points": [
     {
       "ratio": 0.01,
-      "watch": 2.2208,
-      "relative": 0.6588499999999999
+      "watch": 2.2187,
+      "relative": 0.65895
     },
     {
       "ratio": 0.02,
-      "watch": 2.2138,
-      "relative": 0.64735
+      "watch": 2.2116,
+      "relative": 0.6475
     },
     {
       "ratio": 0.03,
-      "watch": 2.1978999999999997,
-      "relative": 0.6361
+      "watch": 2.1958,
+      "relative": 0.63625
     },
     {
       "ratio": 0.04,
-      "watch": 2.1855,
-      "relative": 0.6254500000000001
+      "watch": 2.1834000000000002,
+      "relative": 0.62565
     },
     {
       "ratio": 0.05,
-      "watch": 2.1749,
-      "relative": 0.61585
+      "watch": 2.1728,
+      "relative": 0.61605
     },
     {
       "ratio": 0.06,
-      "watch": 2.1555,
-      "relative": 0.60745
+      "watch": 2.1534,
+      "relative": 0.6077
     },
     {
       "ratio": 0.07,
-      "watch": 2.1412999999999998,
-      "relative": 0.60045
+      "watch": 2.1393,
+      "relative": 0.6007
     },
     {
       "ratio": 0.08,
-      "watch": 2.1307,
-      "relative": 0.5948
+      "watch": 2.1287000000000003,
+      "relative": 0.59505
     },
     {
       "ratio": 0.09,
-      "watch": 2.1219,
-      "relative": 0.59045
+      "watch": 2.1199,
+      "relative": 0.5907
     },
     {
       "ratio": 0.1,
-      "watch": 2.106,
-      "relative": 0.5871999999999999
+      "watch": 2.1041,
+      "relative": 0.5875
     },
     {
       "ratio": 0.11,
-      "watch": 2.0936000000000003,
-      "relative": 0.5849
+      "watch": 2.0917,
+      "relative": 0.5851500000000001
     },
     {
       "ratio": 0.12,
-      "watch": 2.0901,
-      "relative": 0.58335
+      "watch": 2.0882,
+      "relative": 0.5836
     },
     {
       "ratio": 0.13,
-      "watch": 2.0848,
-      "relative": 0.5823
-    },
-    {
-      "ratio": 0.14,
-      "watch": 2.0795,
-      "relative": 0.5817
-    },
-    {
-      "ratio": 0.15,
-      "watch": 2.0742,
-      "relative": 0.5813
-    },
-    {
-      "ratio": 0.16,
-      "watch": 2.0671,
-      "relative": 0.58115
-    },
-    {
-      "ratio": 0.17,
-      "watch": 2.0654,
-      "relative": 0.5811
-    },
-    {
-      "ratio": 0.18,
-      "watch": 2.0565,
-      "relative": 0.58115
-    },
-    {
-      "ratio": 0.19,
-      "watch": 2.053,
-      "relative": 0.58125
-    },
-    {
-      "ratio": 0.2,
-      "watch": 2.0495,
-      "relative": 0.5814
-    },
-    {
-      "ratio": 0.21,
-      "watch": 2.0124,
-      "relative": 0.5816
-    },
-    {
-      "ratio": 0.22,
-      "watch": 1.9875999999999998,
-      "relative": 0.5819
-    },
-    {
-      "ratio": 0.23,
-      "watch": 1.9611,
-      "relative": 0.5822
-    },
-    {
-      "ratio": 0.24,
-      "watch": 1.9558000000000002,
+      "watch": 2.0829,
       "relative": 0.58255
     },
     {
+      "ratio": 0.14,
+      "watch": 2.0776,
+      "relative": 0.58195
+    },
+    {
+      "ratio": 0.15,
+      "watch": 2.0723,
+      "relative": 0.58155
+    },
+    {
+      "ratio": 0.16,
+      "watch": 2.0653,
+      "relative": 0.5814
+    },
+    {
+      "ratio": 0.17,
+      "watch": 2.0635,
+      "relative": 0.58135
+    },
+    {
+      "ratio": 0.18,
+      "watch": 2.0547,
+      "relative": 0.5814
+    },
+    {
+      "ratio": 0.19,
+      "watch": 2.0511,
+      "relative": 0.5815
+    },
+    {
+      "ratio": 0.2,
+      "watch": 2.0476,
+      "relative": 0.58165
+    },
+    {
+      "ratio": 0.21,
+      "watch": 2.0106,
+      "relative": 0.58185
+    },
+    {
+      "ratio": 0.22,
+      "watch": 1.9859,
+      "relative": 0.5821000000000001
+    },
+    {
+      "ratio": 0.23,
+      "watch": 1.9594,
+      "relative": 0.5824
+    },
+    {
+      "ratio": 0.24,
+      "watch": 1.9541,
+      "relative": 0.58275
+    },
+    {
       "ratio": 0.25,
-      "watch": 1.9417,
-      "relative": 0.58295
+      "watch": 1.94,
+      "relative": 0.5831500000000001
     },
     {
       "ratio": 0.26,
-      "watch": 1.9311,
-      "relative": 0.5834
+      "watch": 1.9295,
+      "relative": 0.5836
     },
     {
       "ratio": 0.27,
-      "watch": 1.9134,
-      "relative": 0.58395
+      "watch": 1.9118000000000002,
+      "relative": 0.58415
     },
     {
       "ratio": 0.28,
-      "watch": 1.8958000000000002,
-      "relative": 0.58455
+      "watch": 1.8941999999999999,
+      "relative": 0.58475
     },
     {
       "ratio": 0.29,
-      "watch": 1.8887,
-      "relative": 0.58525
+      "watch": 1.8871,
+      "relative": 0.5854
     },
     {
       "ratio": 0.3,
-      "watch": 1.8869,
-      "relative": 0.586
+      "watch": 1.8854,
+      "relative": 0.5862
     },
     {
       "ratio": 0.31,
-      "watch": 1.8728,
-      "relative": 0.58685
+      "watch": 1.8713,
+      "relative": 0.58705
     },
     {
       "ratio": 0.32,
-      "watch": 1.8587,
-      "relative": 0.58785
+      "watch": 1.8571,
+      "relative": 0.588
     },
     {
       "ratio": 0.33,
-      "watch": 1.8444999999999998,
-      "relative": 0.5889
+      "watch": 1.8430000000000002,
+      "relative": 0.58905
     },
     {
       "ratio": 0.34,
-      "watch": 1.8375,
-      "relative": 0.5901
+      "watch": 1.8359999999999999,
+      "relative": 0.5902499999999999
     },
     {
       "ratio": 0.35,
-      "watch": 1.8286000000000002,
-      "relative": 0.59145
+      "watch": 1.8272,
+      "relative": 0.59155
     },
     {
       "ratio": 0.36,
-      "watch": 1.8197999999999999,
-      "relative": 0.5929
+      "watch": 1.8183,
+      "relative": 0.593
     },
     {
       "ratio": 0.37,
-      "watch": 1.8056999999999999,
-      "relative": 0.59455
+      "watch": 1.8041999999999998,
+      "relative": 0.59465
     },
     {
       "ratio": 0.38,
-      "watch": 1.7986000000000002,
-      "relative": 0.5963499999999999
+      "watch": 1.7972,
+      "relative": 0.59645
     },
     {
       "ratio": 0.39,
-      "watch": 1.788,
-      "relative": 0.59835
+      "watch": 1.7866,
+      "relative": 0.5984
     },
     {
       "ratio": 0.4,
-      "watch": 1.7792,
-      "relative": 0.6005
+      "watch": 1.7778,
+      "relative": 0.6006
     },
     {
       "ratio": 0.41,
-      "watch": 1.7668000000000001,
-      "relative": 0.6029
+      "watch": 1.7653999999999999,
+      "relative": 0.60295
     },
     {
       "ratio": 0.42,
-      "watch": 1.7615,
+      "watch": 1.7601,
       "relative": 0.60555
     },
     {
       "ratio": 0.43,
-      "watch": 1.758,
+      "watch": 1.7566,
       "relative": 0.6084
     },
     {
       "ratio": 0.44,
-      "watch": 1.7544,
+      "watch": 1.7531,
       "relative": 0.6115
     },
     {
       "ratio": 0.45,
-      "watch": 1.7544,
-      "relative": 0.61485
+      "watch": 1.7531,
+      "relative": 0.6148
     },
     {
       "ratio": 0.46,
-      "watch": 1.7509000000000001,
-      "relative": 0.6184499999999999
+      "watch": 1.7496,
+      "relative": 0.6184000000000001
     },
     {
       "ratio": 0.47,
-      "watch": 1.7509000000000001,
-      "relative": 0.6223
+      "watch": 1.7496,
+      "relative": 0.6222
     },
     {
       "ratio": 0.48,
-      "watch": 1.7527000000000001,
-      "relative": 0.62635
+      "watch": 1.7512999999999999,
+      "relative": 0.62625
     },
     {
       "ratio": 0.49,
-      "watch": 1.7527000000000001,
-      "relative": 0.6306499999999999
+      "watch": 1.7512999999999999,
+      "relative": 0.6305499999999999
     },
     {
       "ratio": 0.5,
-      "watch": 1.7472999999999999,
-      "relative": 0.63515
+      "watch": 1.746,
+      "relative": 0.63505
     },
     {
       "ratio": 0.51,
-      "watch": 1.742,
-      "relative": 0.63985
+      "watch": 1.7407,
+      "relative": 0.6397
     },
     {
       "ratio": 0.52,
-      "watch": 1.7403,
-      "relative": 0.6447
+      "watch": 1.739,
+      "relative": 0.64455
     },
     {
       "ratio": 0.53,
-      "watch": 1.7367,
-      "relative": 0.6496999999999999
+      "watch": 1.7353999999999998,
+      "relative": 0.6495
     },
     {
       "ratio": 0.54,
-      "watch": 1.7385,
-      "relative": 0.6548
+      "watch": 1.7372,
+      "relative": 0.65455
     },
     {
       "ratio": 0.55,
-      "watch": 1.7367,
-      "relative": 0.65995
+      "watch": 1.7353999999999998,
+      "relative": 0.65965
     },
     {
       "ratio": 0.56,
-      "watch": 1.7313999999999998,
-      "relative": 0.66505
+      "watch": 1.7302000000000002,
+      "relative": 0.6648000000000001
     },
     {
       "ratio": 0.57,
-      "watch": 1.7313999999999998,
-      "relative": 0.6702
+      "watch": 1.7302000000000002,
+      "relative": 0.6698999999999999
     },
     {
       "ratio": 0.58,
-      "watch": 1.7261000000000002,
-      "relative": 0.6752
+      "watch": 1.7249,
+      "relative": 0.6748999999999999
     },
     {
       "ratio": 0.59,
-      "watch": 1.7208,
-      "relative": 0.68015
+      "watch": 1.7196,
+      "relative": 0.6798
     },
     {
       "ratio": 0.6,
-      "watch": 1.7172999999999998,
-      "relative": 0.6849
+      "watch": 1.716,
+      "relative": 0.68455
     },
     {
       "ratio": 0.61,
-      "watch": 1.7172999999999998,
-      "relative": 0.6895
+      "watch": 1.716,
+      "relative": 0.6891
     },
     {
       "ratio": 0.62,
-      "watch": 1.712,
-      "relative": 0.6938500000000001
+      "watch": 1.7108,
+      "relative": 0.6935
     },
     {
       "ratio": 0.63,
-      "watch": 1.7031999999999998,
-      "relative": 0.6980500000000001
+      "watch": 1.7019,
+      "relative": 0.69765
     },
     {
       "ratio": 0.64,
-      "watch": 1.7013999999999998,
-      "relative": 0.70195
+      "watch": 1.7002000000000002,
+      "relative": 0.70155
     },
     {
       "ratio": 0.65,
-      "watch": 1.6943000000000001,
-      "relative": 0.70565
+      "watch": 1.6931,
+      "relative": 0.7052499999999999
     },
     {
       "ratio": 0.66,
-      "watch": 1.689,
-      "relative": 0.7091000000000001
+      "watch": 1.6878,
+      "relative": 0.70865
     },
     {
       "ratio": 0.67,
-      "watch": 1.6855000000000002,
-      "relative": 0.71235
+      "watch": 1.6843000000000001,
+      "relative": 0.7119
     },
     {
       "ratio": 0.68,
-      "watch": 1.6837,
-      "relative": 0.71535
+      "watch": 1.6825,
+      "relative": 0.7149
     },
     {
       "ratio": 0.69,
-      "watch": 1.682,
-      "relative": 0.7181500000000001
+      "watch": 1.6808,
+      "relative": 0.7177
     },
     {
       "ratio": 0.7,
-      "watch": 1.6802000000000001,
-      "relative": 0.72075
+      "watch": 1.679,
+      "relative": 0.7203
     },
     {
       "ratio": 0.71,
-      "watch": 1.6749,
-      "relative": 0.7232000000000001
+      "watch": 1.6737,
+      "relative": 0.7227
     },
     {
       "ratio": 0.72,
-      "watch": 1.6713999999999998,
-      "relative": 0.72545
+      "watch": 1.6702000000000001,
+      "relative": 0.72495
     },
     {
       "ratio": 0.73,
-      "watch": 1.6661000000000001,
-      "relative": 0.7276
+      "watch": 1.6649,
+      "relative": 0.72705
     },
     {
       "ratio": 0.74,
-      "watch": 1.6643000000000001,
-      "relative": 0.7295499999999999
+      "watch": 1.6631,
+      "relative": 0.72905
     },
     {
       "ratio": 0.75,
-      "watch": 1.659,
-      "relative": 0.7314
+      "watch": 1.6578,
+      "relative": 0.73085
     },
     {
       "ratio": 0.76,
-      "watch": 1.6537,
-      "relative": 0.73315
+      "watch": 1.6525999999999998,
+      "relative": 0.7326
     },
     {
       "ratio": 0.77,
-      "watch": 1.6484,
-      "relative": 0.73475
+      "watch": 1.6473,
+      "relative": 0.7342
     },
     {
       "ratio": 0.78,
-      "watch": 1.6413,
-      "relative": 0.73625
+      "watch": 1.6402,
+      "relative": 0.7357
     },
     {
       "ratio": 0.79,
-      "watch": 1.6378,
-      "relative": 0.73765
+      "watch": 1.6366999999999998,
+      "relative": 0.73705
     },
     {
       "ratio": 0.8,
-      "watch": 1.6307,
-      "relative": 0.73895
+      "watch": 1.6296000000000002,
+      "relative": 0.7383500000000001
     },
     {
       "ratio": 0.81,
-      "watch": 1.6059999999999999,
-      "relative": 0.74015
+      "watch": 1.6049,
+      "relative": 0.7395499999999999
     },
     {
       "ratio": 0.82,
-      "watch": 1.5741999999999998,
-      "relative": 0.74125
+      "watch": 1.5732,
+      "relative": 0.7405999999999999
     },
     {
       "ratio": 0.83,
-      "watch": 1.5512000000000001,
-      "relative": 0.7422500000000001
+      "watch": 1.5503,
+      "relative": 0.7416
     },
     {
       "ratio": 0.84,
-      "watch": 1.5212,
-      "relative": 0.7431
+      "watch": 1.5203,
+      "relative": 0.7424999999999999
     },
     {
       "ratio": 0.85,
-      "watch": 1.4947,
-      "relative": 0.7439
+      "watch": 1.4938,
+      "relative": 0.74325
     },
     {
       "ratio": 0.86,
-      "watch": 1.4664,
-      "relative": 0.7446
+      "watch": 1.4656,
+      "relative": 0.74395
     },
     {
       "ratio": 0.87,
-      "watch": 1.4435,
-      "relative": 0.74525
+      "watch": 1.4409,
+      "relative": 0.74455
     },
     {
       "ratio": 0.88,
-      "watch": 1.4240000000000002,
-      "relative": 0.74575
+      "watch": 1.4215,
+      "relative": 0.7451
     },
     {
       "ratio": 0.89,
-      "watch": 1.4081000000000001,
-      "relative": 0.7462
+      "watch": 1.4056,
+      "relative": 0.7455
     },
     {
       "ratio": 0.9,
-      "watch": 1.3834,
-      "relative": 0.74655
+      "watch": 1.381,
+      "relative": 0.74585
     },
     {
       "ratio": 0.91,
-      "watch": 1.364,
-      "relative": 0.7468
+      "watch": 1.3616,
+      "relative": 0.7461
     },
     {
       "ratio": 0.92,
-      "watch": 1.3463,
-      "relative": 0.747
+      "watch": 1.3438999999999999,
+      "relative": 0.7463
     },
     {
       "ratio": 0.93,
-      "watch": 1.3286000000000002,
-      "relative": 0.74715
+      "watch": 1.3263,
+      "relative": 0.7464500000000001
     },
     {
       "ratio": 0.94,
-      "watch": 1.3197999999999999,
-      "relative": 0.7472
+      "watch": 1.3175,
+      "relative": 0.7464999999999999
     },
     {
       "ratio": 0.95,
-      "watch": 1.311,
-      "relative": 0.74725
+      "watch": 1.3086000000000002,
+      "relative": 0.7464999999999999
     },
     {
       "ratio": 0.96,
-      "watch": 1.2986000000000002,
-      "relative": 0.7472
+      "watch": 1.2963,
+      "relative": 0.7464999999999999
     },
     {
       "ratio": 0.97,
-      "watch": 1.2968000000000002,
-      "relative": 0.7472
+      "watch": 1.2945,
+      "relative": 0.7464500000000001
     },
     {
       "ratio": 0.98,
-      "watch": 1.2951,
-      "relative": 0.7471
+      "watch": 1.2928,
+      "relative": 0.7464
     },
     {
       "ratio": 0.99,
-      "watch": 1.2951,
-      "relative": 0.74705
+      "watch": 1.2928,
+      "relative": 0.7463
     },
     {
       "ratio": 1,
-      "watch": 1.2968000000000002,
-      "relative": 0.74695
+      "watch": 1.2945,
+      "relative": 0.74625
     }
   ],
   "drops": [
@@ -514,14 +514,14 @@
       "toRatio": 0.21,
       "fromSec": 4.2,
       "toSec": 4.4,
-      "drop": 0.0371
+      "drop": 0.037
     },
     {
       "fromRatio": 0.81,
       "toRatio": 0.82,
       "fromSec": 17,
       "toSec": 17.2,
-      "drop": 0.0318
+      "drop": 0.0317
     },
     {
       "fromRatio": 0.83,
@@ -532,9 +532,9 @@
     }
   ],
   "watchAt": {
-    "q1": 1.9417,
-    "half": 1.7472999999999999,
-    "q3": 1.659,
-    "end": 1.2968000000000002
+    "q1": 1.94,
+    "half": 1.746,
+    "q3": 1.6578,
+    "end": 1.2945
   }
 }

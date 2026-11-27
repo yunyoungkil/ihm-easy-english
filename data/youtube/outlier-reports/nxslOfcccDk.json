@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "videoId": "nxslOfcccDk",
+  "analyzedAt": "2026-11-27T16:10:06.959Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 29,
+  "meta": {
+    "videoId": "nxslOfcccDk",
+    "title": "한국 말을 너무 잘해서 영어는 못할 거 같은 미국 여성 관객ㅋㅋ #이상준 #이상준쇼 #쇼츠",
+    "channelId": "UCt43szgM0WMmlp0ZClKsOog",
+    "channelTitle": "묘한 사주 운세",
+    "publishedAt": "2026-09-25T22:00:25Z",
+    "viewCount": 118693,
+    "likeCount": 344,
+    "commentCount": 0,
+    "durationSeconds": 29,
+    "thumbnail": "https://i.ytimg.com/vi/nxslOfcccDk/maxresdefault.jpg",
+    "description": "한국말이 너무 자연스러우니까 영어를 의심하기 시작함ㅋㅋ\n이상준쇼 EP.70에서 한국말을 배운 관객과의 대화를 편집했습니다.\n\n출처: 이상준쇼\nhttps://www.youtube.com/watch?v=UomjS8pJAhw\n\n#이상준 #이상준쇼 #미국공연 #관객소통 #한국어 #쇼츠",
+    "tags": [
+      "이상준",
+      "이상준쇼",
+      "미국공연",
+      "관객소통",
+      "한국어",
+      "코미디",
+      "애드리브",
+      "쇼츠"
+    ]
+  },
+  "subscriberCount": 3500,
+  "viewsPerSubscriber": 33.91,
+  "outlierRatio": 30.45,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-27T16:07:21.494Z",
+  "ratioDenominator": 3898.5,
+  "ratioPeerCount": 28,
+  "channelPeers": [
+    {
+      "videoId": "g6Eo-H6sW10",
+      "title": "관상가의 연애 참견, 듣다 보니 다 다른 이상형ㅋㅋ",
+      "viewCount": 1505,
+      "durationSeconds": 120,
+      "publishedAt": "2026-11-16"
+    },
+    {
+      "videoId": "gj_H6_hcvW4",
+      "title": "서울대 신입생에게 \"주변 사람\"이 가장 큰 행운이라고 말한 이유",
+      "viewCount": 1919,
+      "durationSeconds": 79,
+      "publishedAt": "2026-11-18"
+    },
+    {
+      "videoId": "viww_Va69OY",
+      "title": "예수님 이순신 누가 젤 좋아요?ㅋㅋ",
+      "viewCount": 2875,
+      "durationSeconds": 28,
+      "publishedAt": "2026-11-18"
+    },
+    {
+      "videoId": "UG2G24TMp18",
+      "title": "소문 좀 많이 났던데 좀 안쓰럽네요.. #쇼츠",
+      "viewCount": 4280,
+      "durationSeconds": 64,
+      "publishedAt": "2026-11-17"
+    },
+    {
+      "videoId": "umCp51aL8tU",
+      "title": "데이트 신청 받은 줄 알고 설렌 미모의 여성 관객ㅋㅋ",
+      "viewCount": 8105,
+      "durationSeconds": 48,
+      "publishedAt": "2026-11-25"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-26T16:00:12.500Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 18,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 0
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 29
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 17,
+    "stats": {
+      "sentences": 17,
+      "lengthSum": 170,
+      "lengthMedian": 7,
+      "endings": {
+        "question": 6,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 1,
+        "hapsyo": 0,
+        "haeyo": 2,
+        "other": 8
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 1,
+        "그런데": 0,
+        "근데": 1,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 6,
+      "pastConclusionSentences": 4
+    },
+    "qualityMetrics": {
+      "sentences": 17,
+      "hangulChars": 125,
+      "hangulRatio": 0.95,
+      "uniqueWordRatio": 0.78,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 29,
+    "hangulPerSec": 4.31,
+    "computedAt": "2026-11-27T16:10:01.890Z",
+    "note": "품질 낮음: 한글 125자(150자 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "한국말을 너무 잘하는 미국인 관객이 사실은 영어를 못할 것 같다는 상황적 의외성을 제시하여 호기심을 유발함",
+      "titleQuote": "한국 말을 너무 잘해서 영어는 못할 거 같은 미국 여성 관객ㅋㅋ #이상준 #이상준쇼 #쇼츠",
+      "thumbnailText": "한국 말을 너무 잘해서 영어는 못 할 거 같은 미국 여성ㅋㅋ",
+      "thumbnailWordCount": 11,
+      "thumbnailVisual": "개그맨 이상준이 무대 위에서 마이크를 들고 관객석을 바라보며 말하는 모습과 배경에 여성 관객의 얼굴이 크게 겹쳐 있음",
+      "thumbnailVsTitle": "썸네일의 텍스트가 영상 제목과 거의 일치하는 말을 반복함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "진행자가 관객에게 어디서 왔는지 묻고, 뉴저지에서 왔다는 대답을 들은 뒤 한국말을 왜 그렇게 잘하는지 질문함",
+      "quote": "아, 내 한국말을 너무 잘해서 영어는 못 할 거 같아서. 어디서 왔어요? 뉴욕. 뉴저지? 뉴저지에서. 한국말 왜 그렇게 잘해요?",
+      "reasonToKeepWatching": "외국인 관객이 한국말을 배우게 된 의외의 이유를 궁금하게 만듦",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "진행자가 무대에서 관객을 향해 한국말을 잘해서 영어를 못 할 것 같다고 농담하며 질문을 던짐",
+      "quote": "아, 내 한국말을 너무 잘해서 영어는 못 할 거 같아서.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "진행자가 관객에게 한국말을 잘해 영어를 못할 것 같다고 말함",
+        "quote": "아, 내 한국말을 너무 잘해서 영어는 못 할 거 같아서.",
+        "quoteVerified": true
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "what": "관객이 뉴저지에서 왔다고 대답함",
+        "quote": "어디서 왔어요? 뉴욕. 뉴저지? 뉴저지에서.",
+        "quoteVerified": true
+      },
+      {
+        "start": 6,
+        "end": 10,
+        "what": "진행자가 한국말을 잘하는 이유를 묻고 관객이 배웠다고 답함",
+        "quote": "한국말 왜 그렇게 잘해요? 배웠죠. 배웠어요. 네.",
+        "quoteVerified": true
+      },
+      {
+        "start": 10,
+        "end": 15,
+        "what": "조상 중에 한국인이 있는지 묻고 없다는 답변을 들음",
+        "quote": "어, 위 조상 중에 어른 중에 한국분이 있어요? 없어요.",
+        "quoteVerified": true
+      },
+      {
+        "start": 15,
+        "end": 24,
+        "what": "한국말을 배운 이유가 BTS를 좋아해서이며 리스닝을 하러 왔다고 밝힘",
+        "quote": "근데 왜 배웠어요? 저 BTS 좋아해서. 그래서 오늘 한국말 얼마나 들었는지 리스닝 한번 하러 온 거야.",
+        "quoteVerified": true
+      },
+      {
+        "start": 24,
+        "end": 29,
+        "what": "진행자가 영도 잘하는지 확인하고 관객이 잘한다고 대답함",
+        "quote": "영어도 잘해요? 아니면 한국말만 해. Bra.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 검은색 배경의 흰색 굵은 자막이 나타남",
+        "purpose": "영상의 주제와 상황을 글자로 요약하여 전달"
+      },
+      {
+        "t": 4,
+        "what": "화면 중앙에 (진 발음)이라는 초록색 괄호 자막이 추가됨",
+        "purpose": "관객의 미국식 발음을 강조하여 웃음을 유발"
+      },
+      {
+        "t": 9,
+        "what": "(당당)이라는 자막이 화면에 나타남",
+        "purpose": "배웠다고 당당하게 답하는 관객의 태도를 시각적으로 보여줌"
+      },
+      {
+        "t": 11,
+        "what": "(족보 조사 중)이라는 자막이 추가됨",
+        "purpose": "진행자가 조상을 확인하는 상황을 해설함"
+      },
+      {
+        "t": 17,
+        "what": "(부끄부끄) 자막이 나타남",
+        "purpose": "BTS를 좋아해서 배웠다고 말하는 관객의 수줍은 반응을 표현"
+      },
+      {
+        "t": 21,
+        "what": "(시험 감독관) 자막이 나타남",
+        "purpose": "리스닝 테스트를 하러 왔다는 진행자의 농담을 강조"
+      },
+      {
+        "t": 26,
+        "what": "(반전 매력) 자막이 나타남",
+        "purpose": "영어도 잘한다고 답하는 순간의 반전 요소를 부각"
+      }
+    ],
+    "ending": {
+      "what": "관객이 영어를 잘한다고 짧게 답하며 영상이 마무리됨",
+      "quote": "영어도 잘해요? 아니면 한국말만 해. Bra.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 2,
+      "description": "관객이 한국말을 배우게 된 이유와 영어 실력에 대한 정보를 문답 형식으로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 및 하단",
+      "size": "큼",
+      "highlightColor": "초록색 및 흰색",
+      "highlightMethod": "상황에 맞는 괄호 자막과 색상 변화 활용",
+      "textAmount": "한두 단어 또는 짧은 문장 단위",
+      "changeTiming": "말하는 속도와 대화 전환에 맞춰 바뀜"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "유쾌하고 가벼운 토크쇼 분위기",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "말소리가 중심이며 배경음악은 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "한국말을 너무 잘해 영어를 못할 것 같다는 추측으로 시작",
+        "quote": "아, 내 한국말을 너무 잘해서 영어는 못 할 거 같아서.",
+        "type": "관객과의 돌발 대화 속에서 이끌어내는 의외성",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 6,
+          "what": "조상 중에 한국인이 없는데도 한국말을 유창하게 하는 이유에 대한 궁금증",
+          "quote": "한국말 왜 그렇게 잘해요?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 18,
+          "what": "BTS가 좋아 한국말을 배웠다는 의외의 답변으로 해소",
+          "quote": "저 BTS 좋아해서.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "관객의 유창한 한국말 능력에 대한 의문이 이유 질문으로 이어지고, 그 답변이 다시 영어 실력에 대한 확인으로 자연스럽게 연결됨",
+        "examples": [
+          {
+            "t": 6,
+            "what": "한국말을 잘하는 이유 질문으로 이어짐",
+            "quote": "한국말 왜 그렇게 잘해요?",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 24,
+          "what": "한국말만 할 것 같던 예상과 달리 영어를 잘한다고 답하는 반전",
+          "quote": "영어도 잘해요? 아니면 한국말만 해. Bra.",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 24,
+        "what": "처음 던졌던 '영어를 못할 것 같다'는 의구심을 마지막 질문과 대답으로 유쾌하게 확인하고 끝맺음",
+        "quote": "영어도 잘해요? 아니면 한국말만 해. Bra.",
+        "quoteVerified": true
+      }
+    },
+    "links": [],
+    "whyOutlierVsChannel": "개그 공연 중 관객과의 즉흥적인 소통에서 나오는 자연스러운 유머와 예상치 못한 답변(BTS 팬, 리스닝 테스트)이 시청자의 흥미를 강하게 자극했기 때문",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "개그쇼 무대에서 관객과 나누는 일상적인 대화와 유머를 다룬 클립으로, 영어 발음이나 듣기를 가르치는 교육용 영상이 아님",
+    "forUs": {
+      "adopt": "대화 속에서 시청자가 예상치 못한 반전이나 공감 가는 답변이 나오는 순간을 하이라이트로 활용하기",
+      "differentiate": "단순한 예능 클립을 넘어 학습자가 실제로 체감할 수 있는 실용적인 소리 포인트를 짚어주기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 16,
+    "verified": 16,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    },
+    {
+      "t": 26,
+      "file": "26.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6293,
+    "candidatesTokenCount": 2276,
+    "totalTokenCount": 8569,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2633
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2560
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

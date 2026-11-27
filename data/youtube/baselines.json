@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-26T16:06:38.308Z",
+  "computedAt": "2026-11-27T16:11:55.804Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -8,7 +8,7 @@
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
           "unit": "회",
-          "n": 53,
+          "n": 54,
           "median": 1141,
           "upper": 1301,
           "spreadRatio": 1.14022787028922,
@@ -77,12 +77,12 @@
           "label": "계속 시청함",
           "meaning": "쇼츠 첫 1~3초 훅(피드에서 넘기지 않고 계속 본 비율, 길이와 상관없음). 스타일 시험의 1차 지표. 공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "unit": "%",
-          "n": 6,
-          "median": 36.71,
+          "n": 7,
+          "median": 36.33,
           "upper": 37.28,
           "spreadRatio": null,
           "promoteRule": "차이(상위 25% − 하위 25%, %p)",
-          "lower": 33.64,
+          "lower": 20.53,
           "approxNote": "공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "champion": {
             "videoId": "ogCglr1VNYE",
@@ -93,7 +93,7 @@
             "views": 1287,
             "period": "4_weeks"
           },
-          "promoteAbove": 52.19,
+          "promoteAbove": 65.3,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -103,6 +103,12 @@
       "lengthMedianSeconds": 33,
       "recent": {
         "views7d": [
+          {
+            "videoId": "OnhkMmAE5ZA",
+            "publishedAt": "2026-11-17T11:00:32Z",
+            "durationSeconds": 45,
+            "value": 537
+          },
           {
             "videoId": "ogCglr1VNYE",
             "publishedAt": "2026-11-14T11:00:32Z",
@@ -1064,6 +1070,12 @@
         ],
         "stayedToWatch": [
           {
+            "videoId": "OnhkMmAE5ZA",
+            "publishedAt": "2026-11-17T11:00:32Z",
+            "durationSeconds": 45,
+            "value": 20.53
+          },
+          {
             "videoId": "ogCglr1VNYE",
             "publishedAt": "2026-11-14T11:00:32Z",
             "durationSeconds": 43,
@@ -1195,6 +1207,18 @@
           "firstWeek": {
             "startDate": "2026-11-14",
             "endDate": "2026-11-20"
+          }
+        },
+        "OnhkMmAE5ZA": {
+          "value": 20.53,
+          "views": 537,
+          "period": "4_weeks",
+          "windowStart": "2026-10-30",
+          "windowLastDay": "2026-11-26",
+          "fetchedAt": "2026-11-27T16:10:21.659Z",
+          "firstWeek": {
+            "startDate": "2026-11-17",
+            "endDate": "2026-11-23"
           }
         }
       }

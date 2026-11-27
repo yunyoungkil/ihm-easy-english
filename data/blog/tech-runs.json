@@ -81,6 +81,17 @@
   },
   {
     "date": "2026-11-27",
+    "startedAt": "2026-11-26T17:00:01.182Z",
+    "outcome": "rejected",
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "reasons": [
+      "출처 페이지에서 인용문을 찾지 못했습니다: \"AirPlay 호환 기기가 켜져 있고 서로 가까이 있는지 확인합니다.\" in https://support.apple.com/ko-kr/102587; \"위 단계를 시도한 후에도 여전히 AirPlay를 사용할 수 없는 경우에는 Apple 지원에 문의합니다.\" in https://support.apple.com/ko-kr/102587",
+      "그림 설계도에 브랜드 낱말이 있습니다. 브랜드 없는 일반 물체로 바꾸세요: 아이폰(글감에도 나옴)"
+    ],
+    "host": "DESKTOP-UA9AKL2"
+  },
+  {
+    "date": "2026-11-27",
     "startedAt": "2026-11-27T02:41:05.911Z",
     "outcome": "rejected",
     "topicId": "iphone-samsung-tv-mirroring-not-working",

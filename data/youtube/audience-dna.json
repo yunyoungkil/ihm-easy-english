@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-25T03:12:03.559Z",
+  "updatedAt": "2026-11-27T16:07:21.054Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,36 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "vocabulary:진짜 탈탈 털어주셨네요",
+      "type": "vocabulary",
+      "text": "진짜 탈탈 털어주셨네요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Wf5t9ww2bFg",
+          "channelTitle": "meji 미지",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-27T16:07:21.054Z",
+      "lastSeenAt": "2026-11-27T16:07:21.054Z"
+    },
+    {
+      "id": "vocabulary:영어정복 헬퍼 사이트 10선",
+      "type": "vocabulary",
+      "text": "영어정복 헬퍼 사이트 10선",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Wf5t9ww2bFg",
+          "channelTitle": "meji 미지",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-27T16:07:21.054Z",
+      "lastSeenAt": "2026-11-27T16:07:21.054Z"
     },
     {
       "id": "vocabulary:영상에서 배운 10개 핵심 표현을 댓글로 복습해 정리함",
@@ -4561,36 +4591,6 @@
       ],
       "firstSeenAt": "2026-11-12T06:34:55.705Z",
       "lastSeenAt": "2026-11-12T06:34:55.705Z"
-    },
-    {
-      "id": "vocabulary:완벽해야 한다는 고정관념",
-      "type": "vocabulary",
-      "text": "완벽해야 한다는 고정관념",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "wgBELecJdjM",
-          "channelTitle": "미쿡영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:34:55.705Z",
-      "lastSeenAt": "2026-11-12T06:34:55.705Z"
-    },
-    {
-      "id": "painPoint:직장인들의 고질적인 발음 교정 한계 (💬 \"시간이 부족하고 직장 생활을 하며 영어 발음을 교정하는 것이 너무 어렵다는 좌절감\")",
-      "type": "painPoint",
-      "text": "직장인들의 고질적인 발음 교정 한계 (💬 \"시간이 부족하고 직장 생활을 하며 영어 발음을 교정하는 것이 너무 어렵다는 좌절감\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
     }
   ]
 }

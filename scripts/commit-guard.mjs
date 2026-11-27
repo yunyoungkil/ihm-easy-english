@@ -87,6 +87,16 @@ export const isRecordFile = (path) => /^(AGENTS|CLAUDE)\.md$/.test(path)
 // ---- 3) 커밋 메시지 -------------------------------------------------------------------
 
 /** 커밋 메시지 검사: 이름만 빌린 서명, 근거 없는 완료 표현. */
+/**
+ * 거버넌스 검사(공통 규칙 길이·링크·목차·스킬 일치)를 돌려야 하는 커밋인지(2026-11-27).
+ * 추가·수정·이름변경·삭제를 모두 넣은 파일 목록을 받는다. 주기 정리 상태 파일과 검사 코드 자체도 포함한다.
+ */
+export const touchesGovernance = (files) => files.some((f) => /^(AGENTS|CLAUDE)\.md$/.test(f)
+  || /^knowledge\/.+\.md$/.test(f)
+  || f === 'knowledge/wiki-maintenance-state.json'
+  || f === 'scripts/lint-knowledge.mjs'
+  || /^\.(agents|claude)\/skills\//.test(f));
+
 export function checkCommitMessage(message) {
   const body = String(message).split(/\r?\n/).filter((l) => !l.startsWith('#')).join('\n');
   const problems = [];
@@ -186,15 +196,14 @@ async function preCommit() {
     }
   }
 
-  const governanceChanged = staged.some((f) => /^(AGENTS|CLAUDE)\.md$/.test(f)
-    || /^knowledge\/.+\.md$/.test(f)
-    || /^\.(agents|claude)\/skills\//.test(f));
-  if (governanceChanged) {
+  // 지운 파일도 본다(2026-11-27 감사: 문서·스킬만 지운 커밋은 위 목록(ACMR)에 안 잡혀 검사를 건너뛰었다).
+  const stagedWithDeletes = git(['diff', '--cached', '--name-only']).split(/\r?\n/).filter(Boolean);
+  if (touchesGovernance(stagedWithDeletes)) {
     const gov = await auditGovernance(projectDir);
     if (!gov.ok) {
       for (const msg of gov.blocking) problems.push(`[거버넌스 잠금] ${msg}`);
     } else {
-      console.log(`  거버넌스 검사: AGENTS.md ${gov.agents.lines}/${gov.agents.maxLines}줄, 깨진 링크 0, 고아 핵심 문서 0, 스킬 일치`);
+      console.log(`  거버넌스 검사: AGENTS.md ${gov.agents.lines}/${gov.agents.maxLines}줄, 실수 정원 ${gov.agents.mistakes ?? "?"}/${gov.agents.mistakeCap}, 깨진 링크 0, 목차에서 빠진 핵심 문서 0, 스킬 양쪽 일치`);
     }
   }
 

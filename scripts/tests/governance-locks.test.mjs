@@ -5,8 +5,10 @@ import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
 import test from 'node:test';
 import {fileURLToPath} from 'node:url';
+import {existsSync} from 'node:fs';
 import {
   AGENTS_MAX_LINES,
+  MISTAKE_CAP,
   PROJECT_SKILLS,
   SKILL_MAX_LINES,
   auditGovernance,
@@ -15,6 +17,16 @@ import {
 import {BLIND_REVIEW_SINCE, blindReviewProblems} from '../transform-sheet.mjs';
 
 const projectDir = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+
+/** 시험용 저장소에 필수 스킬 6종을 양쪽에 같은 내용으로 만든다. */
+const seedSkills = (root) => {
+  for (const side of ['.agents', '.claude']) {
+    for (const skill of PROJECT_SKILLS) {
+      mkdirSync(join(root, side, 'skills', skill), {recursive: true});
+      writeFileSync(join(root, side, 'skills', skill, 'SKILL.md'), `# ${skill}\n`);
+    }
+  }
+};
 
 test('현재 저장소 거버넌스 상태가 자동 잠금 4개 기준을 모두 통과한다', async () => {
   const report = await auditGovernance(projectDir, {now: new Date('2026-11-27T12:00:00Z')});
@@ -56,6 +68,7 @@ test('주기 정리 알림: 마지막 정리일로부터 14일 이상 지나면 
   writeFileSync(join(root, 'AGENTS.md'), '# Slim\n');
   writeFileSync(join(root, 'knowledge', 'index.md'), '# Index\n');
   writeFileSync(join(root, 'knowledge', 'wiki-maintenance-state.json'), JSON.stringify({lastCleanedAt: '2026-11-01', intervalDays: 14}));
+  seedSkills(root);
 
   const report = await auditGovernance(root, {now: new Date('2026-11-20T00:00:00Z')});
   assert.equal(report.ok, true);
@@ -106,11 +119,45 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
   assert.deepEqual(blindReviewProblems(newPassed), []);
 });
 
-test('프로젝트 전용 스킬 6종이 .agents/skills와 .claude/skills 양쪽에 모두 존재한다', () => {
-  assert.ok(PROJECT_SKILLS.includes('blind-review'));
-  assert.ok(PROJECT_SKILLS.includes('publish-wrapup'));
-  assert.ok(PROJECT_SKILLS.includes('performance-settlement'));
-  assert.ok(PROJECT_SKILLS.includes('wiki-maintenance'));
+test('프로젝트 전용 스킬 6종이 .agents/skills와 .claude/skills 양쪽에 실제 파일로 있다 [2026-11-27 감사: 이름 목록만 보던 테스트]', () => {
+  assert.equal(PROJECT_SKILLS.length, 6);
+  for (const skill of PROJECT_SKILLS) {
+    for (const side of ['.agents', '.claude']) {
+      assert.ok(existsSync(join(projectDir, side, 'skills', skill, 'SKILL.md')), `${side}/skills/${skill}/SKILL.md가 없다`);
+    }
+  }
+});
+
+test('잠금 ②④ 보강: 한쪽에만 있는 새 스킬, 양쪽에서 다 지운 필수 스킬, 일지에서만 이어진 핵심 문서, 규칙·스킬 안 깨진 링크, 실수 정원 초과를 막는다 [2026-11-27 감사]', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'gov-lock2-'));
+  mkdirSync(join(root, 'knowledge', 'logs'), {recursive: true});
+  seedSkills(root);
+  // 필수 스킬 하나를 양쪽에서 모두 지운 상태
+  for (const side of ['.agents', '.claude']) writeFileSync(join(root, side, 'skills', 'publish-wrapup', 'SKILL.md'), '');
+  const {rmSync} = await import('node:fs');
+  for (const side of ['.agents', '.claude']) rmSync(join(root, side, 'skills', 'publish-wrapup'), {recursive: true, force: true});
+  // 한쪽에만 만든 새 스킬
+  mkdirSync(join(root, '.claude', 'skills', 'new-skill'), {recursive: true});
+  writeFileSync(join(root, '.claude', 'skills', 'new-skill', 'SKILL.md'), '# new\n');
+  // 스킬 안 깨진 링크
+  writeFileSync(join(root, '.claude', 'skills', 'blind-review', 'SKILL.md'), '# b\n[없는 문서](../../../knowledge/nope.md)\n');
+  writeFileSync(join(root, '.agents', 'skills', 'blind-review', 'SKILL.md'), '# b\n[없는 문서](../../../knowledge/nope.md)\n');
+  // 실수 정원 11개 + 규칙 안 깨진 링크
+  const rows = Array.from({length: MISTAKE_CAP + 1}, (_, k) => `| ${k + 1} | 2026-11-27 | 규칙 ${k + 1} |`).join('\n');
+  writeFileSync(join(root, 'AGENTS.md'), `# A\n[없음](knowledge/gone.md)\n## 1. 실수 제자리 배치\n| # | 날짜 | 규칙 |\n|---|---|---|\n${rows}\n## 2. 다음\n`);
+  writeFileSync(join(root, 'knowledge', 'index.md'), '# Index\n');
+  writeFileSync(join(root, 'knowledge', 'only-from-log.md'), '# 핵심\n');
+  writeFileSync(join(root, 'knowledge', 'logs', '2026-11.md'), '# Log\n[핵심](../only-from-log.md)\n');
+
+  const report = await auditGovernance(root);
+  assert.equal(report.ok, false);
+  const has = (part) => report.blocking.some((m) => m.includes(part));
+  assert.ok(has('필수 스킬 publish-wrapup'), '양쪽에서 다 지운 필수 스킬');
+  assert.ok(has('스킬 new-skill'), '한쪽에만 있는 새 스킬');
+  assert.ok(report.brokenLinks.some((b) => b.file === 'AGENTS.md'), 'AGENTS.md 안 깨진 링크');
+  assert.ok(report.brokenLinks.some((b) => b.file.startsWith('.claude/skills/blind-review')), '스킬 안 깨진 링크');
+  assert.ok(report.coreOrphans.includes('only-from-log.md'), '일지에서만 이어진 핵심 문서는 목차에서 빠진 것으로 본다');
+  assert.ok(has('실수 정원표가 11개'), '실수 정원 초과');
 });
 
 test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 다섯 기준·소견·검수 모델과 함께 보인다', async () => {

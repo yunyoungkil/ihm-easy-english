@@ -53,6 +53,7 @@
 - [트렌드 수집·루프 반영 및 화제 원본 클립 권리 기준 (2026-11-23)](decisions/2026-11-23-trend-loop-and-clip-rights.md) — 14일 누적 트렌드 + 원본 클립 3경로 개방·증빙 차단
 - [자율 AI 성장 슬로건 및 가드레일 경계 (2026-11-17)](decisions/2026-11-17-autonomous-ai-growth-and-guardrails.md) — 채널 제1 슬로건·하드코딩 vs 자율 경계 확정
 - [방향 점검 결정표 (2026-11-15)](decisions/2026-11-15-direction-audit-decisions.md) — 사용자 승인 역할(안전 확인·취향 반응) 및 방향 정리
+- [에이전트 맵 회의 방향 전환 (2026-11-14)](decisions/2026-11-14-agent-map-direction.md) — 기존 기획·제작을 실패로 보고 처음부터 다시 함, 실험 변수는 정해진 것 없음(방향이 걸린 결정일 때만 읽음)
 - [리서치 소스 설계 초안 (2026-11-14)](decisions/2026-11-14-research-source-design-draft.md) — 아웃라이어 수집 소스 확장 설계
 - [규칙 세 층과 실험 루프 도입 (2026-11-13)](decisions/2026-11-13-experiment-loop.md) — 3060 전제·규칙 3층·기준선 누적 구조
 - [지속형 기억 시스템 도입 (2026-08-21)](decisions/2026-08-21-local-wiki.md) — 로컬 LLM Wiki 도입 결정
@@ -64,7 +65,7 @@
 
 ## 보관 · 이전 기록
 
-- [AGENTS.md 보관 (2026-11-27)](legacy/agents-archive-2026-11-27.md) — 180줄 다이어트 개편 직전 원문(357줄, 68.4KB)
+- [AGENTS.md 보관 (2026-11-27)](legacy/agents-archive-2026-11-27.md) — 공통 규칙 83줄(상한 190줄) 다이어트 개편 직전 원문(357줄, 68.4KB)
 - [AGENTS.md 보관 (2026-11-13)](legacy/agents-archive-2026-11-13.md) — 1차 대청소에서 뺀 옛 규칙 원문
 - [옛 Remotion 파이프라인](legacy/remotion-pipeline.md) — EP6~EP10 재렌더 시에만 참고
 - [now.md 보관 (2026-11-09)](logs/now-archive-2026-11-09.md) · [이전 현재 상태](current-status.md) · [이전 통합 로그](log.md) · [8월 작업 기록](logs/2026-08.md)

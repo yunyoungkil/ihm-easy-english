@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   findHardcodedMetrics, findClaimWords, checkCommitMessage, addedLinesByFile, parseTestCounts,
-  isMetricName, isCheckedCodeFile, isRecordFile,
+  isMetricName, isCheckedCodeFile, isRecordFile, touchesGovernance,
 } from '../commit-guard.mjs';
 
 test('실제로 들어왔던 지어낸 성과 숫자를 잡는다', () => {
@@ -93,4 +93,13 @@ test('테스트 결과 읽기: 화면 있음(ℹ)과 없음(#) 둘 다, 못 읽�
   assert.deepEqual(parseTestCounts('ℹ tests 3\nℹ pass 3\nℹ fail 0\n'), {pass: 3, fail: 0});
   assert.deepEqual(parseTestCounts('# tests 254\n# pass 254\n# fail 0\n'), {pass: 254, fail: 0});
   assert.deepEqual(parseTestCounts('something else'), {pass: 0, fail: 0});
+});
+
+test('거버넌스 검사 대상: 지운 문서·스킬, 주기 정리 상태 파일, 검사 코드도 잡는다 [2026-11-27 감사: 지우기만 한 커밋이 검사를 건너뜀]', () => {
+  assert.equal(touchesGovernance(['knowledge/youtube-operations.md']), true);
+  assert.equal(touchesGovernance(['.agents/skills/publish-wrapup/SKILL.md']), true);
+  assert.equal(touchesGovernance(['knowledge/wiki-maintenance-state.json']), true);
+  assert.equal(touchesGovernance(['scripts/lint-knowledge.mjs']), true);
+  assert.equal(touchesGovernance(['AGENTS.md']), true);
+  assert.equal(touchesGovernance(['data/blog/tech-runs.json', 'scripts/briefing.mjs']), false);
 });

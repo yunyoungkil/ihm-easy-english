@@ -7,6 +7,19 @@ export const AGENTS_MAX_LINES = 190;
 export const AGENTS_MAX_BYTES = 22000;
 export const SKILL_MAX_LINES = 260;
 export const DEFAULT_CLEANUP_INTERVAL_DAYS = 14;
+export const MISTAKE_CAP = 10;
+
+/** AGENTS.md "## 1." 절(실수 정원표)에서 번호 행 수를 센다. 절이 없으면 null. */
+export function countMistakeRows(agentsText) {
+  const lines = String(agentsText || '').split(/\r?\n/);
+  const startIdx = lines.findIndex((l) => /^##\s*1\.\s/.test(l));
+  if (startIdx < 0) return null;
+  let n = 0;
+  for (let i = startIdx + 1; i < lines.length && !/^##\s/.test(lines[i]); i += 1) {
+    if (/^\|\s*\d+\s*\|/.test(lines[i])) n += 1;
+  }
+  return n;
+}
 export const PROJECT_SKILLS = Object.freeze([
   'episode-planning',
   'blind-review',
@@ -67,12 +80,20 @@ async function walkAllFiles(dir, base = dir) {
 export async function auditGovernance(projectDir = resolve(import.meta.dirname, '..'), {now = new Date()} = {}) {
   const knowledgeDir = resolve(projectDir, 'knowledge');
   const files = await walkMarkdown(knowledgeDir);
-  const inbound = new Map(files.map((file) => [file, 0]));
+  // 링크를 검사하는 문서: knowledge/ 전부 + 루트 규칙 2개 + 프로젝트 스킬 문서(2026-11-27 감사: 규칙·스킬 안 링크는 안 봤다).
+  const rootDocs = ['AGENTS.md', 'CLAUDE.md'].map((f) => resolve(projectDir, f)).filter((f) => existsSync(f));
+  const skillDocs = [];
+  for (const side of ['.agents', '.claude']) {
+    for (const skill of PROJECT_SKILLS) skillDocs.push(...await walkMarkdown(resolve(projectDir, side, 'skills', skill)));
+  }
+  const linkDocs = [...files, ...rootDocs, ...skillDocs];
   const brokenLinks = [];
+  const edges = new Map();
   const markdownLink = /\[[^\]]+\]\(([^)]+)\)/g;
 
-  for (const file of files) {
+  for (const file of linkDocs) {
     const text = await readFile(file, 'utf8');
+    const out = [];
     for (const match of text.matchAll(markdownLink)) {
       const target = match[1].split('#')[0].trim();
       if (!target || /^(https?:|mailto:|file:|conversation:)/i.test(target)) continue;
@@ -80,43 +101,75 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
       try {
         const info = await stat(absolute);
         if (!info.isFile()) brokenLinks.push({file: toPosix(relative(projectDir, file)), target});
-        if (inbound.has(absolute)) inbound.set(absolute, inbound.get(absolute) + 1);
+        else out.push(absolute);
       } catch {
         brokenLinks.push({file: toPosix(relative(projectDir, file)), target});
       }
     }
+    edges.set(file, out);
   }
 
-  const coreOrphans = [...inbound]
-    .filter(([file, count]) => count === 0 && isCoreDoc(toPosix(relative(knowledgeDir, file))))
-    .map(([file]) => toPosix(relative(knowledgeDir, file)))
+  // 핵심 문서는 목차(knowledge/index.md)나 AGENTS.md에서 출발해 핵심 문서 링크만 따라가서 닿아야 한다.
+  // 예전에는 일지·인수인계 같은 아무 문서에서 링크 하나만 있어도 통과했다(2026-11-27 감사: 목차에 없는 결정 문서 5건이 0건으로 보고됨).
+  const relK = (file) => toPosix(relative(knowledgeDir, file));
+  const inKnowledge = (file) => !relK(file).startsWith('..');
+  const roots = [resolve(knowledgeDir, 'index.md'), resolve(projectDir, 'AGENTS.md')].filter((f) => existsSync(f));
+  const reached = new Set(roots);
+  const queue = [...roots];
+  while (queue.length) {
+    const cur = queue.shift();
+    const canPass = cur === roots[0] || cur === roots[1] || (inKnowledge(cur) && (isCoreDoc(relK(cur)) || IGNORED_CORE_ORPHANS.has(relK(cur))));
+    if (!canPass) continue;
+    for (const next of edges.get(cur) || []) {
+      if (reached.has(next)) continue;
+      reached.add(next);
+      if (next.endsWith('.md')) queue.push(next);
+    }
+  }
+  const coreOrphans = files
+    .filter((file) => isCoreDoc(relK(file)) && !reached.has(file))
+    .map(relK)
     .sort();
 
   const agentsPath = resolve(projectDir, 'AGENTS.md');
   let agentsLines = 0;
   let agentsBytes = 0;
+  let agentsText = '';
   if (existsSync(agentsPath)) {
-    const agentsText = await readFile(agentsPath, 'utf8');
+    agentsText = await readFile(agentsPath, 'utf8');
     agentsLines = agentsText.split(/\r?\n/).length;
     agentsBytes = Buffer.byteLength(agentsText, 'utf8');
   }
 
   const skillIssues = [];
+  // 양쪽 스킬 폴더를 실제로 훑는다(2026-11-27 감사: 이름 6개만 고정해 새 스킬은 안 봤고, 필수 스킬이 양쪽에서 다 지워져도 넘어갔다).
+  const listSkillDirs = async (side) => {
+    const dir = resolve(projectDir, side, 'skills');
+    if (!existsSync(dir)) return [];
+    return (await readdir(dir, {withFileTypes: true})).filter((e) => e.isDirectory()).map((e) => e.name);
+  };
+  const aNames = new Set(await listSkillDirs('.agents'));
+  const cNames = new Set(await listSkillDirs('.claude'));
   for (const skill of PROJECT_SKILLS) {
+    if (!aNames.has(skill) && !cNames.has(skill)) skillIssues.push(`필수 스킬 ${skill}: .agents/skills와 .claude/skills 양쪽 모두에 없다`);
+  }
+  for (const skill of [...new Set([...aNames, ...cNames])].sort()) {
     const aDir = resolve(projectDir, '.agents', 'skills', skill);
     const cDir = resolve(projectDir, '.claude', 'skills', skill);
     const aHas = existsSync(join(aDir, 'SKILL.md'));
     const cHas = existsSync(join(cDir, 'SKILL.md'));
     if (!aHas && !cHas) continue;
     if (aHas !== cHas) {
-      skillIssues.push(`스킬 ${skill}: .agents/skills와 .claude/skills 중 한쪽에만 존재한다`);
+      skillIssues.push(`스킬 ${skill}: .agents/skills와 .claude/skills 중 한쪽에만 있다(양쪽 AI가 같은 스킬을 쓰게 맞춘다)`);
       continue;
     }
     const aFiles = await walkAllFiles(aDir);
     const cFiles = await walkAllFiles(cDir);
-    const aSkillLines = (aFiles.get('SKILL.md') || '').split(/\r?\n/).length;
-    if (aSkillLines > SKILL_MAX_LINES) {
-      skillIssues.push(`스킬 ${skill}/SKILL.md가 ${aSkillLines}줄이다(상한 ${SKILL_MAX_LINES}줄)`);
+    if (PROJECT_SKILLS.includes(skill)) {
+      const aSkillLines = (aFiles.get('SKILL.md') || '').split(/\r?\n/).length;
+      if (aSkillLines > SKILL_MAX_LINES) {
+        skillIssues.push(`스킬 ${skill}/SKILL.md가 ${aSkillLines}줄이다(상한 ${SKILL_MAX_LINES}줄)`);
+      }
     }
     const allKeys = new Set([...aFiles.keys(), ...cFiles.keys()]);
     for (const rel of allKeys) {
@@ -149,7 +202,13 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
     }
   }
 
+  const mistakes = countMistakeRows(agentsText);
+  if (mistakes == null && agentsText) warnings.push('AGENTS.md에서 실수 정원표(## 1. 실수 제자리 배치)를 찾지 못했습니다.');
+
   const blocking = [];
+  if (mistakes != null && mistakes > MISTAKE_CAP) {
+    blocking.push(`AGENTS.md 실수 정원표가 ${mistakes}개다(정원 ${MISTAKE_CAP}개) — 가장 오래된 것을 자동 검사로 올리거나 보관함으로 옮긴다(wiki-maintenance, 사용자 확인 후)`);
+  }
   if (agentsLines > AGENTS_MAX_LINES) {
     blocking.push(`AGENTS.md가 ${agentsLines}줄이다(상한 ${AGENTS_MAX_LINES}줄) — 상세 절차는 스킬·지도로 옮기고 실수는 3갈래 배치·정원 10개 교체제를 따른다`);
   }
@@ -160,14 +219,14 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
     blocking.push(`knowledge/ 깨진 링크 ${brokenLinks.length}건: ${brokenLinks.slice(0, 5).map((b) => `${b.file} -> ${b.target}`).join(', ')}`);
   }
   if (coreOrphans.length) {
-    blocking.push(`knowledge/index.md에서 빠진 핵심 문서 ${coreOrphans.length}건: ${coreOrphans.slice(0, 6).join(', ')}`);
+    blocking.push(`목차(knowledge/index.md·AGENTS.md)에서 이어지지 않는 핵심 문서 ${coreOrphans.length}건: ${coreOrphans.slice(0, 6).join(', ')}`);
   }
   blocking.push(...skillIssues);
 
   return {
     ok: blocking.length === 0,
     markdownFiles: files.length,
-    agents: {lines: agentsLines, maxLines: AGENTS_MAX_LINES, bytes: agentsBytes, maxBytes: AGENTS_MAX_BYTES},
+    agents: {lines: agentsLines, maxLines: AGENTS_MAX_LINES, bytes: agentsBytes, maxBytes: AGENTS_MAX_BYTES, mistakes, mistakeCap: MISTAKE_CAP},
     brokenLinks,
     coreOrphans,
     skillIssues,

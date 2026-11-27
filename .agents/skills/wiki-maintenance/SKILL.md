@@ -16,10 +16,10 @@ description: 14일 주기 또는 요청 시 공통 규칙 길이, 깨진 링크,
 
 1. **자동 건강 점검 실행**
    - `npm run wiki:lint`를 실행해 아래 5가지를 숫자로 확인한다:
-     1. `AGENTS.md` 줄 수(≤190줄)·바이트(≤22,000B) 및 정원 10개 실수 표 상태
-     2. `knowledge/` 깨진 링크 수
-     3. `knowledge/index.md`에서 빠진 핵심 문서(고아 문서) 목록
-     4. `.agents/skills/`·`.claude/skills/` 스킬 길이(≤260줄) 및 양쪽 내용 일치 여부
+     1. `AGENTS.md` 줄 수(≤190줄)·바이트(≤22,000B) 및 실수 정원표 개수(≤10개, 넘으면 저장이 막힌다)
+     2. 깨진 링크 수(`knowledge/` 전부 + `AGENTS.md`·`CLAUDE.md` + 프로젝트 스킬 문서)
+     3. 목차(`knowledge/index.md`)·`AGENTS.md`에서 핵심 문서 링크만 따라가 닿지 않는 핵심 문서 목록(일지·인수인계에서만 이어진 문서도 빠진 것으로 본다)
+     4. `.agents/skills/`·`.claude/skills/` 양쪽 폴더를 실제로 훑어 한쪽에만 있는 스킬, 필수 스킬 6종 누락, 프로젝트 스킬 길이(≤260줄), 양쪽 내용 일치
      5. `knowledge/wiki-maintenance-state.json` 기준 마지막 정리일 경과 일수
 2. **안전 자동 수리 (🟢 묻지 않고 실행)**
    - 깨진 상대 경로 링크를 바로잡는다.

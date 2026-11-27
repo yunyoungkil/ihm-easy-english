@@ -302,6 +302,8 @@ export async function checkTechPost(
     problems.push({id: 'description-disclosure', text: '검색 설명에 대가 문구를 넣지 않습니다. 이 글이 푸는 문제와 첫 확인 순서를 씁니다.'});
   }
 
+  problems.push(...checkInternalLinks(bodyHtml, posts));
+
   // 검색 설명도 독자가 읽는 한국어라 AI 티 검사에 함께 넣는다.
   const slopBody = description ? `${bodyHtml}<p>${description}</p>` : bodyHtml;
   const slop = await runSlop({title: draft?.title || '', bodyHtml: slopBody});
@@ -312,6 +314,45 @@ export async function checkTechPost(
   }
 
   return {ok: problems.length === 0, problems};
+}
+
+// 같은 갈래 옛 글로 가는 본문 링크(2026-11-27 사용자 결정: 새 글에서만 옛 글로 잇는다).
+// 구글 "Link best practices": 링크 글자는 그 글을 설명하고, "여기"·"클릭" 같은 말은 피한다. 개수 기준은 구글에 없어 읽기 흐름을 위해 2개로 둔다.
+const OWN_BLOG_HOST = 'tech.d40m.com';
+const INTERNAL_LINK_MAX = 2; // allow-literal: 본문 흐름을 끊지 않게 한 글에 같은 갈래 링크 최대 2개
+const INTERNAL_ANCHOR_MIN_CHARS = 6; // allow-literal: 이보다 짧으면 글 내용을 말하지 못한다
+const VAGUE_ANCHOR_RE = /^(여기|이곳|클릭|바로\s*가기|이\s*글|관련\s*글|이전\s*글|자세히(\s*보기)?|더\s*보기|링크)/;
+
+function normalizeOwnUrl(href) {
+  try {
+    const u = new URL(href);
+    if (u.hostname !== OWN_BLOG_HOST) return null;
+    return `${OWN_BLOG_HOST}${u.pathname}`;
+  } catch {
+    return null;
+  }
+}
+
+function checkInternalLinks(bodyHtml, posts) {
+  const problems = [];
+  const known = new Set((posts || []).map((p) => normalizeOwnUrl(p?.url)).filter(Boolean));
+  const links = [];
+  for (const m of String(bodyHtml).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+    const key = normalizeOwnUrl(decodeEntities(readAttr(m[1], 'href')));
+    if (key) links.push({key, text: normalizeWs(htmlToText(m[2]))});
+  }
+  const unknown = links.filter((l) => !known.has(l.key));
+  if (unknown.length) {
+    problems.push({id: 'internal-link-unknown', text: `이미 올린 글 목록에 없는 블로그 주소로 링크했습니다: ${unknown.map((l) => l.key).join(', ')}`});
+  }
+  if (links.length > INTERNAL_LINK_MAX) {
+    problems.push({id: 'internal-link-too-many', text: `다른 글 링크가 ${links.length}개입니다. 정말 이어지는 글 ${INTERNAL_LINK_MAX}개까지만 넣습니다.`});
+  }
+  const vague = links.filter((l) => l.text.length < INTERNAL_ANCHOR_MIN_CHARS || VAGUE_ANCHOR_RE.test(l.text));
+  if (vague.length) {
+    problems.push({id: 'internal-link-vague', text: `링크 글자가 그 글 내용을 말하지 않습니다: ${vague.map((l) => `"${l.text}"`).join(', ')}`});
+  }
+  return problems;
 }
 
 function readAttr(attrs, name) {

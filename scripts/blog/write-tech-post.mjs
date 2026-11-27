@@ -92,6 +92,15 @@ export async function buildWriterPrompt(
     .map((b) => `- moment: ${b.moment ?? ''} / angle: ${b.angle ?? ''} / light: ${b.light ?? ''} / lens: ${b.lens ?? ''} / medium: ${b.medium ?? ''}`)
     .join('\n');
 
+  // 같은 갈래로 이미 올린 글(본문 링크 후보). 갈래가 없거나 다르면 넣지 않는다(2026-11-27 사용자 결정).
+  const sameClusterLines = topic?.cluster
+    ? (posts || [])
+      .filter((p) => p?.cluster === topic.cluster && p?.url && p?.topicId !== topic.topicId)
+      .slice(-RECENT_POSTS_LIMIT)
+      .map((p) => `- ${p.title} | ${p.url}${p.description ? ` | ${p.description}` : ''}`)
+      .join('\n')
+    : '';
+
   const sourceHints = Array.isArray(topic?.sourceHints) && topic.sourceHints.length
     ? topic.sourceHints.join(', ')
     : '(직접 공식 지원 페이지 검색)';
@@ -115,6 +124,9 @@ export async function buildWriterPrompt(
     '',
     '## 이미 올린 글 목록 (중복 주제·각도 피하기)',
     recentTitles || '(아직 올린 글 없음)',
+    '',
+    `## 같은 갈래로 이미 올린 글 (본문 링크 후보, 지침 6절)${topic?.cluster ? ` — 갈래: ${topic.cluster}` : ''}`,
+    sameClusterLines || '(없음 — 이번 글에는 다른 글 링크를 넣지 않는다)',
     ...(recentHeroLines
       ? [
         '',

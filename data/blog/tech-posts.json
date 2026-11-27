@@ -2,6 +2,7 @@
   {
     "date": "2026-11-26",
     "topicId": "magsafe-wallet-transit-card-not-read",
+    "cluster": "휴대폰 결제·교통카드·액세서리",
     "title": "맥세이프 카드지갑에 넣은 교통카드가 안 찍힐 때 점검 순서",
     "url": "https://tech.d40m.com/2026/11/blog-post.html",
     "postId": "3655539546812854157",
@@ -56,6 +57,7 @@
   {
     "date": "2026-11-27",
     "topicId": "bespoke-ai-combo-install-space-check",
+    "cluster": "큰 가전 설치 전 확인",
     "title": "비스포크 AI 콤보 사기 전에 세탁실 높이 1,120mm와 진입로 너비부터 재 보세요",
     "url": "https://tech.d40m.com/2026/11/bespoke-ai-combo-install-space-check.html",
     "postId": "6839039393661545634",

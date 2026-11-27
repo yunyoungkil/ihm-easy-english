@@ -50,6 +50,7 @@ function makeTopic(topicId = 'dyson-v8-red-blink') {
     searchQuery: '다이슨 V8 빨간불 깜빡임 공식 지원',
     sourceHints: ['https://www.dyson.co.kr/support'],
     productHint: '다이슨 V8 호환 어댑터 26.1V',
+    cluster: '큰 가전 설치 전 확인',
   };
 }
 
@@ -615,6 +616,7 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
     assert.equal(posts.length, 1);
     assert.equal(posts[0].topicId, 'dyson-v8-red-blink');
     assert.equal(posts[0].productUrl, 'https://link.coupang.com/a/matched202');
+    assert.equal(posts[0].cluster, '큰 가전 설치 전 확인'); // 같은 갈래 링크 후보를 고르는 데 쓴다(2026-11-27)
 
     const queue = await readQueue(blogDir);
     assert.deepEqual(queue.map((t) => t.topicId), ['next-topic']);

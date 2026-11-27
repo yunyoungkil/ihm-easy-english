@@ -583,9 +583,12 @@ export async function runTechOnce({
     ...(!live?.ok ? (live?.problems || []).map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean) : []),
   ];
 
+  // 갈래는 다음 글이 같은 갈래 옛 글로 링크할 후보를 고르는 데 쓴다(2026-11-27 사용자: 새 글에서만 옛 글로 잇기).
+  const cluster = (await d.readQueue(blogDir)).find((t) => t?.topicId === topicId)?.cluster || null;
   await d.appendPost(blogDir, {
     date,
     topicId,
+    cluster,
     title: draft.title,
     url: published.url,
     postId: published.postId,

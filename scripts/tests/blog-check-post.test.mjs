@@ -414,3 +414,27 @@ test('checkRenderedHtml: hero가 있으면 첫 그림 자리·주소·속성·la
   const imgFirst = `<p>${heroImg()}</p><p>${DISCLOSURE}</p>`;
   assert.deepEqual(checkRenderedHtml(imgFirst, {hero}).map((p) => p.id), ['disclosure-missing']);
 });
+
+test('내부 링크: 이미 올린 글 주소만, 2개까지, 내용을 말하는 링크 글자만 통과(2026-11-27)', async () => {
+  const posts = [
+    {topicId: 'a', title: 'A', url: 'https://tech.d40m.com/2026/11/a.html'},
+    {topicId: 'b', title: 'B', url: 'https://tech.d40m.com/2026/11/b.html'},
+    {topicId: 'c', title: 'C', url: 'https://tech.d40m.com/2026/11/c.html'},
+  ];
+  const withBody = (links) => makeValidDraft({bodyHtml: `<p>${VALID_NOT_USED}</p><p>${VALID_STEP}</p>${links}`});
+  const good = '<p>카드가 여러 장이면 <a href="https://tech.d40m.com/2026/11/a.html">맥세이프 카드지갑 교통카드 점검 순서</a>도 같이 보세요.</p>';
+  assert.deepEqual(problemIds(await checkTechPost(withBody(good), okDeps({posts}))), []);
+
+  const unknown = '<p><a href="https://tech.d40m.com/2026/11/made-up.html">없는 글로 가는 링크 문장</a></p>';
+  assert.ok(problemIds(await checkTechPost(withBody(unknown), okDeps({posts}))).includes('internal-link-unknown'));
+
+  const many = ['a', 'b', 'c'].map((x) => `<p><a href="https://tech.d40m.com/2026/11/${x}.html">${x} 글 점검 순서 안내</a></p>`).join('');
+  assert.ok(problemIds(await checkTechPost(withBody(many), okDeps({posts}))).includes('internal-link-too-many'));
+
+  const vague = '<p>자세한 건 <a href="https://tech.d40m.com/2026/11/a.html">여기</a>를 보세요.</p>';
+  assert.ok(problemIds(await checkTechPost(withBody(vague), okDeps({posts}))).includes('internal-link-vague'));
+
+  // 출처·외부 링크는 이 검사와 상관없다
+  const external = '<p><a href="https://support.apple.com/ko-kr/102661">애플 지원 안내 문서</a></p>';
+  assert.deepEqual(problemIds(await checkTechPost(withBody(external), okDeps({posts}))), []);
+});

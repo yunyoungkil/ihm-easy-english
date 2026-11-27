@@ -409,3 +409,22 @@ test('publishToBlogger isDraft=true는 ?isDraft=true로 임시 글을 만들고,
     /HTTP 403/,
   );
 });
+
+test('buildWriterPrompt: 같은 갈래로 이미 올린 글만 링크 후보로 넣는다(2026-11-27 사용자: 새 글에서만 옛 글로 잇기)', async () => {
+  const topic = {topicId: 'iphone-apple-pay-transit', title: '애플페이 교통카드 안 찍힐 때', kind: 'fix', searchQuery: '아이폰 교통카드 인식 안됨', sourceHints: [], productHint: null, cluster: '휴대폰 결제·교통카드·액세서리'};
+  const posts = [
+    {topicId: 'magsafe', title: '맥세이프 카드지갑 교통카드', url: 'https://tech.d40m.com/2026/11/blog-post.html', description: '카드 장수부터 봅니다.', cluster: '휴대폰 결제·교통카드·액세서리'},
+    {topicId: 'combo', title: '비스포크 AI 콤보 설치 공간', url: 'https://tech.d40m.com/2026/11/combo.html', cluster: '큰 가전 설치 전 확인'},
+    {topicId: 'tv', title: '아이폰 화면 삼성 TV', url: 'https://tech.d40m.com/2026/11/tv.html'},
+  ];
+  const prompt = await buildWriterPrompt(topic, {posts, draftPath: 'data/blog/drafts/x.json'});
+  const section = prompt.slice(prompt.indexOf('## 같은 갈래로 이미 올린 글'));
+  assert.ok(section.includes('https://tech.d40m.com/2026/11/blog-post.html'));
+  assert.ok(section.includes('카드 장수부터 봅니다.'));
+  assert.ok(!section.includes('combo.html'));
+  assert.ok(!section.includes('tv.html'));
+
+  const noCluster = await buildWriterPrompt({...topic, cluster: undefined}, {posts, draftPath: 'data/blog/drafts/x.json'});
+  assert.ok(noCluster.includes('## 같은 갈래로 이미 올린 글'));
+  assert.ok(!noCluster.slice(noCluster.indexOf('## 같은 갈래로 이미 올린 글')).includes('blog-post.html'));
+});

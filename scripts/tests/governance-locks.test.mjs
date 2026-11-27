@@ -1,6 +1,6 @@
 // 2026-11-27 1차 개편 자동 잠금 4개 + 브리핑 건강 알림 단위 테스트.
 import assert from 'node:assert/strict';
-import {mkdirSync, mkdtempSync, writeFileSync} from 'node:fs';
+import {mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
 import test from 'node:test';
@@ -15,7 +15,7 @@ import {
   auditGovernance,
   wikiHealthLine,
 } from '../lint-knowledge.mjs';
-import {BLIND_REVIEW_LEGACY_SHEETS, blindReviewProblems} from '../transform-sheet.mjs';
+import {BLIND_REVIEW_LEGACY_SHEETS, approveSheet, blindReviewProblems, classifySheetProblems, sheetIdOf, sheetIdentityProblems} from '../transform-sheet.mjs';
 
 const LOCK_DAY = '2026-11-28T00:00:00Z';
 
@@ -194,6 +194,42 @@ test('잠금 ② 확장: 6개 밖의 새 스킬도 줄 수 상한·깨진 링크
   assert.ok(report.brokenLinks.some((b) => b.file.startsWith('.claude/skills/seventh-skill')), '새 스킬 안 깨진 링크');
   assert.ok(!report.blocking.some((m) => m.includes(`${EXTERNAL_SKILLS[0]}/SKILL.md가`)), '밖에서 받아 온 스킬은 줄 수로 막지 않는다');
   assert.ok(!report.brokenLinks.some((b) => b.file.includes(EXTERNAL_SKILLS[0])), '밖에서 받아 온 스킬은 링크로 막지 않는다');
+});
+
+test('잠금 ② 보강: 필수 스킬은 폴더만 남기고 본문(SKILL.md)을 양쪽에서 지워도 막는다 [2026-11-27 재검수]', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'gov-lock4-'));
+  mkdirSync(join(root, 'knowledge'), {recursive: true});
+  writeFileSync(join(root, 'AGENTS.md'), '# A\n');
+  writeFileSync(join(root, 'knowledge', 'index.md'), '# Index\n');
+  seedSkills(root);
+  const {rmSync} = await import('node:fs');
+  for (const side of ['.agents', '.claude']) {
+    rmSync(join(root, side, 'skills', 'publish-wrapup', 'SKILL.md'));
+    mkdirSync(join(root, side, 'skills', 'publish-wrapup', 'references'), {recursive: true});
+    writeFileSync(join(root, side, 'skills', 'publish-wrapup', 'references', 'keep.md'), '# 남은 파일\n');
+  }
+  const report = await auditGovernance(root);
+  assert.equal(report.ok, false);
+  assert.ok(report.blocking.some((m) => m.includes('필수 스킬 publish-wrapup') && m.includes('본문')), report.blocking.join(' / '));
+});
+
+test('잠금 ③ 보강: 시트 파일 이름과 안 이름이 다르면 막는다 — 옛 시트를 복사해 안 이름을 그대로 두면 잠금 전 시트로 취급되던 구멍 [2026-11-27 재검수]', () => {
+  const copied = {schemaVersion: 4, episodeId: 'ep35-shorts-ghost-letters', status: 'approved', rows: []};
+  assert.equal(sheetIdentityProblems(copied, 'ep38-new').length, 1);
+  assert.deepEqual(sheetIdentityProblems(copied, 'ep35-shorts-ghost-letters'), []);
+  assert.deepEqual(sheetIdentityProblems(copied, null), [], '파일 이름을 모르는 호출은 이 검사를 하지 않는다');
+  assert.ok(classifySheetProblems(copied, {expectedId: 'ep38-new'}).blockers.some((b) => b.includes('시트 파일 이름(ep38-new)')));
+  assert.throws(() => approveSheet(copied, {expectedId: 'ep38-new'}), (err) => err.blockers.some((b) => b.includes('시트 파일 이름(ep38-new)')));
+});
+
+test('실제 비교 시트는 모두 파일 이름과 안 이름이 같다(같은 이름을 두 시트가 나눠 쓰지 않는다)', () => {
+  const dir = join(projectDir, 'data', 'youtube', 'transform-sheets');
+  const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+  assert.ok(files.length > 0);
+  for (const f of files) {
+    const sheet = JSON.parse(readFileSync(join(dir, f), 'utf8').replace(/^﻿/, ''));
+    assert.equal(`${sheetIdOf(sheet)}.json`, f, `${f}의 안 이름이 ${sheetIdOf(sheet) || '없음'}이다`);
+  }
 });
 
 test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 다섯 기준·소견·검수 모델과 함께 보인다', async () => {

@@ -158,8 +158,12 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
   }
 
   const skillIssues = [];
+  // 필수 스킬은 폴더가 아니라 본문(SKILL.md)이 실제로 있어야 한다(2026-11-27 재검수: 폴더만 남기고 본문을 양쪽에서 지우면 통과했다).
+  // 한쪽에만 있는 경우는 아래 양쪽 일치 검사가 잡는다.
   for (const skill of PROJECT_SKILLS) {
-    if (!aNames.has(skill) && !cNames.has(skill)) skillIssues.push(`필수 스킬 ${skill}: .agents/skills와 .claude/skills 양쪽 모두에 없다`);
+    const aHas = existsSync(resolve(projectDir, '.agents', 'skills', skill, 'SKILL.md'));
+    const cHas = existsSync(resolve(projectDir, '.claude', 'skills', skill, 'SKILL.md'));
+    if (!aHas && !cHas) skillIssues.push(`필수 스킬 ${skill}: .agents/skills와 .claude/skills 양쪽 모두에 본문(SKILL.md)이 없다`);
   }
   for (const skill of allSkills) {
     const aDir = resolve(projectDir, '.agents', 'skills', skill);

@@ -91,7 +91,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     if (!allowDraft && sheet.status !== 'approved' && sheet.status !== 'published') {
       throw new Error(`비교 시트가 아직 '${sheet.status}' 상태입니다 — 승인 후 패키지를 만드세요.`);
     }
-    const {blockers} = classifySheetProblems(sheet, {imageExists: sheetImageExists});
+    const {blockers} = classifySheetProblems(sheet, {imageExists: sheetImageExists, expectedId: videoId});
     if (blockers.length) throw new Error(`비교 시트 차단 항목(${blockers.length}건): ${blockers.join('; ')}`);
     const files = packageFilesFromSheet(sheet);
     const images = packageImagesFromSheet(sheet);

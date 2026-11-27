@@ -837,9 +837,23 @@ export function schemaVersionProblems(sheet, {preV4Sheets = PRE_V4_SHEETS} = {})
   return [`새 비교 시트는 4판(schemaVersion 4)으로 만든다(현재: ${sheet?.schemaVersion ?? '없음'}) — 판 번호를 빼거나 낮추면 백지 눈·왜 눌렸나·만드는 법 근거 잠금이 꺼진다`];
 }
 
-export function classifySheetProblems(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, preV4Sheets = PRE_V4_SHEETS} = {}) {
+/**
+ * 시트 파일 이름과 시트 안 이름(episodeId·sourceVideoId)이 같아야 한다(2026-11-27 재검수).
+ * 잠금 예외(잠금 전 시트 목록)는 안 이름으로 판단하는데, 옛 시트를 복사해 새 파일로 쓰고 안 이름을 그대로 두면
+ * 새 시트가 옛 시트로 취급돼 백지 눈·왜 눌렸나·만드는 법 근거가 꺼지고, 복사해 온 "승인됨" 상태로 음성 관문까지 지나갔다.
+ * expectedId는 파일 이름(또는 음성 관문의 프로젝트 폴더 이름)을 아는 쪽이 넘긴다.
+ */
+export function sheetIdentityProblems(sheet, expectedId) {
+  if (expectedId == null) return [];
+  const want = String(expectedId).trim();
+  const got = sheetIdOf(sheet);
+  if (got === want) return [];
+  return [`시트 파일 이름(${want})과 시트 안 이름(${got || '없음'})이 다르다 — 옛 시트를 복사했다면 episodeId를 새 이름으로 바꾼다(다르면 잠금 전 시트로 잘못 취급될 수 있다)`];
+}
+
+export function classifySheetProblems(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, preV4Sheets = PRE_V4_SHEETS, expectedId = null} = {}) {
   const allProblems = validateSheet(sheet, {imageExists, competitorPacing});
-  const blockers = [...schemaVersionProblems(sheet, {preV4Sheets})];
+  const blockers = [...sheetIdentityProblems(sheet, expectedId), ...schemaVersionProblems(sheet, {preV4Sheets})];
   const warnings = [];
   for (const p of allProblems) {
     if (WARNING_PATTERNS.some((re) => re.test(p))) warnings.push(p);
@@ -855,8 +869,8 @@ export function classifySheetProblems(sheet, {imageExists = () => true, competit
  * 비교 시트를 승인(approved) 상태로 전환한다(2026-11-24).
  * 1층 차단 항목이 남아 있거나(금지어·저작권 증빙·필수 항목 누락), 제목·썸네일 후보가 있는데 하나도 고르지 않았으면 승인을 막는다.
  */
-export function approveSheet(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, requirePicks = true, now = new Date(), preV4Sheets = PRE_V4_SHEETS} = {}) {
-  const {blockers, warnings} = classifySheetProblems(sheet, {imageExists, competitorPacing, allSheets, preV4Sheets});
+export function approveSheet(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, requirePicks = true, now = new Date(), preV4Sheets = PRE_V4_SHEETS, expectedId = null} = {}) {
+  const {blockers, warnings} = classifySheetProblems(sheet, {imageExists, competitorPacing, allSheets, preV4Sheets, expectedId});
   const finalBlockers = [...blockers];
   if (requirePicks) {
     const titles = ((sheet?.rows || []).find((r) => r.key === 'title')?.ours?.titles || []).filter(Boolean);

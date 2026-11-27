@@ -26,6 +26,9 @@ const FALLBACK_SLOP_SCRIPT = join(EXTERNAL_SLOP_DIR_FALLBACK, '.claude', 'skills
 
 export const EXTERNAL_SLOP_DIR = existsSync(VENDOR_SLOP_SCRIPT) ? INTERNAL_SLOP_DIR : EXTERNAL_SLOP_DIR_FALLBACK;
 export const EXTERNAL_SLOP_SCRIPT = existsSync(VENDOR_SLOP_SCRIPT) ? VENDOR_SLOP_SCRIPT : FALLBACK_SLOP_SCRIPT;
+// 대표님 취향 검사(writing-taste.md): 저장소가 공개라 git에 없고 두 PC가 구글 드라이브로 나눈다(scripts/pc-sync.mjs).
+export const TASTE_SCRIPT = join(INTERNAL_SLOP_DIR, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_taste.py');
+export const TASTE_FILE = join(INTERNAL_SLOP_DIR, 'taste', 'writing-taste.md');
 
 const VOICE_COMMAND = /(?:^|[;&|\s])(?:node\s+)?["']?(?:[^"'\s]*[\\/])?(?:generate-aistudio-speech|generate-tts)\.mjs\b/;
 
@@ -192,6 +195,34 @@ function runOptionalExternalSlop(scriptPath) {
 }
 
 /**
+ * 대표님 취향 검사를 참고 경고로 돌린다(2026-11-27 재검수: 드라이브로 나눈 취향 파일을 음성 관문이 안 돌렸다).
+ * 막지 않는다 — 취향은 공식이 아니라 참고이고(채널 슬로건: 방법은 고정하지 않는다), 8개 중 3개는 사람만 판단하는 규칙이며,
+ * 취향 파일이 아직 없는 PC도 있다. 파일이 없으면 안내 한 줄만 남긴다.
+ */
+export function runTasteCheck(scriptPath, {
+  tasteFile = TASTE_FILE,
+  tasteScript = TASTE_SCRIPT,
+  run = (args) => execFileSync('python', args, {cwd: INTERNAL_SLOP_DIR, encoding: 'utf8', timeout: 20000}),
+} = {}) {
+  if (!existsSync(tasteScript) || !existsSync(tasteFile)) {
+    return {warnings: [], note: '대표님 취향 검사: 이 PC에 취향 파일이 없어 건너뜀(npm run pc-sync 뒤 생김)'};
+  }
+  try {
+    run(['-X', 'utf8', tasteScript, resolve(scriptPath), '--doc', tasteFile, '--strict']);
+    return {warnings: [], note: '대표님 취향 검사 통과'};
+  } catch (err) {
+    const hits = String(err?.stdout || '').split(/\r?\n/).map((l) => l.trim()).filter((l) => /\[W-\d+/.test(l));
+    if (!hits.length) {
+      const why = String(err?.stderr || err?.message || '').trim().split(/\r?\n/)[0];
+      return {warnings: [`대표님 취향 검사를 돌리지 못했습니다: ${why}`], note: ''};
+    }
+    const shown = hits.slice(0, 5).map((l) => `대표님 취향(참고): ${l.replace(/^.*?:(\d+):\d+\s+/, '줄 $1 ')}`);
+    if (hits.length > 5) shown.push(`대표님 취향(참고): …외 ${hits.length - 5}곳`);
+    return {warnings: shown, note: ''};
+  }
+}
+
+/**
  * 문턱 1: 음성 생성 직전 자동 검사.
  * - FACT-CHECK.md 존재·내용 확인
  * - 비교 시트 승인 상태(approved/published) 및 1층 차단 항목 0건 확인
@@ -231,7 +262,8 @@ export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defau
       if (sheet.status !== 'approved' && sheet.status !== 'published') {
         blockers.push(`비교 시트(${sheetIdOf(sheet)})가 아직 '${sheet.status}' 상태입니다 — 사용자 승인(approved) 후 음성을 만드세요.`);
       }
-      const {blockers: sheetBlockers, warnings: sheetWarnings} = classifySheetProblems(sheet, {imageExists: checkImg, preV4Sheets});
+      // 프로젝트 폴더 이름 = 시트 안 이름이어야 한다(복사한 옛 시트의 이름·승인 상태로 지나가지 않게, 2026-11-27 재검수).
+      const {blockers: sheetBlockers, warnings: sheetWarnings} = classifySheetProblems(sheet, {imageExists: checkImg, preV4Sheets, expectedId: basename(resolve(dir))});
       for (const b of sheetBlockers) blockers.push(`비교 시트 차단 항목: ${b}`);
       for (const w of sheetWarnings) warnings.push(`비교 시트 참고: ${w}`);
     } else if (isEpisodeRequiringSheet(dir)) {
@@ -260,6 +292,9 @@ export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defau
         const slop = runOptionalExternalSlop(scriptPath);
         blockers.push(...slop.blockers);
         if (slop.note) notes.push(slop.note);
+        const taste = runTasteCheck(scriptPath);
+        warnings.push(...taste.warnings);
+        if (taste.note) notes.push(taste.note);
       }
     }
   }
@@ -272,17 +307,23 @@ export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defau
  * 1) 금지어(HTML·대본·프롬프트)  2) FACT-CHECK.md  3) 모바일 최소 글자 34px
  * 4) 배경음 더킹(data-fx-carve)  5) 쇼츠 상단 글자 존재  6) 화면 줄바꿈·넘침(Headless Chrome)
  */
-export async function checkRenderGate({projectDir, runLayoutCheck = true, layoutChecker = checkTextLayout} = {}) {
+export async function checkRenderGate({projectDir, runLayoutCheck = true, layoutChecker = checkTextLayout, skipBannedTerms = false} = {}) {
   const dir = resolve(projectDir);
   const blockers = [];
   const warnings = [];
   const notes = ['그림 파일 안에 그려진 글자와 네 모서리 워터마크는 눈으로 한 번 더 확인하세요.'];
 
-  const bannedHits = scanProject(dir);
-  for (const hit of bannedHits.slice(0, 12)) {
-    blockers.push(`금지어(${hit.file}:${hit.line}): "${hit.term}" | ${hit.context}`);
+  // 금지어 예외(ALLOW_BANNED_TERMS, 사용자가 이대로 렌더하라고 명시했을 때만)는 금지어 검사 하나만 건너뛴다.
+  // 2026-11-27 재검수: 예전에는 이 표시 하나로 34px·더킹·화면 글자 검사까지 렌더 관문 전체가 꺼졌다.
+  if (skipBannedTerms) {
+    notes.push('금지어 검사는 사용자 예외 승인 표시로 건너뛰었고, 나머지 검사는 그대로 했습니다.');
+  } else {
+    const bannedHits = scanProject(dir);
+    for (const hit of bannedHits.slice(0, 12)) {
+      blockers.push(`금지어(${hit.file}:${hit.line}): "${hit.term}" | ${hit.context}`);
+    }
+    if (bannedHits.length > 12) blockers.push(`...외 금지어 ${bannedHits.length - 12}곳`);
   }
-  if (bannedHits.length > 12) blockers.push(`...외 금지어 ${bannedHits.length - 12}곳`);
 
   if (isEpisodeRequiringSheet(dir)) {
     const factPath = join(dir, 'FACT-CHECK.md');
@@ -369,8 +410,10 @@ export async function runHook(raw, {sheetsRoot = defaultSheetsDir, runLayoutChec
   };
 
   // 1) 음성 생성 명령 관문
+  // 금지어 예외 표시(ALLOW_BANNED_TERMS)는 렌더 전용이라 음성 관문을 건너뛰게 하지 않는다(2026-11-27 재검수).
+  // 음성 도구 안쪽 관문(generate-aistudio-speech.mjs)도 이 표시를 보지 않는다.
   if (isVoiceCommand(parsed.command)) {
-    if (parsed.command.includes(ALLOW_VOICE_GATE) || parsed.command.includes(ALLOW_BANNED_TERMS)) {
+    if (parsed.command.includes(ALLOW_VOICE_GATE)) {
       return allow('음성 제작 관문: 사용자 예외 승인 표시가 있어 건너뜁니다.');
     }
     const info = parseVoiceCommandInfo(parsed.command, parsed.cwd);
@@ -383,16 +426,18 @@ export async function runHook(raw, {sheetsRoot = defaultSheetsDir, runLayoutChec
 
   // 2) 영상 렌더링 명령 관문
   if (isRenderCommand(parsed.command)) {
-    if (parsed.command.includes(ALLOW_RENDER_GATE) || parsed.command.includes(ALLOW_BANNED_TERMS)) {
+    if (parsed.command.includes(ALLOW_RENDER_GATE)) {
       return allow('렌더링 안전 관문: 사용자 예외 승인 표시가 있어 건너뜁니다.');
     }
+    const skipBannedTerms = parsed.command.includes(ALLOW_BANNED_TERMS);
     const projectDir = findRenderProject(parsed.command, parsed.cwd);
     if (!projectDir) {
       return allow('렌더링 안전 관문: 대상 프로젝트 폴더를 찾지 못해 건너뜁니다. `npm run check-gate -- render <폴더>`로 직접 확인하세요.');
     }
-    const res = await checkRenderGate({projectDir, runLayoutCheck, layoutChecker});
+    const res = await checkRenderGate({projectDir, runLayoutCheck, layoutChecker, skipBannedTerms});
     if (!res.ok) return deny(formatBlockMessage('렌더링 전 안전 관문 차단', res, ALLOW_RENDER_GATE));
-    return allow(`렌더링 전 안전 관문 통과 (금지어·34px·더킹·화면 글자 확인 완료). ${res.notes[0]}`);
+    const checked = skipBannedTerms ? '금지어는 사용자 예외로 건너뜀, 34px·더킹·화면 글자 확인 완료' : '금지어·34px·더킹·화면 글자 확인 완료';
+    return allow(`렌더링 전 안전 관문 통과 (${checked}). ${res.notes[0]}`);
   }
 
   return allow();

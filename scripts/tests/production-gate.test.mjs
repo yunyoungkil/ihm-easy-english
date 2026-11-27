@@ -6,8 +6,10 @@ import {mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:
 import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
 import {
+  ALLOW_BANNED_TERMS,
   ALLOW_RENDER_GATE,
   ALLOW_VOICE_GATE,
+  runTasteCheck,
   checkBgmDucking,
   checkRenderGate,
   checkShortsTopHook,
@@ -271,6 +273,67 @@ test('양쪽 AI 훅 규격(안티그래비티 JSON decision & 클로드 코드 e
     const bypassVoice = [];
     await runHook(JSON.stringify({hookEventName: 'PreToolUse', cwd: w.root, toolCall: {name: 'run_command', args: {CommandLine: `${ALLOW_VOICE_GATE}=1 node scripts/generate-aistudio-speech.mjs --text "안녕" --output videos/ep36-shorts-sample/a.wav`}}}), {out: (s) => bypassVoice.push(s)});
     assert.equal(JSON.parse(bypassVoice[0]).decision, 'allow');
+
+    // 5) 금지어 예외 표시(ALLOW_BANNED_TERMS)는 금지어 검사만 건너뛴다 — 34px 위반은 그대로 막는다 [2026-11-27 재검수: 렌더 관문 전체가 꺼졌다]
+    const bannedOnlyOut = [];
+    await runHook(JSON.stringify({hookEventName: 'PreToolUse', cwd: w.root, toolCall: {name: 'run_command', args: {CommandLine: `${ALLOW_BANNED_TERMS}=1 npx hyperframes render videos/ep36-shorts-sample`}}}), {sheetsRoot: w.sheetsDir, runLayoutCheck: false, out: (s) => bannedOnlyOut.push(s)});
+    const bannedOnly = JSON.parse(bannedOnlyOut[0]);
+    assert.equal(bannedOnly.decision, 'deny');
+    assert.match(bannedOnly.reason, /34px 미만/);
+    // 음성 명령에 붙인 금지어 예외 표시는 음성 관문을 건너뛰게 하지 않는다(렌더 전용 표시)
+    const voiceBannedOut = [];
+    await runHook(JSON.stringify({hookEventName: 'PreToolUse', cwd: w.root, toolCall: {name: 'run_command', args: {CommandLine: `${ALLOW_BANNED_TERMS}=1 node scripts/generate-aistudio-speech.mjs --text "안녕" --output videos/ep36-shorts-sample/a.wav`}}}), {sheetsRoot: w.sheetsDir, skipSlop: true, out: (s) => voiceBannedOut.push(s)});
+    assert.equal(JSON.parse(voiceBannedOut[0]).decision, 'deny');
+  } finally { rmSync(w.root, {recursive: true, force: true}); }
+});
+
+test('렌더 관문: 금지어 예외(skipBannedTerms)는 금지어 검사 하나만 건너뛴다 [2026-11-27 재검수]', async () => {
+  const w = makeTempWorkspace({files: {
+    'hyperframes.json': '{}',
+    'FACT-CHECK.md': LONG_FACT_CHECK,
+    'index.html': '<html><style>.a{font-size:40px}</style><body><div class="a">드릴 연습</div></body></html>',
+  }});
+  try {
+    const normal = await checkRenderGate({projectDir: w.projectDir, runLayoutCheck: false});
+    assert.ok(normal.blockers.some((b) => b.startsWith('금지어')), normal.blockers.join('; '));
+    const skipped = await checkRenderGate({projectDir: w.projectDir, runLayoutCheck: false, skipBannedTerms: true});
+    assert.ok(!skipped.blockers.some((b) => b.startsWith('금지어')), skipped.blockers.join('; '));
+    assert.ok(skipped.notes.some((n) => n.includes('금지어 검사는 사용자 예외')));
+  } finally { rmSync(w.root, {recursive: true, force: true}); }
+});
+
+test('음성 관문: 대표님 취향 검사는 참고 경고로만 돌고(막지 않음), 취향 파일이 없는 PC는 안내만 남긴다 [2026-11-27 재검수]', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'taste-'));
+  try {
+    const script = join(dir, 'SCRIPT.md');
+    writeFileSync(script, '첫째, 스트레스.');
+    const tasteFile = join(dir, 'writing-taste.md');
+    writeFileSync(tasteFile, '# 취향');
+    const tasteScript = join(dir, 'check_taste.py');
+    writeFileSync(tasteScript, '# 시험용 자리');
+    const none = runTasteCheck(script, {tasteFile: join(dir, 'none.md'), tasteScript, run: () => { throw new Error('부르면 안 된다'); }});
+    assert.deepEqual(none.warnings, []);
+    assert.match(none.note, /취향 파일이 없어/);
+    const pass = runTasteCheck(script, {tasteFile, tasteScript, run: () => ''});
+    assert.deepEqual(pass.warnings, []);
+    assert.match(pass.note, /통과/);
+    const found = Object.assign(new Error('exit 1'), {stdout: `${script}:3:1  [W-02 규칙] 번호를 매겨 나열하지 않는다  "첫째, 스트레스."\n규칙 1 · 경향 0`});
+    const hit = runTasteCheck(script, {tasteFile, tasteScript, run: () => { throw found; }});
+    assert.equal(hit.warnings.length, 1);
+    assert.match(hit.warnings[0], /^대표님 취향\(참고\): 줄 3 \[W-02/);
+  } finally { rmSync(dir, {recursive: true, force: true}); }
+});
+
+test('음성 관문: 승인된 옛 시트를 복사해 새 폴더 이름으로 두고 안 이름을 안 바꾸면 막는다 [2026-11-27 재검수: 잠금 3개가 꺼지고 승인 상태째 지나갔다]', () => {
+  const w = makeTempWorkspace({
+    slug: 'ep38-copied-sheet',
+    files: {'FACT-CHECK.md': LONG_FACT_CHECK, 'SCRIPT.md': '```text\n오늘 단어를 세 글자로 줄여서 들어 보세요.\n```'},
+    sheet: makeValidSheet({status: 'approved', episodeId: 'ep35-shorts-ghost-letters'}),
+  });
+  try {
+    const r = checkVoiceGate({projectDir: w.projectDir, text: '세 글자로 줄여서 들어 보세요.', sheetsRoot: w.sheetsDir, imageExists: () => true, skipSlop: true});
+    assert.equal(r.ok, false);
+    assert.ok(r.blockers.some((b) => b.includes('시트 파일 이름(ep38-copied-sheet)') && b.includes('ep35-shorts-ghost-letters')), r.blockers.join('; '));
   } finally { rmSync(w.root, {recursive: true, force: true}); }
 });
 

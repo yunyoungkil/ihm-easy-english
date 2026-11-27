@@ -6185,7 +6185,7 @@ const server = createServer(async (req, res) => {
         const result = await withSheetLock(vid, async () => {
           const sheet = await loadJson(file);
           const allSheets = loadTransformSheets();
-          const {sheet: next, warnings} = approveSheet(sheet, {imageExists: sheetImageExists, allSheets, requirePicks: true});
+          const {sheet: next, warnings} = approveSheet(sheet, {imageExists: sheetImageExists, allSheets, requirePicks: true, expectedId: vid});
           await writeJsonAtomic(file, next);
           return {ok: true, status: next.status, approvedAt: next.approvedAt, warnings};
         });

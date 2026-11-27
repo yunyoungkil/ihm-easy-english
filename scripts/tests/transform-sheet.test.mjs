@@ -378,6 +378,13 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
       evolutionFromPrev: 'EP30 대비 0.5초 훅 시각 대비와 호흡 템포 강화',
       fusionCheck: '명작 A의 첫 3초 질문과 명작 B의 시각 압축을 컷 0~2에 융합',
     },
+    blindReview: {
+      reviewedAt: '2026-11-28',
+      reviewerModel: '시험용 검수 모델',
+      checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
+      findings: ['시험용: 다섯 기준 확인'],
+      verdict: 'pass',
+    },
     references: [
       {videoId: 'REFAAAAAAAA', role: '훅', what: '첫 3초 반전 질문', reason: '시청자 스크롤 정지', evidence: '쇼츠 상위 5편 공통', appliedTo: ['cut:0', 'title:1']},
       {videoId: 'REFBBBBBBBB', role: '비주얼', what: '좌우 대비 화면 분할', reason: '직관적 소리 차이', evidence: '유지율 상위 영상', appliedTo: ['cut:1', 'thumb:1']},

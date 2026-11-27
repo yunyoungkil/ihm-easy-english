@@ -274,23 +274,34 @@ export function selfCritiqueProblems(sheet) {
 
 /**
  * 백지 눈 1회 검수 잠금(blindReview, 2026-11-27 1차 개편 확정):
- * 2026-11-28 이후 새로 만드는 v4 비교 시트(또는 blindReview 필드를 직접 담은 시트)는
- * 초안 문맥과 분리된 백지 눈 5대 잣대 점검 기록이 통과(verdict: "pass")해야 승인할 수 있다.
+ * v4 비교 시트는 초안 문맥과 분리된 백지 눈 5대 잣대 점검 기록이 통과(verdict: "pass")해야 승인할 수 있다.
+ * 예외는 이 잠금이 생기기 전에 이미 있던 시트 7편뿐이다(아래 목록, 시트 이름 기준).
+ * 2026-11-27 감사: 처음에는 작성일(createdAt)로 새 시트를 골랐는데, 작성일을 비우거나·빼거나·
+ * 다른 형식(11/28/2026)으로 쓰거나·앞당기면 잠금이 꺼졌다. 그래서 날짜가 아니라 고정 목록으로 예외를 준다.
  */
 export const BLIND_REVIEW_SINCE = '2026-11-28';
+export const BLIND_REVIEW_LEGACY_SHEETS = Object.freeze([
+  'ep31-shorts-stress-shift',
+  'ep32-shorts-word-merge',
+  'ep33-shorts-swallowed-t',
+  'ep34-shorts-consonant-cluster',
+  'ep35-shorts-ghost-letters',
+  'ep36-everyday-words-unheard',
+  'ep37-listen-frozen-questions',
+]);
 export const BLIND_REVIEW_CHECKS = Object.freeze({
-  mobileTitleOk: '모바일 제목 앞부분 안 잘림·소비 방식 명확',
-  thumbOneSecOk: '썸네일 실물 1초 직관·스포일러 없음·길이 일치',
-  synergyOk: '제목-썸네일-재생시간 시너지 일치',
-  openingOneMinOk: '초반 1분 사용설명서 늘어짐 없음',
-  antiSlopVoiceOk: '기계적 반복·말투/반말·번역 불일치 없음',
+  mobileTitleOk: '휴대폰에서 제목이 잘리기 전에 핵심이 보임',
+  thumbOneSecOk: '썸네일 실물이 1초에 꽂히고 스포일러·강사 용어·영상과 어긋난 약속 없음',
+  synergyOk: '썸네일 호기심과 제목 실속이 한 방향',
+  openingOneMinOk: '도입이 사용 설명서·예고로 늘어지지 않고 곧바로 체험으로 들어감',
+  antiSlopVoiceOk: '같은 진행 멘트 반복·존댓말/반말 어긋남·번역 불일치 없음',
 });
 export function blindReviewProblems(sheet) {
   const out = [];
   if (!isSloganV4(sheet)) return out;
   const hasField = sheet?.blindReview !== undefined && sheet?.blindReview !== null;
-  const isNew = filled(sheet?.createdAt) && String(sheet.createdAt) >= BLIND_REVIEW_SINCE;
-  if (!hasField && !isNew) return out;
+  const isLegacy = BLIND_REVIEW_LEGACY_SHEETS.includes(sheetIdOf(sheet));
+  if (!hasField && isLegacy) return out;
   const br = sheet?.blindReview;
   if (!br || typeof br !== 'object') {
     out.push('백지 눈 검수(blindReview)가 없다 — 승인 전 blind-review 스킬로 5대 잣대 1회 점검 기록을 남긴다');

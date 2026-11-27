@@ -107,6 +107,8 @@ K. **어려운 설계는 `opus-expert`**: 부를 때 배경·결정된 것·읽�
 - 시트 화면은 `refReports`(원본 + 가져온 출처 + 썸네일 토큰 영상)의 저장 캡처·화면 변화 시각·썸네일을 서버가 실어 보낸다.
 - 시험: `scripts/tests/sheet-links.test.mjs`, `sheet-cards.test.mjs`, `visual-library-summary.test.mjs`.
 
+- **`blindReview` (백지 눈 검수, 2026-11-27)**: 시트를 사용자에게 내기 직전, 초안을 쓴 대화와 분리된 문맥에서 `blind-review` 스킬을 한 번 돌려 다섯 기준(`mobileTitleOk`·`thumbOneSecOk`·`synergyOk`·`openingOneMinOk`·`antiSlopVoiceOk`)과 소견(`findings`), 검수 모델(`reviewerModel`), 판정(`verdict: "pass"`)을 적는다. v4 시트는 이것이 없으면 승인이 막힌다(`blindReviewProblems`, 예외는 잠금 전에 있던 EP31~37 7편뿐이고 작성일로는 예외를 주지 않는다). 결과는 대시보드 시트 화면의 승인 버튼 바로 위에 보인다.
+
 ## 6. 기술 함정 (겪은 것)
 - **줄바꿈**: 이 저장소 파일은 CRLF·LF가 섞여 있다. 여러 줄 문자열로 바꿔치기할 때는 먼저 `\r\n`을 `\n`으로 맞춰서 비교한다.
 - **Bash 따옴표·백슬래시**: 한글·작은따옴표·백슬래시가 많은 스크립트를 heredoc으로 쓰면 깨진다(백슬래시가 사라지고 명령 치환이 일어남, 이 문서를 만든 대화에서 5번 겪음). 큰 스크립트는 Write 도구로 파일을 만들어 실행한다. 정규식은 쓰지 말고 `split`/`includes`로.

@@ -2,7 +2,7 @@
 // 대시보드 서버가 /outlier-reports, /outlier-report/<영상ID> 로 보여 준다. 읽기 전용.
 // 댓글·자막·제목은 외부에서 온 글자라서 전부 escapeHtml을 거친다(시험이 확인).
 
-import { fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
+import { BLIND_REVIEW_CHECKS, fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { CREDIT_KO, ANALYSIS_LABELS, EYE_LABELS, TAG_LABELS } from './packaging-cases.mjs';
 import { CREATOR_STUDY_CSS, renderCreatorStudySection } from './creator-study-view.mjs';
@@ -472,6 +472,21 @@ export function renderOutcomeCard(outcome) {
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
 
+/** 백지 눈 검수 카드(2026-11-27): 다섯 기준 통과 여부·소견·검수 모델을 승인 버튼 위에 그대로 보여 준다. */
+export function renderBlindReviewCard(br) {
+  const checks = br && typeof br.checks === 'object' && br.checks ? br.checks : {};
+  const pass = br?.verdict === 'pass';
+  const items = Object.entries(BLIND_REVIEW_CHECKS).map(([k, label]) => {
+    const v = checks[k];
+    const mark = v === true ? '<span style="color:var(--ok)">✓</span>' : v === false ? '<span style="color:var(--bad)">✗</span>' : '<span class="meta">?</span>';
+    return `<li>${mark} ${escapeHtml(label)}</li>`;
+  }).join('');
+  const findings = (Array.isArray(br?.findings) ? br.findings : []).filter((x) => String(x ?? '').trim());
+  const findingsHtml = findings.length ? `<div style="margin-top:6px"><b>소견</b><ul style="margin:4px 0 0 18px">${findings.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : '<div class="meta">소견 없음</div>';
+  const meta = [br?.reviewedAt && `점검일 ${escapeHtml(br.reviewedAt)}`, br?.reviewerModel && `검수 모델 ${escapeHtml(br.reviewerModel)}`, br?.reviewContext && escapeHtml(br.reviewContext)].filter(Boolean).join(' · ');
+  return `<div class="card" id="sec-blind-review" style="border-left:3px solid ${pass ? 'var(--ok)' : 'var(--bad)'};margin:12px 0"><div style="font-weight:800;margin-bottom:6px">👁 백지 눈 검수 — ${pass ? '통과' : '고칠 것 있음'}</div>${meta ? `<div class="meta">${meta}</div>` : ''}<ul style="margin:6px 0 0 4px;list-style:none;padding:0">${items}</ul>${findingsHtml}</div>`;
+}
+
 export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null, cases = null, study = null, reviewItems = [] } = {}) {
   const sid = String(sheet.episodeId || sheet.sourceVideoId || '');
   const id = encodeURIComponent(sid);
@@ -602,6 +617,11 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   for (const r of pickRows) {
     toc.push({ href: `#row-${r.key}`, label: ROW_LABELS_VIEW[r.key] || r.key });
     parts.push(rowHtml(r));
+  }
+  // 백지 눈 검수 결과(2026-11-27): 승인하는 사람이 승인 버튼 바로 위에서 다섯 기준과 소견을 본다.
+  if (sheet.blindReview && typeof sheet.blindReview === 'object') {
+    toc.push({ href: '#sec-blind-review', label: '👁 백지 눈 검수' });
+    parts.push(renderBlindReviewCard(sheet.blindReview));
   }
   if (isDraft) {
     const canApproveNow = blockerList.length === 0;

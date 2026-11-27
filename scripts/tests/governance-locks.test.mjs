@@ -63,12 +63,19 @@ test('주기 정리 알림: 마지막 정리일로부터 14일 이상 지나면 
   assert.ok(wikiHealthLine(report).includes('지침·위키 주기 정리 도래'));
 });
 
-test('잠금 ③: 2026-11-28 이후 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) 없으면 차단, 기존 시트는 호환 유지', () => {
-  const legacyV4 = {schemaVersion: 4, createdAt: '2026-11-25T00:00:00Z'};
-  assert.deepEqual(blindReviewProblems(legacyV4), [], '기준일 전 시트는 소급 차단하지 않는다');
+test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) 없으면 차단, 잠금 전에 있던 7편만 호환 유지', () => {
+  const legacyV4 = {schemaVersion: 4, episodeId: 'ep37-listen-frozen-questions', createdAt: '2026-11-25'};
+  assert.deepEqual(blindReviewProblems(legacyV4), [], '잠금 전에 있던 시트는 소급 차단하지 않는다');
 
-  const newMissing = {schemaVersion: 4, createdAt: `${BLIND_REVIEW_SINCE}T00:00:00Z`};
+  const newMissing = {schemaVersion: 4, episodeId: 'ep38-new', createdAt: `${BLIND_REVIEW_SINCE}T00:00:00Z`};
   assert.ok(blindReviewProblems(newMissing).some((m) => m.includes('백지 눈 검수(blindReview)가 없다')));
+
+  // 2026-11-27 감사에서 찾은 우회: 작성일을 비우기·빼기·다른 형식·앞당기기. 모두 막혀야 한다.
+  for (const createdAt of ['', undefined, '11/28/2026', '2026-11-25', '2026-01-01']) {
+    const s = {schemaVersion: 4, episodeId: 'ep38-new', createdAt};
+    assert.ok(blindReviewProblems(s).length > 0, `작성일 ${JSON.stringify(createdAt)}로 잠금을 피하면 안 된다`);
+  }
+  assert.ok(blindReviewProblems({schemaVersion: 4}).length > 0, '이름도 날짜도 없는 새 시트도 막는다');
 
   const newFailed = {
     schemaVersion: 4,
@@ -104,4 +111,19 @@ test('프로젝트 전용 스킬 6종이 .agents/skills와 .claude/skills 양쪽
   assert.ok(PROJECT_SKILLS.includes('publish-wrapup'));
   assert.ok(PROJECT_SKILLS.includes('performance-settlement'));
   assert.ok(PROJECT_SKILLS.includes('wiki-maintenance'));
+});
+
+test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 다섯 기준·소견·검수 모델과 함께 보인다', async () => {
+  const {renderBlindReviewCard} = await import('../outlier-report-view.mjs');
+  const html = renderBlindReviewCard({
+    reviewedAt: '2026-11-28',
+    reviewerModel: '시험 모델',
+    checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
+    findings: ['썸네일 글자가 두 덩어리로 갈린다'],
+    verdict: 'needs_fix',
+  });
+  assert.ok(html.includes('고칠 것 있음'));
+  assert.ok(html.includes('썸네일 글자가 두 덩어리로 갈린다'));
+  assert.ok(html.includes('시험 모델'));
+  assert.ok(html.includes('✗'));
 });

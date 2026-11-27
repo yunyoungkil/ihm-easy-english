@@ -381,6 +381,7 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
     blindReview: {
       reviewedAt: '2026-11-28',
       reviewerModel: '시험용 검수 모델',
+      reviewContext: '시험용: 초안과 다른 대화에서 점검',
       checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
       findings: ['시험용: 다섯 기준 확인'],
       verdict: 'pass',
@@ -397,10 +398,19 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
       {
         ...mkRow('title', 'mixed', {titles: ['첫 번째 제목 후보', '두 번째 제목 후보']}),
         clickWhy: [{source: 'REFAAAAAAAA', sourceText: '참고 영상 제목 그대로', mechanism: '아는 단어가 틀렸다는 말에 "나도?" 하고 멈춘다', appliedTo: ['title:1', 'title:2']}],
+        pairing: [
+          {title: 'title:1', thumb: 'thumb:1', thumbDoes: '두 장면 대비', titleDoes: '틀린 상식을 말함'},
+          {title: 'title:2', thumb: 'thumb:1', thumbDoes: '두 장면 대비', titleDoes: '고치는 법을 약속함'},
+        ],
       },
       {
         ...mkRow('thumbnail', 'mixed', {images: ['images/ep31-shorts-new/thumb-1.jpg']}),
         clickWhy: [{source: 'REFBBBBBBBB', sourceText: '글자 없음', mechanism: '두 장면이 맞부딪혀 차이가 궁금해진다', appliedTo: ['thumb:1']}],
+        craft: [
+          {source: 'knowledge/ai-craft-research-2026-11-21.md#썸네일', took: '두 층 글자', appliedTo: ['thumb:1']},
+          {source: 'case:x', took: '대비 장면', appliedTo: ['thumb:1']},
+        ],
+        eyeOrder: [{candidate: 'thumb:1', first: '큰 글자', second: '두 장면', shrink: '배경'}],
       },
       mkRow('opening', 'mixed'),
       mkRow('flow', 'ours'),
@@ -410,9 +420,9 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
           hook: ['네 글자 아닙니다, 딱 한 박자!'],
           hookWhy: '0.5초 내 상식 깨기로 이탈 방지(9자 초과도 자유 형태 허용)',
           cuts: [
-            {t: 0, image: 'images/ep31-shorts-new/cuts/cut-01.jpg', narration: '네 글자 아닙니다.', motion: '볼드 타이포 팝업'},
-            {t: 3.5, image: 'images/ep31-shorts-new/cuts/cut-02.jpg', narration: '딱 한 박자예요.', motion: '좌우 대비 분할'},
-            {t: 8.0, image: 'images/ep31-shorts-new/cuts/cut-03.jpg', narration: '다섯 글자도 한 박자!', motion: '압축 임팩트'},
+            {t: 0, image: 'images/ep31-shorts-new/cuts/cut-01.jpg', narration: '네 글자 아닙니다.', motion: '볼드 타이포 팝업', bottom: {subtitle: '네 글자 아닙니다'}},
+            {t: 3.5, image: 'images/ep31-shorts-new/cuts/cut-02.jpg', narration: '딱 한 박자예요.', motion: '좌우 대비 분할', bottom: {subtitle: '딱 한 박자'}},
+            {t: 8.0, image: 'images/ep31-shorts-new/cuts/cut-03.jpg', narration: '다섯 글자도 한 박자!', motion: '압축 임팩트', bottom: {speaker: '정리'}},
           ],
         },
       }),
@@ -428,8 +438,14 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
     ],
   };
 
-  // 1) cutPlan2·sourceVideoId·9자 훅 제한·하단 띠 없어도 v4는 깔끔히 통과
-  assert.deepEqual(validateSheet(v4, {imageExists: () => true}), []);
+  // 1) cutPlan2·sourceVideoId·9자 훅 제한 없어도 v4는 깔끔히 통과
+  const known = new Set(['x']);
+  assert.deepEqual(validateSheet(v4, {imageExists: () => true, knownCaseIds: known}), []);
+
+  // 1-1) 아래 정보 띠(2026-11-16 불변, 모양은 자율): 컷에 아래 띠 글이 없으면 v4도 막는다 [2026-11-27 재검수]
+  const noBottom = structuredClone(v4);
+  delete noBottom.rows.find((r) => r.key === 'visual').ours.cutPlan.cuts[1].bottom;
+  assert.ok(validateSheet(noBottom, {imageExists: () => true, knownCaseIds: known}).some((p) => p.includes('1번 컷') && p.includes('아래 정보 띠')));
 
   // 2) 입말 숫자('4글자', '1박자')가 나레이션에 들어가면 즉시 차단
   const badNum = structuredClone(v4);
@@ -463,7 +479,7 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
     reason: '제목과 썸네일이 말을 반복하지 않고 시선과 호기심을 분담한다.',
     alternative: '차선: 2안 + B안',
   };
-  assert.deepEqual(validateSheet(withRec, {imageExists: () => true}), []);
+  assert.deepEqual(validateSheet(withRec, {imageExists: () => true, knownCaseIds: known}), []);
   const htmlRec = renderTransformSheetPage(withRec, null, []);
   assert.ok(htmlRec.includes('🎯 AI 추천 조합'), 'AI 추천 조합 카드 표시');
   assert.ok(htmlRec.includes('★ AI 추천'), '추천 제목·썸네일 배지 표시');
@@ -522,12 +538,13 @@ test('referenceBiasWarnings: 직전 3편 중 2편 이상 중복된 레퍼런스�
 });
 
 test('clickWhy(2026-11-24 사용자): 새 4판 시트는 제목·썸네일 후보마다 "왜 눌렸나" 근거가 있어야 승인되고, 그 전 시트는 건드리지 않는다', async () => {
-  const {clickWhyProblems, CLICK_WHY_SINCE, approveSheet} = await import('../transform-sheet.mjs');
+  const {clickWhyProblems, approveSheet} = await import('../transform-sheet.mjs');
+  const CLICK_WHY_DAY = '2026-11-24';
   const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
   const tRow = (titles, clickWhy) => ({key: 'title', ours: {titles}, ...(clickWhy ? {clickWhy} : {})});
   const thRow = (images, clickWhy) => ({key: 'thumbnail', ours: {images}, ...(clickWhy ? {clickWhy} : {})});
   const entry = (appliedTo, extra = {}) => ({source: 'Bzwd5EdsQGk', sourceText: '존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음', mechanism: '유명인이 당황하는 장면이라 "무슨 일?" 하고 누른다', appliedTo, ...extra});
-  const sheet = (rows, extra = {}) => ({schemaVersion: 4, createdAt: CLICK_WHY_SINCE, rows, ...extra});
+  const sheet = (rows, extra = {}) => ({schemaVersion: 4, createdAt: CLICK_WHY_DAY, rows, ...extra});
   const ok = sheet([tRow(['제목 하나', '제목 둘'], [entry(['title:1', 'title:2'])]), thRow(['images/x/thumb-A.jpg'], [entry(['thumb:A'])])]);
   assert.deepEqual(clickWhyProblems(ok), []);
 
@@ -551,13 +568,16 @@ test('clickWhy(2026-11-24 사용자): 새 4판 시트는 제목·썸네일 후�
   assert.ok(h.some((x) => x.includes('title:9')));
   assert.ok(h.some((x) => x.includes('"thumb:A"') && x.startsWith('제목')));
 
-  // 기준일 전 시트(EP31~35)와 3판 이하는 검사하지 않는다. 날짜가 없는 새 시트는 검사한다.
-  assert.deepEqual(clickWhyProblems({...none, createdAt: '2026-11-22'}), []);
+  // 잠금 전에 있던 시트(EP31~35, 시트 이름)와 3판 이하는 이 함수가 보지 않는다(3판 이하 새 시트는 classifySheetProblems가 막는다).
+  assert.deepEqual(clickWhyProblems({...none, episodeId: 'ep35-shorts-ghost-letters'}), []);
   assert.deepEqual(clickWhyProblems({...none, schemaVersion: 3}), []);
-  assert.ok(clickWhyProblems({...none, createdAt: undefined}).length > 0);
+  // 2026-11-27 재검수: 작성일을 비우기·앞당기기·다른 형식으로 써도 새 시트는 검사한다.
+  for (const createdAt of [undefined, '', '2026-11-22', '2026-01-01', '11/28/2026']) {
+    assert.ok(clickWhyProblems({...none, episodeId: 'ep38-new', createdAt}).length > 0, `작성일 ${JSON.stringify(createdAt)}로 잠금을 피하면 안 된다`);
+  }
 
   // 승인 관문에서 실제로 막힌다
-  const v4 = {schemaVersion: 4, episodeId: 'ep99', topic: '주제', status: 'draft', createdAt: CLICK_WHY_SINCE, rows: none.rows, titlePicks: ['제목 하나'], thumbnailPicks: ['images/x/thumb-A.jpg']};
+  const v4 = {schemaVersion: 4, episodeId: 'ep99', topic: '주제', status: 'draft', createdAt: CLICK_WHY_DAY, rows: none.rows, titlePicks: ['제목 하나'], thumbnailPicks: ['images/x/thumb-A.jpg']};
   assert.throws(() => approveSheet(v4, {imageExists: () => true}), (err) => err.blockers.some((b) => b.includes('clickWhy')), '승인이 clickWhy 누락으로 막혀야 한다');
 
   // 시트 화면에 참고 문구와 누른 이유가 보인다(글자는 이스케이프)
@@ -634,8 +654,8 @@ test('v4 롱폼 시트(2026-11-25 사용자: "나레이션 대본은 어디 있�
 });
 
 test('craftProblems(2026-11-25): 4판 시트는 만드는 법 근거·눈이 가는 순서·제목과 썸네일 일 나누기가 있어야 하고, 근거에 사례집 사례(case:)가 들어가야 한다', async () => {
-  const {craftProblems, CRAFT_SINCE} = await import('../transform-sheet.mjs');
-  assert.equal(CRAFT_SINCE, '2026-11-25');
+  const {craftProblems, CRAFT_LEGACY_SHEETS} = await import('../transform-sheet.mjs');
+  assert.ok(CRAFT_LEGACY_SHEETS.includes('ep36-everyday-words-unheard') && !CRAFT_LEGACY_SHEETS.includes('ep37-listen-frozen-questions'), 'EP37부터 본다(사용자 결정)');
   const base = (over = {}) => ({
     schemaVersion: 4, createdAt: '2026-11-25',
     rows: [
@@ -668,7 +688,11 @@ test('craftProblems(2026-11-25): 4판 시트는 만드는 법 근거·눈이 가
   assert.ok(craftProblems(full(['knowledge/ai-craft-research-2026-11-21.md#썸네일', 'case:y']), {knownCaseIds: known}).some((p) => p.includes('case:y가 사례집에 없다')));
   assert.ok(craftProblems(full(['knowledge/ai-craft-research-2026-11-21.md#썸네일', 'click-ref:z']), {knownCaseIds: known}).some((p) => p.includes('사례집 사례(case:…)가 하나도 없다')));
   assert.ok(craftProblems(full(['case:x', 'case:x']), {knownCaseIds: known}).some((p) => p.includes('제작 자료')), '제작 자료 문서 요구는 그대로');
-  assert.deepEqual(craftProblems(base({createdAt: '2026-11-24'})), [], '기준일 전 시트는 건드리지 않는다');
+  assert.deepEqual(craftProblems(base({episodeId: 'ep36-everyday-words-unheard'})), [], '잠금 전에 있던 시트(이름 목록)는 건드리지 않는다');
+  // 2026-11-27 재검수: 작성일을 비우기만 해도 꺼지던 구멍. 작성일로는 예외를 주지 않는다.
+  for (const createdAt of [undefined, '', '2026-11-24', '11/28/2026']) {
+    assert.ok(craftProblems(base({createdAt}), {knownCaseIds: known}).length > 0, `작성일 ${JSON.stringify(createdAt)}로 잠금을 피하면 안 된다`);
+  }
   assert.deepEqual(craftProblems(base({schemaVersion: 3})), [], '4판 전 시트는 건드리지 않는다');
 });
 

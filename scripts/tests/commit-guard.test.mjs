@@ -2,9 +2,13 @@
 // "잡아야 할 것"은 실제로 이 저장소에 들어왔던 줄을 그대로 썼다(knowledge/logs/2026-11.md 2026-11-12 절).
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {dirname, join} from 'node:path';
 import {
   findHardcodedMetrics, findClaimWords, checkCommitMessage, addedLinesByFile, parseTestCounts,
-  isMetricName, isCheckedCodeFile, isRecordFile, touchesGovernance,
+  isMetricName, isCheckedCodeFile, isRecordFile, touchesGovernance, preCommitPlan, stagedChanges,
 } from '../commit-guard.mjs';
 
 test('실제로 들어왔던 지어낸 성과 숫자를 잡는다', () => {
@@ -102,4 +106,36 @@ test('거버넌스 검사 대상: 지운 문서·스킬, 주기 정리 상태 �
   assert.equal(touchesGovernance(['scripts/lint-knowledge.mjs']), true);
   assert.equal(touchesGovernance(['AGENTS.md']), true);
   assert.equal(touchesGovernance(['data/blog/tech-runs.json', 'scripts/briefing.mjs']), false);
+});
+
+test('지우기만 한 커밋도 검사한다: 실제 git 저장소에서 지운 스킬·코드와 이름 바꾼 문서로 거버넌스 검사·테스트를 고른다 [2026-11-27 재검수: 추가·수정 목록이 비면 바로 끝났다]', () => {
+  const root = mkdtempSync(join(tmpdir(), 'guard-del-'));
+  // 시험용 저장소라 훅·서명 설정을 끈다(이 저장소의 검사와는 무관).
+  const run = (...args) => execFileSync('git', ['-c', 'core.hooksPath=no-hooks', '-c', 'commit.gpgsign=false', '-c', 'user.email=test@example.com', '-c', 'user.name=test', ...args], {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']});
+  try {
+    run('init', '-q');
+    for (const [rel, body] of [['.claude/skills/x/SKILL.md', '# x\n'], ['scripts/a.mjs', 'export {};\n'], ['knowledge/old.md', '# old\n'], ['notes.txt', 'n\n']]) {
+      mkdirSync(join(root, dirname(rel)), {recursive: true});
+      writeFileSync(join(root, rel), body);
+    }
+    run('add', '-A');
+    run('commit', '-q', '-m', 'init');
+    assert.deepEqual(preCommitPlan(stagedChanges(root)), {skip: true, governance: false, code: false}, '담은 것이 없으면 건너뛴다');
+
+    run('rm', '-q', '--cached', '.claude/skills/x/SKILL.md');
+    assert.equal(run('diff', '--cached', '--name-only', '--diff-filter=ACMR').trim(), '', '예전 목록(추가·수정만)으로는 아무것도 안 잡혔다');
+    assert.deepEqual(preCommitPlan(stagedChanges(root)), {skip: false, governance: true, code: false}, '스킬을 지우기만 해도 거버넌스 검사');
+    run('reset', '-q');
+
+    run('rm', '-q', '--cached', 'scripts/a.mjs');
+    assert.deepEqual(preCommitPlan(stagedChanges(root)), {skip: false, governance: false, code: true}, '코드를 지우기만 해도 테스트');
+    run('reset', '-q');
+
+    run('mv', 'knowledge/old.md', 'old-moved.md');
+    const moved = stagedChanges(root);
+    assert.ok(moved.includes('knowledge/old.md') && moved.includes('old-moved.md'), `이름 바꾸기는 옛 이름·새 이름 둘 다: ${moved.join(', ')}`);
+    assert.equal(preCommitPlan(moved).governance, true, '규칙 문서를 밖으로 옮기기만 해도 거버넌스 검사');
+  } finally {
+    rmSync(root, {recursive: true, force: true});
+  }
 });

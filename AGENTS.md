@@ -34,7 +34,7 @@
 2. **정해진 확인 명령 준수**: `scripts/` 수정 → `npm test`, 대시보드 서버 수정 → `node scripts/test-client-syntax.mjs`도 실행(`node --check` 대체 금지). 대시보드 검사는 떠 있는 서버를 보므로 서버 코드를 고쳤으면 서버를 다시 켜고 돌린다. 실패는 실패로 보고하고, 기준을 낮추거나 0개를 통과로 치거나 실패를 건너뛰게 고치지 않는다.
 3. **성과 숫자 진실성**: 화면·데이터에 성과 숫자를 손으로 쓰거나 빈 값을 임의 숫자로 대신하지 않는다(`medianViews || 100` 금지). 코드 작성 전 실제 데이터 칸 이름을 먼저 확인한다.
 4. **근거 없는 완료 표현 금지**: 기록·커밋 메시지에 과장 완료 표현을 쓰지 않는다(커밋 검사 차단).
-5. **커밋·푸시**: 내가 바꾼 파일만 이름으로 지정해 담는다(`git add -A`/`.` 금지). 실제 모델 서명(`Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` 또는 `Co-Authored-By: <Gemini 모델명> (Antigravity) <noreply@google.com>`)을 붙인다. 커밋 전 검사(`.githooks/`, `scripts/commit-guard.mjs`)를 `--no-verify`로 우회하지 않는다. 비밀번호·키가 든 파일, 대용량 미디어, `.hyperframes/`·`public/reference` 같은 참고자료는 담지 않는다.
+5. **커밋·푸시**: 내가 바꾼 파일만 이름으로 지정해 담는다(`git add -A`/`.` 금지). 실제 모델 서명(`Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` 또는 `Co-Authored-By: <Gemini 모델명> (Antigravity) <noreply@google.com>`)을 붙인다. 커밋 전 검사(`.githooks/`, `scripts/commit-guard.mjs`)를 `--no-verify`로 우회하지 않는다. 비밀번호·키가 든 파일, 대용량 미디어, `.hyperframes/`·`public/reference` 같은 참고자료는 담지 않는다. 강제 푸시(`--force`)는 하지 않고, 푸시가 거부되면 사용자에게 보고한다.
 6. **직접 확인 원칙**: 예약·공개 상태는 API/`catalog.json`으로, **화면에 보이는 것을 바꿨으면 브라우저로 직접 열어 보고** 확인한 것만 완료라고 보고한다.
 7. **토큰 절약 & 모델 분업 (상위 주도 · 하위 분업)**: 필요한 줄만 읽고 독립 호출은 병렬로 묶는다. 진단·논의·설계·창작 훅·백지 눈 검수는 상위 모델(Gemini 4 Neon / Claude Opus 5.5), 정형·반복·배치·정리는 경량 워커(`flash`/`flash_lite`, `sonnet-worker`/`haiku`)에 자율 위임한다.
 

@@ -12,7 +12,7 @@ import {findBannedTerms} from './banned-terms.mjs';
 import {findRenderProject, isRenderCommand, scanProject} from './check-banned-terms.mjs';
 import {checkNarration, extractNarration} from './check-narration-naturalness.mjs';
 import {checkProject as checkTextLayout} from './check-text-layout.mjs';
-import {SPOKEN_DIGIT_RE, classifySheetProblems, loadSheets, sheetIdOf, sheetImageExists, sheetsDir as defaultSheetsDir} from './transform-sheet.mjs';
+import {PRE_V4_SHEETS, SPOKEN_DIGIT_RE, classifySheetProblems, loadSheets, sheetIdOf, sheetImageExists, sheetsDir as defaultSheetsDir} from './transform-sheet.mjs';
 
 export const ALLOW_VOICE_GATE = 'ALLOW_VOICE_GATE';
 export const ALLOW_RENDER_GATE = 'ALLOW_RENDER_GATE';
@@ -197,7 +197,7 @@ function runOptionalExternalSlop(scriptPath) {
  * - 비교 시트 승인 상태(approved/published) 및 1층 차단 항목 0건 확인
  * - 대본/입력 문장의 금지어, 아라비아 숫자 입말, 한국어 자연스러움 오류 검사
  */
-export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defaultSheetsDir, imageExists = null, skipSlop = false} = {}) {
+export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defaultSheetsDir, imageExists = null, skipSlop = false, preV4Sheets = PRE_V4_SHEETS} = {}) {
   const blockers = [];
   const warnings = [];
   const notes = [];
@@ -231,7 +231,7 @@ export function checkVoiceGate({projectDir = null, text = '', sheetsRoot = defau
       if (sheet.status !== 'approved' && sheet.status !== 'published') {
         blockers.push(`비교 시트(${sheetIdOf(sheet)})가 아직 '${sheet.status}' 상태입니다 — 사용자 승인(approved) 후 음성을 만드세요.`);
       }
-      const {blockers: sheetBlockers, warnings: sheetWarnings} = classifySheetProblems(sheet, {imageExists: checkImg});
+      const {blockers: sheetBlockers, warnings: sheetWarnings} = classifySheetProblems(sheet, {imageExists: checkImg, preV4Sheets});
       for (const b of sheetBlockers) blockers.push(`비교 시트 차단 항목: ${b}`);
       for (const w of sheetWarnings) warnings.push(`비교 시트 참고: ${w}`);
     } else if (isEpisodeRequiringSheet(dir)) {

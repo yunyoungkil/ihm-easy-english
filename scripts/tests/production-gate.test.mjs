@@ -23,6 +23,9 @@ import {renderTransformSheetPage} from '../outlier-report-view.mjs';
 import {generateAiStudioSpeech} from '../generate-aistudio-speech.mjs';
 import {runHook as runSyncRenderHook} from '../sync-render-to-package.mjs';
 
+// makeValidSheet은 일부러 1판(최소 형식) 시트다. "새 시트는 4판" 검사(2026-11-27 재검수)에는 4판 전 시트로 알려 준다.
+const PRE_V4_FIXTURE = ['ep36-shorts-sample'];
+
 const makeValidSheet = (overrides = {}) => {
   const row = (key, extra = {}) => ({key, competitor: {text: '경쟁'}, ours: {text: '우리'}, why: '바꾼 이유', ...extra});
   return {
@@ -77,17 +80,39 @@ test('classifySheetProblems & approveSheet: 1층 차단 항목이 있으면 승�
   evenCuts.rows = evenCuts.rows.map((r) => (r.key === 'visual'
     ? {...r, ours: {text: '화면', cutPlan: {durationSeconds: 30, times: [0, 5, 10, 15, 20, 25]}}}
     : r));
-  const clsEven = classifySheetProblems(evenCuts, {imageExists: () => true});
+  const clsEven = classifySheetProblems(evenCuts, {imageExists: () => true, preV4Sheets: PRE_V4_FIXTURE});
   assert.equal(clsEven.blockers.length, 0);
   assert.ok(clsEven.warnings.some((w) => w.includes('컷 간격이 거의 일정하다')));
-  const approved = approveSheet(evenCuts, {imageExists: () => true});
+  const approved = approveSheet(evenCuts, {imageExists: () => true, preV4Sheets: PRE_V4_FIXTURE});
   assert.equal(approved.sheet.status, 'approved');
   assert.ok(approved.sheet.approvedAt);
   assert.ok(approved.warnings.length >= 1);
 
   // 제목·썸네일 후보가 있는데 고르지 않았으면 승인을 막는다.
   const noPicks = makeValidSheet({titlePicks: [], thumbnailPicks: []});
-  assert.throws(() => approveSheet(noPicks, {imageExists: () => true}), /제목 후보|썸네일 시안/);
+  assert.throws(() => approveSheet(noPicks, {imageExists: () => true, preV4Sheets: PRE_V4_FIXTURE}), /제목 후보|썸네일 시안/);
+});
+
+test('새 비교 시트는 4판이어야 한다: 판 번호를 빼거나 낮추면 승인 화면·승인·음성 관문이 모두 막는다 [2026-11-27 재검수: 4판 잠금이 통째로 꺼졌다]', () => {
+  for (const schemaVersion of [undefined, 1, 3, '3']) {
+    const s = makeValidSheet({schemaVersion});
+    const cls = classifySheetProblems(s, {imageExists: () => true});
+    assert.ok(cls.blockers.some((b) => b.includes('4판(schemaVersion 4)')), `판 번호 ${JSON.stringify(schemaVersion)}`);
+    assert.throws(() => approveSheet(s, {imageExists: () => true}), (err) => err.blockers.some((b) => b.includes('4판(schemaVersion 4)')));
+  }
+  // 4판 전에 있던 시트(이름 목록)는 그대로 둔다
+  assert.equal(classifySheetProblems(makeValidSheet({episodeId: undefined, sourceVideoId: 'SbQVBQoRciA'}), {imageExists: () => true}).blockers.some((b) => b.includes('4판(schemaVersion 4)')), false);
+
+  // 손으로 status를 approved로 바꾼 3판 시트도 음성 관문에서 막힌다
+  const w = makeTempWorkspace({
+    files: {'FACT-CHECK.md': LONG_FACT_CHECK, 'SCRIPT.md': '```text\n오늘 단어를 세 글자로 줄여서 들어 보세요.\n```'},
+    sheet: makeValidSheet({status: 'approved', schemaVersion: 3}),
+  });
+  try {
+    const r = checkVoiceGate({projectDir: w.projectDir, text: '세 글자로 줄여서 들어 보세요.', sheetsRoot: w.sheetsDir, imageExists: () => true, skipSlop: true});
+    assert.equal(r.ok, false);
+    assert.ok(r.blockers.some((b) => b.includes('4판(schemaVersion 4)')), r.blockers.join('; '));
+  } finally { rmSync(w.root, {recursive: true, force: true}); }
 });
 
 test('renderTransformSheetPage: 차단 항목과 참고 경고를 분리하고 승인 버튼 잠금 상태를 표시한다', () => {
@@ -118,7 +143,7 @@ test('문턱 1(음성 직전): FACT-CHECK 누락, 미승인 시트, 금지어, �
     sheet: makeValidSheet({status: 'draft'}),
   });
   try {
-    const r = checkVoiceGate({projectDir: w2.projectDir, sheetsRoot: w2.sheetsDir, imageExists: () => true, skipSlop: true});
+    const r = checkVoiceGate({projectDir: w2.projectDir, sheetsRoot: w2.sheetsDir, imageExists: () => true, skipSlop: true, preV4Sheets: PRE_V4_FIXTURE});
     assert.equal(r.ok, false);
     assert.ok(r.blockers.some((b) => b.includes("'draft'")));
   } finally { rmSync(w2.root, {recursive: true, force: true}); }
@@ -129,11 +154,11 @@ test('문턱 1(음성 직전): FACT-CHECK 누락, 미승인 시트, 금지어, �
     sheet: makeValidSheet({status: 'approved'}),
   });
   try {
-    const okRes = checkVoiceGate({projectDir: w3.projectDir, text: '세 글자로 줄여서 들어 보세요.', sheetsRoot: w3.sheetsDir, imageExists: () => true, skipSlop: true});
+    const okRes = checkVoiceGate({projectDir: w3.projectDir, text: '세 글자로 줄여서 들어 보세요.', sheetsRoot: w3.sheetsDir, imageExists: () => true, skipSlop: true, preV4Sheets: PRE_V4_FIXTURE});
     assert.equal(okRes.ok, true, okRes.blockers.join('; '));
 
     // 입력 문장에 금지어나 아라비아 숫자 입말이 있으면 차단
-    const badText = checkVoiceGate({projectDir: w3.projectDir, text: '유성음이라서 4글자로 읽습니다.', sheetsRoot: w3.sheetsDir, imageExists: () => true, skipSlop: true});
+    const badText = checkVoiceGate({projectDir: w3.projectDir, text: '유성음이라서 4글자로 읽습니다.', sheetsRoot: w3.sheetsDir, imageExists: () => true, skipSlop: true, preV4Sheets: PRE_V4_FIXTURE});
     assert.equal(badText.ok, false);
     assert.ok(badText.blockers.some((b) => b.includes('금지어')));
     assert.ok(badText.blockers.some((b) => b.includes('아라비아 숫자 입말')));

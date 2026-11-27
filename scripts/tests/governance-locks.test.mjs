@@ -8,13 +8,16 @@ import {fileURLToPath} from 'node:url';
 import {existsSync} from 'node:fs';
 import {
   AGENTS_MAX_LINES,
+  EXTERNAL_SKILLS,
   MISTAKE_CAP,
   PROJECT_SKILLS,
   SKILL_MAX_LINES,
   auditGovernance,
   wikiHealthLine,
 } from '../lint-knowledge.mjs';
-import {BLIND_REVIEW_SINCE, blindReviewProblems} from '../transform-sheet.mjs';
+import {BLIND_REVIEW_LEGACY_SHEETS, blindReviewProblems} from '../transform-sheet.mjs';
+
+const LOCK_DAY = '2026-11-28T00:00:00Z';
 
 const projectDir = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 
@@ -80,7 +83,8 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
   const legacyV4 = {schemaVersion: 4, episodeId: 'ep37-listen-frozen-questions', createdAt: '2026-11-25'};
   assert.deepEqual(blindReviewProblems(legacyV4), [], '잠금 전에 있던 시트는 소급 차단하지 않는다');
 
-  const newMissing = {schemaVersion: 4, episodeId: 'ep38-new', createdAt: `${BLIND_REVIEW_SINCE}T00:00:00Z`};
+  assert.equal(BLIND_REVIEW_LEGACY_SHEETS.length, 7, '예외는 잠금 전에 있던 EP31~37 7편뿐');
+  const newMissing = {schemaVersion: 4, episodeId: 'ep38-new', createdAt: LOCK_DAY};
   assert.ok(blindReviewProblems(newMissing).some((m) => m.includes('백지 눈 검수(blindReview)가 없다')));
 
   // 2026-11-27 감사에서 찾은 우회: 작성일을 비우기·빼기·다른 형식·앞당기기. 모두 막혀야 한다.
@@ -92,10 +96,11 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
 
   const newFailed = {
     schemaVersion: 4,
-    createdAt: `${BLIND_REVIEW_SINCE}T00:00:00Z`,
+    createdAt: LOCK_DAY,
     blindReview: {
       reviewedAt: '2026-11-28',
       reviewerModel: 'Gemini 4 Neon',
+      reviewContext: '안티그래비티 새 대화',
       checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
       findings: ['썸네일 문구 수정 필요'],
       verdict: 'needs_fix',
@@ -107,16 +112,24 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
 
   const newPassed = {
     schemaVersion: 4,
-    createdAt: `${BLIND_REVIEW_SINCE}T00:00:00Z`,
+    createdAt: LOCK_DAY,
     blindReview: {
       reviewedAt: '2026-11-28',
       reviewerModel: 'Gemini 4 Neon',
+      reviewContext: '안티그래비티 새 대화',
       checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
       findings: ['5대 잣대 모두 확인 및 수정 반영'],
       verdict: 'pass',
     },
   };
   assert.deepEqual(blindReviewProblems(newPassed), []);
+
+  // 2026-11-27 재검수: 어떻게 분리해 점검했는지(reviewContext)가 비면 통과 기록이어도 막는다(초안 대화의 자가 통과 방지).
+  for (const reviewContext of [undefined, '', '  ']) {
+    const selfPass = structuredClone(newPassed);
+    selfPass.blindReview.reviewContext = reviewContext;
+    assert.ok(blindReviewProblems(selfPass).some((m) => m.includes('reviewContext')), `reviewContext ${JSON.stringify(reviewContext)}`);
+  }
 });
 
 test('프로젝트 전용 스킬 6종이 .agents/skills와 .claude/skills 양쪽에 실제 파일로 있다 [2026-11-27 감사: 이름 목록만 보던 테스트]', () => {
@@ -158,6 +171,29 @@ test('잠금 ②④ 보강: 한쪽에만 있는 새 스킬, 양쪽에서 다 지
   assert.ok(report.brokenLinks.some((b) => b.file.startsWith('.claude/skills/blind-review')), '스킬 안 깨진 링크');
   assert.ok(report.coreOrphans.includes('only-from-log.md'), '일지에서만 이어진 핵심 문서는 목차에서 빠진 것으로 본다');
   assert.ok(has('실수 정원표가 11개'), '실수 정원 초과');
+});
+
+test('잠금 ② 확장: 6개 밖의 새 스킬도 줄 수 상한·깨진 링크를 보고, 밖에서 받아 온 스킬만 뺀다 [2026-11-27 재검수: 이름 6개만 봤다]', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'gov-lock3-'));
+  mkdirSync(join(root, 'knowledge'), {recursive: true});
+  writeFileSync(join(root, 'AGENTS.md'), '# A\n');
+  writeFileSync(join(root, 'knowledge', 'index.md'), '# Index\n');
+  seedSkills(root);
+  const tooLong = Array.from({length: SKILL_MAX_LINES + 5}, (_, i) => `s ${i}`).join('\n');
+  for (const side of ['.agents', '.claude']) {
+    // 7번째로 새로 만든 스킬: 상한 초과 + 깨진 링크
+    mkdirSync(join(root, side, 'skills', 'seventh-skill'), {recursive: true});
+    writeFileSync(join(root, side, 'skills', 'seventh-skill', 'SKILL.md'), `${tooLong}\n[없는 문서](../../../knowledge/nope.md)\n`);
+    // 밖에서 받아 온 스킬: 길어도·링크가 깨져도 막지 않는다(양쪽 일치만 본다)
+    mkdirSync(join(root, side, 'skills', EXTERNAL_SKILLS[0]), {recursive: true});
+    writeFileSync(join(root, side, 'skills', EXTERNAL_SKILLS[0], 'SKILL.md'), `${tooLong}\n[외부](../../../nowhere.md)\n`);
+  }
+  const report = await auditGovernance(root);
+  assert.equal(report.ok, false);
+  assert.ok(report.blocking.some((m) => m.includes('seventh-skill/SKILL.md가')), '새 스킬 줄 수 상한');
+  assert.ok(report.brokenLinks.some((b) => b.file.startsWith('.claude/skills/seventh-skill')), '새 스킬 안 깨진 링크');
+  assert.ok(!report.blocking.some((m) => m.includes(`${EXTERNAL_SKILLS[0]}/SKILL.md가`)), '밖에서 받아 온 스킬은 줄 수로 막지 않는다');
+  assert.ok(!report.brokenLinks.some((b) => b.file.includes(EXTERNAL_SKILLS[0])), '밖에서 받아 온 스킬은 링크로 막지 않는다');
 });
 
 test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 다섯 기준·소견·검수 모델과 함께 보인다', async () => {

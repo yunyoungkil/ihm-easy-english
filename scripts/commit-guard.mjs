@@ -86,7 +86,6 @@ export const isRecordFile = (path) => /^(AGENTS|CLAUDE)\.md$/.test(path)
 
 // ---- 3) 커밋 메시지 -------------------------------------------------------------------
 
-/** 커밋 메시지 검사: 이름만 빌린 서명, 근거 없는 완료 표현. */
 /**
  * 거버넌스 검사(공통 규칙 길이·링크·목차·스킬 일치)를 돌려야 하는 커밋인지(2026-11-27).
  * 추가·수정·이름변경·삭제를 모두 넣은 파일 목록을 받는다. 주기 정리 상태 파일과 검사 코드 자체도 포함한다.
@@ -97,6 +96,20 @@ export const touchesGovernance = (files) => files.some((f) => /^(AGENTS|CLAUDE)\
   || f === 'scripts/lint-knowledge.mjs'
   || /^\.(agents|claude)\/skills\//.test(f));
 
+/**
+ * 커밋 전 검사를 어디까지 돌릴지 정한다. changed는 지운 파일과 이름 바꾼 파일(옛 이름·새 이름)까지 넣은 목록이다.
+ * 2026-11-27 재검수: 예전에는 추가·수정 목록이 비면 바로 끝나서, 문서·스킬·코드를 지우기만 한 커밋은 거버넌스 검사와 테스트를 통째로 건너뛰었다.
+ */
+export function preCommitPlan(changed) {
+  const files = (changed || []).filter(Boolean);
+  return {
+    skip: files.length === 0,
+    governance: touchesGovernance(files),
+    code: files.some((f) => /^scripts\/.+\.m?js$/.test(f) || f === 'package.json' || f.startsWith('.githooks/')),
+  };
+}
+
+/** 커밋 메시지 검사: 이름만 빌린 서명, 근거 없는 완료 표현. */
 export function checkCommitMessage(message) {
   const body = String(message).split(/\r?\n/).filter((l) => !l.startsWith('#')).join('\n');
   const problems = [];
@@ -136,6 +149,10 @@ export function parseTestCounts(output) {
 
 // core.quotePath=false: 한글 파일 이름을 "\355\225..."처럼 바꾸지 않고 그대로 받는다
 const git = (args) => execFileSync('git', ['-c', 'core.quotePath=false', ...args], {cwd: projectDir, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024});
+
+/** 커밋에 담긴 파일 전부(추가·수정·삭제). 이름 바꾸기는 옛 이름과 새 이름이 둘 다 나오게 한다(--no-renames). */
+export const stagedChanges = (cwd = projectDir) => execFileSync('git', ['-c', 'core.quotePath=false', 'diff', '--cached', '--name-only', '--no-renames'], {cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024})
+  .split(/\r?\n/).filter(Boolean);
 
 const runNode = (args, env = {}, timeoutMs = 5 * 60 * 1000) => new Promise((resolve) => {
   execFile(process.execPath, args, {cwd: projectDir, env: {...process.env, ...env}, timeout: timeoutMs, maxBuffer: 64 * 1024 * 1024},
@@ -182,8 +199,9 @@ async function runClientCheck() {
 }
 
 async function preCommit() {
-  const staged = git(['diff', '--cached', '--name-only', '--diff-filter=ACMR']).split(/\r?\n/).filter(Boolean);
-  if (!staged.length) return [];
+  // 지운 파일·이름 바꾼 파일까지 넣은 목록으로 판단한다(2026-11-27 재검수, preCommitPlan 설명).
+  const plan = preCommitPlan(stagedChanges());
+  if (plan.skip) return [];
   const added = addedLinesByFile(git(['diff', '--cached', '-U0', '--no-color', '--diff-filter=ACMR']));
   const problems = [];
 
@@ -196,9 +214,7 @@ async function preCommit() {
     }
   }
 
-  // 지운 파일도 본다(2026-11-27 감사: 문서·스킬만 지운 커밋은 위 목록(ACMR)에 안 잡혀 검사를 건너뛰었다).
-  const stagedWithDeletes = git(['diff', '--cached', '--name-only']).split(/\r?\n/).filter(Boolean);
-  if (touchesGovernance(stagedWithDeletes)) {
+  if (plan.governance) {
     const gov = await auditGovernance(projectDir);
     if (!gov.ok) {
       for (const msg of gov.blocking) problems.push(`[거버넌스 잠금] ${msg}`);
@@ -207,8 +223,7 @@ async function preCommit() {
     }
   }
 
-  const codeChanged = staged.some((f) => /^scripts\/.+\.m?js$/.test(f) || f === 'package.json' || f.startsWith('.githooks/'));
-  if (codeChanged) {
+  if (plan.code) {
     console.log('commit-guard: 코드가 바뀌어 테스트를 돌립니다 (1분 안팎)');
     problems.push(...await runUnitTests());
     problems.push(...await runClientCheck());

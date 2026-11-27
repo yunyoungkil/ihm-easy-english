@@ -98,14 +98,21 @@ export function appliedProblems(sheet) {
  * 제목·썸네일 행의 clickWhy = [{source, sourceText, mechanism, appliedTo}]:
  *   source = 참고한 곳(경쟁·다른 분야 영상 ID, knowledge/click-references.md 항목), sourceText = 그 제목·썸네일 글자 그대로(없으면 "글자 없음"),
  *   mechanism = 사람들이 누른 이유, appliedTo = 우리 후보(title:N / thumb:A). 후보마다 근거가 하나 이상 이어져야 한다.
- * 기준일 전에 만든 시트(EP31~35)는 검사하지 않는다. 날짜가 없는 새 시트는 검사한다.
+ * 이 잠금(2026-11-24)이 생기기 전에 있던 시트 EP31~35(아래 목록, 시트 이름 기준)만 검사하지 않는다.
+ * 2026-11-27 재검수: 예전에는 작성일(createdAt)로 골라서, 작성일을 앞당기거나 다른 형식(11/28/2026)으로 쓰면 잠금이 꺼졌다.
  */
-export const CLICK_WHY_SINCE = '2026-11-24';
+export const CLICK_WHY_LEGACY_SHEETS = Object.freeze([
+  'ep31-shorts-stress-shift',
+  'ep32-shorts-word-merge',
+  'ep33-shorts-swallowed-t',
+  'ep34-shorts-consonant-cluster',
+  'ep35-shorts-ghost-letters',
+]);
 const CLICK_WHY_FIELDS = Object.freeze({source: '참고한 곳', sourceText: '참고한 문구 그대로', mechanism: '사람들이 누른 이유'});
 export function clickWhyProblems(sheet) {
   const out = [];
   if (!isSloganV4(sheet)) return out;
-  if (filled(sheet?.createdAt) && String(sheet.createdAt) < CLICK_WHY_SINCE) return out;
+  if (CLICK_WHY_LEGACY_SHEETS.includes(sheetIdOf(sheet))) return out;
   const rows = sheet?.rows || [];
   const titles = (rows.find((r) => r.key === 'title')?.ours?.titles || []).filter(filled);
   const thumbOurs = rows.find((r) => r.key === 'thumbnail')?.ours || {};
@@ -151,18 +158,19 @@ export function clickWhyProblems(sheet) {
 /**
  * 썸네일·제목 만드는 법 근거(2026-11-25 사용자: 다른 분야 썸네일 8개를 주며 "이대로 쓰라는 게 아니라 보편적으로 이렇게 쓴다는 것",
  * "그 자료를 영상에만 쓰려 해서 썸네일이 AI 평균값이 된다", "어디를 강조하고 줄이고, 제목과 시너지는 어떻게 내고, 호기심·심리는 어떻게 쓰나").
- * 방법(카메라·구도·장치)은 고정하지 않고, 생각한 흔적만 칸으로 남긴다. 2026-11-25 이후에 만든 4판 시트부터 본다(EP37 포함, 사용자 결정).
+ * 방법(카메라·구도·장치)은 고정하지 않고, 생각한 흔적만 칸으로 남긴다. 이 잠금(2026-11-25) 전에 있던 EP31~36(아래 목록)만 빼고 모든 4판 시트를 본다(EP37 포함, 사용자 결정).
+ * 2026-11-27 재검수: 예전에는 작성일로 골라서, 작성일을 비우기만 해도 잠금이 꺼졌다. 그래서 시트 이름 고정 목록으로 예외를 준다.
  * 사례집(data/youtube/packaging-cases.json, `npm run packaging-cases`)의 사례는 source에 `case:<id>`로 적고, 하나 이상 있어야 한다. 사례집에 없는 id는 막는다.
  * - 썸네일 행 craft: [{source, took, appliedTo:['thumb:A']}] — 제작 자료(knowledge/·data/research/의 문서) 1개 이상 + 다른 분야 사례(click-ref:… 또는 이 시트 references 밖의 영상 ID) 1개 이상, 모든 시안에 이어짐
  * - 썸네일 행 eyeOrder: [{candidate:'thumb:A', first, second, shrink}] — 시안마다 눈이 처음·두 번째로 가는 곳과 일부러 줄인 것
  * - 제목 행 pairing: [{title:'title:1', thumb:'thumb:A', thumbDoes, titleDoes}] — 제목 후보마다 짝 썸네일과 일을 어떻게 나눴나
  */
-export const CRAFT_SINCE = '2026-11-25';
+export const CRAFT_LEGACY_SHEETS = Object.freeze([...CLICK_WHY_LEGACY_SHEETS, 'ep36-everyday-words-unheard']);
 const isMaterialSource = (s) => /^(knowledge|data\/research)\//.test(String(s || '')) && !/click-references/.test(String(s));
 export function craftProblems(sheet, {knownCaseIds = null} = {}) {
   const out = [];
   if (!isSloganV4(sheet)) return out;
-  if (!filled(sheet?.createdAt) || String(sheet.createdAt) < CRAFT_SINCE) return out;
+  if (CRAFT_LEGACY_SHEETS.includes(sheetIdOf(sheet))) return out;
   const known = knownCaseIds || new Set(loadCases().cases.map((c) => c?.id).filter(Boolean));
   const rows = sheet?.rows || [];
   const titleRow = rows.find((r) => r.key === 'title');
@@ -279,16 +287,7 @@ export function selfCritiqueProblems(sheet) {
  * 2026-11-27 감사: 처음에는 작성일(createdAt)로 새 시트를 골랐는데, 작성일을 비우거나·빼거나·
  * 다른 형식(11/28/2026)으로 쓰거나·앞당기면 잠금이 꺼졌다. 그래서 날짜가 아니라 고정 목록으로 예외를 준다.
  */
-export const BLIND_REVIEW_SINCE = '2026-11-28';
-export const BLIND_REVIEW_LEGACY_SHEETS = Object.freeze([
-  'ep31-shorts-stress-shift',
-  'ep32-shorts-word-merge',
-  'ep33-shorts-swallowed-t',
-  'ep34-shorts-consonant-cluster',
-  'ep35-shorts-ghost-letters',
-  'ep36-everyday-words-unheard',
-  'ep37-listen-frozen-questions',
-]);
+export const BLIND_REVIEW_LEGACY_SHEETS = Object.freeze([...CRAFT_LEGACY_SHEETS, 'ep37-listen-frozen-questions']);
 export const BLIND_REVIEW_CHECKS = Object.freeze({
   mobileTitleOk: '휴대폰에서 제목이 잘리기 전에 핵심이 보임',
   thumbOneSecOk: '썸네일 실물이 1초에 꽂히고 스포일러·강사 용어·영상과 어긋난 약속 없음',
@@ -309,6 +308,8 @@ export function blindReviewProblems(sheet) {
   }
   if (!filled(br.reviewedAt)) out.push('백지 눈 검수: 점검 날짜(reviewedAt)가 비어 있다');
   if (!filled(br.reviewerModel)) out.push('백지 눈 검수: 검수 모델명(reviewerModel)이 비어 있다');
+  // 초안을 쓴 대화가 스스로 통과를 적지 않게, 어떻게 분리해 봤는지 적게 한다(2026-11-27 재검수).
+  if (!filled(br.reviewContext)) out.push('백지 눈 검수: 초안과 어떻게 분리해 점검했는지(reviewContext)가 비어 있다 — 예: opus-expert 서브에이전트, 안티그래비티 새 대화');
   const checks = br.checks;
   if (!checks || typeof checks !== 'object') {
     out.push('백지 눈 검수: 5대 잣대 결과(checks)가 없다');
@@ -503,7 +504,11 @@ export function v4LongformScriptProblems(sheet) {
   return out;
 }
 
-/** v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·음성 예산·모션·입말)만 강제하고 9자 제한·전 컷 하단 띠 강제는 푼다. */
+/**
+ * v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·아래 정보 띠·음성 예산·모션·입말)만 강제하고 9자 제한은 푼다.
+ * 아래 정보 띠(2026-11-16 사용자, 불변)는 컷마다 넣을 글(bottom.subtitle 또는 speaker)만 본다. 검은 띠·외곽선 글자 같은 모양은 자율이다(2026-11-17 사용자).
+ * 2026-11-27 재검수: 이 검사가 "전 컷 하단 띠 강제는 푼다"로 아래 띠를 아예 안 보고 있어 공통 규칙(AGENTS.md 고정 안전선)과 어긋났다.
+ */
 export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
   const out = [];
   if (!isSloganV4(sheet) || sheet?.format !== 'SHORTS') return out;
@@ -520,6 +525,8 @@ export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
     if (!filled(c.image)) out.push(`${where}: 컷 이미지가 없다`);
     else if (imageExists && !imageExists(c.image)) out.push(`${where}: 이미지 파일이 없다(${c.image})`);
     if (!filled(c.motion)) out.push(`${where}: 연출·모션 메모(motion)가 없다`);
+    const b = c.bottom || {};
+    if (!filled(b.subtitle) && !filled(b.speaker)) out.push(`${where}: 아래 정보 띠에 넣을 글(bottom.subtitle 또는 speaker)이 없다 — 쇼츠는 아래 정보 띠가 항상 있다(모양은 자율)`);
     if (!filled(c.narration) && !(Array.isArray(c.voiceEn) && c.voiceEn.length)) out.push(`${where}: 한국어 낭독도 영어 소리도 없다`);
     const dur = (i + 1 < times.length ? times[i + 1] : Number(plan.durationSeconds)) - times[i];
     const need = voiceBudget(c);
@@ -819,9 +826,20 @@ export const WARNING_PATTERNS = Object.freeze([
  * 시트 검사 결과를 '승인 차단(1층 불변·필수 항목)'과 '참고 경고(2~3층 창작 지표)'로 나눈다(2026-11-24).
  * 창작 자유(리듬·비교 횟수·레퍼런스 편향)는 막지 않고 경고만 보여 주며, 금지어·저작권·필수 항목 누락만 승인을 막는다.
  */
-export function classifySheetProblems(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null} = {}) {
+/**
+ * 새 비교 시트는 4판(schemaVersion 4)으로 만든다(2026-11-27 재검수).
+ * 백지 눈·왜 눌렸나·만드는 법 근거 잠금은 4판 시트에만 걸려서, 판 번호를 빼거나 3 이하로 적으면 잠금이 통째로 꺼졌다.
+ * 4판 전에 만든 시트는 아래 목록만 예외다(시트 이름 기준, 날짜로 예외를 주지 않는다).
+ */
+export const PRE_V4_SHEETS = Object.freeze(['SbQVBQoRciA']);
+export function schemaVersionProblems(sheet, {preV4Sheets = PRE_V4_SHEETS} = {}) {
+  if (isSloganV4(sheet) || preV4Sheets.includes(sheetIdOf(sheet))) return [];
+  return [`새 비교 시트는 4판(schemaVersion 4)으로 만든다(현재: ${sheet?.schemaVersion ?? '없음'}) — 판 번호를 빼거나 낮추면 백지 눈·왜 눌렸나·만드는 법 근거 잠금이 꺼진다`];
+}
+
+export function classifySheetProblems(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, preV4Sheets = PRE_V4_SHEETS} = {}) {
   const allProblems = validateSheet(sheet, {imageExists, competitorPacing});
-  const blockers = [];
+  const blockers = [...schemaVersionProblems(sheet, {preV4Sheets})];
   const warnings = [];
   for (const p of allProblems) {
     if (WARNING_PATTERNS.some((re) => re.test(p))) warnings.push(p);
@@ -837,8 +855,8 @@ export function classifySheetProblems(sheet, {imageExists = () => true, competit
  * 비교 시트를 승인(approved) 상태로 전환한다(2026-11-24).
  * 1층 차단 항목이 남아 있거나(금지어·저작권 증빙·필수 항목 누락), 제목·썸네일 후보가 있는데 하나도 고르지 않았으면 승인을 막는다.
  */
-export function approveSheet(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, requirePicks = true, now = new Date()} = {}) {
-  const {blockers, warnings} = classifySheetProblems(sheet, {imageExists, competitorPacing, allSheets});
+export function approveSheet(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, requirePicks = true, now = new Date(), preV4Sheets = PRE_V4_SHEETS} = {}) {
+  const {blockers, warnings} = classifySheetProblems(sheet, {imageExists, competitorPacing, allSheets, preV4Sheets});
   const finalBlockers = [...blockers];
   if (requirePicks) {
     const titles = ((sheet?.rows || []).find((r) => r.key === 'title')?.ours?.titles || []).filter(Boolean);

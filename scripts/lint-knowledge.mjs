@@ -28,6 +28,12 @@ export const PROJECT_SKILLS = Object.freeze([
   'wiki-maintenance',
   'slop-rewrite',
 ]);
+/**
+ * 밖에서 받아 온 스킬(원본을 고치지 않는다). 양쪽 폴더 일치만 보고 줄 수 상한·링크 점검에서는 뺀다.
+ * 그 밖의 스킬 폴더는 새로 만든 7번째 스킬까지 전부 줄 수·링크를 본다(2026-11-27 재검수: 위 6개 이름만 봤다).
+ * ui-ux-pro-max(2026-11-11 설치)는 SKILL.md가 292줄이라 빼지 않으면 그날부터 규칙 문서 커밋이 전부 막힌다.
+ */
+export const EXTERNAL_SKILLS = Object.freeze(['ui-ux-pro-max']);
 
 const NON_CORE_PREFIXES = [
   'legacy/', 'logs/', 'handoff/', 'meetings/', 'audits/', 'growth/', 'episodes/', 'templates/',
@@ -80,11 +86,21 @@ async function walkAllFiles(dir, base = dir) {
 export async function auditGovernance(projectDir = resolve(import.meta.dirname, '..'), {now = new Date()} = {}) {
   const knowledgeDir = resolve(projectDir, 'knowledge');
   const files = await walkMarkdown(knowledgeDir);
-  // 링크를 검사하는 문서: knowledge/ 전부 + 루트 규칙 2개 + 프로젝트 스킬 문서(2026-11-27 감사: 규칙·스킬 안 링크는 안 봤다).
+  // 양쪽 스킬 폴더를 실제로 훑는다(2026-11-27 감사: 이름 6개만 고정해 새 스킬은 안 봤고, 필수 스킬이 양쪽에서 다 지워져도 넘어갔다).
+  const listSkillDirs = async (side) => {
+    const dir = resolve(projectDir, side, 'skills');
+    if (!existsSync(dir)) return [];
+    return (await readdir(dir, {withFileTypes: true})).filter((e) => e.isDirectory()).map((e) => e.name);
+  };
+  const aNames = new Set(await listSkillDirs('.agents'));
+  const cNames = new Set(await listSkillDirs('.claude'));
+  const allSkills = [...new Set([...aNames, ...cNames])].sort();
+  const ownSkills = allSkills.filter((skill) => !EXTERNAL_SKILLS.includes(skill));
+  // 링크를 검사하는 문서: knowledge/ 전부 + 루트 규칙 2개 + 밖에서 받아 온 것을 뺀 스킬 문서 전부(2026-11-27 감사: 규칙·스킬 안 링크는 안 봤다).
   const rootDocs = ['AGENTS.md', 'CLAUDE.md'].map((f) => resolve(projectDir, f)).filter((f) => existsSync(f));
   const skillDocs = [];
   for (const side of ['.agents', '.claude']) {
-    for (const skill of PROJECT_SKILLS) skillDocs.push(...await walkMarkdown(resolve(projectDir, side, 'skills', skill)));
+    for (const skill of ownSkills) skillDocs.push(...await walkMarkdown(resolve(projectDir, side, 'skills', skill)));
   }
   const linkDocs = [...files, ...rootDocs, ...skillDocs];
   const brokenLinks = [];
@@ -142,18 +158,10 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
   }
 
   const skillIssues = [];
-  // 양쪽 스킬 폴더를 실제로 훑는다(2026-11-27 감사: 이름 6개만 고정해 새 스킬은 안 봤고, 필수 스킬이 양쪽에서 다 지워져도 넘어갔다).
-  const listSkillDirs = async (side) => {
-    const dir = resolve(projectDir, side, 'skills');
-    if (!existsSync(dir)) return [];
-    return (await readdir(dir, {withFileTypes: true})).filter((e) => e.isDirectory()).map((e) => e.name);
-  };
-  const aNames = new Set(await listSkillDirs('.agents'));
-  const cNames = new Set(await listSkillDirs('.claude'));
   for (const skill of PROJECT_SKILLS) {
     if (!aNames.has(skill) && !cNames.has(skill)) skillIssues.push(`필수 스킬 ${skill}: .agents/skills와 .claude/skills 양쪽 모두에 없다`);
   }
-  for (const skill of [...new Set([...aNames, ...cNames])].sort()) {
+  for (const skill of allSkills) {
     const aDir = resolve(projectDir, '.agents', 'skills', skill);
     const cDir = resolve(projectDir, '.claude', 'skills', skill);
     const aHas = existsSync(join(aDir, 'SKILL.md'));
@@ -165,7 +173,7 @@ export async function auditGovernance(projectDir = resolve(import.meta.dirname, 
     }
     const aFiles = await walkAllFiles(aDir);
     const cFiles = await walkAllFiles(cDir);
-    if (PROJECT_SKILLS.includes(skill)) {
+    if (!EXTERNAL_SKILLS.includes(skill)) {
       const aSkillLines = (aFiles.get('SKILL.md') || '').split(/\r?\n/).length;
       if (aSkillLines > SKILL_MAX_LINES) {
         skillIssues.push(`스킬 ${skill}/SKILL.md가 ${aSkillLines}줄이다(상한 ${SKILL_MAX_LINES}줄)`);

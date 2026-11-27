@@ -2,7 +2,7 @@
 // 같은 틀 반복 검사 + 제작 속도 계기판 (읽기 전용, 2026-11-15 방향 점검 결정 13번).
 //
 // 왜: 유튜브 수익 창출 정책은 서로 바꿔 끼워도 모를 영상·대량 생산처럼 보이는 템플릿 영상을 뺀다.
-// AGENTS.md "같은 틀의 영상을 찍어 내지 않는다"는 규칙은 있었지만 재는 코드가 없었다.
+// knowledge/legacy/agents-archive-2026-11-27.md "같은 틀의 영상을 찍어 내지 않는다"는 규칙은 있었지만 재는 코드가 없었다.
 // 이 스크립트는 숫자만 보여 준다. 파일을 쓰지 않고, 경고가 있어도 종료 코드는 0이다(기획·브리핑 때 보는 용도).
 //
 //   npm run check-sameness                          전체 요약
@@ -33,7 +33,7 @@ const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 // ---- 문턱(가설) -----------------------------------------------------------------------------
-// 제목: 최근 5편과 비교한다(AGENTS.md "시안을 보고할 때 최근 5편의 제목과 나란히").
+// 제목: 최근 5편과 비교한다(knowledge/legacy/agents-archive-2026-11-27.md "같은 틀의 영상을 찍어 내지 않는다" 절 3번, 시안을 보고할 때 최근 5편의 제목과 나란히).
 export const TITLE_WINDOW = 5;
 // 비슷한 틀 문턱 0.8: 실제 제목에서 한 어절만 다른 틀("J는 제이가 아닙니다?" / "K는 케이가 아닙니다?")이 0.8 위,
 // 서로 다른 문장(EP23 "왜 두 글자인데 한 번만 낼까?" / EP24 "둘 다 {말}로 읽으셨나요?")은 0.3 아래였다.
@@ -46,7 +46,7 @@ export const CODE_CAUTION_MIN = 0.5;
 // 절반 이상이면 주의(EP27→EP28처럼 이름 몇 개만 바꾸고 칸 수·뼈대가 같은 경우가 여기 걸린다).
 export const SCENE_WARN_MIN = 0.7;
 export const SCENE_CAUTION_MIN = 0.5;
-export const SCENE_COMPARE_PREV = 3; // 직전 3편과 비교(AGENTS.md 같은 틀 규칙 2번)
+export const SCENE_COMPARE_PREV = 3; // 직전 3편과 비교(knowledge/legacy/agents-archive-2026-11-27.md "같은 틀의 영상을 찍어 내지 않는다" 절 2번)
 export const CODE_COMPARE_PREV = 3; // 바로 앞 편 + 가장 비슷한 앞 3편 중 한 편
 export const SPEED_WINDOW_DAYS = 30;
 // 공개 기록이 없는 프로젝트 중 최근에 생긴 것만 "만드는 중"으로 본다(옛 시험 폴더 ep8·ep10은 빼려고).

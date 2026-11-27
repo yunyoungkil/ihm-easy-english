@@ -306,4 +306,4 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
 }
 
 // (2026-11-12) 여기 있던 diagnoseVideoWithGemini는 어디서도 부르지 않는 죽은 코드였고, 프롬프트에 검증 안 된 우리 채널
-// 철학을 박아 넣어 "반드시 반영"하게 했다. AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다"에 따라 지웠다.
+// 철학을 박아 넣어 "반드시 반영"하게 했다. knowledge/legacy/agents-archive-2026-11-13.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다"에 따라 지웠다.

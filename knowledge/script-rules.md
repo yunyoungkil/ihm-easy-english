@@ -1,7 +1,7 @@
 # 스크립트·나레이션 작성 규칙 (도입부 훅·6대 작법·시청 지속 구조·국내 3060 관점·TTS 규격·번역투 금지·파일명)
 
 > 이 문서는 2026-11-15에 `AGENTS.md`에서 **원문 그대로** 옮겼다(75KB 한도, 방향 점검 결정 14번). 대본·목차·TTS 텍스트를 쓰기 전에 읽는다.
-> `AGENTS.md`에는 핵심 요약만 남아 있다. `scripts/check-narration-naturalness.mjs`가 이 문서의 8·9·11번을 코드로 점검한다.
+> 핵심 요약은 `knowledge/youtube-operations.md` 1절 "대본 · 말투 · 팩트체크" 행에 있다(옛 `AGENTS.md` 요약은 `knowledge/legacy/agents-archive-2026-11-27.md` "스크립트·나레이션 규칙 요약" 절). `scripts/check-narration-naturalness.mjs`가 이 문서의 8·9·11번을 코드로 점검한다.
 > 아래 번호·표현은 옮기기 전 그대로라 다른 문서가 "AGENTS.md ○○번"이라고 부른 것은 이 문서의 같은 번호다.
 
 ### 스크립트 작성 시 도입부 대화체 핑퐁 훅 및 글로벌 연출 차용 원칙 (모든 대화 공통 적용, 2026-09-28 확정)

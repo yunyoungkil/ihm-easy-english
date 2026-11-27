@@ -6,7 +6,7 @@
 // 새 방식(`peer-median-views-v2`): 이 영상의 누적 조회수 ÷ 같은 채널·같은 형식(쇼츠/롱폼) 최근 영상 조회수의 중앙값(자기 제외).
 //   `outlierRatio` 칸 이름은 소비처 호환을 위해 그대로 두고 뜻만 바뀐다. 유튜브 스튜디오 배수(`studioFolds`)와는 정의가 달라 섞지 않는다.
 //
-// 아래 숫자는 전부 가설이다(AGENTS.md 자동화 원칙 4번). 데이터가 쌓이면 근거를 보고 바꾼다.
+// 아래 숫자는 전부 가설이다(knowledge/legacy/agents-archive-2026-11-27.md "대시보드 및 시스템 기능 설계 시 자동화 우선 원칙" 절 4번). 데이터가 쌓이면 근거를 보고 바꾼다.
 // 값이 없으면 대신값을 만들지 않고 null과 사유(ratioStatus: 'measuring' | 'hold')를 남긴다.
 
 export const RATIO_METHOD = 'peer-median-views-v2';

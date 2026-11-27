@@ -7,10 +7,10 @@
 - **0-C 시작 브리핑**: 새 대화의 첫 답변마다 짧게 보고한다.
 
 공통 규칙:
-- vidIQ는 쓰지 않는다. 우리 채널 숫자는 대시보드(`npm run analytics`, 포트 3001), 상태 확인은 프로젝트 자체 YouTube 연동을 쓴다(`CLAUDE.md` "우리 채널 자체 유튜브 데이터는 vidIQ보다 프로젝트 자체 연동을 먼저 쓴다").
+- vidIQ는 쓰지 않는다. 우리 채널 숫자는 대시보드(`npm run analytics`, 포트 3001), 상태 확인은 프로젝트 자체 YouTube 연동을 쓴다(`knowledge/legacy/agents-archive-2026-11-27.md` "우리 채널 자체 유튜브 데이터는 vidIQ보다 프로젝트 자체 연동을 먼저 쓴다" 절).
 - 숫자는 `POST /api/sync` 직후 `GET /api/dashboard`, `/api/episodes/summary` 응답 값만 쓰고 `range`를 같이 적는다.
 - `status.json`은 손으로 고치지 않는다(`knowledge/production-rules.md` "4번째 원인 — status.json을 에이전트가 손으로 고칠 때").
-- 업로드는 대시보드 자동 예약 업로드(`decideNextUpload`)나 사용자가 스튜디오에서 직접 한다. 에이전트가 우회 경로를 만들지 않는다(`CLAUDE.md` Client Script Integrity 5번).
+- 업로드는 대시보드 자동 예약 업로드(`decideNextUpload`)나 사용자가 스튜디오에서 직접 한다. 에이전트가 우회 경로를 만들지 않는다(`AGENTS.md` 1절 실수 정원표 4번, 상세는 `knowledge/legacy/agents-archive-2026-11-27.md` "대시보드 및 클라이언트 스크립트 개발 절대 규칙" 절).
 
 ---
 

@@ -11,7 +11,7 @@
 //  이 값들은 글마다 AI가 정한다. 코드는 칸이 비었는지, 브랜드·나이 낱말·금지어가 섞였는지,
 //  워터마크 금지 문장과 파일 크기 같은 안전선만 막는다.
 //  특정 구도나 화풍을 코드에 못 박으면 AI는 그쪽으로만 생각하고 모든 글의 그림이 같은 틀이 된다
-//  (AGENTS.md "하드코딩 vs AI 자율" 절, EP37 썸네일이 AI 평균값이 된 사례).
+//  (AGENTS.md "채널 제1 슬로건 & 4대 원칙" 절의 "하드코딩 vs 자율 경계", EP37 썸네일이 AI 평균값이 된 사례).
 //  이 파일은 check-post.mjs·write-tech-post.mjs를 정적으로 불러오지 않는다(순환 방지).
 import {execFile, spawn} from 'node:child_process';
 import {existsSync} from 'node:fs';

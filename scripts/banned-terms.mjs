@@ -1,4 +1,4 @@
-// 시청자에게 보이면 안 되는 말의 단일 목록. 규칙의 근거는 CLAUDE.md의 대외 용어 금지 절과 메타 문구 금지 절이다.
+// 시청자에게 보이면 안 되는 말의 단일 목록. 규칙의 근거는 knowledge/youtube-operations.md 2절 2항(대외 용어 금지)과 knowledge/legacy/agents-archive-2026-11-27.md "컴포지션 화면 규칙 요약" 절의 메타 문구 금지다.
 // 업로드 패키지 페이지 검사(build-upload-package-page.mjs)와 렌더링 전 검사(check-banned-terms.mjs)가 같이 쓴다.
 
 const BANNED_TERM_PATTERNS = [

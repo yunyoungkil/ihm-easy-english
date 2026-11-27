@@ -76,7 +76,7 @@ node scripts/generate-web-gemini-image.mjs \
 
 ## 6. 무료 생성 도구 확장 (2026-11-11 사용자 알림)
 
-같은 `Gemini-Automation` 크롬 프로필(구글 로그인 1회)로 아래 사이트도 자동화한다. 상세 우선순위 표는 `AGENTS.md` "이미지 생성 2단계 원칙".
+같은 `Gemini-Automation` 크롬 프로필(구글 로그인 1회)로 아래 사이트도 자동화한다. 상세 우선순위 표는 `knowledge/youtube-operations.md` 2절 3항(미디어 생성 2단계).
 
 | 사이트 | 쓸 곳 | 워터마크 | 상태 |
 |---|---|---|---|

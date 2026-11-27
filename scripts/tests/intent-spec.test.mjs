@@ -224,7 +224,7 @@ test('경쟁 영상을 분석하는 프롬프트에 검증 안 된 우리 철학
   }
   assert.ok(sent.length >= 3, `가로챈 프롬프트가 ${sent.length}개뿐 — 분석 함수가 Gemini를 부르지 않았다`);
   const hits = sent.flatMap((body, i) => BANNED.filter((w) => body.includes(w)).map((w) => `${i}번째 프롬프트: ${w}`));
-  assert.deepEqual(hits, [], '분석 프롬프트에 우리 틀이 들어 있다 — AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다"');
+  assert.deepEqual(hits, [], '분석 프롬프트에 우리 틀이 들어 있다 — knowledge/legacy/agents-archive-2026-11-13.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다"');
 });
 
 test('대시보드 추이 그래프는 실제 값을 그린다 — 나머지 연산 같은 가짜 곡선 금지 [AGENTS.md 확인 규칙 3: 화면 숫자를 지어내지 않는다]', () => {

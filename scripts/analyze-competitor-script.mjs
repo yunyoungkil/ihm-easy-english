@@ -135,7 +135,7 @@ export async function analyzeScriptWithGemini(videoMeta, transcriptData, apiKey 
     return null;
   }
 
-  // 2026-11-12: 이 자리에 있던 우리 채널 철학·"도파민 3단계 공식"·분류 목록은 검증되지 않은 틀이라 뺐다. AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다".
+  // 2026-11-12: 이 자리에 있던 우리 채널 철학·"도파민 3단계 공식"·분류 목록은 검증되지 않은 틀이라 뺐다. knowledge/legacy/agents-archive-2026-11-13.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다".
   // 매일 루프의 자동 생성은 멈췄고, 경쟁 영상 분석은 scripts/outlier-report.mjs의 합친 리포트가 맡는다.
   const prompt = `
 당신은 유튜브 영상 대본을 있는 그대로 관찰해서 기록하는 분석가입니다. 평가하거나 미리 정한 유형·공식에 끼워 넣지 말고, 대본에 실제로 있는 것을 적으세요.

@@ -126,7 +126,7 @@
 ## 이미지 생성 2단계 원칙: 자체 모델 우선 및 한도 소진 시 브라우저 컨트롤 폴백 (2026-11-10 확정)
 
 1. **1단계 (자체 모델 우선 사용)**: 이미지/일러스트 제작 시 에이전트의 **자체 모델(`image-generator` 서브에이전트 / Gemini API / MCP 이미지 생성 도구)을 1차로 우선 사용**한다.
-   - **Antigravity Gemini 에이전트 전용이다**(2026-11-11 사용자 확인). Claude Code처럼 자체 이미지 모델이 없는 에이전트는 바로 2단계로 만든다. 외부 유료 생성 MCP(Higgsfield, Abracadabrax 등)는 자체 모델이 아니므로 사용자 지시 없이 쓰지 않는다. 기준 문서: `AGENTS.md` 같은 절.
+   - **Antigravity Gemini 에이전트 전용이다**(2026-11-11 사용자 확인). Claude Code처럼 자체 이미지 모델이 없는 에이전트는 바로 2단계로 만든다. 외부 유료 생성 MCP(Higgsfield, Abracadabrax 등)는 자체 모델이 아니므로 사용자 지시 없이 쓰지 않는다. 기준 문서: `knowledge/youtube-operations.md` 2절 3항(옛 전문은 `knowledge/legacy/agents-archive-2026-11-27.md` "이미지 생성 2단계 원칙" 절).
 2. **2단계 (자체 모델 한도 소진 시 브라우저 컨트롤 폴백)**: 자체 모델의 한도 소진(429 Quota Exhausted, 크레딧 소진 등) 발생 시, 코드로 어설픈 그래픽을 그리거나(SVG/Canvas/Chrome 스크린샷 렌더 등) 대체하지 않고 즉시 **브라우저 컨트롤(`scripts/generate-web-gemini-image.mjs` / Chrome CDP 연동 Web Gemini Pro)**을 사용하여 고품질 Imagen 3 이미지를 자동으로 제작·다운로드하여 프로젝트에 반입한다.
    - **도구 우선순위 (2026-11-23 실측 반영)**:
      - **이미지**: 1순위 Google AI Studio `Nano Banana 2.1`(`npm run image`, 워터마크 0px·하루 11장+) → 2순위 비상 폴백 `gemini.google.com/app`(`npm run image:gemini`, 사전 여백+자동 크롭+4모서리 검수) / Google Flow `Nano Banana 2.1`(0크레딧·크롭).
@@ -370,7 +370,7 @@ EP12에서 검증된 뒤로 **모든 새 영상에 기본으로 적용한다**:
 - **카드/리스트형 장면엔 네온 테두리 강조**(예: Frame 9 리스닝 트레이닝처럼 카드가 여러 개
   나열되는 장면). 원래는 카탈로그 부품 `lt-neon-border`
   (https://hyperframes.heygen.com/catalog/blocks/lt-neon-border)를 쓰려 했으나, **이 부품은
-  레지스트리 데이터 자체의 버그로 지금 설치가 안 된다**(`CLAUDE.md`/`AGENTS.md`에 원인 기록됨 —
+  레지스트리 데이터 자체의 버그로 지금 설치가 안 된다**(원인은 `knowledge/legacy/agents-archive-2026-11-13.md`에 기록됨 —
   `registry-item.json`의 `files`에 `target` 필드 누락). 고쳐지기 전까지는 **EP12
   `videos/ep12-want-wont/compositions/frames/04-examples.html`에서 이미 검증한 CSS 직접
   구현 방식**을 표준으로 쓴다. 카탈로그 부품이 나중에 고쳐지면 그때 실제 부품으로 교체 검토.
@@ -425,7 +425,7 @@ EP12에서 검증된 뒤로 **모든 새 영상에 기본으로 적용한다**:
 ### 렌더 마지막 5초는 유튜브 엔드스크린을 위해 화면 중앙을 통째로 비워둔다 (2026-09-07 확정, 2026-09-11 5초·전체중앙비움으로 확장)
 
 위 규칙이 "유튜브 Studio에서 어떤 영상을 연결할지"라면, 이건 그 엔드스크린 UI가 실제로 겹쳐
-뜰 **화면 자체를 미리 비워두는** 규칙이다 — 레거시 Remotion 파이프라인(`CLAUDE.md`의 "엔드스크린
+뜰 **화면 자체를 미리 비워두는** 규칙이다 — 레거시 Remotion 파이프라인(`knowledge/legacy/remotion-pipeline.md`의 "엔드스크린
 Scene 규칙")에 있던 개념을 HyperFrames 영상(EP11부터)에도 적용한다.
 
 - **마지막 씬의 끝 7~10초 구간은 콘텐츠를 최소화한다** — 카드·글자 카드·진행 점 같은 요소를 새로
@@ -637,7 +637,7 @@ EP11부터의 HyperFrames 체제에는 적용되지 않는다**(2026-09-10 정�
 
 영상의 몰입도와 시각적 도파민을 높이기 위해 프레임 내 스톱모션(연속 컷 애니메이션)을 제작할 때는 반드시 다음 원칙을 철저히 준수한다:
 
-⚠️ **크기·텍스트·"이미지 전환 속도" 관련 상세 규칙은 `CLAUDE.md`/`AGENTS.md`의 "영상 내
+⚠️ **크기·텍스트·"이미지 전환 속도" 관련 상세 규칙은 `knowledge/legacy/agents-archive-2026-11-27.md`의 "영상 내
 시각적 도파민을 위한 일러스트 적극 생성 및 역할 분담 원칙" 절로 이동했다** — EP20에서 이미지를
 65~280px 아이콘 박스에 가두고 나머지를 코드 카드로 채운 사례가 실제로 나왔다. 핵심만 요약:
 (1) 이미지는 화면의 최소 40% 이상을 차지하는 주인공이어야 한다, (2) **동적 텍스트(나레이션

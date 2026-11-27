@@ -1,7 +1,7 @@
 # 컴포지션 화면 규칙 (영어 음절 표기·접미사 강조·줄바꿈 방지·메타 문구 금지·HyperFrames 기본 적용 요소)
 
 > 이 문서는 2026-11-15에 `AGENTS.md`에서 **원문 그대로** 옮겼다(75KB 한도, 방향 점검 결정 14번). 영상 화면(HyperFrames 컴포지션)을 만들기 전에 읽는다.
-> `AGENTS.md`에는 핵심 요약만 남아 있다. 영상 렌더·코드·패키지 작업 전에는 이 문서와 `knowledge/production-rules.md`를 같이 연다.
+> 핵심 요약은 `knowledge/youtube-operations.md` 1절 "화면 · 모션 · 미디어 생성" 행에 있다(옛 `AGENTS.md` 요약은 `knowledge/legacy/agents-archive-2026-11-27.md` "컴포지션 화면 규칙 요약" 절). 영상 렌더·코드·패키지 작업 전에는 이 문서와 `knowledge/production-rules.md`를 같이 연다.
 > 아래 번호·표현은 옮기기 전 그대로라 다른 문서가 "AGENTS.md ○○번"이라고 부른 것은 이 문서의 같은 번호다.
 
 ## 1. 화면 글자·표기 규칙

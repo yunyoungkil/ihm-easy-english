@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 매일 한 번 도는 채널 성장 루프 (2026-11-11, AGENTS.md "자동화 우선 원칙").
+// 매일 한 번 도는 채널 성장 루프 (2026-11-11, knowledge/youtube-operations.md 2절 4항 "자동화 우선 원칙").
 // 사람이 대화를 열지 않아도 데이터 수집 → 7일 판정 → 경쟁 채널 상태 반영 → 시청자 고민 누적이 돌게 한다.
 // 윈도우 작업 스케줄러가 매일 새벽에 부른다(등록: scripts/register-daily-loop.ps1). 손으로 돌려도 된다:
 //   node scripts/daily-loop.mjs

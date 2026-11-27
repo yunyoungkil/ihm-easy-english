@@ -59,7 +59,7 @@ export const syncRender = ({projectDir, packagesRoot = defaultPackagesRoot, now 
   const state = readStatus(packageDir);
   if (state && LOCKED.has(state)) return skipped(`패키지가 이미 ${state} 상태라 건드리지 않았습니다. 예약·공개된 영상과 파일이 어긋나기 때문입니다.`);
   const target = selectPackageVideo(readdirSync(packageDir));
-  if (!target) return skipped('패키지에 영상 파일이 없어 검색어 이름을 정할 수 없습니다. 이름을 정해 직접 복사하세요(CLAUDE.md 12번).');
+  if (!target) return skipped('패키지에 영상 파일이 없어 검색어 이름을 정할 수 없습니다. 이름을 정해 직접 복사하세요(knowledge/youtube-operations.md 1절 "렌더 · 업로드 · 사후 마무리").');
   copyFileSync(render.path, join(packageDir, target));
   return {status: 'copied', from: render.path, to: join(packageDir, target), packageDir};
 };

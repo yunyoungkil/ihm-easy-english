@@ -162,7 +162,7 @@ async function analyzeCommentsWithGemini(videoMeta, comments, apiKey, existingPa
     ? `\n[이미 파악된 고통점/질문 — 이미 여러 번 확인된 것이므로 그대로 재탕하지 말고, 새로운 관점이나 아직 안 나온 항목 위주로 뽑을 것]:\n${existingPainPoints.slice(0, 10).map((e) => `- ${e.text}`).join("\n")}\n`
     : "";
 
-  // 2026-11-12: 이 자리에 있던 우리 채널 페르소나·"게으른 혀" 비유 지시는 검증되지 않은 틀이라 뺐다. AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다".
+  // 2026-11-12: 이 자리에 있던 우리 채널 페르소나·"게으른 혀" 비유 지시는 검증되지 않은 틀이라 뺐다. knowledge/legacy/agents-archive-2026-11-13.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다".
   const prompt = `
 당신은 유튜브 댓글을 있는 그대로 읽고 정리하는 분석가입니다. 댓글에 실제로 있는 말만 근거로 쓰고, 댓글 원문을 함께 인용하세요.
 우리 채널은 한국에 사는 30~60대 성인이 영어 소리를 이해하도록 돕는 채널이다. 어려운 전문용어나 시청자가 겪지 않은 해외 경험담은 쓰지 않는다. 이 정보는 5번(actionableContentPitches)에만 쓴다.

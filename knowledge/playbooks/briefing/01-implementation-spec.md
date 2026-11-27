@@ -19,9 +19,9 @@
 ### 절대 건드리지 말 것 (가드레일)
 - `scripts/youtube-analytics-server.mjs`는 수정하지 않는다(`intent-spec.test.mjs` 탭·POST 허용 목록 보호).
 - `scripts/tests/intent-spec.test.mjs`, `scripts/tests/playbook-guard.test.mjs`는 약화하거나 수정하지 않는다.
-- `AGENTS.md`에서 `playbook-guard.test.mjs`가 검사하는 문구(`knowledge/playbooks/comparison-sheet-playbook.md`, `쇼츠 화면에는 위 훅 띠와 아래 정보 띠가 항상 들어간다`, `화면에 보이는 것을 바꿨으면 브라우저로 직접 열어 보고`, `appliedTo`, `origin`)는 절대 삭제하지 않는다.
-- `AGENTS.md` 전체 크기는 **75,000바이트 이하**를 유지한다(`intent-spec.test.mjs` 검사).
-- 모든 수정 파일과 커밋/로그에 `AGENTS.md` 0장 6번 금지 과장 표현을 쓰지 않는다(`commit-guard.mjs` 차단).
+- `AGENTS.md`·`knowledge/youtube-operations.md`에서 `playbook-guard.test.mjs`가 검사하는 문구(`knowledge/playbooks/comparison-sheet-playbook.md`, `쇼츠 화면에는 위 훅 띠와 아래 정보 띠가 항상 들어간다`, `화면에 보이는 것을 바꿨으면 브라우저로 직접 열어 보고`, `appliedTo`, `origin`)는 절대 삭제하지 않는다.
+- `AGENTS.md` 전체 크기는 **190줄·22KB(22,000바이트) 이하**를 유지한다(`intent-spec.test.mjs`·`scripts/lint-knowledge.mjs` 검사).
+- 모든 수정 파일과 커밋/로그에 `AGENTS.md` 0번 4항 금지 과장 표현을 쓰지 않는다(`commit-guard.mjs` 차단).
 - `scripts/` 안에 새 기준 상수·숫자 리터럴이 필요하면 `// allow-literal: <이유>`를 붙인다(`commit-guard.mjs` 차단 방지).
 - 가짜 숫자·대신값(`|| 100` 등)을 절대 넣지 않는다.
 
@@ -148,7 +148,7 @@
   - 훅이 없는 에이전트(Gemini 등)는 `git pull` → 대시보드(3001) 확인 후 **`npm run briefing` 한 번으로** 브리핑 재료를 확보한다.
   - 시작 문구는 **`업데이트를 요약해서 먼저 보고드립니다.`** + 기준 시각 병기.
   - 기존의 2026-11-19 의무 4건 숙제(`diagnoseWorkflowLoop` 1건 + `diagnoseCodebaseHygiene` 각 1안 강제 제시) 문구를 제거하고, **데이터 기반 AI 자율 보수·진화(삭제·수정·업그레이드·기능 추가) + 3단계 권한선 + 자기 개선 브레이크**로 교체한다.
-- 수정 후 `AGENTS.md` 크기가 75,000바이트 이하이고 `playbook-guard.test.mjs`가 검사하는 모든 문구가 그대로 남아 있는지 확인한다.
+- 수정 후 `AGENTS.md` 크기가 190줄·22KB 이하이고 `playbook-guard.test.mjs`가 검사하는 모든 문구가 그대로 남아 있는지 확인한다.
 
 ### 5-2. `.claude/` 및 `.agents/` `00-unblock-and-weekly.md` 동기화
 - 두 파일(`.claude/skills/episode-planning/references/00-unblock-and-weekly.md`, `.agents/skills/episode-planning/references/00-unblock-and-weekly.md`)의 `## 0-C. 시작 브리핑` 절을 **동일하게** 정리한다:
@@ -201,7 +201,7 @@
 ### 7-3. 필수 검증 명령 및 마감
 1. `npm test` 실행 — 전체 pass / fail 0 확인
 2. `node scripts/briefing.mjs --no-sync` 실행 — 출력 내용·글자 수·가독성 직접 확인
-3. `node -e "console.log('AGENTS bytes:', require('fs').statSync('AGENTS.md').size)"` — 75,000 이하 확인
+3. `node -e "console.log('AGENTS bytes:', require('fs').statSync('AGENTS.md').size)"` — 22,000 이하 확인
 4. `knowledge/logs/2026-11.md`의 2026-11-20 절에 변경 근거·내용·검증 결과 기록 + `knowledge/handoff/LATEST.md` 최신화
 5. `git status` 확인 후 **내가 바꾼 파일만 이름으로 `git add`** (`git add -A`, `git add .` 금지), 실제 실행 모델 서명(`Co-Authored-By: ...`)을 붙여 커밋·푸시
-6. 완료 보고는 `AGENTS.md` 0장 1번 틀(바꾼 파일 / 실행한 확인 명령과 출력 줄 그대로 / 확인하지 못한 것)로 보고한다.
+6. 완료 보고는 `AGENTS.md` 0번 1항 틀(바꾼 파일 / 실행한 확인 명령과 출력 줄 그대로 / 확인하지 못한 것)로 보고한다.

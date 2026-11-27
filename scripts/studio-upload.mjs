@@ -480,9 +480,11 @@ export async function scheduleInStudio(page, plan, schedule) {
     await page.goto(`https://studio.youtube.com/channel/${OUR_CHANNEL_ID}/videos/upload?d=ud`, {waitUntil: 'domcontentloaded'});
     if (page.url().includes('accounts.google.com')) throw new Error('구글 로그인이 풀렸습니다(Studio-Automation 크롬에서 다시 로그인).');
     await page.locator('input[type="file"]').first().waitFor({state: 'attached', timeout: 45000}); // allow-literal: 대기 45초
+    await dlg.locator('#select-files-button').first().waitFor({state: 'visible', timeout: 45000}).catch(() => {}); // allow-literal: 파일 선택 버튼 하이드레이션 대기
+    await page.waitForTimeout(800); // allow-literal: Polymer change 리스너 바인딩 안정화
   });
   await step('영상 파일 붙이기', async () => {
-    const fileInput = page.locator('input[type="file"]').first();
+    const fileInput = page.locator('input[name="Filedata"], input[type="file"]').first();
     const sizeBytes = statSync(plan.videoPath).size;
     if (sizeBytes > 45 * 1024 * 1024) { // allow-literal: Playwright connectOverCDP setInputFiles 50MB 제한 회피
       const cdp = await page.context().newCDPSession(page);
@@ -490,7 +492,7 @@ export async function scheduleInStudio(page, plan, schedule) {
         const evalRes = await cdp.send('Runtime.evaluate', {
           expression: `(() => {
             const walk = (root) => {
-              const hit = root.querySelector('input[type="file"]');
+              const hit = root.querySelector('input[name="Filedata"]') || root.querySelector('input[type="file"]');
               if (hit) return hit;
               for (const el of root.querySelectorAll('*')) {
                 if (el.shadowRoot) { const r = walk(el.shadowRoot); if (r) return r; }
@@ -504,6 +506,15 @@ export async function scheduleInStudio(page, plan, schedule) {
         const objectId = evalRes?.result?.objectId;
         if (!objectId) throw new Error('영상 파일 입력 칸(input[type="file"])을 찾지 못했습니다.');
         await cdp.send('DOM.setFileInputFiles', {objectId, files: [resolve(plan.videoPath)]});
+        // 일부 크롬 버전에서 CDP setFileInputFiles 직후 change 이벤트가 누락되는 경우 대비
+        await page.waitForTimeout(1500);
+        const stillPicker = await dlg.locator('#select-files-button').first().isVisible().catch(() => false);
+        if (stillPicker) {
+          await cdp.send('Runtime.callFunctionOn', {
+            objectId,
+            functionDeclaration: `function() { this.dispatchEvent(new Event('input', {bubbles:true})); this.dispatchEvent(new Event('change', {bubbles:true})); }`,
+          }).catch(() => {});
+        }
       } finally {
         await cdp.detach().catch(() => {});
       }

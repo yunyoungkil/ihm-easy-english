@@ -1,0 +1,52 @@
+0:00 여는 장
+0:00 00-A 첫 30초 — 소리로 열기
+0:35 00-B 듣는 법 — 신호음 세 가지
+1:11 1장 길·지하철 — 작은 말은 원래 작다 (두 군데만 잡기)
+1:46 q01 깊게 — How do I get to Seoul Station? (고유 코너: 두 단어만 남기기)
+2:41 q02 빠르게 — Which line goes to Gangnam?
+3:03 q03 빠르게 — Is this the right way to Myeongdong?
+3:27 q04 깊게 — Where can I buy a ticket?
+4:17 q05 귀 시험 — Does this train go to the airport?
+4:40 q06 빠르게 — How long does it take to get there?
+5:01 1장 이어 듣기
+5:46 2장 우리 가게 — 끝소리가 다음 모음에 붙는다
+5:59 q07 귀 시험 (장 첫머리) — How much is it?
+6:60 q08 깊게 — Can I pay by card?
+7:42 q09 빠르게 — Is it spicy?
+7:60 q10 빠르게 — Do you have this in black?
+8:19 q11 깊게 — Can I take a look?
+8:58 q12 빠르게 — Is this on sale?
+9:17 2장 넓히기 — 이미 알던 말
+9:40 2장 이어 듣기
+10:14 3장 처음 만난 사람 — 드·트 뒤의 '유'가 섞인다
+10:34 q13 깊게 — Did you just move in?
+11:16 q14 빠르게 — Would you like some coffee?
+11:35 q15 깊게 — Is that your dog?
+12:24 q16 빠르게 — Could you help me with this?
+12:42 q17 귀 시험 — Can I get you anything?
+13:10 q18 빠르게 — Where did you get that?
+13:29 3장 넓히기 — 이미 알던 인사
+13:48 3장 이어 듣기
+14:24 4장 여행지 — 모음 사이의 '트'가 구른다
+14:42 q19 깊게 — What are you looking for?
+15:31 q20 귀 시험 — Should I put it in a bag?
+15:56 q21 빠르게 — Are you waiting for a taxi?
+16:13 q22 깊게 — Is that it?
+16:51 q23 빠르게 — What about this one?
+17:09 q24 빠르게 — Is it a little too big?
+17:31 4장 넓히기 — 질문 밖의 구르는 '트'
+17:53 4장 이어 듣기
+18:29 5장 친한 사이(미드·영화) — 질문 앞머리가 사라진다
+18:48 q25 깊게 — Want some?
+19:25 q26 빠르게 — Ready?
+19:41 q27 귀 시험 — Got a minute?
+20:05 q28 깊게 — Need a hand?
+20:50 q29 빠르게 — Hungry?
+21:09 q30 빠르게 — Seen this?
+21:24 5장 넓히기 — 말끝 하나로 갈리는 대답과 질문
+21:47 5장 이어 듣기
+22:19 1부 정리
+22:58 2부 몰아 듣기
+23:15 2부 1회차 — 질문 → [정적] 2초 → 뜻 → 대답 → [정적] 1초 (장 사이 [신호] 종)
+26:58 2부 2회차 — 영어만: 질문 → [정적] 1초 → 대답 → [정적] 1초 (장 사이 [신호] 종)
+29:35 끝

@@ -556,9 +556,9 @@
       ],
       "episodeSlug": "ep37-listen-frozen-questions",
       "episodeLabel": "EP37",
-      "status": "selected",
+      "status": "scheduled",
       "selectedAt": "2026-11-25T03:05:28.969Z",
-      "producedAt": null
+      "producedAt": "2026-11-28"
     }
   ]
 }

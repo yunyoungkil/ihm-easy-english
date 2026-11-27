@@ -1,11 +1,28 @@
 // SCRIPT.md를 위에서부터 읽어 장·문항 시작 시각과 전체 길이를 추정한다(음성 생성 전 계획용, 가설 값).
 // 한국어: 한글 글자 수 ÷ 4.19자/초(speech-patterns.json 롱폼 중앙값). 영어: 낱말 수로 추정. 음성을 만든 뒤에는 실제 길이로 바꾼다.
 // 사용: node videos/ep37-listen-frozen-questions/scripts/estimate-timeline.mjs [--json]
-import {readFileSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+const measuredPath = join(HERE, '..', 'assets', 'timeline.json');
+if (existsSync(measuredPath)) {
+  const m = JSON.parse(readFileSync(measuredPath, 'utf8'));
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+  if (process.argv.includes('--json')) {
+    console.log(JSON.stringify({
+      measured: true,
+      totalSeconds: Math.round(m.totalSeconds),
+      marks: m.marks.map((x) => ({...x, t: Math.round(x.t)})),
+      items: m.items.map((x) => ({...x, t: Math.round(x.t)})),
+    }, null, 1));
+  } else {
+    for (const x of m.marks.filter((k) => k.level === 2)) console.log(`${fmt(x.t)}  ${x.title}`);
+    console.log(`합계 ${fmt(m.totalSeconds)} (${Math.round(m.totalSeconds)}초, 실측)`);
+  }
+  process.exit(0);
+}
 const md = readFileSync(join(HERE, '..', 'SCRIPT.md'), 'utf8');
 const KO_RATE = 4.19;
 const GAP = 0.3; // 조각 사이 숨

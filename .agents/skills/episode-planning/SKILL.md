@@ -50,7 +50,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 8 | **Phase 8** 대본·TTS·컷별 팩트체크 정렬 | Visual Outline 옆에 대사·사운드·**컷별 팩트 체크(`FACT-CHECK.md`)** 정렬, 계단식 오픈 루프(Payoff Void 방지), **`slop-rewrite` + korean-skills**, 금지어 검사 | [03-script-and-narration.md](references/03-script-and-narration.md) |
 | 8.5 | **백지 눈 검수** (시트 제출 직전 1회) | 전용 스킬 `blind-review`를 초안 대화와 분리된 문맥(서브에이전트·다른 모델)에서 한 번 돌려 시트 `blindReview`에 다섯 기준·소견을 적는다. 빠지면 승인이 막힌다(잠금 전 7편만 예외) | `blind-review` 스킬 |
 | 9 | **Phase 10** 그림·영상 프롬프트 | 3중 하이브리드(Omni · Nano Banana · HyperFrames), 워터마크 차단, 그림 속 전문용어 금지 | 04 |
-| — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
+| — | 제작 | 음성·HyperFrames(몰입감·학습·시청 지속 시간 자율 연출)·Gate 2 전 AI 집중 검수·렌더 (`knowledge/VIDEO_WORKFLOW.md` 7·9단계) | — |
 | — | 예약·공개 직후 | 사후 마무리 7단계 | `publish-wrapup` 스킬 |
 | 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록. **쇼츠 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 쓴다** | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
 | 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, `slop-rewrite`·seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |

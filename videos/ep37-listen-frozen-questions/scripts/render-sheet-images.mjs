@@ -71,23 +71,21 @@ const TL = JSON.parse(execFileSync(process.execPath, [join(HERE, 'estimate-timel
 const MINUTES = Math.round(TL.totalSeconds / 60); // 추정 길이(음성 실측 뒤 다시 찍으면 실제 값으로 바뀐다)
 const stroke = (px, c = '#070B14') => `-webkit-text-stroke:${px}px ${c};paint-order:stroke fill`;
 const THUMBS = {
-  // A 장면·대결: 외국인 어깨 너머 하이 앵글(12°) 당황 클로즈업 + 날아오는 오디오 강조 띠(평면 말풍선 탈피) + 구글 폰트 3종 역할 분리.
+  // A 장면·대결(v5 백지 눈 수정): 위쪽 영어 띠 노란 밑줄 스포일러 제거(균등 흰색) + 아래 카피 속마음 호기심 빈칸("아는 단어 7개인데 / 왜 하나도 안 들리지?").
   A: page(1280, 720, `
-.low{position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(0deg,rgba(6,10,18,.94) 0%,rgba(6,10,18,.68) 54%,rgba(6,10,18,0) 100%)}
-.tl{position:absolute;left:0;top:0;width:740px;height:210px;background:radial-gradient(ellipse at 24% 20%,rgba(6,10,18,.78) 0%,rgba(6,10,18,0) 72%)}
-.voice-bar{position:absolute;left:38px;top:40px;display:inline-flex;align-items:center;gap:14px;background:rgba(10,15,26,.92);border:3px solid #FFD21A;border-radius:18px;padding:12px 24px;box-shadow:0 12px 28px rgba(0,0,0,.55);transform:rotate(-1.8deg)}
-.voice-txt{font-family:'BarlowCond',sans-serif;font-size:48px;font-weight:800;letter-spacing:.3px;line-height:1;display:flex;align-items:baseline;gap:10px}
-.voice-txt .dim{color:#94A3B8;font-size:36px}
-.voice-txt .hl{color:#FFD21A;text-decoration:underline;text-decoration-color:rgba(255,210,26,.55);text-underline-offset:5px;text-decoration-thickness:4px}
-.arrow-wrap{position:absolute;left:674px;top:64px;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
-.h1{position:absolute;left:44px;bottom:178px;font-family:'GothicA1',sans-serif;font-size:66px;font-weight:900;color:#F8FAFC;letter-spacing:-2px;${stroke(11)};text-shadow:0 6px 18px rgba(0,0,0,.6)}
-.h2{position:absolute;left:38px;bottom:34px;font-family:'BlackHan',sans-serif;font-size:126px;font-weight:400;color:#FFD21A;letter-spacing:-3px;line-height:1;transform:rotate(-1deg);${stroke(14)};text-shadow:0 10px 26px rgba(0,0,0,.72)}`,
+.low{position:absolute;left:0;right:0;bottom:0;height:340px;background:linear-gradient(0deg,rgba(6,10,18,.95) 0%,rgba(6,10,18,.72) 56%,rgba(6,10,18,0) 100%)}
+.tl{position:absolute;left:0;top:0;width:780px;height:220px;background:radial-gradient(ellipse at 24% 20%,rgba(6,10,18,.82) 0%,rgba(6,10,18,0) 74%)}
+.voice-bar{position:absolute;left:36px;top:38px;display:inline-flex;align-items:center;gap:14px;background:rgba(10,15,26,.94);border:3px solid rgba(255,210,26,.85);border-radius:18px;padding:13px 26px;box-shadow:0 12px 28px rgba(0,0,0,.6);transform:rotate(-1.5deg)}
+.voice-txt{font-family:'BarlowCond',sans-serif;font-size:48px;font-weight:800;color:#F8FAFC;letter-spacing:.4px;line-height:1}
+.arrow-wrap{position:absolute;left:678px;top:64px;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.92)) drop-shadow(0 0 10px rgba(0,0,0,.75))}
+.h1{position:absolute;left:44px;bottom:172px;font-family:'GothicA1',sans-serif;font-size:66px;font-weight:900;color:#F8FAFC;letter-spacing:-2px;${stroke(11)};text-shadow:0 6px 18px rgba(0,0,0,.6)}
+.h2{position:absolute;left:38px;bottom:34px;font-family:'BlackHan',sans-serif;font-size:112px;font-weight:400;color:#FFD21A;letter-spacing:-3.5px;line-height:1;transform:rotate(-1deg);${stroke(14)};text-shadow:0 10px 26px rgba(0,0,0,.74)}`,
   `<img class="bg" src="${img('thumb-a-v4-bg.jpg')}" style="object-position:56% 32%"><div class="tl"></div><div class="low"></div>
-<div class="voice-bar"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="2" y="13" width="5" height="8" rx="2.5" fill="#FFD21A"/><rect x="10" y="6" width="5" height="22" rx="2.5" fill="#FFD21A"/><rect x="18" y="2" width="5" height="30" rx="2.5" fill="#FFD21A"/><rect x="26" y="10" width="5" height="14" rx="2.5" fill="#FFD21A"/></svg><div class="voice-txt nw"><span class="dim">How do I</span><span class="hl">GET</span><span class="dim">to</span><span class="hl">SEOUL STATION</span><span class="dim">?</span></div></div>
+<div class="voice-bar"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="2" y="13" width="5" height="8" rx="2.5" fill="#FFD21A"/><rect x="10" y="6" width="5" height="22" rx="2.5" fill="#FFD21A"/><rect x="18" y="2" width="5" height="30" rx="2.5" fill="#FFD21A"/><rect x="26" y="10" width="5" height="14" rx="2.5" fill="#FFD21A"/></svg><div class="voice-txt nw">How do I get to Seoul Station?</div></div>
 <svg class="arrow-wrap" width="96" height="82" viewBox="0 0 96 82" fill="none"><path d="M8 14 C38 14, 62 28, 82 56" stroke="#FFD21A" stroke-width="7" stroke-linecap="round" stroke-dasharray="10 10"/><path d="M63 56 L84 60 L82 38" stroke="#FFD21A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-<div class="h1 nw">아는 단어 7개인데</div><div class="h2 nw">들린 건 두 덩어리</div>`),
+<div class="h1 nw">아는 단어 7개인데</div><div class="h2 nw">왜 하나도 안 들리지?</div>`),
 
-  // B 소리 그림: 밤 지하철 옆모습·이어폰 + Archivo Black/Outfit 영문 강약 극대화(200px 명도·여백 확보) + 36분 듣기 정체성 칩.
+  // B 소리 그림(v5 백지 눈 수정): "몇 단어 들리세요?" 퀴즈·답 노출 모순 해소 → "눈엔 7단어인데" + 강약 대비 그래픽 + 실측 추정 분수 칩.
   B: page(1280, 720, `
 .scrim{position:absolute;left:0;top:0;bottom:0;width:860px;background:linear-gradient(90deg,rgba(7,12,24,.82) 0%,rgba(7,12,24,.55) 72%,rgba(7,12,24,0) 100%)}
 .w{position:absolute;left:28px;top:220px;opacity:.24}
@@ -102,30 +100,28 @@ const THUMBS = {
 .dot{width:14px;height:14px;border-radius:50%;background:#EF4444;box-shadow:0 0 0 4px rgba(239,68,68,.28)}`,
   `<img class="bg" src="${img('thumb-b-v4-bg.jpg')}" style="object-position:60% 50%"><div class="scrim"></div>
 <div class="w">${wave(790, 290, '#60A5FA', 58, 11)}</div>
-<div class="q nw">몇 단어 들리세요?</div>
+<div class="q nw">눈엔 7단어인데</div>
 <div class="l1"><span class="sm nw">how do I</span><span class="get nw">GET</span><span class="sm nw">to</span></div>
 <div class="l2"><span class="ss nw">SEOUL STATION</span><span class="sm nw">?</span></div>
 <svg class="beam" width="92" height="110" viewBox="0 0 92 110" fill="none"><path d="M30 28 C12 42, 12 68, 30 82" stroke="#FFD21A" stroke-width="5" stroke-linecap="round" opacity=".9"/><path d="M16 14 C-6 36, -6 74, 16 96" stroke="#FFD21A" stroke-width="4" stroke-linecap="round" opacity=".55"/></svg>
 <div class="dur nw"><span class="dot"></span>${MINUTES}분 틀어 두고 듣기</div>`),
 
-  // C 에디토리얼 콜라주: 따뜻한 머스터드 종이 + 서울 일상 인화 사진 3장 + 호기심 빈칸("그냥 틀면 안 들려요 / 딱 5가지만 알고 듣기").
+  // C 에디토리얼 콜라주(v5 백지 눈 수정): 취소선 오류 삭제 + 글자 덩어리 4→3개로 압축 + 시트와 문구 100% 일치("딱 5가지만 알고 듣기").
   C: page(1280, 720, `
-.chip{position:absolute;left:48px;top:52px;background:#C81E37;color:#FFFDF8;font-family:'DoHyeon',sans-serif;font-size:48px;padding:10px 26px;border-radius:12px;letter-spacing:-.5px;transform:rotate(-1.5deg);box-shadow:5px 7px 0 #141B2D}
-.prob-wrap{position:absolute;left:50px;top:174px;display:inline-block}
-.prob{font-family:'GothicA1',sans-serif;font-size:52px;font-weight:900;color:#141B2D;letter-spacing:-2px}
-.strike{position:absolute;left:-4px;top:24px;width:206px;height:14px;pointer-events:none}
-.h1{position:absolute;left:46px;top:262px;font-family:'BlackHan',sans-serif;font-size:122px;color:#0E1422;letter-spacing:-4px;line-height:1}
-.hl-mark{display:inline-block;background:#FFFDF5;padding:0 12px 2px;border-radius:10px;box-shadow:5px 6px 0 #141B2D;color:#C81E37}
-.h2{position:absolute;left:46px;top:404px;font-family:'BlackHan',sans-serif;font-size:114px;color:#0E1422;letter-spacing:-4px;line-height:1}
-.sub{position:absolute;left:50px;bottom:50px;background:#141B2D;color:#FFFDF5;font-family:'IBMBold',sans-serif;font-size:36px;font-weight:700;padding:12px 24px;border-radius:12px;letter-spacing:-1px;box-shadow:0 8px 18px rgba(20,27,45,.24)}
-.ed-arrow{position:absolute;left:500px;top:444px;pointer-events:none}`,
+.chip{position:absolute;left:48px;top:56px;background:#C81E37;color:#FFFDF8;font-family:'DoHyeon',sans-serif;font-size:44px;padding:10px 26px;border-radius:12px;letter-spacing:-.5px;transform:rotate(-1.5deg);box-shadow:5px 7px 0 #141B2D}
+.prob{position:absolute;left:50px;top:186px;font-family:'GothicA1',sans-serif;font-size:54px;font-weight:900;color:#141B2D;letter-spacing:-2px}
+.prob-ul{position:absolute;left:50px;top:248px;width:448px;height:10px;pointer-events:none}
+.h1{position:absolute;left:46px;top:292px;font-family:'BlackHan',sans-serif;font-size:126px;color:#0E1422;letter-spacing:-4px;line-height:1}
+.hl-mark{display:inline-block;background:#FFFDF5;padding:0 14px 2px;border-radius:10px;box-shadow:5px 6px 0 #141B2D;color:#C81E37}
+.h2{position:absolute;left:46px;top:438px;font-family:'BlackHan',sans-serif;font-size:118px;color:#0E1422;letter-spacing:-4px;line-height:1}
+.ed-arrow{position:absolute;left:508px;top:482px;pointer-events:none}`,
   `<img class="bg" src="${img('thumb-c-v4-bg.jpg')}" style="object-position:54% 50%">
-<div class="chip nw">${MINUTES}분 틀어 두기</div>
-<div class="prob-wrap"><span class="prob nw">그냥 틀면 안 들려요</span><svg class="strike" viewBox="0 0 236 14" fill="none"><path d="M4 10 C70 4, 160 11, 232 5" stroke="#C81E37" stroke-width="8" stroke-linecap="round"/></svg></div>
+<div class="chip nw">${MINUTES}분 틀어 두기 · 질문 30개</div>
+<div class="prob nw">그냥 틀면 안 들려요</div>
+<svg class="prob-ul" viewBox="0 0 448 10" fill="none"><path d="M4 6 C140 2, 300 9, 444 4" stroke="#C81E37" stroke-width="7" stroke-linecap="round"/></svg>
 <div class="h1 nw">딱 <span class="hl-mark">5가지</span>만</div>
 <div class="h2 nw">알고 듣기</div>
-<svg class="ed-arrow" width="124" height="62" viewBox="0 0 124 62" fill="none"><path d="M8 46 C42 54, 80 42, 112 16" stroke="#141B2D" stroke-width="6" stroke-linecap="round"/><path d="M94 14 L115 14 L111 35" stroke="#141B2D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-<div class="sub nw">화면 안 봐도 OK · 질문 30개</div>`),
+<svg class="ed-arrow" width="124" height="62" viewBox="0 0 124 62" fill="none"><path d="M8 46 C42 54, 80 42, 112 16" stroke="#141B2D" stroke-width="6" stroke-linecap="round"/><path d="M94 14 L115 14 L111 35" stroke="#141B2D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`),
 };
 
 // ── 화면 시안 컷 (1920×1080) — 2026-11-25 전면 개편: 시네마틱 오디오-에디토리얼 + 1~5장 실사 + 구글 폰트 역할 분리 ──
@@ -158,7 +154,7 @@ const CUTS = {
   `<div class="bg-grad"></div>${MARK}<div class="t nw">소리 신호 세 가지</div><div class="sub nw">화면을 안 보셔도, 이 소리만 따라오시면 됩니다</div><div class="rail"></div>
 <div class="card" style="top:312px;border-left:8px solid #FFD21A"><div class="ic" style="background:#FFD21A">띵</div><div class="txt"><span class="main nw">영어가 나옵니다</span><span class="hint nw">처음 들을 땐 일부러 글자를 숨겨 둡니다</span></div></div>
 <div class="card" style="top:514px;border-left:8px solid #F8FAFC"><div class="ic" style="background:#F8FAFC">뽁</div><div class="txt"><span class="main nw">따라 말할 차례</span><span class="hint nw">지하철에서는 입속으로만 따라 하셔도 OK</span></div></div>
-<div class="card" style="top:716px;border-left:8px solid #4C8DF6"><div class="ic" style="background:#4C8DF6">종</div><div class="txt"><span class="main nw">장이 바뀝니다</span><span class="hint nw">길 · 가게 · 이웃 · 여행지 · 친한 사이</span></div></div>`),
+<div class="card" style="top:716px;border-left:8px solid #4C8DF6"><div class="ic" style="background:#4C8DF6">종</div><div class="txt"><span class="main nw">장이 바뀝니다</span><span class="hint nw">길 · 가게 · 처음 만난 사람 · 여행지 · 친한 사이</span></div></div>`),
 
   // 장 바뀜 — 1장 표지
   'cut-02-ch1-title': page(1920, 1080, `.scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,11,20,.88) 0%,rgba(7,11,20,.58) 54%,rgba(7,11,20,.15) 100%)}
@@ -207,7 +203,7 @@ const CUTS = {
 .k{font-family:'IBMBold',sans-serif;font-size:48px;color:${CH[3].color};background:rgba(242,140,40,.14);border:1.5px solid rgba(242,140,40,.45);padding:10px 30px;border-radius:999px}`,
   `${sceneBg(3, {blur: 3, dark: 0.56})}${MARK}${prog(3, 1)}<div class="stage">
 <div class="s"><span class="mix nw">Did you</span><span class="sm nw">just</span><span class="big nw">move in?</span></div>
-<div class="m nw">얼마 전에 이사 오셨어요?</div><div class="k nw">[디쥬] 드 + 유 → 쥬</div></div>`),
+<div class="m nw">막 이사 오셨어요?</div><div class="k nw">[디쥬] 드 + 유 → 쥬</div></div>`),
 
   // 2부 몰아 듣기 — 심야 오디오 라운지(단색 PPT 탈피)
   'cut-07-part2': page(1920, 1080, `.bg-lounge{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%, rgba(46,184,114,.2), transparent 55%),radial-gradient(ellipse at 20% 85%, rgba(76,141,246,.16), transparent 50%),linear-gradient(180deg,#0A101E 0%,#0E1729 100%)}

@@ -69,6 +69,22 @@ async function openEditor(page, blogId, postId) {
 }
 
 /**
+ * 오른쪽 "글 설정" 칸(라벨·게시 날짜·퍼머링크·위치·검색 설명·옵션)을 보이게 한다.
+ * 창이 좁으면 칸이 숨고 톱니바퀴 버튼("글 설정")만 남는다(2026-11-27 사용자 지적, 700px 창에서 확인).
+ */
+async function ensureSettingsPanel(page) {
+  if (await page.getByText('퍼머링크', {exact: true}).first().isVisible().catch(() => false)) return;
+  await page.getByRole('button', {name: '글 설정'}).filter({visible: true}).first().click();
+  // 칸이 옆에서 미끄러져 나오는 데 0.8초로는 모자랐다(11/27 시험). 보일 때까지 기다린다.
+  try {
+    await page.getByText('퍼머링크', {exact: true}).filter({visible: true}).first().waitFor({state: 'visible', timeout: SAVE_WAIT_MS});
+  } catch {
+    throw new Error('글 설정 칸을 열지 못했습니다(톱니바퀴 버튼).');
+  }
+  await page.waitForTimeout(STEP_MS);
+}
+
+/**
  * 임시 글(postId)에 맞춤 주소와 검색 설명을 넣고 저장한다.
  * 돌려주는 값: {ok: true, accountIndex} 또는 던짐. 저장 결과 확인(주소가 실제로 바뀌었는지)은 부르는 쪽이 API로 한다.
  */
@@ -86,8 +102,9 @@ export async function applyPostSettings({blogId, postId, permalink, description,
   const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
   const page = await browser.contexts()[0].newPage();
   try {
-    await page.setViewportSize({width: 1500, height: 1000}); // allow-literal: 오른쪽 글 설정 칸이 보이는 폭
+    await page.setViewportSize({width: Number(process.env.BLOGGER_TEST_WIDTH) || 1500, height: 1000}); // allow-literal: 오른쪽 글 설정 칸이 보이는 폭(좁으면 ensureSettingsPanel이 톱니바퀴로 연다)
     const accountIndex = await openEditor(page, blogId, postId);
+    await ensureSettingsPanel(page);
 
     if (slug) {
       await page.getByText('퍼머링크', {exact: true}).first().click();
@@ -116,6 +133,7 @@ export async function applyPostSettings({blogId, postId, permalink, description,
     await page.waitForTimeout(SAVE_WAIT_MS / 2);
     await page.reload({waitUntil: 'domcontentloaded'});
     await page.waitForTimeout(EDITOR_LOAD_MS);
+    await ensureSettingsPanel(page);
     const saved = {};
     if (slug) {
       await page.getByText('퍼머링크', {exact: true}).first().click();

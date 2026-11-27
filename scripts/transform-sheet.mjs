@@ -272,6 +272,50 @@ export function selfCritiqueProblems(sheet) {
   return out;
 }
 
+/**
+ * 백지 눈 1회 검수 잠금(blindReview, 2026-11-27 1차 개편 확정):
+ * 2026-11-28 이후 새로 만드는 v4 비교 시트(또는 blindReview 필드를 직접 담은 시트)는
+ * 초안 문맥과 분리된 백지 눈 5대 잣대 점검 기록이 통과(verdict: "pass")해야 승인할 수 있다.
+ */
+export const BLIND_REVIEW_SINCE = '2026-11-28';
+export const BLIND_REVIEW_CHECKS = Object.freeze({
+  mobileTitleOk: '모바일 제목 앞부분 안 잘림·소비 방식 명확',
+  thumbOneSecOk: '썸네일 실물 1초 직관·스포일러 없음·길이 일치',
+  synergyOk: '제목-썸네일-재생시간 시너지 일치',
+  openingOneMinOk: '초반 1분 사용설명서 늘어짐 없음',
+  antiSlopVoiceOk: '기계적 반복·말투/반말·번역 불일치 없음',
+});
+export function blindReviewProblems(sheet) {
+  const out = [];
+  if (!isSloganV4(sheet)) return out;
+  const hasField = sheet?.blindReview !== undefined && sheet?.blindReview !== null;
+  const isNew = filled(sheet?.createdAt) && String(sheet.createdAt) >= BLIND_REVIEW_SINCE;
+  if (!hasField && !isNew) return out;
+  const br = sheet?.blindReview;
+  if (!br || typeof br !== 'object') {
+    out.push('백지 눈 검수(blindReview)가 없다 — 승인 전 blind-review 스킬로 5대 잣대 1회 점검 기록을 남긴다');
+    return out;
+  }
+  if (!filled(br.reviewedAt)) out.push('백지 눈 검수: 점검 날짜(reviewedAt)가 비어 있다');
+  if (!filled(br.reviewerModel)) out.push('백지 눈 검수: 검수 모델명(reviewerModel)이 비어 있다');
+  const checks = br.checks;
+  if (!checks || typeof checks !== 'object') {
+    out.push('백지 눈 검수: 5대 잣대 결과(checks)가 없다');
+  } else {
+    for (const [k, label] of Object.entries(BLIND_REVIEW_CHECKS)) {
+      if (typeof checks[k] !== 'boolean') out.push(`백지 눈 검수: checks.${k}(${label})가 true/false가 아니다`);
+      else if (checks[k] !== true) out.push(`백지 눈 검수: ${label}(${k}) 미통과 — 수정 후 다시 통과시킨다`);
+    }
+  }
+  if (!Array.isArray(br.findings) || br.findings.filter(filled).length === 0) {
+    out.push('백지 눈 검수: 점검 소견(findings)이 비어 있다 — 확인한 핵심 1줄 이상을 적는다');
+  }
+  if (br.verdict !== 'pass') {
+    out.push(`백지 눈 검수: 판정(verdict)이 "pass"가 아니다(현재: ${br.verdict || '없음'}) — 미통과 항목을 고친 뒤 승인한다`);
+  }
+  return out;
+}
+
 /** AI 1순위 제목·썸네일 추천 조합(aiRecommendation, 2026-11-20 사용자 요청) 검사. 기존 시트 호환을 위해 필드가 있을 때만 검사한다. */
 export function aiRecommendationProblems(sheet, {imageExists = null} = {}) {
   const out = [];
@@ -697,6 +741,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...clickWhyProblems(sheet),
     ...craftProblems(sheet, {knownCaseIds}),
     ...selfCritiqueProblems(sheet),
+    ...blindReviewProblems(sheet),
     ...aiRecommendationProblems(sheet, {imageExists}),
     ...trendRefProblems(sheet),
     ...clipRightsProblems(sheet),

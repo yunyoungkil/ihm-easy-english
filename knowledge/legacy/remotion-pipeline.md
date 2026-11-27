@@ -2,7 +2,7 @@
 
 > 예전 CLAUDE.md 673줄 이후를 2026-11-09에 옮겨 온 보존 문서다. **EP6~EP10을 다시 렌더할 때만** 읽는다.
 > 2026-08-26부터 새 제작은 전부 HyperFrames로 하며, 이 문서의 지시(예: "다음 편 만들 때")는 새 영상에 쓰지 않는다.
-> 근거: [HyperFrames 전면 전환 결정](decisions/2026-08-26-hyperframes-full-migration.md).
+> 근거: [HyperFrames 전면 전환 결정](../decisions/2026-08-26-hyperframes-full-migration.md).
 
 ## 시즌 상태
 

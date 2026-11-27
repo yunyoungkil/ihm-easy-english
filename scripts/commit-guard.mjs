@@ -14,6 +14,7 @@ import {execFileSync, execFile, spawn} from 'node:child_process';
 import {readFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {auditGovernance} from './lint-knowledge.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 
@@ -182,6 +183,18 @@ async function preCommit() {
     }
     if (isRecordFile(file)) {
       for (const {lineNo, text} of lines) for (const why of findClaimWords(text)) problems.push(`${file}:${lineNo} ${why}`);
+    }
+  }
+
+  const governanceChanged = staged.some((f) => /^(AGENTS|CLAUDE)\.md$/.test(f)
+    || /^knowledge\/.+\.md$/.test(f)
+    || /^\.(agents|claude)\/skills\//.test(f));
+  if (governanceChanged) {
+    const gov = await auditGovernance(projectDir);
+    if (!gov.ok) {
+      for (const msg of gov.blocking) problems.push(`[거버넌스 잠금] ${msg}`);
+    } else {
+      console.log(`  거버넌스 검사: AGENTS.md ${gov.agents.lines}/${gov.agents.maxLines}줄, 깨진 링크 0, 고아 핵심 문서 0, 스킬 일치`);
     }
   }
 

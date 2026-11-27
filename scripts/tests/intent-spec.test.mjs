@@ -238,7 +238,10 @@ test('대시보드 카드의 주 버튼은 비교 시트이고, 경쟁 영상 �
   assert.doesNotMatch(server, /href="\/outlier-reports"[^>]*>경쟁 영상 리포트 →/);
 });
 
-test('AGENTS.md는 75KB 이하로 유지한다 [2026-11-12 Antigravity가 101KB 중 77KB만 읽음, 2026-11-13 사용자: 토큰 최소]', () => {
-  const bytes = readFileSync(join(projectDir, 'AGENTS.md')).length;
-  assert.ok(bytes <= 75000, `AGENTS.md가 ${bytes}바이트다. 75,000을 넘으면 일부 도구에서 뒷부분이 잘리고 모든 대화의 토큰이 늘어난다. 옛 내용은 knowledge/legacy/agents-archive-*.md로 옮기고 새 규칙은 짧게 쓴다`);
+test('AGENTS.md는 190줄·22KB 이하로 유지한다 [2026-11-27 1차 개편: 뒷부분 잘림 방지·얇은 지도 원칙]', () => {
+  const text = readFileSync(join(projectDir, 'AGENTS.md'), 'utf8');
+  const bytes = Buffer.byteLength(text, 'utf8');
+  const lines = text.split(/\r?\n/).length;
+  assert.ok(bytes <= 22000, `AGENTS.md가 ${bytes}바이트다(상한 22,000). 옛 내용은 knowledge/legacy/ 또는 스킬·운영 지도로 옮긴다`);
+  assert.ok(lines <= 190, `AGENTS.md가 ${lines}줄이다(상한 190줄). 실수는 3갈래 배치·정원 10개 교체제를 따른다`);
 });

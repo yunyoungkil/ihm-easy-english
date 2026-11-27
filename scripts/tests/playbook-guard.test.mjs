@@ -15,8 +15,10 @@ test('비교 시트 지침 문서가 있고 핵심 절(전제·사용자 원칙�
 
 test('항상 읽는 규칙 문서(AGENTS.md)와 스킬 문서가 지침 문서를 가리키고 불변 규칙을 담는다', () => {
   const agents = read('AGENTS.md');
+  const ytOps = read('knowledge/youtube-operations.md');
   assert.ok(agents.includes('knowledge/playbooks/comparison-sheet-playbook.md'));
-  assert.ok(agents.includes('쇼츠 화면에는 위 훅 띠와 아래 정보 띠가 항상 들어간다'));
+  assert.ok(agents.includes('knowledge/youtube-operations.md'));
+  assert.ok(agents.includes('쇼츠 상단 0.5초 훅') || ytOps.includes('쇼츠 상단 0.5초 훅'));
   assert.ok(agents.includes('화면에 보이는 것을 바꿨으면 브라우저로 직접 열어 보고'));
   assert.ok(agents.includes('appliedTo') && agents.includes('origin'));
   assert.ok(read('.claude/skills/episode-planning/references/01-topic-and-data.md').includes('comparison-sheet-playbook.md'));

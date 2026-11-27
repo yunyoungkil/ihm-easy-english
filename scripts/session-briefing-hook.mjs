@@ -23,6 +23,7 @@ import {
   renderSessionStartOutput,
 } from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
+import {auditGovernance, wikiHealthLine} from './lint-knowledge.mjs';
 import {startBackgroundSync} from './pc-sync.mjs';
 import {describeResult, safePull} from './safe-pull.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
@@ -121,6 +122,10 @@ if (chromeStatus && !chromeStatus.isLoggedIn) {
 if (check?.briefing?.data) {
   check.briefing.data.sync = syncNote;
   check.briefing.data.studioSync = studioSyncNote;
+}
+if (check?.briefing) {
+  const wh = wikiHealthLine(await auditGovernance(projectDir).catch(() => null));
+  if (wh) check.briefing.wikiHealth = wh;
 }
 if (!skipSync || Boolean(process.env.BRIEFING_STATE_FILE)) {
   await recordBriefingDone({statePath});

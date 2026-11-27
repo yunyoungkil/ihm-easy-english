@@ -22,6 +22,7 @@ import {
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, buildContinuationContext, extractNextActions} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
+import {auditGovernance, wikiHealthLine} from './lint-knowledge.mjs';
 import {startBackgroundSync} from './pc-sync.mjs';
 import {describeResult, safePull} from './safe-pull.mjs';
 
@@ -113,6 +114,10 @@ const [check, nextActions] = await Promise.all([
 if (check?.briefing?.data) {
   check.briefing.data.sync = syncNote;
   check.briefing.data.studioSync = studioSyncNote;
+}
+if (check?.briefing) {
+  const wh = wikiHealthLine(await auditGovernance(projectDir).catch(() => null));
+  if (wh) check.briefing.wikiHealth = wh;
 }
 
 const handoff = latestHandoff(projectDir);

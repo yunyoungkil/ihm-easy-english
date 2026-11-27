@@ -295,6 +295,7 @@ const briefingLines = (check, briefing) => {
     missingThumbnails = [],
     loopHealth = null,
     blogStatus = null,
+    wikiHealth = null,
     workflowSignals = [],
     hygieneSignals = null,
     workflowDiagnosis = null,
@@ -359,6 +360,9 @@ const briefingLines = (check, briefing) => {
   }
   if (blogStatus) {
     lines.push(`- 쿠팡 블로그: ${blogStatus}`);
+  }
+  if (wikiHealth) {
+    lines.push(`- ${wikiHealth}`);
   }
 
   const sigParts = [];

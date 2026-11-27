@@ -1,95 +1,76 @@
 # Knowledge Index
 
-마지막 갱신: 2026-09-08
+마지막 갱신: 2026-11-27
 
-## 항상 읽기
+## 항상 읽기 (최우선 지도)
 
 - [지금 할 일](now.md) — 현재 우선순위와 가까운 일정만 담는 짧은 문서
-- [데이터 소비 지도](data-consumption-map.md) — 모은 데이터가 어느 기획·제작·판정에 쓰이는지, 빈틈과 고칠 순서. 데이터 파일을 새로 만들거나 수집을 늘리기 전에 읽는다
-- [채널 데이터 현황](channel-data-snapshot.md) — 롱폼 vs 쇼츠 실측, 성장 레버 판단 근거. 콘텐츠
-  방향·아이디어를 제안할 때 반드시 참고할 것 (원본 JSON을 매번 다시 뒤지지 않도록 요약해 둔 것)
-- [이번 달 작업 기록](logs/2026-11.md) — 2026년 11월 변경 이력 (10월: [logs/2026-10.md](logs/2026-10.md), 9월: [logs/2026-09.md](logs/2026-09.md))
-- [now.md 보관](logs/now-archive-2026-11-09.md) — 지금 할 일과 상관없는 옛 완료 기록(EP13~EP21 등, 2026-11-09에 옮김)
-- [옛 Remotion 파이프라인](legacy/remotion-pipeline.md) — EP6~EP10을 재렌더할 때만 읽는다(예전 CLAUDE.md 뒷부분)
-- [AGENTS.md 보관 (2026-11-13)](legacy/agents-archive-2026-11-13.md) — 대청소에서 줄이거나 뺀 규칙의 원문(아바타·ComfyUI 시절 규칙 등). 지금 규칙이 아니라 기록
-
-## 운영
-
+- [유튜브 채널 운영 지도](youtube-operations.md) — 유튜브 기획·비교 시트·화면·업로드 단일 허브 (`AGENTS.md`에서 분리)
 - [블로그 운영 지침 (`tech.d40m.com`)](playbooks/blog-operations.md) — 쿠팡 블로그 주간 경고 점검, 멈춤·재개, 주제 보충 절차
-- [블로그 SEO · 키워드 · 제휴 사이트 운영 실증 자료집 (2026-11-26)](blog-seo-affiliate-research-2026-11-26.md) — 구글 AI 검색(GEO)·네이버 C-Rank/D.I.A.+·빈틈 키워드·전환율 UX·AI 글 생존 기준·이미지 저작권·제휴처 확장 비교(논문·공식 정책·유튜브·실측 통합) — ⚠️ 일부 틀림, 11/26 원문 확인은 아래 초안 10절
-- [블로그 정책·규칙·결과 루프 초안 (2026-11-26)](decisions/2026-11-26-blog-policy-rules-loop-draft.md) — 유튜브와 나눌 것·함께 쓸 것, 원문 확인된 안전선, 글쓰기 기본값, 시험 거리, 결과 루프 빈칸, 사용자 결정 3개(초안, 승인 전 적용 안 함)
+- [자율 브리핑 단일 원본](playbooks/briefing/00-autonomous-briefing.md) — 하루 1회 시작 브리핑·권한선·브레이크 기준 ([구현 명세](playbooks/briefing/01-implementation-spec.md))
+- [데이터 소비 지도](data-consumption-map.md) — 모은 데이터가 어느 기획·제작·판정에 쓰이는지, 빈틈과 고칠 순서
+- [채널 데이터 현황](channel-data-snapshot.md) — 롱폼 vs 쇼츠 실측, 성장 레버 판단 근거
+- [이번 달 작업 기록](logs/2026-11.md) — 2026년 11월 변경 이력 (10월: [logs/2026-10.md](logs/2026-10.md), 9월: [logs/2026-09.md](logs/2026-09.md))
+
+## 운영 · 제작 · 기준 1장 모음
+
+- [비교 시트 지침](playbooks/comparison-sheet-playbook.md) — 비교 시트·썸네일·제목·컷 계획 절차와 코드 검사 ([쇼츠 2안 설계서](playbooks/2026-11-16-shorts-2an-design-spec.md), [틀어 놓고 듣는 롱폼 설계서](playbooks/2026-11-25-listen-longform-design.md))
+- [규칙의 세 층](rule-tiers.md) — 불변 · 기본값 · 실험 변수 분류 요약 ([전체 초안](rule-tiers-full-draft.md))
+- [스타일 실험 기록](style-experiments.md) — 편별 시험 변수와 7일 결과 누적표
+- [대표님 말하기 결 카드 (나레이션 참고 1장)](creator-voice-card.md) — 담백한 입말 예시 짝(정예 취향 닻, 강제 공식 금지)
+- [쉽게 이해시키는 설명 도구 서랍 (6개 채널 실측)](pedagogy-toolbox-2026-11-26.md) — 6개 영어 채널 실측 설명 무기 5종·AI 티 점검 기준(자율 선택)
+- [나레이션 말투 실측 패턴](narration-speech-patterns.md) — 롱폼·쇼츠 말하기 밀도·호흡 실측 참고
+- [대본·나레이션 규칙](script-rules.md) — 3060 생활 장면·금지 화법·TTS 작성 규칙
+- [화면 컴포지션 규칙](composition-rules.md) — 음절 표기·쇼츠 훅/정보 띠·HyperFrames 화면 기본 요소
 - [영상 제작 표준 워크플로우](VIDEO_WORKFLOW.md) — 기획부터 업로드·분석까지 10단계와 승인 게이트
-- [브랜드 아이덴티티 & 페르소나 헌장](brand-persona.md) — 대표님의 실제 철학, 3단계 도파민 공식, 시그니처 멘트 및 비주얼 DNA
-- [대표님 말하기 결 카드 (나레이션 참고 1장)](creator-voice-card.md) — 저장된 대화에서 뽑은 대표님의 담백한 결·호흡 참고 기준(강제 공식 아님, AI 평균값 완화용)
+- [브랜드 아이덴티티 & 페르소나 헌장](brand-persona.md) — 채널 철학·화법·비주얼 DNA
 - [채널 전략](channel-strategy.md) — 성장·수익화 목표와 판단 기준
 - [콘텐츠 포맷](content-formats.md) — 시즌 롱폼, Track A/B, 채널 쇼츠 C의 역할
-- [제작 규칙](production-rules.md) — 대상 시청자, 쇼츠 화면, TTS와 검수 원칙
-- [HyperFrames 프롬프트 운영 기준](hyperframes-prompting.md) — 워크플로 선택 이후의 지시 구조, 디자인·모션·자막·검수 기준
-- [구글 AI(제미나이·Veo·Imagen) 프롬프트 작성 기준](google-ai-studio-prompting.md) — 영상/이미지 생성·데이터 분석 프롬프트를 구글 모델에 직접 쓸 때마다 참고. `aistudio.google.com/docs` 재조회 없이 바로 쓸 것
-- [무료 생성 도구: 워터마크와 우선순위](free-generation-tools.md) — AI Studio·Omni·Lyria·flowmusic 등 도구별 워터마크 유무와 시험 결과. 새 도구는 처음 쓸 때 이 표에 적는다
-- [썸네일 전략](thumbnail-strategy.md) — 판단 원칙과 에피소드별 선택 맥락
-- [클릭 사례 모음](click-references.md) — 제목·썸네일을 정할 때 본 다른 분야·플랫폼 밖 사례(주소·그림·글자 그대로·왜 눌렸나). 비교 시트 `clickWhy`의 `click-ref:` 출처
-- [레퍼런스 영상 비주얼 분석 기록](visual-reference-analysis.md) — `/watch` 스킬로 경쟁/레퍼런스
-  영상을 분석해 뽑아낸 화면 구성·모션 기법 누적. 새 영상 만들기 전 참고 소재로 훑어볼 것
-- [영상 효과 50가지 참고 도구 상자 & 연출 태도](video-effects-toolbox-2026-11-23.md) — 50가지 촬영·편집·시간·빛/색 용어와 영어 학습·재미 결합 참고(개수 제한 없는 자율 도구 상자, 3060=정적 화면 단정 금지)
-- [영상 STATUS 템플릿](templates/STATUS.template.md) — 영상별 진행 상태와 다음 행동 기록 양식
-- [환경 설정 — HeyGen/WSL 브리지](environment-setup.md) — 이 컴퓨터에서 media-use(BGM/이미지/보이스 무료 카탈로그)를 쓰기 위한 WSL·heygen CLI 설치·연결 절차
-- [Chrome Web Gemini 자동화 설정 및 다중 PC 동기화 가이드](gemini-web-automation-setup.md) — 팝업 없이 100% 무인으로 Web Gemini(Imagen 3) 이미지를 자동 생성하는 크롬 전용 프로필 설정 및 자동화 도구
-- [Gemini(Antigravity) 코딩 환경 동기화 가이드](gemini-coding-env.md) — 다른 PC의 Gemini에서도 동일하게 유지할 플러그인(chrome-devtools-plugin·coderabbit·context7), MCP, 전역 스킬, CLI/런타임 기준 및 빠른 점검 명령
-- [제미나이 의도 테스트](gemini-intent-test.md) — 제미나이(Antigravity)가 규칙대로 일하는지 임시 가지에서 실제로 시켜 보고 `scripts/score-gemini-test.mjs`가 git 기록과 실제 데이터로 채점한다(2026-11-12). 커밋 전 자동 검사·의도 명세 9개의 배경은 `logs/2026-11.md` 2026-11-12 절
-- [제미나이 코드 만들기 시험](gemini-build-test.md) — Claude가 고친 것을 문제로 내고 제미나이가 처음부터 푼 코드를 Claude가 저장소 밖에 보관한 합격 시험으로 채점한다(2026-11-12). 첫 과제 B1: 쇼츠/롱폼 판정 함수 분리
-- [워크플로우 루프 개선 실행 참고 자료](playbooks/workflow-loop-improvement/00-overview.md) — 데이터 신뢰도·한국 트렌드·다중 레퍼런스·적용 추적을 주제별로 정리한 문서 전용 참고 자료
-- [Gemini 워크플로우 루프 구현 프롬프트](playbooks/workflow-loop-improvement/04-gemini-workflow-loop-implementation-prompt.md) — 이 문서 하나로 관련 참고 문서를 찾아 읽고 코드 수정·분기 끝단 검증·다음 루프 환류까지 수행하는 실행 진입점
-
-
+- [제작 규칙](production-rules.md) — 대상 시청자, 쇼츠·롱폼 글자 크기, TTS와 검수 원칙
+- [썸네일 전략](thumbnail-strategy.md) — 클릭 심리 원칙·사례집 활용·에피소드별 선택 맥락
+- [클릭 사례 모음](click-references.md) — 다른 분야·플랫폼 밖 클릭 사례 보관함 (`click-ref:`)
+- [AI 티 제거 제작 공예 조사 (2026-11-21)](ai-craft-research-2026-11-21.md) — 실사·영상·이미지 AI 티 원인 및 개선 공예
+- [레퍼런스 측정 기준](reference-measurements.md) — 경쟁 영상 컷·리듬·화면 실측 기준
+- [레퍼런스 영상 비주얼 분석 기록](visual-reference-analysis.md) — 경쟁/레퍼런스 화면 구성·모션 기법 누적
+- [영상 효과 50가지 참고 도구 상자](video-effects-toolbox-2026-11-23.md) — 촬영·편집·시간·빛/색 연출 자율 참고 서랍
+- [HyperFrames 프롬프트 운영 기준](hyperframes-prompting.md) — 디자인·모션·자막·검수 기준
+- [구글 AI(제미나이·Veo·Imagen) 프롬프트 작성 기준](google-ai-studio-prompting.md) — 구글 모델 서술형 프롬프트 기준
+- [무료 생성 도구: 워터마크와 우선순위](free-generation-tools.md) — AI Studio·Omni·Lyria·Flow 도구별 우선순위와 워터마크 시험 결과
+- [블로그 SEO · 키워드 · 제휴 사이트 운영 실증 자료집 (2026-11-26)](blog-seo-affiliate-research-2026-11-26.md) — 구글·네이버·제휴 운영 실증 자료집
+- [환경 설정 — HeyGen/WSL 브리지](environment-setup.md) — WSL·HeyGen CLI 연결 절차
+- [Chrome Web Gemini 자동화 설정](gemini-web-automation-setup.md) — 무인 이미지 생성 전용 크롬 프로필 설정
+- [Gemini(Antigravity) 코딩 환경 동기화 가이드](gemini-coding-env.md) — PC 간 플러그인·MCP·전역 스킬 동기화
+- [제미나이 의도 테스트](gemini-intent-test.md) · [제미나이 코드 만들기 시험](gemini-build-test.md) — 에이전트 규칙 준수·구현 채점 기준
+- [워크플로우 루프 개선 실행 참고 자료](playbooks/workflow-loop-improvement/00-overview.md) · [구현 프롬프트](playbooks/workflow-loop-improvement/04-gemini-workflow-loop-implementation-prompt.md)
+- [영상 STATUS 템플릿](templates/STATUS.template.md)
 
 ## 결정
 
-- [지속형 기억 시스템 도입](decisions/2026-08-21-local-wiki.md)
-- [HyperFrames 도입 비교 실험](decisions/2026-08-23-hyperframes-pilot.md)
-- [HyperFrames 전면 전환](decisions/2026-08-26-hyperframes-full-migration.md) — 새 제작(롱폼 포함) 전부 HyperFrames로, Remotion은 EP6~EP10 보존용
-- [팟캐스트 형식 콘텐츠 추가 검토](decisions/2026-08-25-podcast-format-idea.md) — 초기 브레인스토밍, 미착수
-- [채널 자체 적합도 점수 도입](decisions/2026-08-25-content-opportunity-score.md) — (2026-11-12 계산 스크립트 삭제, 기록만 남김) project1에서 `my_channel_fit_score` 공식만 이식, 경쟁 채널 비교는 미포함
-- [경쟁 채널 비교(market_demand_score) 구현](decisions/2026-08-29-market-demand-score.md) — 소형 채널 outlier 탐지, 원 조회수 비교 버그를 하루당 조회수로 수정
-- [아웃라이어 댓글 AI 분석 구축](decisions/2026-08-29-outlier-comment-analysis.md) — Gemini AI 시청자 고민/어휘 분석 파이프라인
-- [Studio CTR 다운로드 폴더 자동 낚아채기](decisions/2026-08-29-studio-ctr-auto-ingest.md) — Downloads 폴더 실시간 무인 압축해제 & 대시보드 SSE 동기화
-- [경쟁사 대본 역설계 & 맞춤 대본 생성](decisions/2026-08-29-competitor-script-reverse-engineering.md) — 1-Click 자막 추출 및 Gemini AI 대본 역설계 파이프라인
-- [Cyber-HUD 대시보드 & 디자인 시스템 구축](decisions/2026-08-29-cyber-hud-command-center.md) — 피치블랙/네온 벤토 그리드, 시장수요 레이더 및 에피소드 인스펙터 구축
-- [대시보드 AI 기능 고도화 로드맵](decisions/2026-08-30-ai-features-enhancement-plan.md) — Vision 썸네일 분석, 3060 대본 린터 & HyperFrames 연동 4단계 계획
-- [클라이언트 JS 문법 에러 방지 규칙](decisions/2026-08-30-preventing-embedded-client-js-syntax-errors.md) — 문자열 JSON.stringify 주입 표준 및 가상 DOM 0에러 자동 검증
-- [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
-- [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀 → 문구 5안 진단 전엔 이미지 생성 버튼 잠그는 승인 게이트로 해결
-- [채널 아바타 인트로 클립 제작 전 결정 사항](decisions/2026-09-03-avatar-intro-clip-setup.md) — 아바타·목소리·대사는 확정, 화면비/배경/해상도/고지문구는 아직 미정
-- [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) — 아이디어 보드로 고른 영상은 "시즌"이 아니라 "단편"으로 분류, EP11/EP12 라벨 정정
-- [HyperFrames + Gemini TTS는 하단 단어별 자막 기본 off](decisions/2026-09-04-no-word-level-captions-with-gemini-tts.md) — Gemini TTS는 단어 타임스탬프를 안 줘서 whisper 재정렬이 필요한데, 한글 속 영어 단어(Want/Won't 등)를 잘못 인식해 EP12 10줄 중 6줄이 근사치로 대체됨. 포커스 문구(구 단위)는 계속 유지, HeyGen TTS로 돌아가면 재검토
-- [트렌드 수집·루프 반영 및 화제 원본 클립 권리 기준](decisions/2026-11-23-trend-loop-and-clip-rights.md) — 14일 누적·해외 한국 콘텐츠 보강, 매 기획 AI 자율 검토, 3축(조회수·구독전환·시청지속) 7일 비교, 원본 클립 3경로 개방 + 증빙·근거 누락 차단, 허락 메일 Gmail 자동 확인(1단계 플러그인 → 2단계 무인 OAuth)
-- [대표님 1:1 발음 과외방(개인 학습) + 말하기 결 카드](decisions/2026-11-26-creator-study-and-voice-loop.md) — 기존 제작·승인 흐름과 분리된 개인 발음 학습 공간(비교 시트 하단 4단계) + 채팅 기록 기반 1장짜리 말하기 결 카드(슬로건 기반 자율 선별)
+- [얇은 규칙 · 반복 4개 스킬 · 실수 3갈래 배치 · 자동 유지 3겹 개편 (2026-11-27)](decisions/2026-11-27-lean-workflow-and-auto-governance.md) — `AGENTS.md` 190줄·22KB 상한, 실수 3갈래+정원 10개, 4개 스킬 분리, 4개 자동 잠금, 노트북LM 폐기
+- [대표님 1:1 발음 과외방 + 말하기 결 카드 (2026-11-26)](decisions/2026-11-26-creator-study-and-voice-loop.md) — 비교 시트 하단 개인 학습 공간 + 1장짜리 말하기 결 카드
+- [블로그 정책·규칙·결과 루프 초안 (2026-11-26)](decisions/2026-11-26-blog-policy-rules-loop-draft.md) — 유튜브와 분리된 블로그 정책·결과 루프 기준
+- [커뮤니티(게시물) 독립 운영안 (2026-11-24)](decisions/2026-11-24-community-posts-workflow.md) — 주 2~3회 퀴즈·카드뉴스·설문 4주 시험 운영
+- [트렌드 수집·루프 반영 및 화제 원본 클립 권리 기준 (2026-11-23)](decisions/2026-11-23-trend-loop-and-clip-rights.md) — 14일 누적 트렌드 + 원본 클립 3경로 개방·증빙 차단
+- [자율 AI 성장 슬로건 및 가드레일 경계 (2026-11-17)](decisions/2026-11-17-autonomous-ai-growth-and-guardrails.md) — 채널 제1 슬로건·하드코딩 vs 자율 경계 확정
+- [방향 점검 결정표 (2026-11-15)](decisions/2026-11-15-direction-audit-decisions.md) — 사용자 승인 역할(안전 확인·취향 반응) 및 방향 정리
+- [리서치 소스 설계 초안 (2026-11-14)](decisions/2026-11-14-research-source-design-draft.md) — 아웃라이어 수집 소스 확장 설계
+- [규칙 세 층과 실험 루프 도입 (2026-11-13)](decisions/2026-11-13-experiment-loop.md) — 3060 전제·규칙 3층·기준선 누적 구조
+- [지속형 기억 시스템 도입 (2026-08-21)](decisions/2026-08-21-local-wiki.md) — 로컬 LLM Wiki 도입 결정
+- [HyperFrames 도입 비교 실험 (2026-08-23)](decisions/2026-08-23-hyperframes-pilot.md) · [HyperFrames 전면 전환 (2026-08-26)](decisions/2026-08-26-hyperframes-full-migration.md)
+- [팟캐스트 형식 콘텐츠 추가 검토](decisions/2026-08-25-podcast-format-idea.md) · [채널 자체 적합도 점수](decisions/2026-08-25-content-opportunity-score.md)
+- [경쟁 채널 비교 구현](decisions/2026-08-29-market-demand-score.md) · [아웃라이어 댓글 AI 분석](decisions/2026-08-29-outlier-comment-analysis.md) · [Studio CTR 자동 낚아채기](decisions/2026-08-29-studio-ctr-auto-ingest.md) · [경쟁사 대본 역설계](decisions/2026-08-29-competitor-script-reverse-engineering.md) · [Cyber-HUD 대시보드](decisions/2026-08-29-cyber-hud-command-center.md)
+- [대시보드 AI 기능 고도화 로드맵](decisions/2026-08-30-ai-features-enhancement-plan.md) · [클라이언트 JS 문법 에러 방지 규칙](decisions/2026-08-30-preventing-embedded-client-js-syntax-errors.md) · [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md)
+- [AI 썸네일 생성기 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) · [아바타 인트로 클립 결정](decisions/2026-09-03-avatar-intro-clip-setup.md) · [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) · [Gemini TTS 단어별 자막 off](decisions/2026-09-04-no-word-level-captions-with-gemini-tts.md)
 
+## 보관 · 이전 기록
 
-## 에피소드
-
-- [시즌1 EP9 — -CIAL](episodes/season1-ep09.md) — 제작 결과, YouTube 예약, 공개 후 확인
-- [시즌1 EP10 — 시즌1 총정리](episodes/season1-ep10.md) — 완성된 롱폼과 미제작 쇼츠 A·B
-- [단편 EP11 — GONNA](episodes/ep11-gonna.md) — 렌더·패키징 완료, 업로드 예약 2026-09-08(화) 20:00 KST
-- [단편 EP12 — Want vs Won't](episodes/ep12-want-wont.md) — 렌더·패키징 완료, 업로드 예약 완료(상세: [지금 할 일](now.md))
-- 단편 EP13 — 알파벳 소리 지름길 — 전용 episodes/ 문서 없음(2026-09-06부터 `TASKS.md` 패턴으로
-  대체, `videos/VIDEO_WORKFLOW.md` "수정 사항 기록" 절 참고). 렌더·BGM/SFX·업로드 패키지 완료,
-  업로드 예약 2026-09-11(금) 20:00 KST. 상세: `videos/ep13-tongue-shortcut/TASKS.md`, [지금 할 일](now.md)
-- 단편 EP14 — 연음(linking sounds) — 대본·디자인·스토리보드·나레이션 12씬 생성 완료, 화면
-  제작 착수 전. 상세: `videos/ep14-connected-speech/BRIEF.md`, [지금 할 일](now.md)
-
-## 이전 기록
-
-- [지난달 작업 기록](logs/2026-08.md) — 2026년 8월 변경 이력
-- [이전 현재 상태](current-status.md) — `now.md` 도입 전 상세 상태 보관
-- [이전 통합 로그](log.md) — 월별 로그 도입 전 기록 보관, 작업 시작 때 읽지 않음
+- [AGENTS.md 보관 (2026-11-27)](legacy/agents-archive-2026-11-27.md) — 180줄 다이어트 개편 직전 원문(357줄, 68.4KB)
+- [AGENTS.md 보관 (2026-11-13)](legacy/agents-archive-2026-11-13.md) — 1차 대청소에서 뺀 옛 규칙 원문
+- [옛 Remotion 파이프라인](legacy/remotion-pipeline.md) — EP6~EP10 재렌더 시에만 참고
+- [now.md 보관 (2026-11-09)](logs/now-archive-2026-11-09.md) · [이전 현재 상태](current-status.md) · [이전 통합 로그](log.md) · [8월 작업 기록](logs/2026-08.md)
+- 초기 에피소드 문서: [EP9](episodes/season1-ep09.md) · [EP10](episodes/season1-ep10.md) · [EP11](episodes/ep11-gonna.md) · [EP12](episodes/ep12-want-wont.md)
 
 ## 원본 데이터
 
-- `../data/youtube/analytics-latest.json` — 최신 YouTube 분석 스냅샷
-- 데이터 파일 전체와 각 파일이 어디에 쓰이는지는 [데이터 소비 지도](data-consumption-map.md)에 있다
-- `../data/youtube/market-demand.json` — 경쟁 채널 outlier 기반 키워드별 시장 수요 점수(`node scripts/market-demand.mjs`로 재생성, YouTube Data API 쿼터 ~632 units 소모)
-- `../data/youtube/catalog.json` — 채널 영상 카탈로그
-- `../scripts/ep09_shortsA_auto.json` — EP9 Track A 대본·타이밍
-- `../scripts/ep09_shortsB_auto.json` — EP9 Track B 대본·타이밍
-- `../raw/` — 기사·참고 문서·대화 내보내기 등 변경하지 않는 원본
+- `../data/youtube/analytics-latest.json` · `market-demand.json` · `catalog.json` · `next-episode-input.md` (전체 소비처는 [데이터 소비 지도](data-consumption-map.md))
+- `../raw/` — 변경하지 않는 원본 참고 자료

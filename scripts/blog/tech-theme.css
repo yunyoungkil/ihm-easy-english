@@ -209,6 +209,83 @@ h1.post-title.entry-title,
   word-break: break-all;
 }
 
+/* 왼쪽 메뉴: 문의하기 양식·신고하기 (2026-11-27)
+ * 입력창이 메뉴 폭(252px)보다 넓은 277px이라 오른쪽으로 삐져나오던 것을 폭 100%로 맞추고,
+ * 브라우저 기본 회색 버튼·하늘색 링크를 딥 틸 디자인에 맞춘다. 글자 16px은 휴대폰 확대 방지.
+ */
+.sidebar-container .ContactForm .contact-form-widget,
+.sidebar-container .ContactForm form > div {
+  max-width: 100% !important;
+}
+
+.sidebar-container .ContactForm form {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.sidebar-container .ContactForm .contact-form-name,
+.sidebar-container .ContactForm .contact-form-email,
+.sidebar-container .ContactForm .contact-form-email-message {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 6px 0 0 !important;
+  padding: 9px 12px !important;
+  border: 1px solid #D5D9D6 !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+  color: #1F2937 !important;
+  font: inherit;
+  font-size: 16px !important;
+  box-shadow: none !important;
+}
+
+.sidebar-container .ContactForm .contact-form-email-message {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.sidebar-container .ContactForm .contact-form-name:focus,
+.sidebar-container .ContactForm .contact-form-email:focus,
+.sidebar-container .ContactForm .contact-form-email-message:focus {
+  outline: none !important;
+  border-color: #0F4C45 !important;
+  box-shadow: 0 0 0 3px rgba(15, 76, 69, 0.15) !important;
+}
+
+.sidebar-container .ContactForm .contact-form-button-submit {
+  width: 100% !important;
+  height: auto !important;
+  margin-top: 4px !important;
+  padding: 11px 16px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background: #0F4C45 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.sidebar-container .ContactForm .contact-form-button-submit:hover,
+.sidebar-container .ContactForm .contact-form-button-submit:focus {
+  background: #0D3B36 !important;
+}
+
+.sidebar-container .ReportAbuse a {
+  color: #6B7280 !important;
+  font-size: 13px !important;
+}
+
+.sidebar-container .ReportAbuse a:hover {
+  color: #0F4C45 !important;
+}
+
 @media screen and (max-width: 768px) {
   .post-outer-container {
     padding: 22px 18px !important;

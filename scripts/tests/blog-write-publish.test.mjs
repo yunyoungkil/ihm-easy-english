@@ -12,6 +12,7 @@ import {
   runWriter,
 } from '../blog/write-tech-post.mjs';
 import {
+  listTodayLivePosts,
   publishToBlogger,
   renderPostHtml,
   verifyLive,
@@ -340,4 +341,43 @@ test('renderPostHtml: hero가 있으면 대가 문구 문단 바로 다음에 �
   assert.equal(without.includes('<img'), false);
   assert.equal(renderPostHtml(draft, {productLink: null, hero: null}), without);
   assert.equal(renderPostHtml(draft), without);
+});
+
+test('listTodayLivePosts: 그날 한국 시간 0시부터 공개 글만 Bearer로 조회하고 {id,title,url}을 돌려준다', async () => {
+  let calledUrl = '';
+  let calledInit = null;
+  const res = await listTodayLivePosts({
+    blogId: '999888777',
+    token: 'tok-abc',
+    date: '2026-11-25',
+    fetchImpl: async (url, init) => {
+      calledUrl = url;
+      calledInit = init;
+      return {ok: true, status: 200, json: async () => ({items: [{id: 11, title: '오늘 글', url: 'https://tech.d40m.com/a.html'}]})};
+    },
+  });
+  const u = new URL(calledUrl);
+  assert.equal(u.origin + u.pathname, 'https://www.googleapis.com/blogger/v3/blogs/999888777/posts');
+  assert.equal(u.searchParams.get('status'), 'live');
+  assert.equal(u.searchParams.get('startDate'), '2026-11-25T00:00:00+09:00');
+  assert.equal(u.searchParams.get('fetchBodies'), 'false');
+  assert.equal(u.searchParams.get('maxResults'), '5');
+  assert.equal(calledInit.headers.Authorization, 'Bearer tok-abc');
+  assert.deepEqual(res, [{id: '11', title: '오늘 글', url: 'https://tech.d40m.com/a.html'}]);
+});
+
+test('listTodayLivePosts: 글이 없으면 빈 배열, HTTP 오류·잘못된 인자는 던진다', async () => {
+  const empty = await listTodayLivePosts({
+    blogId: '1',
+    token: 't',
+    date: '2026-11-25',
+    fetchImpl: async () => ({ok: true, status: 200, json: async () => ({})}),
+  });
+  assert.deepEqual(empty, []);
+  await assert.rejects(
+    () => listTodayLivePosts({blogId: '1', token: 't', date: '2026-11-25', fetchImpl: async () => ({ok: false, status: 403, text: async () => 'denied'})}),
+    /HTTP 403.*denied/,
+  );
+  await assert.rejects(() => listTodayLivePosts({blogId: '1', token: 't', date: '11/25'}), /YYYY-MM-DD/);
+  await assert.rejects(() => listTodayLivePosts({blogId: '1', date: '2026-11-25'}), /토큰/);
 });

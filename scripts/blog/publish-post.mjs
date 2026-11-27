@@ -3,6 +3,7 @@ import {DISCLOSURE, checkRenderedHtml} from './check-post.mjs';
 
 const BLOGGER_API_BASE = 'https://www.googleapis.com/blogger/v3';
 const HTTP_OK = 200; // allow-literal: HTTP 성공 응답 코드
+const LIVE_CHECK_MAX_RESULTS = 5; // allow-literal: 오늘 글 있음 확인용이라 5개면 충분
 const HERO_DISPLAY_WIDTH = 1200; // allow-literal: 대표 그림 표시 가로(설계 B절)
 const HERO_DISPLAY_HEIGHT = 670; // allow-literal: 16:9 그림을 가로 1200으로 보일 때 세로(설계 B절)
 const BROWSER_USER_AGENT =
@@ -103,6 +104,36 @@ export async function publishToBlogger({
     postId: String(data.id),
     url: String(data.url),
   };
+}
+
+/**
+ * 블로거에 한국 시간 기준 그날(date: YYYY-MM-DD) 올라간 공개 글을 조회한다.
+ * 돌려주는 값: [{id, title, url}] (없으면 빈 배열). HTTP 오류·응답 이상은 던진다.
+ */
+export async function listTodayLivePosts({blogId, token, date, fetchImpl = fetch} = {}) {
+  if (!blogId) throw new Error('blogId가 필요합니다.');
+  if (!token) throw new Error('Blogger 인증 토큰이 필요합니다.');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) throw new Error('date는 YYYY-MM-DD 형식이어야 합니다.');
+
+  const query = new URLSearchParams({
+    status: 'live',
+    startDate: `${date}T00:00:00+09:00`,
+    fetchBodies: 'false',
+    maxResults: String(LIVE_CHECK_MAX_RESULTS),
+  });
+  const endpoint = `${BLOGGER_API_BASE}/blogs/${encodeURIComponent(blogId)}/posts?${query}`;
+  const res = await fetchImpl(endpoint, {headers: {Authorization: `Bearer ${token}`}});
+  if (!res?.ok) {
+    let detail = '';
+    try { detail = await res.text(); } catch { /* ignore */ }
+    throw new Error(`Blogger 글 목록 조회 실패(HTTP ${res?.status ?? 'no-status'})${detail ? `: ${detail}` : ''}`);
+  }
+  const data = await res.json();
+  return (Array.isArray(data?.items) ? data.items : []).map((p) => ({
+    id: String(p.id),
+    title: String(p.title || ''),
+    url: String(p.url || ''),
+  }));
 }
 
 function extractPostBodyHtml(html) {

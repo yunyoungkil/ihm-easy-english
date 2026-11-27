@@ -1,9 +1,12 @@
 // 쿠팡 블로그(tech.d40m.com) 1회 실행 오케스트레이터.
 // CLI: node scripts/blog/tech-run.mjs [--preview|--publish-draft <파일>|--force-day]
+import {execFile} from 'node:child_process';
 import {existsSync} from 'node:fs';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
+import {hostname as osHostname} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {promisify} from 'node:util';
 
 import {
   appendPost,
@@ -22,14 +25,17 @@ import {checkRenderedHtml, checkTechPost} from './check-post.mjs';
 import {produceHero} from './hero-stage.mjs';
 import {deeplink, searchProducts} from './coupang-partners.mjs';
 import {getBlogAccessToken} from './google-auth.mjs';
-import {publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
+import {listTodayLivePosts, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
-import {syncData} from '../loop-data-sync.mjs';
+import {syncPaths} from '../loop-data-sync.mjs';
 
 export const WRITING_WEEKDAYS = [1, 3, 5]; // allow-literal: 설계 6-2 처음 4주 주 3편 가설
 export const MAX_CONSECUTIVE_REJECTS = 3; // allow-literal: 설계 6-7
 
-const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
+const execFileAsync = promisify(execFile);
+const GIT_PULL_TIMEOUT_MS = 2 * 60 * 1000; // allow-literal: 시작할 때 받기 제한 2분(멈춘 네트워크가 무인 실행을 붙잡지 않게)
+const PULL_ERROR_MAX_CHARS = 300; // allow-literal: 오류 문구 길이 제한
+const MODULE_DIR =path.dirname(fileURLToPath(import.meta.url));
 const COUPANG_SHORT_PREFIX = 'https://link.coupang.com/';
 
 /** query의 핵심 낱말이 모두 상품명(대소문자 무시)에 들어간 첫 후보를 고른다. 없으면 null. */
@@ -159,6 +165,33 @@ async function resolveProductLink(draft, absDraftPath, d) {
   }
 }
 
+/** 시작할 때 최신 기록을 받는다. 실패해도 던지지 않고 {ok:false, error}로 알린다(2026-11-27: PC 2대가 켜져 있는 쪽이 실행). */
+async function defaultGitPull({projectDir}) {
+  try {
+    await execFileAsync('git', ['pull', '--rebase', '--autostash'], {cwd: projectDir, timeout: GIT_PULL_TIMEOUT_MS});
+    return {ok: true};
+  } catch (err) {
+    // 부딪혀 rebase가 중간에 멈췄다면 되돌려 작업 폴더를 깨끗하게 둔다.
+    try {
+      await execFileAsync('git', ['rebase', '--abort'], {cwd: projectDir, timeout: GIT_PULL_TIMEOUT_MS});
+    } catch {
+      // 진행 중인 rebase가 없으면 무시
+    }
+    return {ok: false, error: String(err?.stderr || err?.message || err).trim().slice(0, PULL_ERROR_MAX_CHARS)};
+  }
+}
+
+/** 이번 실행 결과가 담긴 data/blog만 깃에 올린다(담당 PC 검사 없음). */
+function defaultSyncBlogData({projectDir, now, outcome, host}) {
+  return syncPaths({
+    projectDir,
+    now,
+    thisHost: host,
+    paths: ['data/blog'],
+    label: `chore(blog): 무인 실행 기록 ${kstDate(now)} ${outcome} (${host})`,
+  });
+}
+
 function buildDeps(deps = {}) {
   return {
     readQueue,
@@ -181,7 +214,10 @@ function buildDeps(deps = {}) {
     renderPostHtml,
     publishToBlogger,
     verifyLive,
-    syncData,
+    listTodayLivePosts,
+    gitPull: defaultGitPull,
+    syncBlogData: defaultSyncBlogData,
+    hostname: () => osHostname(),
     produceHero,
     ...deps,
   };
@@ -208,10 +244,56 @@ export async function runTechOnce({
   const startedAt = now.toISOString();
   const blogDir = path.join(projectDir, 'data', 'blog');
 
-  const recordAndReturn = async (record) => {
-    await d.appendRun(blogDir, record);
-    return record;
+  const host = d.hostname();
+  let pullFailed = false;
+  let liveCheckFailed = false;
+
+  // 모든 기록에 이 PC 이름과 실행 중 생긴 경고 표시를 붙인다.
+  const annotate = (record) => ({
+    ...record,
+    host,
+    ...(pullFailed ? {pullFailed: true} : {}),
+    ...(liveCheckFailed ? {liveCheckFailed: true} : {}),
+  });
+
+  // 결과를 깃에 올린다: 무인(auto) 실행은 other-pc-ran을 뺀 모든 결과, publish-draft는 게시 성공만, preview는 올리지 않는다.
+  // 올리기가 실패해도 결과는 바꾸지 않고 반환값에만 syncError를 붙인다.
+  const syncAfter = async (rec) => {
+    const shouldSync =
+      rec.outcome !== 'other-pc-ran' &&
+      (mode === 'auto' || (mode === 'publish-draft' && rec.outcome === 'published'));
+    if (!shouldSync) return rec;
+    try {
+      await d.syncBlogData({projectDir, now, outcome: rec.outcome, host});
+    } catch (err) {
+      rec.syncError = err?.message || String(err);
+    }
+    return rec;
   };
+
+  const recordAndReturn = async (record) => {
+    const rec = annotate(record);
+    await d.appendRun(blogDir, rec);
+    return syncAfter(rec);
+  };
+
+  // 시작할 때 최신 기록을 받는다. 실패해도 진행하고(기록에 pullFailed), 올리기 직전 블로거 확인이 마지막 안전장치다.
+  if (mode === 'auto') {
+    let pullRes;
+    try {
+      pullRes = await d.gitPull({projectDir});
+    } catch (err) {
+      pullRes = {ok: false, error: err?.message};
+    }
+    if (!pullRes?.ok) pullFailed = true;
+
+    // 다른 PC가 오늘 이미 돌았으면 쉰다. 이 기록은 커밋하지 않는다(host 없는 옛 기록은 무시).
+    const todayRuns = (await d.readRuns(blogDir)).filter((r) => r?.date === date && r?.host);
+    const otherRun = todayRuns.find((r) => String(r.host).toLowerCase() !== String(host).toLowerCase());
+    if (otherRun) {
+      return recordAndReturn({date, startedAt, outcome: 'other-pc-ran', otherHost: otherRun.host});
+    }
+  }
 
   const pauseState = await d.readPause(blogDir);
   if (pauseState?.paused) {
@@ -290,7 +372,8 @@ export async function runTechOnce({
     absDraftPath = path.resolve(projectDir, relDraftPath);
     // 앞선 실행이 그림 단계에서 멈췄다면 글을 다시 쓰지 않고 남은 초안으로 그림부터 다시 한다(설계 C절).
     const priorRuns = await d.readRuns(blogDir);
-    const lastRun = priorRuns[priorRuns.length - 1];
+    // 다른 PC가 쉰 날의 other-pc-ran 기록은 이어받기 판단에서 건너뛴다.
+    const lastRun = priorRuns.filter((r) => r?.outcome !== 'other-pc-ran').pop();
     let resumed = null;
     if (lastRun?.outcome === 'image-deferred' && lastRun.topicId === topicId && existsSync(absDraftPath)) {
       try {
@@ -393,12 +476,12 @@ export async function runTechOnce({
   if (evalRes.kind === 'rejected') {
     const reasons = evalRes.reasons;
     const priorRuns = await d.readRuns(blogDir);
-    const rec = {date, startedAt, outcome: 'rejected', topicId, reasons, ...extra};
+    const rec = annotate({date, startedAt, outcome: 'rejected', topicId, reasons, ...extra});
     await d.appendRun(blogDir, rec);
     if (countTrailingRejects([...priorRuns, rec]) >= MAX_CONSECUTIVE_REJECTS) {
       await d.writePause(blogDir, `점검 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${reasons.join('; ')}`, now);
     }
-    return rec;
+    return syncAfter(rec);
   }
   const productLink = evalRes.productLink;
 
@@ -408,19 +491,19 @@ export async function runTechOnce({
   const heroRes = await d.produceHero({draft, topicId, mode, projectDir, blogId, token, recentHashes});
   if (!heroRes?.ok) {
     const priorRuns = await d.readRuns(blogDir);
-    const rec = {
+    const rec = annotate({
       date,
       startedAt,
       outcome: 'image-deferred',
       topicId,
       reasons: heroRes?.reasons || ['대표 그림을 만들지 못했습니다.'],
       ...extra,
-    };
+    });
     await d.appendRun(blogDir, rec);
     if (mode !== 'preview' && countTrailingRejects([...priorRuns, rec], 'image-deferred') >= MAX_CONSECUTIVE_REJECTS) {
       await d.writePause(blogDir, `대표 그림 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${rec.reasons.join('; ')}`, now);
     }
-    return rec;
+    return syncAfter(rec);
   }
   const hero = heroRes.hero;
   const html = d.renderPostHtml(draft, {productLink, hero});
@@ -436,6 +519,27 @@ export async function runTechOnce({
     await mkdir(previewDir, {recursive: true});
     await writeFile(previewPath, html, 'utf8');
     return recordAndReturn({date, startedAt, outcome: 'preview', topicId, previewPath, ...extra});
+  }
+
+  // 올리기 직전 블로거에 오늘 올라간 글이 있는지 직접 확인한다(두 PC가 같은 날 올리는 사고 방지, 무인 실행만).
+  // 확인이 실패하면 게시를 멈추지 않고 기록에 liveCheckFailed만 남긴다.
+  if (mode === 'auto') {
+    let liveToday = [];
+    try {
+      liveToday = (await d.listTodayLivePosts({token, blogId, date})) || [];
+    } catch {
+      liveCheckFailed = true;
+    }
+    if (liveToday.length > 0) {
+      return recordAndReturn({
+        date,
+        startedAt,
+        outcome: 'already-posted-today',
+        topicId,
+        reasons: [`블로거에 오늘 올라간 글이 이미 있습니다: ${liveToday[0]?.title || liveToday[0]?.url || ''}`],
+        ...extra,
+      });
+    }
   }
 
   const published = await d.publishToBlogger({
@@ -462,7 +566,7 @@ export async function runTechOnce({
   });
   await d.shiftQueue(blogDir, topicId);
 
-  const rec = {
+  const rec = annotate({
     date,
     startedAt,
     outcome: 'published',
@@ -472,10 +576,9 @@ export async function runTechOnce({
     liveVerified: Boolean(live?.ok),
     ...(liveWarnings.length ? {reasons: liveWarnings} : {}),
     ...extra,
-  };
+  });
   await d.appendRun(blogDir, rec);
-  await d.syncData({projectDir, now});
-  return rec;
+  return syncAfter(rec);
 }
 
 function parseCliArgs(argv) {

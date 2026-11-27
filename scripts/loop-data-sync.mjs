@@ -74,14 +74,42 @@ export async function syncData({projectDir, now = new Date(), thisHost = hostnam
     writeFileSync(hostFilePath(projectDir), `${JSON.stringify({host: thisHost, claimedAt: now.toISOString(), note: '매일 루프가 데이터를 깃에 올리는 PC. 바꾸려면 host를 새 PC 이름(os.hostname)으로 고친다.'}, null, 2)}\n`, 'utf8');
   }
 
+  const stamp = now.toISOString().slice(0, 10);
+  return commitAndPush({
+    run,
+    includes: SYNC_INCLUDE,
+    excludes: SYNC_EXCLUDE,
+    messageFor: (files) => `chore(data): 매일 루프 데이터 자동 동기화 ${stamp} (${files.length}개, ${thisHost})`,
+  });
+}
+
+/**
+ * 지정한 경로만 커밋하고 푸시한다. 담당 PC 검사·담당 파일 쓰기는 하지 않는다(2026-11-27: 블로그 무인 실행은 켜져 있는 PC가 맡는다).
+ * label이 있으면 그 문장을 커밋 메시지로 쓴다. 돌려주는 값은 syncData와 같다.
+ */
+export async function syncPaths({projectDir, paths, label, now = new Date(), thisHost = hostname(), git = defaultGit} = {}) {
+  if (!Array.isArray(paths) || !paths.length) throw new Error('syncPaths: paths가 필요합니다.');
+  const run = (args) => git(args, projectDir);
+  const upstream = await run(['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{u}']);
+  if (upstream.code !== 0) return {skipped: '이 가지에 올릴 원격(upstream)이 없음'};
+  const stamp = now.toISOString().slice(0, 10);
+  return commitAndPush({
+    run,
+    includes: paths,
+    excludes: [],
+    messageFor: (files) => label || `chore(data): ${paths.join(', ')} 동기화 ${stamp} (${files.length}개, ${thisHost})`,
+  });
+}
+
+/** 공용: 경로를 담고, 담긴 파일만 커밋하고, 푸시한다(푸시 거부 시 pull --rebase 후 한 번 더). */
+async function commitAndPush({run, includes, excludes, messageFor}) {
   // 일치하는 파일이 없는 경로 하나가 add 전체를 실패시키지 않게 경로마다 따로 담는다(수정·새 파일·삭제 모두). 무시된 파일은 git이 거른다.
-  for (const include of SYNC_INCLUDE) await run(['add', '-A', '--', include, ...SYNC_EXCLUDE]);
-  const staged = await run(['diff', '--cached', '--name-only', '--', ...SYNC_PATHSPECS]);
+  for (const include of includes) await run(['add', '-A', '--', include, ...excludes]);
+  const staged = await run(['diff', '--cached', '--name-only', '--', ...includes, ...excludes]);
   const files = staged.out.split('\n').map((s) => s.trim()).filter(Boolean);
   if (!files.length) return {skipped: '올릴 변경 없음'};
 
-  const stamp = now.toISOString().slice(0, 10);
-  const message = `chore(data): 매일 루프 데이터 자동 동기화 ${stamp} (${files.length}개, ${thisHost})`;
+  const message = messageFor(files);
   // 다른 사람이 담아 둔 파일이 섞이지 않게, 방금 담은 파일 이름만 파일로 넘겨 그것만 커밋한다(경로가 많아도 명령줄이 안 넘친다).
   const listDir = mkdtempSync(join(tmpdir(), 'loop-sync-list-'));
   const listFile = join(listDir, 'files.txt');

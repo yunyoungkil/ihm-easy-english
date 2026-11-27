@@ -21,6 +21,8 @@ import {
   runTechOnce,
 } from '../blog/tech-run.mjs';
 
+const HOME_HOST = 'PC-HOME';
+const OTHER_HOST = 'PC-LAPTOP';
 const KST_WED_2AM = new Date('2026-11-24T17:00:00Z'); // KST 2026-11-25 02:00 (수)
 const KST_THU_10AM = new Date('2026-11-26T01:00:00Z'); // KST 2026-11-26 10:00 (목)
 
@@ -87,7 +89,10 @@ function makeBaseDeps(overrides = {}) {
     deeplink: 0,
     publishToBlogger: 0,
     verifyLive: 0,
-    syncData: 0,
+    syncBlogData: 0,
+    gitPull: 0,
+    listTodayLivePosts: 0,
+    syncBlogDataArgs: [],
     writePause: 0,
     produceHero: 0,
   };
@@ -120,10 +125,20 @@ function makeBaseDeps(overrides = {}) {
       calls.verifyLive += 1;
       return {ok: true, problems: []};
     },
-    syncData: async () => {
-      calls.syncData += 1;
+    syncBlogData: async (args) => {
+      calls.syncBlogData += 1;
+      calls.syncBlogDataArgs.push(args);
       return {committed: 3, pushed: true};
     },
+    gitPull: async () => {
+      calls.gitPull += 1;
+      return {ok: true};
+    },
+    listTodayLivePosts: async () => {
+      calls.listTodayLivePosts += 1;
+      return [];
+    },
+    hostname: () => HOME_HOST,
     ...overrides,
   };
   return {deps, calls};
@@ -514,7 +529,7 @@ test('10-5) 게시 글에 대표 그림이 들어가고 기록에 hero가 남는
   });
 });
 
-test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·appendPost·shiftQueue·syncData 1회씩', async () => {
+test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·appendPost·shiftQueue·syncBlogData 1회씩', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic(), makeTopic('next-topic')]));
     const {deps, calls} = makeBaseDeps({
@@ -549,7 +564,7 @@ test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·a
     assert.equal(calls.publishToBlogger, 1);
     assert.equal(calls.verifyLive, 1);
     assert.equal(calls.deeplink, 1);
-    assert.equal(calls.syncData, 1);
+    assert.equal(calls.syncBlogData, 1);
 
     const posts = await readPosts(blogDir);
     assert.equal(posts.length, 1);
@@ -587,7 +602,7 @@ test('11b) searchProducts 결과 주소가 이미 https://link.coupang.com/이�
   });
 });
 
-test('12) preview 모드: publishToBlogger/syncData 0번, output/blog/preview/<topicId>.html 생성, outcome=preview', async () => {
+test('12) preview 모드: publishToBlogger/syncBlogData 0번, output/blog/preview/<topicId>.html 생성, outcome=preview', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
     const {deps, calls} = makeBaseDeps();
@@ -595,7 +610,7 @@ test('12) preview 모드: publishToBlogger/syncData 0번, output/blog/preview/<t
     const res = await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'preview', deps});
     assert.equal(res.outcome, 'preview');
     assert.equal(calls.publishToBlogger, 0);
-    assert.equal(calls.syncData, 0);
+    assert.equal(calls.syncBlogData, 0);
     assert.equal((await readQueue(blogDir)).length, 1);
     assert.equal((await readPosts(blogDir)).length, 0);
 
@@ -625,8 +640,233 @@ test('13) publish-draft 모드: 글쓰기를 건너뛰고 지정한 초안 파�
     assert.equal(res.outcome, 'published');
     assert.equal(calls.runWriter, 0);
     assert.equal(calls.publishToBlogger, 1);
-    assert.equal(calls.syncData, 1);
+    assert.equal(calls.syncBlogData, 1);
     assert.equal((await readQueue(blogDir)).length, 0);
     assert.equal((await readPosts(blogDir))[0].topicId, 'ready-post');
+  });
+});
+
+// ---- 2026-11-27: PC 2대 무인 실행(켜져 있는 PC가 실행) ----
+
+const OTHER_PC_TODAY = {date: '2026-11-25', startedAt: '2026-11-24T17:00:00Z', outcome: 'published', topicId: 'x', host: OTHER_HOST};
+
+test('14) 오늘 다른 PC(host)가 이미 돌았으면 other-pc-ran으로 쉰다: 글쓰기·올리기 0번, 받기는 1번', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await writeFile(path.join(blogDir, 'tech-runs.json'), JSON.stringify([OTHER_PC_TODAY]));
+    const {deps, calls} = makeBaseDeps();
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'other-pc-ran');
+    assert.equal(res.otherHost, OTHER_HOST);
+    assert.equal(res.host, HOME_HOST);
+    assert.equal(calls.gitPull, 1);
+    assert.equal(calls.runWriter, 0);
+    assert.equal(calls.publishToBlogger, 0);
+    assert.equal(calls.syncBlogData, 0);
+  });
+});
+
+test('14-1) 같은 PC가 오늘 남긴 기록, host 없는 옛 기록, 다른 날 다른 PC 기록은 쉬는 이유가 아니다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await writeFile(
+      path.join(blogDir, 'tech-runs.json'),
+      JSON.stringify([
+        {date: '2026-11-25', startedAt: '2026-11-24T16:00:00Z', outcome: 'deferred', topicId: 'a', host: HOME_HOST},
+        {date: '2026-11-25', startedAt: '2026-11-24T16:30:00Z', outcome: 'deferred', topicId: 'a'},
+        {...OTHER_PC_TODAY, date: '2026-11-23'},
+      ]),
+    );
+    const {deps, calls} = makeBaseDeps();
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(calls.runWriter, 1);
+  });
+});
+
+test('14-2) preview 모드는 다른 PC 기록이 있어도 쉬지 않고 받기도 하지 않는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await writeFile(path.join(blogDir, 'tech-runs.json'), JSON.stringify([OTHER_PC_TODAY]));
+    const {deps, calls} = makeBaseDeps();
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'preview', deps});
+    assert.equal(res.outcome, 'preview');
+    assert.equal(calls.gitPull, 0);
+    assert.equal(calls.syncBlogData, 0);
+  });
+});
+
+test('15) 올리기 직전 블로거에 오늘 글이 이미 있으면 already-posted-today로 끝내고 publishToBlogger는 0번', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    let liveArgs = null;
+    const {deps, calls} = makeBaseDeps({
+      listTodayLivePosts: async (args) => {
+        calls.listTodayLivePosts += 1;
+        liveArgs = args;
+        return [{id: '1', title: '다른 PC가 올린 글', url: 'https://tech.d40m.com/x.html'}];
+      },
+    });
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'already-posted-today');
+    assert.deepEqual(res.reasons, ['블로거에 오늘 올라간 글이 이미 있습니다: 다른 PC가 올린 글']);
+    assert.equal(calls.publishToBlogger, 0);
+    assert.equal(calls.listTodayLivePosts, 1);
+    assert.deepEqual(liveArgs, {token: 'tok-valid', blogId: '6595948324958151051', date: '2026-11-25'});
+    assert.equal(calls.syncBlogData, 1, '이 결과도 올린다');
+    assert.equal((await readPosts(blogDir)).length, 0);
+    assert.equal((await readQueue(blogDir)).length, 1, '대기열은 그대로');
+  });
+});
+
+test('15-1) 블로거 확인이 실패하면 게시를 멈추지 않고 liveCheckFailed만 남긴다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps({
+      listTodayLivePosts: async () => {
+        calls.listTodayLivePosts += 1;
+        throw new Error('Blogger 글 목록 조회 실패(HTTP 500)');
+      },
+    });
+
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.liveCheckFailed, true);
+    assert.equal(calls.publishToBlogger, 1);
+    assert.equal((await readRuns(blogDir)).at(-1).liveCheckFailed, true);
+  });
+});
+
+test('15-2) preview·publish-draft 모드는 블로거 오늘 글 확인을 하지 않는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    const draftRel = 'data/blog/drafts/ready-post.json';
+    const draftAbs = path.join(projectDir, draftRel);
+    await mkdir(path.dirname(draftAbs), {recursive: true});
+    await writeFile(draftAbs, JSON.stringify(makeDraft('ready-post')), 'utf8');
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic('ready-post')]));
+    const {deps, calls} = makeBaseDeps();
+
+    assert.equal((await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'preview', deps})).outcome, 'preview');
+    assert.equal(
+      (await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'publish-draft', draftPath: draftRel, deps})).outcome,
+      'published',
+    );
+    assert.equal(calls.listTodayLivePosts, 0);
+  });
+});
+
+test('16) auto 모드는 rejected·deferred·published 결과를 각각 한 번씩 올리고, 모든 기록에 host가 있다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+
+    const rejected = makeBaseDeps({checkTechPost: async () => ({ok: false, problems: [{id: 'slop', text: 'AI 티 검출'}]})});
+    const r1 = await runTechOnce({projectDir, now: KST_WED_2AM, deps: rejected.deps});
+    assert.equal(r1.outcome, 'rejected');
+    assert.equal(rejected.calls.syncBlogData, 1);
+    assert.deepEqual(rejected.calls.syncBlogDataArgs[0], {projectDir, now: KST_WED_2AM, outcome: 'rejected', host: HOME_HOST});
+
+    const deferred = makeBaseDeps({runWriter: async () => ({ok: true, draft: makeDraft('dyson-v8-red-blink', null)})});
+    const r2 = await runTechOnce({projectDir, now: KST_WED_2AM, deps: deferred.deps});
+    assert.equal(r2.outcome, 'deferred');
+    assert.equal(deferred.calls.syncBlogData, 1);
+
+    const published = makeBaseDeps();
+    const r3 = await runTechOnce({projectDir, now: KST_WED_2AM, deps: published.deps});
+    assert.equal(r3.outcome, 'published');
+    assert.equal(published.calls.syncBlogData, 1);
+
+    const runs = await readRuns(blogDir);
+    assert.deepEqual(runs.map((r) => r.outcome), ['rejected', 'deferred', 'published']);
+    assert.ok(runs.every((r) => r.host === HOME_HOST));
+  });
+});
+
+test('16-1) 대기열 비어 있음·쉬는 날·멈춤 결과도 auto에서는 올리고 host가 붙는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    const queueEmpty = makeBaseDeps();
+    const q = await runTechOnce({projectDir, now: KST_WED_2AM, deps: queueEmpty.deps});
+    assert.equal(q.outcome, 'queue-empty');
+    assert.equal(queueEmpty.calls.syncBlogData, 1);
+
+    const notDay = makeBaseDeps();
+    const n = await runTechOnce({projectDir, now: KST_THU_10AM, deps: notDay.deps});
+    assert.equal(n.outcome, 'not-writing-day');
+    assert.equal(notDay.calls.syncBlogData, 1);
+
+    await writePause(blogDir, '연속 실패', KST_WED_2AM);
+    const paused = makeBaseDeps();
+    const p = await runTechOnce({projectDir, now: KST_WED_2AM, deps: paused.deps});
+    assert.equal(p.outcome, 'paused');
+    assert.equal(paused.calls.syncBlogData, 1);
+    assert.ok((await readRuns(blogDir)).every((r) => r.host === HOME_HOST));
+  });
+});
+
+test('16-2) preview 모드는 올리지 않고, 기록에는 host가 붙는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps();
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'preview', deps});
+    assert.equal(res.outcome, 'preview');
+    assert.equal(res.host, HOME_HOST);
+    assert.equal(calls.syncBlogData, 0);
+  });
+});
+
+test('16-3) 올리기가 실패해도 결과는 그대로이고 반환값에만 syncError가 붙는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps} = makeBaseDeps({
+      syncBlogData: async () => {
+        throw new Error('푸시 실패');
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.syncError, '푸시 실패');
+    assert.equal('syncError' in (await readRuns(blogDir)).at(-1), false);
+  });
+});
+
+test('17) 시작할 때 받기가 실패해도 계속 진행하고 기록에 pullFailed가 남는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps({
+      gitPull: async () => {
+        calls.gitPull += 1;
+        return {ok: false, error: '네트워크 없음'};
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.pullFailed, true);
+    assert.equal(calls.gitPull, 1);
+    assert.equal((await readRuns(blogDir)).at(-1).pullFailed, true);
+  });
+});
+
+test('17-1) 받기가 예외를 던져도 계속 진행하고, 받기에 성공하면 pullFailed가 없다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const thrown = makeBaseDeps({
+      gitPull: async () => {
+        throw new Error('git 없음');
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps: thrown.deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.pullFailed, true);
+
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await rm(path.join(blogDir, 'tech-posts.json'), {force: true});
+    await rm(path.join(blogDir, 'tech-runs.json'), {force: true});
+    const ok = makeBaseDeps();
+    const res2 = await runTechOnce({projectDir, now: KST_WED_2AM, deps: ok.deps});
+    assert.equal(res2.outcome, 'published');
+    assert.equal('pullFailed' in res2, false);
   });
 });

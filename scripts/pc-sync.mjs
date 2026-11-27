@@ -44,6 +44,9 @@ export const SYNC_ROOTS = [
   {rel: 'public/fonts/google', mediaOnly: false},
   {rel: 'output/blog/images', mediaOnly: false}, // 블로그 대표 그림과 hero.json(2026-11-27)
   {rel: 'output/blog/logs', mediaOnly: false}, // 블로그 글쓰기 과정 기록, 다른 PC에서 실패 원인을 보려고(2026-11-27)
+  // AI 티 검사(slop-rewrite)의 취향 규칙(writing-taste.md, W-01~W-08). 저장소가 공개라 git에는 올리지 않고(tools/slop-rewrite/.gitignore)
+  // 드라이브로만 두 PC가 나눈다(2026-11-27 감사: 한 PC 다운로드 폴더에만 있어 다른 PC는 검사를 못 돌렸다).
+  {rel: 'tools/slop-rewrite/taste', mediaOnly: false},
 ];
 
 export function isMediaFile(name) {
@@ -149,6 +152,22 @@ function freeBytes(dir) {
   } catch {
     return Infinity;
   }
+}
+
+/**
+ * 예전 위치(다운로드\slop-rewrite\taste)의 취향 파일을 프로젝트 안(tools/slop-rewrite/taste)으로 옮겨 온다(2026-11-27).
+ * 프로젝트 쪽이 없거나 더 오래됐을 때만 복사하고, 원본은 지우지 않는다. 그 뒤 SYNC_ROOTS가 드라이브로 나른다.
+ */
+export async function adoptLegacyTaste({project = projectDir, legacyDir = join(homedir(), 'Downloads', 'slop-rewrite', 'taste')} = {}) {
+  const target = join(project, 'tools', 'slop-rewrite', 'taste');
+  const filter = (rel) => rel.toLowerCase() !== 'readme.md' && !rel.endsWith(TMP_SUFFIX);
+  const [from, to] = await Promise.all([walk(legacyDir, '', filter), walk(target, '', filter)]);
+  let copied = 0;
+  for (const {rel} of planCopies(from, to)) {
+    await copyPreservingTime(join(legacyDir, ...rel.split('/')), join(target, ...rel.split('/')), from.get(rel).mtimeMs);
+    copied++;
+  }
+  return copied;
 }
 
 /** 프로젝트 재료를 드라이브와 맞춘다. direction: 'push' | 'pull' */
@@ -870,6 +889,15 @@ async function main(argv) {
       summary.errors += r.errors.length;
       summary.errorSamples.push(...r.errors.slice(0, 5));
       say(`받기: ${r.copied}개 (${fmtBytes(r.bytes)})${r.skippedForSpace ? ` · 하드디스크 공간이 모자라 ${r.skippedForSpace}개 못 받음` : ''}`);
+    }
+    if (cmd === 'sync' || cmd === 'push') {
+      try {
+        const n = await adoptLegacyTaste();
+        if (n) say(`AI 티 검사 취향 파일 ${n}개를 다운로드 폴더에서 프로젝트(tools/slop-rewrite/taste)로 옮겨 왔습니다.`);
+      } catch (err) {
+        summary.errors++;
+        summary.errorSamples.push(`취향 파일 옮기기: ${err && err.code ? err.code : '실패'}`);
+      }
     }
     if (tracked && (cmd === 'sync' || cmd === 'push')) {
       const r = await syncFiles({direction: 'push', remoteRoot, tracked, log});

@@ -48,3 +48,14 @@ test('지침이 말하는 코드 검사가 실제로 있다(문서와 코드가 
   const pkg = JSON.parse(read('package.json'));
   assert.ok(pkg.scripts['visual-summary'], 'npm run visual-summary가 없다');
 });
+
+test('AI 티 검사(slop-rewrite)는 저장소 안 tools/slop-rewrite에서 돌리고, 한 PC에만 있는 다운로드 폴더를 가리키지 않는다 [2026-11-27 감사]', () => {
+  for (const side of ['.claude', '.agents']) {
+    for (const f of ['skills/slop-rewrite/SKILL.md', 'skills/episode-planning/references/03-script-and-narration.md']) {
+      const text = read(`${side}/${f}`);
+      assert.ok(!/Downloads[\/]slop-rewrite/.test(text), `${side}/${f}가 다운로드 폴더를 가리킨다`);
+    }
+    assert.ok(read(`${side}/skills/slop-rewrite/SKILL.md`).includes('tools/slop-rewrite'));
+  }
+  assert.ok(existsSync(new URL('../../tools/slop-rewrite/.claude/skills/slop-rewrite/scripts/check_ai_tells.py', import.meta.url)));
+});

@@ -354,3 +354,22 @@ test('syncSecrets: 백업은 파일마다 최근 5개만 남긴다', async () =>
   assert.equal(left.length, 5);
   assert.ok(!left.includes('.youtube-oauth-token.json.2026-01-01T00-00-00-000Z'), '가장 오래된 것부터 지운다');
 });
+
+test('AI 티 검사 취향 파일: 드라이브로 나르고, 예전 다운로드 위치에서 프로젝트로 옮겨 온다 [2026-11-27 감사]', async () => {
+  const {adoptLegacyTaste} = await import('../pc-sync.mjs');
+  assert.ok(SYNC_ROOTS.some((r) => r.rel === 'tools/slop-rewrite/taste' && r.mediaOnly === false));
+  const {mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync} = await import('node:fs');
+  const {tmpdir} = await import('node:os');
+  const {join} = await import('node:path');
+  const base = mkdtempSync(join(tmpdir(), 'taste-'));
+  const legacy = join(base, 'legacy');
+  const project = join(base, 'project');
+  mkdirSync(legacy, {recursive: true});
+  writeFileSync(join(legacy, 'writing-taste.md'), '# W-01');
+  writeFileSync(join(legacy, 'README.md'), '# readme');
+  assert.equal(await adoptLegacyTaste({project, legacyDir: legacy}), 1);
+  assert.equal(readFileSync(join(project, 'tools', 'slop-rewrite', 'taste', 'writing-taste.md'), 'utf8'), '# W-01');
+  assert.ok(!existsSync(join(project, 'tools', 'slop-rewrite', 'taste', 'README.md')), 'README는 git이 나르므로 옮기지 않는다');
+  assert.equal(await adoptLegacyTaste({project, legacyDir: legacy}), 0, '이미 같으면 다시 복사하지 않는다');
+  assert.equal(await adoptLegacyTaste({project, legacyDir: join(base, 'none')}), 0, '예전 위치가 없으면 아무것도 안 한다');
+});

@@ -26,6 +26,7 @@ import {getBlogAccessToken} from './google-auth.mjs';
 import {listTodayLivePosts, publishDraft, publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
 import {applyPostSettings, toPermalinkSlug} from './blogger-post-settings.mjs';
 import {buildWriterPrompt, resolveClaudeExe, runWriter} from './write-tech-post.mjs';
+import {buildReaderRevisionPrompt, reviewBlogDraft} from './reader-review.mjs';
 import {collectSearchConsole} from './search-console.mjs';
 import {collectCoupangReports} from './coupang-reports.mjs';
 import {syncPaths} from '../loop-data-sync.mjs';
@@ -215,6 +216,7 @@ function buildDeps(deps = {}) {
     resolveClaudeExe,
     buildWriterPrompt,
     runWriter,
+    reviewBlogDraft,
     searchProducts,
     deeplink,
     checkTechPost,
@@ -431,7 +433,7 @@ export async function runTechOnce({
         });
       }
       draft = writerRes.draft;
-      rewriteCtx = {exe, prompt};
+      rewriteCtx = {exe, prompt, topic};
     }
     if (draft?.topicId) topicId = draft.topicId;
   }
@@ -514,6 +516,100 @@ export async function runTechOnce({
       await d.writePause(blogDir, `점검 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${reasons.join('; ')}`, now);
     }
     return syncAfter(rec);
+  }
+
+  // 기계 검사(사실·출처·AI 티·안전선)를 통과한 새 초안만 독자 눈으로 딱 1회 검수한다(2026-11-28 사용자 확정).
+  // 검수 실행이 실패하거나 수정본이 기계 검사를 깨뜨리면, 이미 검증된 앞 초안으로 안전하게 진행한다.
+  if (rewriteCtx) {
+    const recentTitles = posts.slice(-15).map((p) => p?.title).filter(Boolean); // allow-literal: 제목 반복 확인용 최근 제목 15개
+    let reviewRes;
+    try {
+      reviewRes = await d.reviewBlogDraft({
+        draft,
+        topic: rewriteCtx.topic,
+        recentTitles,
+        blog: 'tech',
+        exe: rewriteCtx.exe,
+      });
+    } catch (err) {
+      reviewRes = {ok: false, error: err?.message || String(err)};
+    }
+
+    if (!reviewRes?.ok) {
+      extra = {
+        ...extra,
+        readerReview: {
+          verdict: 'error',
+          revised: false,
+          error: String(reviewRes?.error || '독자 눈 검수에 실패했습니다.').slice(0, PULL_ERROR_MAX_CHARS),
+        },
+      };
+    } else if (reviewRes.verdict === 'revise' && Array.isArray(reviewRes.issues) && reviewRes.issues.length > 0) {
+      const verifiedDraft = draft;
+      const verifiedEval = evalRes;
+      const revisionPrompt = buildReaderRevisionPrompt({basePrompt: rewriteCtx.prompt, draft, review: reviewRes});
+      const revRes = await d.runWriter({
+        exe: rewriteCtx.exe,
+        prompt: revisionPrompt,
+        draftPath: absDraftPath,
+        cwd: projectDir,
+        logPath: await writerLogPath(projectDir, date, `${topicId}-reader-revise`),
+      });
+      if (!revRes?.ok) {
+        await persistDraft(absDraftPath, verifiedDraft);
+        extra = {
+          ...extra,
+          readerReview: {
+            verdict: 'revise',
+            summary: reviewRes.summary || '',
+            issueCount: reviewRes.issues.length,
+            revised: false,
+            fallbackReason: String(revRes?.error || '독자 눈 수정 실행 실패').slice(0, PULL_ERROR_MAX_CHARS),
+          },
+        };
+      } else {
+        draft = revRes.draft;
+        if (draft?.topicId) topicId = draft.topicId;
+        const revisedEval = await evaluateDraft();
+        if (revisedEval.kind === 'ok') {
+          evalRes = revisedEval;
+          extra = {
+            ...extra,
+            readerReview: {
+              verdict: 'revise',
+              summary: reviewRes.summary || '',
+              issueCount: reviewRes.issues.length,
+              revised: true,
+            },
+          };
+        } else {
+          draft = verifiedDraft;
+          if (draft?.topicId) topicId = draft.topicId;
+          await persistDraft(absDraftPath, verifiedDraft);
+          evalRes = verifiedEval;
+          extra = {
+            ...extra,
+            readerReview: {
+              verdict: 'revise',
+              summary: reviewRes.summary || '',
+              issueCount: reviewRes.issues.length,
+              revised: false,
+              fallbackReason: (revisedEval.reasons || ['수정본이 기계 검사에서 탈락했습니다.']).join('; ').slice(0, PULL_ERROR_MAX_CHARS),
+            },
+          };
+        }
+      }
+    } else {
+      extra = {
+        ...extra,
+        readerReview: {
+          verdict: 'pass',
+          summary: reviewRes.summary || '',
+          issueCount: 0,
+          revised: false,
+        },
+      };
+    }
   }
   const productLink = evalRes.productLink;
 

@@ -123,6 +123,10 @@ function makeBaseDeps(overrides = {}) {
       return {ok: true, hero: {...FAKE_HERO}};
     },
     checkTechPost: async () => ({ok: true, problems: []}),
+    reviewBlogDraft: async () => {
+      calls.reviewBlogDraft = (calls.reviewBlogDraft || 0) + 1;
+      return {ok: true, verdict: 'pass', summary: '통과', issues: []};
+    },
     publishToBlogger: async (args) => {
       calls.publishToBlogger += 1;
       calls.publishToBloggerArgs.push(args);
@@ -976,5 +980,89 @@ test('서치 콘솔 수집이 실패해도 게시 결과는 그대로이고 sear
     assert.equal(res.outcome, 'published');
     assert.equal(res.searchConsoleError, '서치 콘솔 응답 오류(403)');
     assert.equal(calls.syncBlogData, 1);
+  });
+});
+
+test('독자 눈 1회 검수: revise가 나오면 1번 다듬고 기계 검사 재통과 후 수정본을 게시한다(2026-11-28)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    let writerCalls = 0;
+    const prompts = [];
+    const {deps, calls} = makeBaseDeps({
+      runWriter: async ({prompt}) => {
+        writerCalls += 1;
+        prompts.push(prompt);
+        const draft = makeDraft();
+        if (writerCalls === 2) {
+          draft.title = '다이슨 V8 빨간불 10번 깜빡이면 어댑터부터 확인하세요';
+          draft.bodyHtml = '<p>충전 어댑터를 콘센트에 다시 연결합니다.</p><table><tr><th>증상</th><th>원인</th></tr></table><p>이 글은 직접 써 보지 않고 제조사 공식 안내를 정리했습니다.</p>';
+        }
+        return {ok: true, draft};
+      },
+      reviewBlogDraft: async () => {
+        calls.reviewBlogDraft = (calls.reviewBlogDraft || 0) + 1;
+        return {
+          ok: true,
+          verdict: 'revise',
+          summary: '줄글 벽과 뻔한 제목 보완',
+          issues: [{criterion: 'scannable-flow', problem: '표 없음', fix: '비교표 추가'}],
+        };
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(calls.reviewBlogDraft, 1);
+    assert.equal(writerCalls, 2);
+    assert.ok(prompts[1].includes('[scannable-flow] 표 없음'));
+    assert.equal(res.readerReview.verdict, 'revise');
+    assert.equal(res.readerReview.revised, true);
+    assert.equal(calls.publishToBloggerArgs[0].title, '다이슨 V8 빨간불 10번 깜빡이면 어댑터부터 확인하세요');
+  });
+});
+
+test('독자 눈 1회 검수: 수정본이 기계 검사에서 탈락하면 이미 검증된 앞 초안으로 안전하게 게시한다(2026-11-28)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    let writerCalls = 0;
+    let checkCalls = 0;
+    const {deps, calls} = makeBaseDeps({
+      runWriter: async () => {
+        writerCalls += 1;
+        const draft = makeDraft();
+        if (writerCalls === 2) draft.title = '수정하다 망가진 제목';
+        return {ok: true, draft};
+      },
+      checkTechPost: async () => {
+        checkCalls += 1;
+        if (checkCalls === 2) return {ok: false, problems: [{id: 'slop', text: 'AI 티 검출'}]};
+        return {ok: true, problems: []};
+      },
+      reviewBlogDraft: async () => ({
+        ok: true,
+        verdict: 'revise',
+        summary: '첫 화면 보완',
+        issues: [{criterion: 'answer-first-hook', problem: '답이 늦음', fix: '결론 앞으로'}],
+      }),
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.readerReview.verdict, 'revise');
+    assert.equal(res.readerReview.revised, false);
+    assert.ok(res.readerReview.fallbackReason.includes('AI 티 검출'));
+    assert.equal(calls.publishToBloggerArgs[0].title, '다이슨 V8 빨간불 깜빡임 확인 순서');
+  });
+});
+
+test('독자 눈 1회 검수: 검수 실행 자체가 실패해도 검증된 초안 게시는 막지 않는다(2026-11-28)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps} = makeBaseDeps({
+      reviewBlogDraft: async () => ({ok: false, error: '5시간 한도 초과'}),
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(res.readerReview.verdict, 'error');
+    assert.equal(res.readerReview.revised, false);
+    assert.ok(res.readerReview.error.includes('5시간 한도 초과'));
   });
 });

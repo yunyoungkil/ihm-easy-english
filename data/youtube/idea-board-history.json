@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-25T03:05:28.969Z",
+  "updatedAt": "2026-11-28T06:21:42.660Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -559,6 +559,32 @@
       "status": "scheduled",
       "selectedAt": "2026-11-25T03:05:28.969Z",
       "producedAt": "2026-11-28"
+    },
+    {
+      "topic": "긴 영어 단어 앞에서 입이 굳는 이유 — 철자는 열 글자가 넘어도 박자는 서너 개뿐",
+      "angleOrHook": "알파벳은 다 아는데 긴 단어만 보면 입이 굳는 이유: 철자 수가 아니라 박자 수로 읽는다",
+      "targetAudience": "마트 라벨·약 상자·안내문의 긴 영어 단어 앞에서 더듬는 국내파 3060",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "9988영어·J28QuPqOCyM·113.2배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "봄날영어학교·fX8UnVuhtxU·3.0배"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "알파벳은 다 아는데 영어 단어만 보면 읽기 전에 왜 입이 굳고 머뭇거리게 될까요? (메리고라운드 w8g6-e9yLP4)"
+        }
+      ],
+      "episodeSlug": "ep38-long-words-beats",
+      "episodeLabel": "EP38",
+      "status": "selected",
+      "selectedAt": "2026-11-28T06:21:42.660Z",
+      "producedAt": null
     }
   ]
 }

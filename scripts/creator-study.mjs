@@ -57,6 +57,7 @@ export function createEmptyStudy(sheetId) {
     sheetId: String(sheetId || ''),
     updatedAt: null,
     scriptEdits: {},
+    scriptFeedbacks: {},
     lineQuestions: [],
     freeQuestions: [],
     focusWords: [],
@@ -152,11 +153,29 @@ export function normalizeStudy(sheetId, raw = null) {
     .filter(Boolean)
     .slice(0, 10);
 
+  const scriptFeedbacks = {};
+  if (raw.scriptFeedbacks && typeof raw.scriptFeedbacks === 'object') {
+    for (const [k, v] of Object.entries(raw.scriptFeedbacks)) {
+      if (!/^\d+$/.test(String(k)) || !v || typeof v !== 'object') continue;
+      const draft = cleanText(v.draft, 4000);
+      const feedback = cleanText(v.feedback, 4000);
+      if (!draft && !feedback) continue;
+      scriptFeedbacks[String(k)] = {
+        draft,
+        feedback,
+        model: cleanText(v.model, 100),
+        updatedAt: v.updatedAt ? String(v.updatedAt) : null,
+        thread: normalizeThread(v.thread),
+      };
+    }
+  }
+
   return {
     schemaVersion: 1,
     sheetId: String(sheetId || raw.sheetId || ''),
     updatedAt: raw.updatedAt ? String(raw.updatedAt) : null,
     scriptEdits,
+    scriptFeedbacks,
     lineQuestions,
     freeQuestions,
     focusWords,
@@ -305,7 +324,7 @@ export function collectReviewItems(currentSheetId, allStudies = [], {maxItems = 
  * draft 시트에서 대표님이 노션 느낌 편집기로 고친 문장을 실제 컷 대본(narration)에 반영한다.
  * 승인/공개된 시트는 안전을 위해 차단한다.
  */
-export function applyStudyEditsToSheet(sheet, study) {
+export function applyStudyEditsToSheet(sheet, study, {cutIndex = null} = {}) {
   if (!sheet || typeof sheet !== 'object') throw new Error('비교 시트가 없습니다.');
   if (sheet.status !== 'draft') {
     throw new Error('이미 승인되거나 공개된 시트의 대본은 여기서 덮어쓸 수 없습니다(초안 시트만 가능).');
@@ -315,7 +334,10 @@ export function applyStudyEditsToSheet(sheet, study) {
   const visual = (next.rows || []).find((r) => r.key === 'visual');
   const cuts = visual?.ours?.cutPlan?.cuts || [];
   let appliedCount = 0;
-  for (const [key, val] of Object.entries(edits)) {
+  const targetEntries = cutIndex !== null && cutIndex !== undefined
+    ? [[String(Number(cutIndex)), edits[String(Number(cutIndex))]]]
+    : Object.entries(edits);
+  for (const [key, val] of targetEntries) {
     const idx = Number(key);
     if (!Number.isInteger(idx) || idx < 0 || idx >= cuts.length) continue;
     const text = cleanText(val, 4000);
@@ -348,6 +370,46 @@ export function patchCreatorStudy(current, patch = {}) {
   if (patch.action === 'reset_cut_edit') {
     const idx = String(Number(patch.cutIndex));
     delete next.scriptEdits[idx];
+    return next;
+  }
+
+  if (patch.action === 'set_cut_feedback') {
+    const idx = String(Number(patch.cutIndex));
+    if (!/^\d+$/.test(idx)) throw new Error('컷 번호가 올바르지 않습니다.');
+    const draft = cleanText(patch.draft, 4000);
+    const feedback = cleanText(patch.feedback, 4000);
+    if (!draft && !feedback) throw new Error('피드백 내용이 비어 있습니다.');
+    const orig = cleanText(patch.originalText, 4000);
+    if (draft && (!orig || draft !== orig)) next.scriptEdits[idx] = draft;
+    next.scriptFeedbacks[idx] = {
+      draft,
+      feedback,
+      model: cleanText(patch.model, 100),
+      updatedAt: new Date().toISOString(),
+      thread: [],
+    };
+    return next;
+  }
+
+  if (patch.action === 'append_cut_feedback_thread') {
+    const idx = String(Number(patch.cutIndex));
+    if (!/^\d+$/.test(idx)) throw new Error('컷 번호가 올바르지 않습니다.');
+    const target = next.scriptFeedbacks[idx];
+    if (!target) throw new Error('먼저 이 장면의 AI 피드백을 받아 주세요.');
+    const qText = cleanText(patch.question, 1000);
+    const aText = cleanText(patch.answer, 4000);
+    const nowIso = new Date().toISOString();
+    if (!Array.isArray(target.thread)) target.thread = [];
+    if (qText) target.thread.push({role: 'student', text: qText, createdAt: nowIso});
+    if (aText) target.thread.push({role: 'teacher', text: aText, createdAt: nowIso});
+    target.thread = target.thread.slice(-16);
+    target.updatedAt = nowIso;
+    return next;
+  }
+
+  if (patch.action === 'clear_cut_feedback') {
+    const idx = String(Number(patch.cutIndex));
+    delete next.scriptFeedbacks[idx];
     return next;
   }
 

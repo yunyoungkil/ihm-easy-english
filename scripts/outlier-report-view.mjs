@@ -5,7 +5,7 @@
 import { BLIND_REVIEW_CHECKS, blindReviewChecksFor, fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { CREDIT_KO, ANALYSIS_LABELS, EYE_LABELS, TAG_LABELS } from './packaging-cases.mjs';
-import { CREATOR_STUDY_CSS, renderCreatorStudySection } from './creator-study-view.mjs';
+import { CREATOR_STUDY_CSS, renderCreatorStudySection, renderAnswerBody } from './creator-study-view.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -289,7 +289,34 @@ const SHEET_CSS = `<style>
 .sheet-idx-thumb.wide{width:128px;height:72px}
 .sheet-idx-thumb.placeholder{display:flex;align-items:center;justify-content:center;background:rgba(148,163,184,0.1);color:var(--sub);font-size:11px;font-weight:700;text-align:center}
 @media (max-width:600px){.ref-card-wrap{flex-direction:column}.ref-thumb{width:100%;height:160px}}
-.fullscript div{padding:4px 0;border-bottom:1px solid var(--line-subtle)}
+.fullscript{display:flex;flex-direction:column;gap:14px}
+.fs-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;background:rgba(56,189,248,0.06);border:1px solid var(--line);margin-bottom:4px}
+.fs-item{padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);transition:border-color .15s}
+.fs-item.is-edited{border-color:rgba(16,185,129,0.5);background:rgba(16,185,129,0.03)}
+.fs-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-bottom:6px}
+.fs-orig{font-size:14.5px;line-height:1.72;color:var(--ink);word-break:keep-all;margin-bottom:8px}
+.fs-editor{display:flex;flex-direction:column;gap:8px}
+.fs-textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px;line-height:1.65;padding:9px 12px;resize:vertical;outline:none;transition:border-color .15s}
+.fs-textarea:focus{border-color:var(--accent)}
+.fs-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fs-btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:12px;font-weight:700;padding:5px 10px;border-radius:7px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:border-color .15s,background .15s,color .15s}
+.fs-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hover)}
+.fs-btn:disabled{opacity:0.55;cursor:default}
+.fs-btn.primary{background:var(--accent);color:#06131f;border-color:var(--accent)}
+.fs-btn.primary:hover{opacity:0.9;color:#06131f}
+@media (prefers-color-scheme:light){.fs-btn.primary,.fs-btn.primary:hover{color:#ffffff}}
+.fs-btn.apply{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.fs-btn.apply:hover{background:var(--ok);color:#06281e}
+.fs-stats{margin-left:auto;font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
+.fs-fb{margin-top:8px;padding:11px 14px;border-radius:10px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.3);font-size:13.5px;line-height:1.68;display:none}
+.fs-fb.open{display:block}
+.fs-fb-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.fs-thread{margin-top:8px;display:flex;flex-direction:column;gap:6px;padding-left:10px;border-left:2px dashed var(--line)}
+.fs-thread-s{padding:6px 10px;border-radius:8px;background:rgba(168,85,247,0.08);font-size:13px}
+.fs-thread-t{padding:8px 10px;border-radius:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);font-size:13px}
+.fs-follow{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.fs-follow input{flex:1;min-width:min(200px,100%);border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px;padding:6px 10px;outline:none}
+.fs-follow input:focus{border-color:var(--accent)}
 .pkg{white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;margin:6px 0 10px;font:inherit;font-size:13.5px;background:rgba(0,0,0,0.03);padding:10px 12px;border-radius:8px;border:1px solid var(--line)}
 .film.ours figure{border-color:rgba(56,189,248,0.3)}
 .film.ours img{border-color:var(--accent)}
@@ -345,7 +372,7 @@ function packageOurs(ours) {
 /** 컷 리듬: 경쟁 컷 시각(ffmpeg가 잰 값)과 우리 컷 계획을 같은 시간 막대로 보여 준다.
  * 2026-11-25 화면 정리: 우리 컷 카드는 대본 네 줄만 보이고 나머지(영어 소리·연출 메모)는 "더 보기"로 접는다.
  * 카드들이 가장 긴 카드 높이로 늘어나지 않게 하고(align-items:start), 경쟁 화면 이미지와 전체 대본은 접어 둔다. */
-function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = [], { isWide = false } = {}) {
+function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = [], { isWide = false, study = null, isDraft = false } = {}) {
   const plan = row.ours?.cutPlan;
   const times = report?.pacing?.times;
   const compDur = Number(report?.windowSeconds) || Number(report?.meta?.durationSeconds) || 0;
@@ -445,7 +472,78 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = [], {
   if (script.lines.length) {
     const en = (plan?.cuts || []).flatMap((c) => (Array.isArray(c.voiceEn) ? c.voiceEn : []));
     const enNote = en.length ? ` · 영어 소리 ${en.length}번(서로 다른 문장 ${new Set(en.map((x) => String(x).trim())).size}개)` : '';
-    parts.push(`<details class="fold" id="sec-script"><summary>전체 대본 보기 <span class="meta">— 컷 대본 ${script.lines.length}개를 이은 글(음성에 그대로 넣는 글) · 한글 ${hangulSyllables(script.text).toLocaleString('ko-KR')}자${enNote}</span></summary><div class="fold-body"><div class="card fullscript">${script.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div></div></details>`);
+    const edits = study?.scriptEdits || {};
+    const feedbacks = study?.scriptFeedbacks || {};
+    const scriptCuts = (plan?.cuts || [])
+      .map((c, cutIndex) => ({
+        cutIndex,
+        t: Number(c?.t ?? 0),
+        text: String(c?.narration || '').trim(),
+        voiceEn: Array.isArray(c?.voiceEn) ? c.voiceEn : (c?.voiceEn ? [c.voiceEn] : []),
+      }))
+      .filter((x) => x.text);
+    const editedCount = scriptCuts.filter((x) => edits[String(x.cutIndex)] && edits[String(x.cutIndex)] !== x.text).length;
+    const extractSuggested = (fbText) => {
+      const m = String(fbText || '').match(/다듬어\s*본\s*문장[\s\S]*?(?:^|\n)>\s*(.+)/);
+      if (m && m[1]) return m[1].trim().replace(/^["'“”]|["'“”]$/g, '');
+      const q = String(fbText || '').match(/(?:^|\n)>\s*([^\n]{8,})/);
+      return q && q[1] ? q[1].trim().replace(/^["'“”]|["'“”]$/g, '') : '';
+    };
+    const toolbarHtml = `<div class="fs-toolbar">
+      <div class="meta">✏️ 각 단락 아래 편집 칸에서 어색한 문장을 직접 고치고 <b>AI 즉각 피드백</b>을 받아 보세요. (수정본 <b id="fs-edited-cnt">${editedCount}</b>개)</div>
+      ${isDraft ? `<button type="button" class="fs-btn apply" id="btn-fs-apply-all"${editedCount ? '' : ' disabled'}>✅ 수정한 대본 한 번에 시트에 반영</button>` : '<span class="meta">초안 시트에서만 실제 대본 덮어쓰기 가능</span>'}
+    </div>`;
+    const itemsHtml = scriptCuts.map((item) => {
+      const k = String(item.cutIndex);
+      const savedDraft = edits[k] || '';
+      const isEdited = Boolean(savedDraft && savedDraft !== item.text);
+      const val = isEdited ? savedDraft : item.text;
+      const fb = feedbacks[k] || null;
+      const origSyl = hangulSyllables(item.text);
+      const curSyl = hangulSyllables(val);
+      const diffSyl = curSyl - origSyl;
+      const diffLabel = diffSyl === 0 ? '' : ` · 원문 대비 ${diffSyl > 0 ? '+' : ''}${diffSyl}자`;
+      const estSec = Math.round((curSyl / 4.2) * 10) / 10;
+      const suggested = fb?.feedback ? extractSuggested(fb.feedback) : '';
+      const threadHtml = Array.isArray(fb?.thread) && fb.thread.length
+        ? `<div class="fs-thread" data-fs-thread="1">${fb.thread.map((turn) => (turn.role === 'student'
+            ? `<div class="fs-thread-s"><b>🙋 대표님:</b> ${escapeHtml(turn.text)}</div>`
+            : `<div class="fs-thread-t"><b>🤖 코치 답변:</b>${renderAnswerBody(turn.text)}</div>`)).join('')}</div>`
+        : '<div class="fs-thread" data-fs-thread="1" style="display:none"></div>';
+      return `<div class="fs-item${isEdited ? ' is-edited' : ''}" data-fs-cut="${item.cutIndex}" data-fs-orig="${escapeHtml(item.text)}">
+        <div class="fs-head">
+          <span class="t">${escapeHtml(item.t)}초 · ${item.cutIndex + 1}번 장면</span>
+          ${item.voiceEn.length ? `<span class="meta">🎧 ${escapeHtml(item.voiceEn.join(', '))}</span>` : ''}
+          <span class="ok" data-fs-badge="1"${isEdited ? '' : ' style="display:none"'}>수정됨</span>
+        </div>
+        <div class="fs-orig" data-fs-orig-view="1">${escapeHtml(item.text)}</div>
+        <div class="fs-editor">
+          <textarea class="fs-textarea" rows="2" data-fs-input="1" placeholder="여기서 어색한 부분을 직접 고쳐 보세요...">${escapeHtml(val)}</textarea>
+          <div class="fs-actions">
+            <button type="button" class="fs-btn primary" data-fs-fb-btn="1">🤖 AI 즉각 피드백</button>
+            <button type="button" class="fs-btn" data-fs-save-btn="1">💾 수정본 저장</button>
+            ${isDraft ? `<button type="button" class="fs-btn apply" data-fs-apply-btn="1"${isEdited ? '' : ' style="display:none"'}>✅ 이 장면 시트에 반영</button>` : ''}
+            <button type="button" class="fs-btn" data-fs-reset-btn="1"${isEdited ? '' : ' style="display:none"'}>↩ 원문으로</button>
+            <span class="fs-stats" data-fs-stats="1">한글 ${curSyl}자 · 약 ${estSec}초${diffLabel}</span>
+          </div>
+          <div class="fs-fb${fb?.feedback ? ' open' : ''}" data-fs-fb-box="1">
+            <div class="fs-fb-head">
+              <b>🤖 AI 대본 편집 피드백${fb?.model ? ` <span class="meta">(${escapeHtml(fb.model)})</span>` : ''}</b>
+              <div style="display:flex;gap:6px;align-items:center">
+                <button type="button" class="fs-btn" data-fs-use-suggest="1" data-suggest="${escapeHtml(suggested)}"${suggested ? '' : ' style="display:none"'}>📋 제안 문장 편집 칸에 넣기</button>
+              </div>
+            </div>
+            <div data-fs-fb-body="1">${fb?.feedback ? renderAnswerBody(fb.feedback) : ''}</div>
+            ${threadHtml}
+            <div class="fs-follow">
+              <input type="text" data-fs-follow-input="1" placeholder="피드백에 이어서 물어보기 (예: 12글자는 빼고 싶은데 괜찮을까?)">
+              <button type="button" class="fs-btn primary" data-fs-follow-btn="1">전송</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    parts.push(`<details class="fold" id="sec-script"><summary>전체 대본 보기 <span class="meta">— 컷 대본 ${script.lines.length}개를 이은 글(음성에 그대로 넣는 글) · 한글 ${hangulSyllables(script.text).toLocaleString('ko-KR')}자${enNote}${editedCount ? ` · 수정본 ${editedCount}개` : ''}</span></summary><div class="fold-body"><div class="card fullscript">${toolbarHtml}${itemsHtml}</div></div></details>`);
   }
   return parts.join('');
 }
@@ -590,7 +688,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
   <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}${evFold}</div>
-</div>${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports, { isWide }) : ''}`;
+</div>${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports, { isWide, study, isDraft }) : ''}`;
   };
 
   // ── 승인에 필요한 것: AI 추천 → 제목 고르기 → 썸네일 고르기 → 승인 버튼 ──
@@ -796,6 +894,212 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
           approveBtn.disabled=false;
           approveBtn.textContent='✅ 이 비교 시트 승인하기';
         });
+    });
+  }
+  var secScript=document.getElementById('sec-script');
+  if(secScript){
+    function fsEsc(s){
+      var d=document.createElement('div');
+      d.textContent=String(s||'');
+      return d.innerHTML;
+    }
+    function fsInline(str){
+      var s=fsEsc(str);
+      s=s.replace(/\\x60([^\\x60]+)\\x60/g,'<code>$1</code>');
+      s=s.replace(/\\*\\*([^*]+)\\*\\*/g,'<b style="color:var(--accent);font-weight:700">$1</b>');
+      s=s.replace(/\\*([^*]+)\\*/g,'<i>$1</i>');
+      return s;
+    }
+    function fsFormatMd(text){
+      var clean=String(text||'').replace(/\\r\\n/g,'\\n').trim();
+      if(!clean)return '';
+      var lines=clean.split('\\n');
+      var out=[];
+      var inList=false;
+      for(var i=0;i<lines.length;i++){
+        var line=lines[i].trim();
+        if(!line){if(inList){out.push('</ul>');inList=false;}out.push('<div style="height:6px"></div>');continue;}
+        if(/^###\\s+/.test(line)){if(inList){out.push('</ul>');inList=false;}out.push('<div style="font-weight:800;color:var(--ink);margin-top:10px;margin-bottom:4px;font-size:14px">'+fsInline(line.replace(/^###\\s+/,''))+'</div>');continue;}
+        if(/^>\\s*/.test(line)){if(inList){out.push('</ul>');inList=false;}out.push('<div style="margin:6px 0;padding:8px 12px;border-left:3px solid var(--accent);background:rgba(56,189,248,0.08);border-radius:0 8px 8px 0;font-weight:600">'+fsInline(line.replace(/^>\\s*/,''))+'</div>');continue;}
+        if(/^[*•-]\\s+/.test(line)){if(!inList){out.push('<ul style="margin:4px 0;padding-left:18px">');inList=true;}out.push('<li style="margin:3px 0">'+fsInline(line.replace(/^[*•-]\\s+/,''))+'</li>');continue;}
+        if(inList){out.push('</ul>');inList=false;}
+        out.push('<div style="margin:3px 0">'+fsInline(line)+'</div>');
+      }
+      if(inList)out.push('</ul>');
+      return out.join('');
+    }
+    function fsExtractSuggest(text){
+      var str=String(text||'');
+      var m=str.match(/다듬어\\s*본\\s*문장[\\s\\S]*?(?:^|\\n)>\\s*(.+)/);
+      if(m&&m[1])return m[1].trim().replace(/^["'“”]|["'“”]$/g,'');
+      var q=str.match(/(?:^|\\n)>\\s*([^\\n]{8,})/);
+      return q&&q[1]?q[1].trim().replace(/^["'“”]|["'“”]$/g,''):'';
+    }
+    function fsHangulCount(s){
+      var m=String(s||'').match(/[가-힣]/g);
+      return m?m.length:0;
+    }
+    function fsSyncCounts(){
+      var n=secScript.querySelectorAll('.fs-item.is-edited').length;
+      var cntEl=document.getElementById('fs-edited-cnt');
+      if(cntEl)cntEl.textContent=String(n);
+      var allBtn=document.getElementById('btn-fs-apply-all');
+      if(allBtn)allBtn.disabled=(n===0);
+    }
+    function fsSyncItem(item){
+      var ta=item.querySelector('[data-fs-input]');
+      if(!ta)return;
+      var orig=item.dataset.fsOrig||'';
+      var val=ta.value.trim();
+      var edited=Boolean(val&&val!==orig.trim());
+      item.classList.toggle('is-edited',edited);
+      var badge=item.querySelector('[data-fs-badge]');
+      if(badge)badge.style.display=edited?'':'none';
+      var resetBtn=item.querySelector('[data-fs-reset-btn]');
+      if(resetBtn)resetBtn.style.display=edited?'':'none';
+      var applyBtn=item.querySelector('[data-fs-apply-btn]');
+      if(applyBtn)applyBtn.style.display=edited?'':'none';
+      var stats=item.querySelector('[data-fs-stats]');
+      if(stats){
+        var curSyl=fsHangulCount(val);
+        var diffSyl=curSyl-fsHangulCount(orig);
+        var estSec=Math.round((curSyl/4.2)*10)/10;
+        var diffTxt=diffSyl===0?'':' · 원문 대비 '+(diffSyl>0?'+':'')+diffSyl+'자';
+        stats.textContent='한글 '+curSyl+'자 · 약 '+estSec+'초'+diffTxt;
+      }
+      fsSyncCounts();
+    }
+    secScript.addEventListener('input',function(e){
+      var ta=e.target&&e.target.closest?e.target.closest('[data-fs-input]'):null;
+      if(!ta)return;
+      var item=ta.closest('.fs-item');
+      if(item)fsSyncItem(item);
+    });
+    secScript.addEventListener('keydown',function(e){
+      var fi=e.target&&e.target.closest?e.target.closest('[data-fs-follow-input]'):null;
+      if(fi&&e.key==='Enter'){
+        e.preventDefault();
+        var item=fi.closest('.fs-item');
+        var btn=item&&item.querySelector('[data-fs-follow-btn]');
+        if(btn)btn.click();
+      }
+    });
+    secScript.addEventListener('click',function(e){
+      var allBtn=e.target&&e.target.closest?e.target.closest('#btn-fs-apply-all'):null;
+      if(allBtn&&!allBtn.disabled){
+        if(!confirm('수정한 대본을 실제 비교 시트에 모두 반영할까요?'))return;
+        allBtn.disabled=true;
+        allBtn.textContent='⏳ 반영 중...';
+        fetch('/api/creator-study-apply-script',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid})})
+          .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'반영 실패');return d;});})
+          .then(function(){location.reload();})
+          .catch(function(err){alert(err.message||'반영 중 오류가 발생했습니다');allBtn.disabled=false;allBtn.textContent='✅ 수정한 대본 한 번에 시트에 반영';});
+        return;
+      }
+      var item=e.target&&e.target.closest?e.target.closest('.fs-item'):null;
+      if(!item)return;
+      var cutIndex=Number(item.dataset.fsCut);
+      var orig=item.dataset.fsOrig||'';
+      var ta=item.querySelector('[data-fs-input]');
+      var saveBtn=e.target.closest('[data-fs-save-btn]');
+      if(saveBtn&&ta){
+        var txt=ta.value.trim();
+        saveBtn.disabled=true;
+        saveBtn.textContent='⏳ 저장 중...';
+        fetch('/api/creator-study',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid,action:'set_cut_edit',cutIndex:cutIndex,text:txt,originalText:orig})})
+          .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'저장 실패');return d;});})
+          .then(function(){
+            fsSyncItem(item);
+            saveBtn.textContent='✓ 저장됨';
+            setTimeout(function(){saveBtn.disabled=false;saveBtn.textContent='💾 수정본 저장';},1200);
+          })
+          .catch(function(err){alert(err.message||'저장 실패');saveBtn.disabled=false;saveBtn.textContent='💾 수정본 저장';});
+        return;
+      }
+      var resetBtn=e.target.closest('[data-fs-reset-btn]');
+      if(resetBtn&&ta){
+        ta.value=orig;
+        fsSyncItem(item);
+        fetch('/api/creator-study',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid,action:'reset_cut_edit',cutIndex:cutIndex})}).catch(function(){});
+        return;
+      }
+      var applyBtn=e.target.closest('[data-fs-apply-btn]');
+      if(applyBtn&&ta){
+        var txt2=ta.value.trim();
+        if(!txt2)return;
+        if(!confirm((cutIndex+1)+'번 장면의 수정 대본을 실제 비교 시트에 반영할까요?'))return;
+        applyBtn.disabled=true;
+        applyBtn.textContent='⏳ 반영 중...';
+        fetch('/api/creator-study-apply-script',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid,cutIndex:cutIndex,text:txt2})})
+          .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'반영 실패');return d;});})
+          .then(function(){location.reload();})
+          .catch(function(err){alert(err.message||'반영 실패');applyBtn.disabled=false;applyBtn.textContent='✅ 이 장면 시트에 반영';});
+        return;
+      }
+      var useBtn=e.target.closest('[data-fs-use-suggest]');
+      if(useBtn&&ta){
+        var sg=useBtn.dataset.suggest||'';
+        if(sg){ta.value=sg;fsSyncItem(item);ta.focus();}
+        return;
+      }
+      var fbBtn=e.target.closest('[data-fs-fb-btn]');
+      if(fbBtn&&ta){
+        var draft=ta.value.trim();
+        if(!draft){alert('수정할 대본을 먼저 입력해 주세요.');return;}
+        var fbBox=item.querySelector('[data-fs-fb-box]');
+        var fbBody=item.querySelector('[data-fs-fb-body]');
+        var threadEl=item.querySelector('[data-fs-thread]');
+        var sgBtn=item.querySelector('[data-fs-use-suggest]');
+        fbBtn.disabled=true;
+        fbBtn.textContent='⏳ AI 피드백 받는 중...';
+        if(fbBox)fbBox.classList.add('open');
+        if(fbBody)fbBody.innerHTML='<span class="meta">⏳ 입말 흐름·맞춤법·앞뒤 컷 연결을 확인하고 있습니다...</span>';
+        fetch('/api/creator-study-tutor',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid,mode:'feedback_script_edit',cutIndex:cutIndex,draft:draft})})
+          .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'피드백 생성 실패');return d;});})
+          .then(function(data){
+            fsSyncItem(item);
+            if(fbBody)fbBody.innerHTML=fsFormatMd(data.feedback||'');
+            if(threadEl){threadEl.innerHTML='';threadEl.style.display='none';}
+            var sgText=fsExtractSuggest(data.feedback||'');
+            if(sgBtn){sgBtn.dataset.suggest=sgText;sgBtn.style.display=sgText?'':'none';}
+            fbBtn.disabled=false;
+            fbBtn.textContent='🤖 AI 즉각 피드백';
+          })
+          .catch(function(err){
+            if(fbBody)fbBody.innerHTML='<span class="bad">'+fsEsc(err.message||'AI 피드백을 불러오지 못했습니다.')+'</span>';
+            fbBtn.disabled=false;
+            fbBtn.textContent='🤖 AI 즉각 피드백';
+          });
+        return;
+      }
+      var flBtn=e.target.closest('[data-fs-follow-btn]');
+      if(flBtn&&ta){
+        var flIn=item.querySelector('[data-fs-follow-input]');
+        var q=flIn?flIn.value.trim():'';
+        if(!q)return;
+        var threadBox=item.querySelector('[data-fs-thread]');
+        var sgBtn2=item.querySelector('[data-fs-use-suggest]');
+        flBtn.disabled=true;
+        flBtn.textContent='⏳...';
+        fetch('/api/creator-study-tutor',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid,mode:'followup_script_edit',cutIndex:cutIndex,draft:ta.value.trim(),question:q})})
+          .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'답변 생성 실패');return d;});})
+          .then(function(data){
+            if(flIn)flIn.value='';
+            if(threadBox){
+              threadBox.style.display='';
+              threadBox.insertAdjacentHTML('beforeend','<div class="fs-thread-s"><b>🙋 대표님:</b> '+fsEsc(q)+'</div><div class="fs-thread-t"><b>🤖 코치 답변:</b>'+fsFormatMd(data.answer||'')+'</div>');
+            }
+            var sgNext=fsExtractSuggest(data.answer||'');
+            if(sgNext&&sgBtn2){sgBtn2.dataset.suggest=sgNext;sgBtn2.style.display='';}
+            flBtn.disabled=false;
+            flBtn.textContent='전송';
+          })
+          .catch(function(err){
+            alert(err.message||'답변을 불러오지 못했습니다.');
+            flBtn.disabled=false;
+            flBtn.textContent='전송';
+          });
+      }
     });
   }
 })();</script>`);

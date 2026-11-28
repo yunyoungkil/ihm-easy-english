@@ -15,7 +15,8 @@ import {
   summarizeCreatorStudy,
 } from '../creator-study.mjs';
 import {renderCreatorStudySection, renderAnswerBody} from '../creator-study-view.mjs';
-import {buildQuestionPrompt, buildGuessFeedbackPrompt, callGeminiTutor} from '../creator-study-tutor.mjs';
+import {buildQuestionPrompt, buildGuessFeedbackPrompt, buildScriptEditFeedbackPrompt, callGeminiTutor} from '../creator-study-tutor.mjs';
+import {renderTransformSheetPage} from '../outlier-report-view.mjs';
 
 const makeSheet = (status = 'draft') => ({
   schemaVersion: 4,
@@ -205,4 +206,81 @@ test('renderAnswerBody: 소제목·중첩 목록·굵은 글씨·코드·인용�
   assert.ok(!html.includes('**'));
   assert.ok(!html.includes('`'));
   assert.ok(!html.includes('\\rightarrow'));
+});
+
+test('대본 단락 편집·즉각 피드백 저장·단건 시트 반영·프롬프트 생성', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'creator-study-fb-'));
+  try {
+    const sheet = makeSheet('draft');
+    let st = loadCreatorStudy('ep99-test-study', dir);
+    st = patchCreatorStudy(st, {
+      action: 'set_cut_feedback',
+      cutIndex: 0,
+      draft: '짧은 단어는 읽을 수 있는데 긴 단어는 읽을려고 하면 막히죠.',
+      originalText: sheet.rows[0].ours.cutPlan.cuts[0].narration,
+      feedback: '### 👍 잘 살린 점\n- 공감이 생생해요.\n### ✏️ 다듬어 본 문장\n> 짧은 단어는 읽을 수 있는데 긴 단어는 읽으려고 하면 막히죠.',
+      model: 'gemini-test',
+    });
+    st = patchCreatorStudy(st, {
+      action: 'append_cut_feedback_thread',
+      cutIndex: 0,
+      question: '포기해 버리죠를 붙이면 어떨까요?',
+      answer: '입말 느낌이 더 살아납니다.',
+    });
+    saveCreatorStudy('ep99-test-study', st, dir, new Date('2026-11-28T09:00:00Z'));
+
+    const reloaded = loadCreatorStudy('ep99-test-study', dir);
+    assert.equal(reloaded.scriptEdits['0'], '짧은 단어는 읽을 수 있는데 긴 단어는 읽을려고 하면 막히죠.');
+    assert.equal(reloaded.scriptFeedbacks['0'].model, 'gemini-test');
+    assert.equal(reloaded.scriptFeedbacks['0'].thread.length, 2);
+
+    // 단건(cutIndex: 0)만 시트에 반영해도 1번 컷은 그대로 유지
+    st = patchCreatorStudy(reloaded, {action: 'set_cut_edit', cutIndex: 1, text: '둘째 컷 수정본', originalText: sheet.rows[0].ours.cutPlan.cuts[1].narration});
+    const {sheet: nextSingle, appliedCount} = applyStudyEditsToSheet(sheet, st, {cutIndex: 0});
+    assert.equal(appliedCount, 1);
+    assert.equal(nextSingle.rows[0].ours.cutPlan.cuts[0].narration, '짧은 단어는 읽을 수 있는데 긴 단어는 읽을려고 하면 막히죠.');
+    assert.equal(nextSingle.rows[0].ours.cutPlan.cuts[1].narration, '영수증도 피를 안 읽습니다.');
+
+    const prompt = buildScriptEditFeedbackPrompt({
+      sheet,
+      cutIndex: 0,
+      originalNarration: sheet.rows[0].ours.cutPlan.cuts[0].narration,
+      draft: st.scriptEdits['0'],
+      nextNarration: sheet.rows[0].ours.cutPlan.cuts[1].narration,
+      cutEnglish: ['salmon'],
+    });
+    assert.ok(prompt.includes('대표님 수정 대본'));
+    assert.ok(prompt.includes('바로 다음 장면 대본'));
+    assert.ok(prompt.includes('다듬어 본 문장'));
+  } finally {
+    rmSync(dir, {recursive: true, force: true});
+  }
+});
+
+test('renderTransformSheetPage: 전체 대본 보기 단락별 편집 칸·AI 피드백·클라이언트 스크립트 문법 검증', () => {
+  const sheet = makeSheet('draft');
+  const study = patchCreatorStudy(
+    {sheetId: 'ep99-test-study'},
+    {
+      action: 'set_cut_feedback',
+      cutIndex: 0,
+      draft: '내가 고친 첫 장면 <script>alert(1)</script>',
+      originalText: sheet.rows[0].ours.cutPlan.cuts[0].narration,
+      feedback: '### 👍 잘 살린 점\n- 자연스럽습니다.\n### ✏️ 다듬어 본 문장\n> 내가 다듬은 첫 장면입니다.',
+      model: 'gemini-test',
+    },
+  );
+  const html = renderTransformSheetPage(sheet, null, [], {study});
+  assert.ok(html.includes('id="sec-script"'));
+  assert.ok(html.includes('data-fs-input="1"'));
+  assert.ok(html.includes('data-fs-fb-btn="1"'));
+  assert.ok(html.includes('data-fs-apply-btn="1"'));
+  assert.ok(html.includes('내가 다듬은 첫 장면입니다.'));
+  assert.ok(!html.includes('<script>alert(1)</script>'));
+  // 모든 인라인 <script> 블록의 JS 문법 검증
+  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  assert.ok(scripts.length >= 2);
+  for (const code of scripts) {
+    assert.doesNotThrow(() => new Function(code));
+  }
 });

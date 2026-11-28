@@ -67,7 +67,7 @@ import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, classifySheetProblems, approveSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
 import { loadCreatorStudy, saveCreatorStudy, loadAllCreatorStudies, collectReviewItems, patchCreatorStudy, applyStudyEditsToSheet, extractCutEnglish, SAFE_SHEET_ID_RE } from './creator-study.mjs';
-import { answerStudentQuestion, feedbackViewerGuess } from './creator-study-tutor.mjs';
+import { answerStudentQuestion, feedbackViewerGuess, feedbackScriptEdit } from './creator-study-tutor.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6010,11 +6010,21 @@ const server = createServer(async (req, res) => {
       const file = join(transformSheetsDir, vid + '.json');
       if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
       try {
+        const cutIndex = body.cutIndex !== undefined && body.cutIndex !== null && body.cutIndex !== '' ? Number(body.cutIndex) : null;
+        if (cutIndex !== null && (!Number.isInteger(cutIndex) || cutIndex < 0)) {
+          return json(res, 400, {error: '컷 번호가 올바르지 않습니다.'});
+        }
         const sheet = await loadJson(file);
-        const study = loadCreatorStudy(vid);
-        const {sheet: next, appliedCount} = applyStudyEditsToSheet(sheet, study);
+        let study = loadCreatorStudy(vid);
+        if (cutIndex !== null && typeof body.text === 'string' && body.text.trim()) {
+          const cuts = ((sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts) || [];
+          const orig = cuts[cutIndex] ? String(cuts[cutIndex].narration || '') : '';
+          study = patchCreatorStudy(study, {action: 'set_cut_edit', cutIndex, text: body.text, originalText: orig});
+          saveCreatorStudy(vid, study);
+        }
+        const {sheet: next, appliedCount} = applyStudyEditsToSheet(sheet, study, {cutIndex});
         if (appliedCount > 0) await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
-        return json(res, 200, {ok: true, appliedCount});
+        return json(res, 200, {ok: true, appliedCount, cutIndex});
       } catch (e) { return json(res, 400, {error: e.message}); }
     }
     if (url.pathname === '/api/creator-study-tutor' && req.method === 'POST') {
@@ -6168,6 +6178,91 @@ const server = createServer(async (req, res) => {
           st = patchCreatorStudy(loadCreatorStudy(vid), {action: 'update_viewer_question', id, guess, guessFeedback: aiRes.text});
           saveCreatorStudy(vid, st);
           return json(res, 200, {ok: true, id, guess, guessFeedback: aiRes.text, model: aiRes.model});
+        }
+
+        if (mode === 'feedback_script_edit') {
+          const cutIndex = Number(body.cutIndex);
+          const draft = String(body.draft || '').trim();
+          if (!Number.isInteger(cutIndex) || cutIndex < 0 || cutIndex >= cuts.length) {
+            return json(res, 400, {error: '장면 번호가 올바르지 않습니다.'});
+          }
+          if (!draft) return json(res, 400, {error: '수정할 대본을 입력해 주세요.'});
+          const cut = cuts[cutIndex];
+          const originalNarration = String(cut?.narration || '').trim();
+          const plan = (sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan;
+          const nextT = cutIndex + 1 < cuts.length ? Number(cuts[cutIndex + 1]?.t) : Number(plan?.durationSeconds);
+          const cutDurationSec = Number.isFinite(Number(cut?.t)) && Number.isFinite(nextT) && nextT > Number(cut?.t) ? nextT - Number(cut.t) : null;
+          // 먼저 수정본을 안전하게 저장한다(AI 연결이 실패해도 수정본 유실 방지)
+          let st = patchCreatorStudy(loadCreatorStudy(vid), {action: 'set_cut_edit', cutIndex, text: draft, originalText: originalNarration});
+          saveCreatorStudy(vid, st);
+
+          const prevCut = cutIndex > 0 ? cuts[cutIndex - 1] : null;
+          const nextCut = cutIndex + 1 < cuts.length ? cuts[cutIndex + 1] : null;
+          const aiRes = await feedbackScriptEdit({
+            sheet,
+            cutIndex,
+            originalNarration,
+            draft,
+            cutMotion: String(cut?.motion || ''),
+            cutEnglish: extractCutEnglish(cut),
+            prevNarration: String(prevCut?.narration || ''),
+            nextNarration: String(nextCut?.narration || ''),
+            cutDurationSec,
+            apiKey,
+          });
+          st = patchCreatorStudy(loadCreatorStudy(vid), {
+            action: 'set_cut_feedback',
+            cutIndex,
+            draft,
+            originalText: originalNarration,
+            feedback: aiRes.text,
+            model: aiRes.model,
+          });
+          saveCreatorStudy(vid, st);
+          return json(res, 200, {ok: true, cutIndex, draft, feedback: aiRes.text, model: aiRes.model});
+        }
+
+        if (mode === 'followup_script_edit') {
+          const cutIndex = Number(body.cutIndex);
+          const question = String(body.question || '').trim();
+          if (!Number.isInteger(cutIndex) || cutIndex < 0 || cutIndex >= cuts.length) {
+            return json(res, 400, {error: '장면 번호가 올바르지 않습니다.'});
+          }
+          if (!question) return json(res, 400, {error: '추가로 물어볼 내용을 입력해 주세요.'});
+          const cut = cuts[cutIndex];
+          const originalNarration = String(cut?.narration || '').trim();
+          const st = loadCreatorStudy(vid);
+          const fb = st.scriptFeedbacks?.[String(cutIndex)];
+          const draft = String(body.draft || fb?.draft || st.scriptEdits?.[String(cutIndex)] || originalNarration).trim();
+          const baseThread = [];
+          if (fb?.feedback) {
+            baseThread.push({role: 'student', text: `수정 대본: ${fb.draft || draft}`});
+            baseThread.push({role: 'teacher', text: fb.feedback});
+          }
+          for (const t of fb?.thread || []) baseThread.push(t);
+          const prevCut = cutIndex > 0 ? cuts[cutIndex - 1] : null;
+          const nextCut = cutIndex + 1 < cuts.length ? cuts[cutIndex + 1] : null;
+          const aiRes = await feedbackScriptEdit({
+            sheet,
+            cutIndex,
+            originalNarration,
+            draft,
+            cutMotion: String(cut?.motion || ''),
+            cutEnglish: extractCutEnglish(cut),
+            prevNarration: String(prevCut?.narration || ''),
+            nextNarration: String(nextCut?.narration || ''),
+            thread: baseThread,
+            followUp: question,
+            apiKey,
+          });
+          const updated = patchCreatorStudy(loadCreatorStudy(vid), {
+            action: 'append_cut_feedback_thread',
+            cutIndex,
+            question,
+            answer: aiRes.text,
+          });
+          saveCreatorStudy(vid, updated);
+          return json(res, 200, {ok: true, cutIndex, question, answer: aiRes.text, model: aiRes.model});
         }
 
         return json(res, 400, {error: '알 수 없는 과외 요청입니다.'});

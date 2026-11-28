@@ -285,7 +285,7 @@ test('시트 페이지: 컷 이미지 아래 컷 대본과, 아래에 컷 대본
   const html = renderTransformSheetPage(sheet, null, []);
   assert.equal((html.match(/<div class="say">/g) || []).length, 2);
   assert.match(html, /class="card fullscript"/);
-  assert.match(html, /첫째 줄<\/div><div><span class="meta">5초<\/span> 둘째 줄/);
+  assert.match(html, /data-fs-orig-view="1">첫째 줄<\/div>[\s\S]*5초[\s\S]*data-fs-orig-view="1">둘째 줄<\/div>/);
 });
 
 test('완성형(2판) 시트는 설명글·태그·고정 댓글 칸이 있어야 하고, 대본이 약속한 고정 댓글이 비면 실패한다', async () => {

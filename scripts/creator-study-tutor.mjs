@@ -125,3 +125,76 @@ export async function feedbackViewerGuess(opts) {
   const prompt = buildGuessFeedbackPrompt(opts);
   return callGeminiTutor(prompt, opts);
 }
+
+const SCRIPT_COACH_RULES = [
+  '당신은 3060 국내파 대상 영어 유튜브 채널의 1:1 대본 편집 코치입니다.',
+  '역할: 채널 대표님이 직접 고쳐 쓴 나레이션 한 단락을 보고, 기분 맞추기 아부 없이 실전 영상 관점에서 바로 써먹을 피드백을 짧고 명쾌하게 줍니다.',
+  '점검 기준 (실제로 눈에 띄는 것만 간결하게 짚고, 문제 없으면 억지로 흠잡지 않는다):',
+  '1. 입말 자연스러움 & AI 티: 사람이 소리 내어 읽을 때 귀에 편하게 들어오는지, 원문보다 생생해졌는지.',
+  '2. 맞춤법·AI 음성(TTS) 발음 표기: "읽을려고→읽으려고"처럼 AI 음성이 어색하게 읽을 수 있는 구어 오표기·띄어쓰기.',
+  '3. 앞뒤 컷·화면 연출과의 연결: 원문에 있던 핵심 연결 고리(예: 숫자·앞뒤 컷 약속·화면 동작과 맞는 말)가 빠져 흐름이 끊기지는 않는지.',
+  '4. 사실 정확성 & 안전선: 영어 발음·규칙 사실 오류, 학술 전문용어(음소·파열음·유성음 등), 과장 단정 여부.',
+  '출력 형식 (간결하게 3부분):',
+  '### 👍 잘 살린 점',
+  '- 1~2줄로 핵심만',
+  '### 🔍 체크할 점',
+  '- 고치면 더 좋아질 것(맞춤법·TTS 표기·앞뒤 컷 연결·호흡 길이)만 1~3줄로. 문제 없으면 "크게 걸리는 부분 없습니다." 한 줄.',
+  '### ✏️ 다듬어 본 문장',
+  '> 대표님의 말맛을 최대한 살리면서 체크한 점만 반영한 최종 낭독 문장 1안 (인용 기호 > 한 줄로, 따옴표 없이 본문만 적기)',
+].join('\n');
+
+export function buildScriptEditFeedbackPrompt({
+  sheet,
+  cutIndex = 0,
+  originalNarration = '',
+  draft = '',
+  cutMotion = '',
+  cutEnglish = [],
+  prevNarration = '',
+  nextNarration = '',
+  cutDurationSec = null,
+  thread = [],
+  followUp = '',
+}) {
+  const {topic, words} = extractContextSummary(sheet);
+  const origClean = String(originalNarration || '').trim();
+  const draftClean = String(draft || '').trim();
+  const lines = [
+    SCRIPT_COACH_RULES,
+    '',
+    `[영상 주제] ${topic || '영어 발음·읽기'}`,
+    words.length ? `[영상 주요 영어] ${words.join(', ')}` : '',
+    `[편집 중인 장면] ${Number(cutIndex) + 1}번 장면${cutDurationSec ? ` (예상 컷 길이 약 ${Math.round(cutDurationSec * 10) / 10}초)` : ''}`,
+    cutMotion ? `[이 장면 화면 연출] ${cutMotion}` : '',
+    cutEnglish.length ? `[이 장면 원어민 영어] ${cutEnglish.join(', ')}` : '',
+    prevNarration ? `[바로 앞 장면 대본] "${prevNarration}"` : '',
+    `[원래 대본] "${origClean}"`,
+    nextNarration ? `[바로 다음 장면 대본] "${nextNarration}"` : '',
+    `[대표님 수정 대본] "${draftClean}"`,
+  ].filter(Boolean);
+
+  if (followUp && String(followUp).trim()) {
+    if (Array.isArray(thread) && thread.length) {
+      lines.push('', '[지금까지 나눈 피드백 대화]');
+      for (const turn of thread.slice(-6)) {
+        lines.push(`${turn.role === 'student' ? '대표님' : '편집 코치'}: ${turn.text}`);
+      }
+    }
+    lines.push(
+      '',
+      `[대표님 추가 질문/요청] ${String(followUp).trim()}`,
+      '앞선 피드백을 반복하지 말고 요청에 바로 답해 주세요. 문장을 다시 제안할 때는 반드시 ### ✏️ 다듬어 본 문장 아래 > 인용 줄로 1안만 깔끔하게 적어 주세요.',
+    );
+  } else {
+    lines.push(
+      '',
+      '대표님이 고친 대본을 원문·앞뒤 장면과 비교해 바로 피드백해 주세요. 대표님의 표현과 말맛을 존중하되, 맞춤법·앞뒤 연결·호흡에서 놓치면 아쉬운 점은 솔직하게 짚어 주세요.',
+    );
+  }
+  return lines.join('\n');
+}
+
+export async function feedbackScriptEdit(opts) {
+  const prompt = buildScriptEditFeedbackPrompt(opts);
+  return callGeminiTutor(prompt, opts);
+}

@@ -194,3 +194,20 @@ test('lecture-style(2026-11-26): 딱딱한 강의체 2회 이상이면 비차단
   const natural = wrap('오늘은 두 가지만 비교해 볼게요.', '쉽게 말하면 방향 차이예요.');
   assert.ok(!kinds(natural).includes('lecture-style'));
 });
+
+// 2026-11-28 EP38: "나:" 줄로 쓴 통대본에서 나레이션을 하나도 못 뽑고 화면 지시문만 읽어,
+// --compare가 "한글 문장을 찾지 못함"을 내는데도 통과로 셌다(사용자 지적 후 Gemini 검수로 드러남).
+test('extractNarration: "나:" 통대본은 나: 줄만 뽑고 [화면]·[EN]·[쉼] 지시문은 뺀다', () => {
+  const md = [
+    '# 대본', '> 설명 줄', '## 0. 여는 장면',
+    '[화면: 상자 뒷면 클로즈업. 펜이 글자를 짚는다.', '나: 상자 뒷면에 적힌 영어 단어 하나예요.',
+    '[EN: instructions]', '[쉼 3초]', '나: 그런데 이 단어는 손뼉 세 번이면 끝나요.',
+  ].join('\n');
+  const rows = extractNarration(md);
+  assert.deepEqual(rows.map((x) => x.text), ['상자 뒷면에 적힌 영어 단어 하나예요.', '그런데 이 단어는 손뼉 세 번이면 끝나요.']);
+  assert.deepEqual(rows.map((x) => x.line), [5, 8]);
+  const many = Array.from({ length: 10 }, (_, i) => `나: 이건 ${i + 1}번째 문장이에요.`).join('\n[화면: 그림]\n');
+  const c = compareWithCompetitors(many, patternsWith(COMPARE.MIN_VIDEOS));
+  assert.equal(c.ok, true);
+  assert.equal(c.ours.sentences, 10);
+});

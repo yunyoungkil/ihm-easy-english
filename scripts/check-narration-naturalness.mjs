@@ -49,6 +49,7 @@ const PARTICLE_MISSING = /(?:^|\s)(귀|소리|입|혀|발음|실력)\s+(?:확실
 const META_LINE = /^[-*]\s|^\*\*|:\*\*|^[가-힣A-Za-z ]{1,10}:(?:\s|$)/; // 블록 안에 섞인 제작 메모(목록, **라벨:**, 라벨: 값)
 
 const TABLE_STAGE_RE = /^\*?\([^)]+\)\*?$/;
+const SPEAKER_LINE = /^(?:나|나레이션|내레이션|해설)\s*:\s*/;
 
 function extractTableNarration(lines) {
   const hangul = /[가-힣]/;
@@ -90,6 +91,13 @@ export function extractNarration(markdown) {
   if (sawBlock) return out;
   const fromTable = extractTableNarration(lines);
   if (fromTable.length) return fromTable;
+  // "나: …" 줄로 쓴 통대본(EP38~): 말하는 사람 표시가 있는 줄만 나레이션이다. 아래 일반 경로는 "나:"를 제작 메모(META_LINE)로 보고 빼서,
+  // [화면: …] 지시문만 읽고 말투 비교가 0문장이 되었다(2026-11-28).
+  const spoken = lines.map((t, i) => ({ line: i + 1, text: t.trim() }))
+    .filter((x) => SPEAKER_LINE.test(x.text))
+    .map((x) => ({ line: x.line, text: x.text.replace(SPEAKER_LINE, '').trim() }))
+    .filter((x) => hangul.test(x.text));
+  if (spoken.length) return spoken;
   return lines.map((t, i) => ({ line: i + 1, text: t.trim() })).filter((x) => hangul.test(x.text) && !/^[#|>]/.test(x.text) && !META_LINE.test(x.text));
 }
 

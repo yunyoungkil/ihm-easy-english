@@ -15,7 +15,9 @@ import {selectPackageVideo, shortsPackageEpisode} from './upload-package-summary
  *   npm run studio-upload -- <패키지 폴더> --schedule "2026-11-18 20:00" --playlist "<재생목록 이름>" [--yes]
  *   npm run studio-upload -- <패키지 폴더> --schedule "2026-11-18 20:00" --no-playlist [--no-subs] [--yes]
  *   npm run studio-upload -- <패키지 폴더> --guide        (UPLOAD-GUIDE.md만 쓴다)
+ *   npm run studio-upload -- <패키지 폴더> --record <영상 ID>   (이미 올린 영상의 상태 카드를 catalog.json 값으로 채운다)
  *
+ * 예약에 성공하면 상태 카드(롱폼 status.json, 쇼츠 shorts-status.json)를 이 도구가 쓴다(2026-11-28). 에이전트가 손으로 쓰지 않는다.
  * --yes가 없으면 점검만 하고 스튜디오에 아무것도 올리지 않는다. 종료 코드: 0 성공, 1 점검·확인 실패, 2 사용법 오류.
  * 자동 실행 금지: 매일 루프·스케줄러·다른 스크립트가 이 파일을 부르지 않는다. 사람이 명령을 칠 때만 돈다.
  * "공개" 라디오와 "저장" 버튼은 절대 누르지 않는다. 마지막 버튼 글자가 정확히 "예약"일 때만 누른다.
@@ -285,6 +287,67 @@ export function formatPlan(plan) {
   ].join('\n');
 }
 
+/**
+ * 예약·공개된 영상의 패키지 상태 카드(롱폼 status.json, 쇼츠 shorts-status.json)에 넣을 값을 만든다.
+ * 대시보드 동기화·고정 댓글 자동화·브리핑이 이 카드의 videoId로 패키지 폴더를 찾는다. 대시보드 동기화는 이미 있는
+ * 카드만 유튜브 값으로 고치고 없는 카드는 만들지 않아서, 이 명령으로 올린 영상은 카드가 비어 자동 마무리가 건너뛰었다
+ * (2026-11-28 EP37 롱폼 확인). 그래서 예약에 성공하면 이 도구가 카드를 직접 쓴다.
+ * lastSyncedAt은 넣지 않는다 — 비어 있어야 다음 대시보드 동기화가 곧바로 유튜브 값과 대조한다.
+ * 상태는 scheduled/published만 쓴다(자동 업로드 대기열은 ready_to_upload만 읽으므로 끼어들지 않는다).
+ */
+export function buildUploadStatus({plan, videoId, scheduledFor = null, publishedAt = null, existing = null, now = new Date()}) {
+  if (existing?.videoId && existing.videoId !== videoId) {
+    throw new Error(`${plan.statusFile}에 다른 영상 ID(${existing.videoId})가 이미 있습니다. 새 ID(${videoId})로 덮어쓰지 않습니다.`);
+  }
+  const pinned = (readTextSafe(join(plan.pkgDir, 'pinned-comment.txt')) ?? '').trim();
+  const out = {
+    ...(existing || {}),
+    status: publishedAt ? 'published' : 'scheduled',
+    episodeId: existing?.episodeId || plan.pkgName,
+    format: plan.kind === 'shorts' ? 'SHORTS' : 'LONGFORM',
+    videoId,
+    title: plan.title,
+    playlist: plan.playlist || DEFAULT_PLAYLISTS[plan.kind] || null,
+    containsSyntheticMedia: true,
+    uploadedAt: existing?.uploadedAt || now.toISOString(),
+    pinnedCommentPending: existing?.pinnedCommentPending ?? Boolean(pinned),
+  };
+  if (scheduledFor) out.scheduledFor = scheduledFor;
+  if (publishedAt) out.publishedAt = publishedAt;
+  delete out.lastSyncedAt;
+  return out;
+}
+
+/** 상태 카드를 패키지 폴더에 쓴다. 반환: 쓴 파일 경로 */
+export function writeUploadStatus(plan, status) {
+  const path = join(plan.pkgDir, plan.statusFile);
+  writeFileSync(path, `${JSON.stringify(status, null, 2)}\n`, 'utf8');
+  return path;
+}
+
+/**
+ * 이미 스튜디오에 올린 영상의 카드를 동기화된 catalog.json 값으로 채운다(--record). 손으로 카드를 쓰지 않게 하려는 것.
+ * 반환: {ok, status?, reason?}
+ */
+export function recordExistingUpload({plan, videoId, catalogVideos = [], existing = null, now = new Date()}) {
+  const v = catalogVideos.find((x) => x.videoId === videoId);
+  if (!v) return {ok: false, reason: `catalog.json에 영상 ID ${videoId}가 없습니다. 대시보드에서 동기화한 뒤 다시 하세요.`};
+  const kind = String(v.format || '').toUpperCase() === 'SHORTS' ? 'shorts' : 'longform';
+  if (kind !== plan.kind) return {ok: false, reason: `형식이 다릅니다: 패키지는 ${plan.kind === 'shorts' ? '쇼츠' : '롱폼'}, 영상 ${videoId}는 ${kind === 'shorts' ? '쇼츠' : '롱폼'}입니다.`};
+  const isPublic = v.privacyStatus === 'public';
+  if (!isPublic && !v.scheduledPublishAt) return {ok: false, reason: `영상 ${videoId}는 공개도 예약도 아닙니다(상태 ${v.privacyStatus || '알 수 없음'}).`};
+  try {
+    const status = buildUploadStatus({
+      plan, videoId, existing, now,
+      scheduledFor: v.scheduledPublishAt || null,
+      publishedAt: isPublic ? (v.publishedAt || null) : null,
+    });
+    return {ok: true, status};
+  } catch (err) {
+    return {ok: false, reason: err.message};
+  }
+}
+
 /** 스튜디오 예약이 끝난 뒤 대시보드 동기화 결과를 판정한다(같은 시각인지). */
 export const scheduledForMatches = (scheduledFor, schedule) => {
   const ms = Date.parse(scheduledFor || '');
@@ -294,18 +357,19 @@ export const scheduledForMatches = (scheduledFor, schedule) => {
 export const USAGE = [
   '사용: npm run studio-upload -- <패키지 폴더> --schedule "YYYY-MM-DD HH:mm" (--playlist "<이름>" | --no-playlist) [--category 교육] [--no-subs] [--yes]',
   '      npm run studio-upload -- <패키지 폴더> --guide [--schedule "..."] [--playlist "..."]',
+  '      npm run studio-upload -- <패키지 폴더> --record <영상 ID>   (이미 올린 영상의 상태 카드만 채운다)',
   '--yes가 없으면 점검만 합니다. 시각은 한국 시각입니다.',
 ].join('\n');
 
 export function parseArgs(argv) {
-  const out = {pkg: null, schedule: null, playlist: null, noPlaylist: false, noSubs: false, yes: false, guide: false, category: null, errors: []};
+  const out = {pkg: null, schedule: null, playlist: null, noPlaylist: false, noSubs: false, yes: false, guide: false, category: null, record: null, errors: []};
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--yes') out.yes = true;
     else if (a === '--guide') out.guide = true;
     else if (a === '--no-playlist') out.noPlaylist = true;
     else if (a === '--no-subs') out.noSubs = true;
-    else if (a === '--schedule' || a === '--playlist' || a === '--category') {
+    else if (a === '--schedule' || a === '--playlist' || a === '--category' || a === '--record') {
       const v = argv[i + 1];
       if (v === undefined || v.startsWith('--')) out.errors.push(`${a} 뒤에 값이 필요합니다.`);
       else { out[a.slice(2)] = v; i += 1; }
@@ -315,6 +379,8 @@ export function parseArgs(argv) {
   }
   if (!out.pkg) out.errors.push('패키지 폴더를 적어 주세요.');
   if (out.guide && out.yes) out.errors.push('--guide와 --yes는 같이 쓸 수 없습니다.');
+  if (out.record && (out.yes || out.guide)) out.errors.push('--record는 --yes·--guide와 같이 쓸 수 없습니다.');
+  if (out.record && !/^[A-Za-z0-9_-]{11}$/.test(out.record)) out.errors.push(`--record 뒤에는 영상 ID 11자를 적어 주세요(받은 값: ${out.record}).`);
   return out;
 }
 
@@ -863,6 +929,26 @@ async function main(argv) {
   }
 
   const catalog = readJsonSafe(join(projectDir, 'data', 'youtube', 'catalog.json'));
+
+  if (args.record) {
+    if (!existsSync(pkgDir)) { console.error(`패키지 폴더가 없습니다: ${pkgDir}`); return 2; }
+    if (!catalog) { console.error('data/youtube/catalog.json을 읽지 못했습니다.'); return 1; }
+    const {plan} = inspectPackage(pkgDir, {catalogVideos: []});
+    const statusPath = join(pkgDir, plan.statusFile);
+    const rec = recordExistingUpload({plan, videoId: args.record, catalogVideos: catalog.videos || [], existing: readJsonSafe(statusPath)});
+    if (!rec.ok) { console.error(`카드를 쓰지 않았습니다: ${rec.reason}`); return 1; }
+    writeUploadStatus(plan, rec.status);
+    console.log(`상태 카드를 썼습니다: ${statusPath} (${rec.status.status}, ${rec.status.scheduledFor || rec.status.publishedAt})`);
+    try {
+      const res = await fetch(DASHBOARD_SYNC_URL, {method: 'POST', signal: AbortSignal.timeout(240000)}); // allow-literal: 동기화는 오래 걸릴 수 있어 4분
+      const after = readJsonSafe(statusPath);
+      console.log(`대시보드 동기화 ${res.status}: 카드 상태 ${after?.status}, 예약 ${after?.scheduledFor || '-'}, 유튜브 대조 시각 ${after?.lastSyncedAt || '(바뀐 값 없음)'}`);
+    } catch (err) {
+      console.warn(`대시보드 동기화를 못 했습니다(${err.message}). 대시보드를 켠 뒤 동기화하면 유튜브 값과 대조됩니다.`);
+    }
+    return 0;
+  }
+
   const chrome = await setupStudioChrome({launchIfDown: true});
   const login = chrome.supported === false ? `지원 안 됨(${chrome.reason || chrome.error})` : (chrome.login || 'unknown');
   const result = inspectPackage(pkgDir, {
@@ -890,10 +976,23 @@ async function main(argv) {
     return 1;
   }
 
+  // 동기화 전에 카드를 쓴다 — 대시보드 동기화는 카드가 있어야 이 영상을 유튜브 값과 대조한다.
+  let cardError = null;
+  try {
+    const statusPath = join(result.plan.pkgDir, result.plan.statusFile);
+    writeUploadStatus(result.plan, buildUploadStatus({
+      plan: result.plan, videoId: summary.videoId, scheduledFor: schedule.utcIso, existing: readJsonSafe(statusPath),
+    }));
+    console.log(`상태 카드 기록: ${statusPath}`);
+  } catch (err) {
+    cardError = err.message;
+  }
+
   const sync = await syncAndVerify({plan: result.plan, schedule, videoId: summary.videoId, expectedCategoryId: result.plan.category.id});
   const url = `https://youtu.be/${summary.videoId}`;
   console.log(`\n스튜디오 예약 완료: ${url} (${schedule.text} 한국 시각)`);
   let code = 0;
+  if (cardError) { console.error(`상태 카드 기록 실패: ${cardError} (영상 예약은 끝났음. npm run studio-upload -- <패키지> --record ${summary.videoId}로 다시 쓰세요)`); code = 1; }
   if (summary.subs === 'failed') { console.error(`자막 단계 실패: ${summary.subsError} (영상 예약은 끝났음, 자막만 스튜디오에서 직접 올리세요)`); code = 1; }
   if (summary.settingsError) { console.error(`카테고리·언어 단계 실패: ${summary.settingsError} (영상 예약은 끝났음. 스튜디오 편집 화면에서 카테고리와 두 언어 칸을 직접 확인하세요)`); code = 1; }
   if (!sync.ok) {

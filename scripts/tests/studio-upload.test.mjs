@@ -7,6 +7,7 @@ import {
   parseSchedule, studioDateText, studioTimeText, confirmationMatches, videoIdFromText, checkScheduleReadback,
   inspectPackage, parseArgs, buildGuide, buildCommand, tagCharCount, parseTags, scheduledForMatches, syncAndVerify,
   findCatalogDuplicate, resolveCategory, diffSettings, checkCatalogSettings, CATEGORIES,
+  buildUploadStatus, writeUploadStatus, recordExistingUpload, DEFAULT_PLAYLISTS,
 } from '../studio-upload.mjs';
 
 // 시험용 "지금": 2026-11-16 15:00 한국 시각 = 06:00 UTC (EP30 예약을 실제로 한 날)
@@ -343,4 +344,67 @@ test('가이드: 사용자 직접 체크리스트에 카테고리와 두 언어 
   const game = run(makePackage('ep87-shorts-guide'), {category: resolveCategory('게임')}).plan;
   const gameText = buildGuide({pkgRel: 'p', plan: game, scheduleText: '2026-11-18 20:00', playlist: '목록', noPlaylist: false, noSubs: false});
   assert.match(gameText, /--category "게임"/);
+});
+
+// ── 상태 카드(2026-11-28 EP37: 스튜디오로 올린 롱폼에 카드가 없어 고정 댓글 자동화·브리핑이 영상을 못 찾음) ──
+const longPlan = (name = 'ep97-listen-test', extra = {}) => run(makePackage(name, extra), {playlist: null, noPlaylist: true}).plan;
+
+test('상태 카드: 롱폼 예약 성공 → status.json에 videoId·scheduledFor·고정 댓글 대기를 쓰고 lastSyncedAt은 비운다', () => {
+  const plan = longPlan('ep97-listen-test', {'pinned-comment.txt': '고정 댓글입니다\n'});
+  assert.equal(plan.kind, 'longform');
+  assert.equal(plan.statusFile, 'status.json');
+  const s = buildUploadStatus({plan, videoId: '0YdM-5SACVw', scheduledFor: '2026-11-30T14:00:00.000Z', now: NOW});
+  assert.equal(s.status, 'scheduled');
+  assert.equal(s.videoId, '0YdM-5SACVw');
+  assert.equal(s.scheduledFor, '2026-11-30T14:00:00.000Z');
+  assert.equal(s.format, 'LONGFORM');
+  assert.equal(s.episodeId, 'ep97-listen-test');
+  assert.equal(s.pinnedCommentPending, true);
+  assert.equal(s.containsSyntheticMedia, true);
+  assert.equal(s.playlist, DEFAULT_PLAYLISTS.longform);
+  assert.ok(!('lastSyncedAt' in s), '비어 있어야 대시보드 동기화가 곧바로 유튜브와 대조한다');
+  assert.notEqual(s.status, 'ready_to_upload', '자동 업로드 대기열(ready_to_upload)에 끼어들면 안 된다');
+  const path = writeUploadStatus(plan, s);
+  assert.equal(JSON.parse(readFileSync(path, 'utf8')).videoId, '0YdM-5SACVw');
+  // 카드가 생겼으니 같은 패키지를 다시 올리려 하면 막힌다
+  assert.ok(failedIds(run(plan.pkgDir)).includes('not-uploaded'));
+});
+
+test('상태 카드: 쇼츠는 shorts-status.json에 쓰고, 있던 칸은 지키며 다른 영상 ID로는 덮어쓰지 않는다', () => {
+  const dir = makePackage('ep96-shorts-card', {'shorts-status.json': JSON.stringify({note: '유지', lastSyncedAt: '2026-11-16T05:59:00Z'})});
+  const plan = run(dir).plan;
+  assert.equal(plan.statusFile, 'shorts-status.json');
+  const existing = JSON.parse(readFileSync(join(dir, 'shorts-status.json'), 'utf8'));
+  const s = buildUploadStatus({plan, videoId: 'JL_yQNB7TWY', scheduledFor: '2026-11-28T11:00:00.000Z', existing, now: NOW});
+  assert.equal(s.note, '유지');
+  assert.equal(s.format, 'SHORTS');
+  assert.equal(s.playlist, '시험 재생목록');
+  assert.equal(s.pinnedCommentPending, false, '고정 댓글 파일이 없으면 대기 아님');
+  assert.ok(!('lastSyncedAt' in s));
+  writeUploadStatus(plan, s);
+  assert.ok(!existsSync(join(dir, 'status.json')), '쇼츠 폴더에는 status.json을 만들지 않는다');
+  assert.throws(() => buildUploadStatus({plan, videoId: 'AAAAAAAAAAA', existing: s, now: NOW}), /다른 영상 ID/);
+});
+
+test('--record: 이미 올린 영상은 catalog.json 값으로 카드를 채우고, 없거나 형식이 다르면 쓰지 않는다', () => {
+  const plan = longPlan('ep95-listen-record');
+  const catalogVideos = [
+    {videoId: '0YdM-5SACVw', format: 'LONGFORM', privacyStatus: 'private', scheduledPublishAt: '2026-11-30T14:00:00Z'},
+    {videoId: 'cW9pREzzrt0', format: 'LONGFORM', privacyStatus: 'public', publishedAt: '2026-11-26T14:00:00Z'},
+    {videoId: 'JL_yQNB7TWY', format: 'SHORTS', privacyStatus: 'private', scheduledPublishAt: '2026-11-28T11:00:00Z'},
+    {videoId: 'zzzzzzzzzzz', format: 'LONGFORM', privacyStatus: 'private'},
+  ];
+  const sched = recordExistingUpload({plan, videoId: '0YdM-5SACVw', catalogVideos, now: NOW});
+  assert.equal(sched.ok, true);
+  assert.equal(sched.status.status, 'scheduled');
+  assert.equal(sched.status.scheduledFor, '2026-11-30T14:00:00Z');
+  const pub = recordExistingUpload({plan, videoId: 'cW9pREzzrt0', catalogVideos, now: NOW});
+  assert.equal(pub.status.status, 'published');
+  assert.equal(pub.status.publishedAt, '2026-11-26T14:00:00Z');
+  assert.match(recordExistingUpload({plan, videoId: 'nonexistent1', catalogVideos}).reason, /catalog\.json에/);
+  assert.match(recordExistingUpload({plan, videoId: 'JL_yQNB7TWY', catalogVideos}).reason, /형식이 다릅니다/);
+  assert.match(recordExistingUpload({plan, videoId: 'zzzzzzzzzzz', catalogVideos}).reason, /공개도 예약도/);
+  assert.equal(parseArgs(['p', '--record', '0YdM-5SACVw']).record, '0YdM-5SACVw');
+  assert.ok(parseArgs(['p', '--record', 'short']).errors.length);
+  assert.ok(parseArgs(['p', '--record', '0YdM-5SACVw', '--yes']).errors.length);
 });

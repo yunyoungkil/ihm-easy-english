@@ -319,7 +319,7 @@ const briefingLines = (check, briefing) => {
     if (growthPulse.upcomingSettlements?.length) {
       lines.push(
         `- 7일 성과 정산 도래: ${growthPulse.upcomingSettlements
-          .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.settleDate} 정산)`)
+          .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.ready ? '첫 7일 숫자 들어옴 — 지금 정산' : `${v.settleDate}부터 정산(첫 7일 숫자 들어오는 날)`})`)
           .join(' / ')}`,
       );
     }

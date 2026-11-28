@@ -38,6 +38,7 @@ import {
 } from './growth-rules.mjs';
 import {shortsPackageEpisode} from './upload-package-summary.mjs';
 import {loadBlogStatus} from './blog/blog-status.mjs';
+import {VIEWS_7D_READY_DAYS} from './planning-outcome.mjs';
 import {
   loadCodebaseHygieneDiagnosis,
   loadCodebaseHygieneSignals,
@@ -255,16 +256,19 @@ function collectGrowthPulse({catalogVideos = [], backlog = [], shortsStatuses = 
     .map((v) => {
       const age = daysSince(v.publishedAt);
       const pubDate = new Date(v.publishedAt);
-      const settle = new Date(pubDate.getTime() + 7 * DAY); // allow-literal: 7일 정산 기준
+      // 정산일 = 첫 7일 숫자가 실제로 들어오는 날(공개 + 10일, video-lifetime.mjs와 같은 기준). 공개 + 7일로 적었더니
+      // 브리핑이 숫자가 없는 영상을 "정산 도래"로 띄워 헛걸음했다(2026-11-28, 5편 중 1편만 숫자 있음).
+      const settle = new Date(pubDate.getTime() + VIEWS_7D_READY_DAYS * DAY);
       return {
         videoId: v.videoId,
         title: v.title,
         format: formatOf(v),
         daysSince: age,
         settleDate: ymd(settle),
+        ready: age >= VIEWS_7D_READY_DAYS,
       };
     })
-    .filter((v) => v.daysSince >= 5 && v.daysSince <= 10) // allow-literal: 5~10일 정산 도래 구간
+    .filter((v) => v.daysSince >= 5 && v.daysSince <= VIEWS_7D_READY_DAYS + 3) // allow-literal: 공개 5일째부터 자료 들어온 뒤 3일까지 보인다
     .sort((a, b) => a.daysSince - b.daysSince);
 
   const scheduledLong = packages

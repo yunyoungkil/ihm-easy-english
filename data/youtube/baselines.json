@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-27T16:11:55.804Z",
+  "computedAt": "2026-11-28T03:01:11.493Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -54,7 +54,7 @@
           "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
           "unit": "명",
-          "n": 53,
+          "n": 54,
           "median": 1,
           "upper": 2,
           "spreadRatio": 2,
@@ -430,6 +430,12 @@
         ],
         "watchSeconds7d": [
           {
+            "videoId": "OnhkMmAE5ZA",
+            "publishedAt": "2026-11-17T11:00:32Z",
+            "durationSeconds": 45,
+            "value": 18
+          },
+          {
             "videoId": "ogCglr1VNYE",
             "publishedAt": "2026-11-14T11:00:32Z",
             "durationSeconds": 43,
@@ -749,6 +755,12 @@
           }
         ],
         "subs7d": [
+          {
+            "videoId": "OnhkMmAE5ZA",
+            "publishedAt": "2026-11-17T11:00:32Z",
+            "durationSeconds": 45,
+            "value": 0
+          },
           {
             "videoId": "ogCglr1VNYE",
             "publishedAt": "2026-11-14T11:00:32Z",
@@ -1115,24 +1127,24 @@
       },
       "reference": {
         "firstWeekReach": {
-          "n": 53,
+          "n": 54,
           "medianImpressions": 60,
           "pooledCtrPercent": 3.06,
-          "totalImpressions": 4352
+          "totalImpressions": 4377
         },
         "subsPer1000Views": {
-          "value": 1.6783165194297411,
+          "value": 1.6618576281091346,
           "totalSubs": 91,
-          "totalViews": 54221,
-          "n": 53
+          "totalViews": 54758,
+          "n": 54
         },
         "watchRatio": {
           "median": 0.6415094339622641,
-          "n": 53
+          "n": 54
         },
         "totalWatchMinutes": {
           "median": 455.35,
-          "n": 53
+          "n": 54
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       },

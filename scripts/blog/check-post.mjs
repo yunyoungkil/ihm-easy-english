@@ -62,6 +62,8 @@ function decodeEntities(s) {
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
     .replace(/&quot;/gi, '"')
+    .replace(/&ldquo;|&rdquo;/gi, '"')
+    .replace(/&lsquo;|&rsquo;/gi, "'")
     .replace(/&#39;|&apos;/gi, "'")
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)));
 }

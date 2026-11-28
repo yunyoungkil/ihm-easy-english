@@ -133,6 +133,45 @@ h1.post-title.entry-title,
   margin-bottom: 0.55em !important;
 }
 
+.post-body table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 1.4em 0 1.8em !important;
+  font-size: 15.5px !important;
+  line-height: 1.58 !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #DCE3E1 !important;
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: auto;
+}
+
+.post-body th,
+.post-body td {
+  padding: 11px 13px !important;
+  border-bottom: 1px solid #E5E7EB !important;
+  text-align: left !important;
+  vertical-align: top !important;
+  color: #1F2937 !important;
+  word-break: keep-all;
+}
+
+.post-body th {
+  background-color: #F2F7F6 !important;
+  color: #0D3B36 !important;
+  font-weight: 700 !important;
+  border-bottom: 1.5px solid #C6D8D4 !important;
+}
+
+.post-body tr:last-child td {
+  border-bottom: none !important;
+}
+
+.post-body strong {
+  color: #111827 !important;
+  font-weight: 700 !important;
+}
+
 /* 필요한 제품 확인 (쿠팡 글자 링크 카드: 금지행위 없음, 애드센스 안전 여백) */
 .post-body .blog-product {
   margin: 2.4em 0 !important;
@@ -477,6 +516,15 @@ body:not(.item-view) .post-comment-link,
 
   .post-body h2 {
     font-size: 19px !important;
+  }
+
+  .post-body table {
+    font-size: 14px !important;
+  }
+
+  .post-body th,
+  .post-body td {
+    padding: 9px 9px !important;
   }
 
   .post-body .blog-product {

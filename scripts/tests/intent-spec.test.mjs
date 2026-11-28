@@ -180,7 +180,18 @@ test('저장된 비교 시트는 모두 규칙(다른 경쟁 영상에서 가져
   const {loadSheets, sheetIdOf, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
   const {loadReports} = await import('../outlier-report.mjs');
   const pacing = new Map(loadReports().map((r) => [r.videoId, r.pacing]));
-  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists, competitorPacing: pacing.get(s.sourceVideoId)}).map((p) => sheetIdOf(s) + ': ' + p));
+  // 2026-11-28 사용자 결정: 승인 전(초안) 시트가 백지 눈 검수에서 "아직 미통과"(needs_fix)인 것은 정직한 진행 상태라 여기서 빼고,
+  // 검수 칸이 비었거나 형식이 틀린 것은 그대로 잡는다. 승인된 시트는 아래 테스트가 검수 통과를 따로 요구한다(승인 버튼·음성 관문은 그대로 막음).
+  const pendingReview = /^백지 눈 검수: (.*미통과 — 수정 후 다시 통과시킨다|판정\(verdict\)이 "pass"가 아니다)/;
+  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists, competitorPacing: pacing.get(s.sourceVideoId)})
+    .filter((p) => s.status === 'approved' || !pendingReview.test(p))
+    .map((p) => sheetIdOf(s) + ': ' + p));
+  assert.deepEqual(bad, []);
+});
+
+test('승인된 비교 시트는 백지 눈 검수를 통과했다 — 초안의 needs_fix는 위 테스트에서 빼도 승인 뒤에는 빼지 않는다 [2026-11-28]', async () => {
+  const {loadSheets, sheetIdOf, blindReviewProblems} = await import('../transform-sheet.mjs');
+  const bad = loadSheets().filter((s) => s.status === 'approved').flatMap((s) => blindReviewProblems(s).map((p) => sheetIdOf(s) + ': ' + p));
   assert.deepEqual(bad, []);
 });
 

@@ -382,8 +382,8 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
       reviewedAt: '2026-11-28',
       reviewerModel: '시험용 검수 모델',
       reviewContext: '시험용: 초안과 다른 대화에서 점검',
-      checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
-      findings: ['시험용: 다섯 기준 확인'],
+      checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true, midVisualLearningOk: true, thumbCraftOk: true},
+      findings: ['시험용: 일곱 기준 확인'],
       verdict: 'pass',
     },
     references: [

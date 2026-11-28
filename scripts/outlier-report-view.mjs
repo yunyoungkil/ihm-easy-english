@@ -2,7 +2,7 @@
 // 대시보드 서버가 /outlier-reports, /outlier-report/<영상ID> 로 보여 준다. 읽기 전용.
 // 댓글·자막·제목은 외부에서 온 글자라서 전부 escapeHtml을 거친다(시험이 확인).
 
-import { BLIND_REVIEW_CHECKS, fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
+import { BLIND_REVIEW_CHECKS, blindReviewChecksFor, fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { CREDIT_KO, ANALYSIS_LABELS, EYE_LABELS, TAG_LABELS } from './packaging-cases.mjs';
 import { CREATOR_STUDY_CSS, renderCreatorStudySection } from './creator-study-view.mjs';
@@ -472,11 +472,11 @@ export function renderOutcomeCard(outcome) {
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
 
-/** 백지 눈 검수 카드(2026-11-27): 다섯 기준 통과 여부·소견·검수 모델을 승인 버튼 위에 그대로 보여 준다. */
-export function renderBlindReviewCard(br) {
+/** 백지 눈 검수 카드(2026-11-27, 2026-11-28 일곱 기준): 기준별 통과 여부·소견·검수 모델을 승인 버튼 위에 그대로 보여 준다. */
+export function renderBlindReviewCard(br, checkLabels = BLIND_REVIEW_CHECKS) {
   const checks = br && typeof br.checks === 'object' && br.checks ? br.checks : {};
   const pass = br?.verdict === 'pass';
-  const items = Object.entries(BLIND_REVIEW_CHECKS).map(([k, label]) => {
+  const items = Object.entries(checkLabels).map(([k, label]) => {
     const v = checks[k];
     const mark = v === true ? '<span style="color:var(--ok)">✓</span>' : v === false ? '<span style="color:var(--bad)">✗</span>' : '<span class="meta">?</span>';
     return `<li>${mark} ${escapeHtml(label)}</li>`;
@@ -618,10 +618,10 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     toc.push({ href: `#row-${r.key}`, label: ROW_LABELS_VIEW[r.key] || r.key });
     parts.push(rowHtml(r));
   }
-  // 백지 눈 검수 결과(2026-11-27): 승인하는 사람이 승인 버튼 바로 위에서 다섯 기준과 소견을 본다.
+  // 백지 눈 검수 결과(2026-11-27): 승인하는 사람이 승인 버튼 바로 위에서 기준별 결과와 소견을 본다.
   if (sheet.blindReview && typeof sheet.blindReview === 'object') {
     toc.push({ href: '#sec-blind-review', label: '👁 백지 눈 검수' });
-    parts.push(renderBlindReviewCard(sheet.blindReview));
+    parts.push(renderBlindReviewCard(sheet.blindReview, blindReviewChecksFor(sheet)));
   }
   if (isDraft) {
     const canApproveNow = blockerList.length === 0;

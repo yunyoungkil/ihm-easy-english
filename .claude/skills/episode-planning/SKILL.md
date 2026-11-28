@@ -48,7 +48,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 6 | **Phase 6** 제목 & 썸네일 | **근거 4종 먼저**(클릭률 상·하위, A/B 승자, 아웃라이어, 실제 검색어), 제목 3안, **방향 미리보기 비교**, 프롬프트(글자·색면뿐이면 생략, 서로 다른 컨셉 3개) | [02-title-and-thumbnail.md](references/02-title-and-thumbnail.md) |
 | 7 | **Phase 7·9** 시각 자료(Info Doc) → 거친 컷 흐름(Visual Outline) | **대본보다 시각 선행(2026-11-23)**: Pinterest·명작 화면·시각 증거 먼저 수집 → 화면만으로 통하는 컷 순서/시각 스토리보드 먼저 배치(나레이션 군살 제거) | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
 | 8 | **Phase 8** 대본·TTS·컷별 팩트체크 정렬 | Visual Outline 옆에 대사·사운드·**컷별 팩트 체크(`FACT-CHECK.md`)** 정렬, 계단식 오픈 루프(Payoff Void 방지), **`slop-rewrite` + korean-skills**, 금지어 검사 | [03-script-and-narration.md](references/03-script-and-narration.md) |
-| 8.5 | **백지 눈 검수** (시트 제출 직전 1회) | 전용 스킬 `blind-review`를 초안 대화와 분리된 문맥(서브에이전트·다른 모델)에서 한 번 돌려 시트 `blindReview`에 다섯 기준·소견을 적는다. 빠지면 승인이 막힌다(잠금 전 7편만 예외) | `blind-review` 스킬 |
+| 8.5 | **백지 눈 검수** (시트 제출 직전 1회) | 전용 스킬 `blind-review`를 초안 대화와 분리된 문맥(서브에이전트·다른 모델)에서 한 번 돌려 시트 `blindReview`에 일곱 기준·소견을 적는다. 빠지면 승인이 막힌다(잠금 전 7편만 예외) | `blind-review` 스킬 |
 | 9 | **Phase 10** 그림·영상 프롬프트 | 3중 하이브리드(Omni · Nano Banana · HyperFrames), 워터마크 차단, 그림 속 전문용어 금지 | 04 |
 | — | 제작 | 음성·HyperFrames(몰입감·학습·시청 지속 시간 자율 연출)·Gate 2 전 AI 집중 검수·렌더 (`knowledge/VIDEO_WORKFLOW.md` 7·9단계) | — |
 | — | 예약·공개 직후 | 사후 마무리 7단계 | `publish-wrapup` 스킬 |

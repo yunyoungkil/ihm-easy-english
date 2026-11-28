@@ -110,7 +110,7 @@ K. **어려운 설계는 `opus-expert`**: 부를 때 배경·결정된 것·읽�
 - 시트 화면은 `refReports`(원본 + 가져온 출처 + 썸네일 토큰 영상)의 저장 캡처·화면 변화 시각·썸네일을 서버가 실어 보낸다.
 - 시험: `scripts/tests/sheet-links.test.mjs`, `sheet-cards.test.mjs`, `visual-library-summary.test.mjs`.
 
-- **`blindReview` (백지 눈 검수, 2026-11-27)**: 시트를 사용자에게 내기 직전, 초안을 쓴 대화와 분리된 문맥에서 `blind-review` 스킬을 한 번 돌려 다섯 기준(`mobileTitleOk`·`thumbOneSecOk`·`synergyOk`·`openingOneMinOk`·`antiSlopVoiceOk`)과 소견(`findings`), 검수 모델(`reviewerModel`), 초안과 어떻게 분리했는지(`reviewContext`, 비면 승인이 막힌다 — 2026-11-27 재검수), 판정(`verdict: "pass"`)을 적는다. 3절 D항의 독립 비평가는 대본을 쓰는 도중 고쳐 쓰기 위한 단계이고, 백지 눈은 제출 직전 시트 전체(제목·썸네일·대본)를 한 번 보는 마지막 점검이다(둘은 대신하지 않는다). v4 시트는 이것이 없으면 승인이 막힌다(`blindReviewProblems`, 예외는 잠금 전에 있던 EP31~37 7편뿐이고 작성일로는 예외를 주지 않는다). 결과는 대시보드 시트 화면의 승인 버튼 바로 위에 보인다.
+- **`blindReview` (백지 눈 검수, 2026-11-27)**: 시트를 사용자에게 내기 직전, 초안을 쓴 대화와 분리된 문맥에서 `blind-review` 스킬을 한 번 돌려 일곱 기준(`mobileTitleOk`·`thumbOneSecOk`·`synergyOk`·`openingOneMinOk`(초반 후킹)·`antiSlopVoiceOk`·`midVisualLearningOk`(중반 화면·학습)·`thumbCraftOk`(썸네일 그림 AI 티), 2026-11-28 다섯 → 일곱, 다섯 기준으로 이미 검수를 마친 EP37만 다섯 기준)과 소견(`findings`), 검수 모델(`reviewerModel`), 초안과 어떻게 분리했는지(`reviewContext`, 비면 승인이 막힌다 — 2026-11-27 재검수), 판정(`verdict: "pass"`)을 적는다. 3절 D항의 독립 비평가는 대본을 쓰는 도중 고쳐 쓰기 위한 단계이고, 백지 눈은 제출 직전 시트 전체(제목·썸네일·대본)를 한 번 보는 마지막 점검이다(둘은 대신하지 않는다). v4 시트는 이것이 없으면 승인이 막힌다(`blindReviewProblems`, 예외는 잠금 전에 있던 EP31~37 7편뿐이고 작성일로는 예외를 주지 않는다). 결과는 대시보드 시트 화면의 승인 버튼 바로 위에 보인다.
 
 ## 6. 기술 함정 (겪은 것)
 - **줄바꿈**: 이 저장소 파일은 CRLF·LF가 섞여 있다. 여러 줄 문자열로 바꿔치기할 때는 먼저 `\r\n`을 `\n`으로 맞춰서 비교한다.

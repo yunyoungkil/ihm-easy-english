@@ -1,10 +1,11 @@
 # Knowledge Index
 
-마지막 갱신: 2026-11-27
+마지막 갱신: 2026-11-28
 
 ## 항상 읽기 (최우선 지도)
 
 - [지금 할 일](now.md) — 현재 우선순위와 가까운 일정만 담는 짧은 문서
+- [흐름 개선 메모함](idea-memo.md) — 제작 중 떠오른 흐름·규칙 개선은 바로 고치지 않고 한 줄 적어 두고 7일 정산 때 꺼내 보는 곳 (2026-11-28)
 - [유튜브 채널 운영 지도](youtube-operations.md) — 유튜브 기획·비교 시트·화면·업로드 단일 허브 (`AGENTS.md`에서 분리)
 - [블로그 운영 지침 (`tech.d40m.com`)](playbooks/blog-operations.md) — 쿠팡 블로그 주간 경고 점검, 멈춤·재개, 주제 보충 절차
 - [자율 브리핑 단일 원본](playbooks/briefing/00-autonomous-briefing.md) — 하루 1회 시작 브리핑·권한선·브레이크 기준 ([구현 명세](playbooks/briefing/01-implementation-spec.md))

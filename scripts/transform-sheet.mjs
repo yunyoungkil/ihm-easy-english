@@ -282,19 +282,34 @@ export function selfCritiqueProblems(sheet) {
 
 /**
  * 백지 눈 1회 검수 잠금(blindReview, 2026-11-27 1차 개편 확정):
- * v4 비교 시트는 초안 문맥과 분리된 백지 눈 5대 잣대 점검 기록이 통과(verdict: "pass")해야 승인할 수 있다.
+ * v4 비교 시트는 초안 문맥과 분리된 백지 눈 기준별 점검 기록이 통과(verdict: "pass")해야 승인할 수 있다.
  * 예외는 이 잠금이 생기기 전에 이미 있던 시트 7편뿐이다(아래 목록, 시트 이름 기준).
  * 2026-11-27 감사: 처음에는 작성일(createdAt)로 새 시트를 골랐는데, 작성일을 비우거나·빼거나·
  * 다른 형식(11/28/2026)으로 쓰거나·앞당기면 잠금이 꺼졌다. 그래서 날짜가 아니라 고정 목록으로 예외를 준다.
+ * 2026-11-28 사용자 확정: 다섯 기준 → 일곱 기준. 기준을 한 칸에 몰지 않고 나눠 묻는다(HD-Eval ACL 2024·DeCE EMNLP 2025:
+ * 기준을 쪼갤수록 사람 판단과 맞는다). 이미 다섯 기준으로 검수를 마친 예외 목록 시트(EP37)는 다섯 기준으로만 본다.
  */
 export const BLIND_REVIEW_LEGACY_SHEETS = Object.freeze([...CRAFT_LEGACY_SHEETS, 'ep37-listen-frozen-questions']);
-export const BLIND_REVIEW_CHECKS = Object.freeze({
+export const BLIND_REVIEW_CHECKS_V1 = Object.freeze({
   mobileTitleOk: '휴대폰에서 제목이 잘리기 전에 핵심이 보임',
   thumbOneSecOk: '썸네일 실물이 1초에 꽂히고 스포일러·강사 용어·영상과 어긋난 약속 없음',
   synergyOk: '썸네일 호기심과 제목 실속이 한 방향',
   openingOneMinOk: '도입이 사용 설명서·예고로 늘어지지 않고 곧바로 체험으로 들어감',
   antiSlopVoiceOk: '같은 진행 멘트 반복·존댓말/반말 어긋남·번역 불일치 없음',
 });
+export const BLIND_REVIEW_CHECKS = Object.freeze({
+  mobileTitleOk: '휴대폰에서 제목이 잘리기 전에 핵심이 보이고, 3060이 굳이 누를 고민임',
+  thumbOneSecOk: '썸네일 실물이 1초에 꽂히고 스포일러·강사 용어·영상과 어긋난 약속 없음',
+  synergyOk: '썸네일 호기심과 제목 실속이 한 방향',
+  openingOneMinOk: '초반 후킹: 썸네일·제목 약속을 곧바로 이어받아 체험으로 들어감',
+  antiSlopVoiceOk: '대본을 귀로 들었을 때 반복 멘트·존댓말/반말·번역 어긋남·강의체·꾸민 글말 없음',
+  midVisualLearningOk: '중반: 긴 설명마다 화면이 바뀌고 시청자가 맞혀 볼 틈이 있으며, 대표님 과외방에 막힌 곳이 있으면 대본에서 풀림',
+  thumbCraftOk: '썸네일 그림 AI 티: 크게·피드 크기로 봐도 결함 없고, 3안과 참고 썸네일을 나란히 놓아도 한 틀이 아님',
+});
+/** 이 시트가 답해야 할 백지 눈 기준(예외 목록 시트에 이미 적힌 다섯 기준 기록은 다섯 기준으로 본다). */
+export function blindReviewChecksFor(sheet) {
+  return BLIND_REVIEW_LEGACY_SHEETS.includes(sheetIdOf(sheet)) ? BLIND_REVIEW_CHECKS_V1 : BLIND_REVIEW_CHECKS;
+}
 export function blindReviewProblems(sheet) {
   const out = [];
   if (!isSloganV4(sheet)) return out;
@@ -303,7 +318,7 @@ export function blindReviewProblems(sheet) {
   if (!hasField && isLegacy) return out;
   const br = sheet?.blindReview;
   if (!br || typeof br !== 'object') {
-    out.push('백지 눈 검수(blindReview)가 없다 — 승인 전 blind-review 스킬로 5대 잣대 1회 점검 기록을 남긴다');
+    out.push('백지 눈 검수(blindReview)가 없다 — 승인 전 blind-review 스킬로 일곱 기준 1회 점검 기록을 남긴다');
     return out;
   }
   if (!filled(br.reviewedAt)) out.push('백지 눈 검수: 점검 날짜(reviewedAt)가 비어 있다');
@@ -312,9 +327,9 @@ export function blindReviewProblems(sheet) {
   if (!filled(br.reviewContext)) out.push('백지 눈 검수: 초안과 어떻게 분리해 점검했는지(reviewContext)가 비어 있다 — 예: opus-expert 서브에이전트, 안티그래비티 새 대화');
   const checks = br.checks;
   if (!checks || typeof checks !== 'object') {
-    out.push('백지 눈 검수: 5대 잣대 결과(checks)가 없다');
+    out.push('백지 눈 검수: 기준별 결과(checks)가 없다');
   } else {
-    for (const [k, label] of Object.entries(BLIND_REVIEW_CHECKS)) {
+    for (const [k, label] of Object.entries(blindReviewChecksFor(sheet))) {
       if (typeof checks[k] !== 'boolean') out.push(`백지 눈 검수: checks.${k}(${label})가 true/false가 아니다`);
       else if (checks[k] !== true) out.push(`백지 눈 검수: ${label}(${k}) 미통과 — 수정 후 다시 통과시킨다`);
     }

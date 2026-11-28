@@ -79,7 +79,7 @@ test('주기 정리 알림: 마지막 정리일로부터 14일 이상 지나면 
   assert.ok(wikiHealthLine(report).includes('지침·위키 주기 정리 도래'));
 });
 
-test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) 없으면 차단, 잠금 전에 있던 7편만 호환 유지', () => {
+test('잠금 ③: 새 v4 시트는 백지 눈 일곱 기준 통과(blindReview) 없으면 차단, 잠금 전에 있던 7편만 호환 유지', () => {
   const legacyV4 = {schemaVersion: 4, episodeId: 'ep37-listen-frozen-questions', createdAt: '2026-11-25'};
   assert.deepEqual(blindReviewProblems(legacyV4), [], '잠금 전에 있던 시트는 소급 차단하지 않는다');
 
@@ -101,7 +101,7 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
       reviewedAt: '2026-11-28',
       reviewerModel: 'Gemini 4 Neon',
       reviewContext: '안티그래비티 새 대화',
-      checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
+      checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true, midVisualLearningOk: true, thumbCraftOk: true},
       findings: ['썸네일 문구 수정 필요'],
       verdict: 'needs_fix',
     },
@@ -117,12 +117,22 @@ test('잠금 ③: 새 v4 시트는 백지 눈 5대 잣대 통과(blindReview) �
       reviewedAt: '2026-11-28',
       reviewerModel: 'Gemini 4 Neon',
       reviewContext: '안티그래비티 새 대화',
-      checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
-      findings: ['5대 잣대 모두 확인 및 수정 반영'],
+      checks: {mobileTitleOk: true, thumbOneSecOk: true, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true, midVisualLearningOk: true, thumbCraftOk: true},
+      findings: ['일곱 기준 모두 확인 및 수정 반영'],
       verdict: 'pass',
     },
   };
   assert.deepEqual(blindReviewProblems(newPassed), []);
+
+  // 2026-11-28 일곱 기준: 새 시트가 옛 다섯 기준만 적으면 막고, 다섯 기준으로 이미 검수를 마친 EP37은 그대로 통과시킨다.
+  const newFiveOnly = structuredClone(newPassed);
+  delete newFiveOnly.blindReview.checks.midVisualLearningOk;
+  delete newFiveOnly.blindReview.checks.thumbCraftOk;
+  const fiveMsgs = blindReviewProblems(newFiveOnly);
+  assert.ok(fiveMsgs.some((m) => m.includes('midVisualLearningOk')), '중반 화면·학습 기준이 빠지면 막는다');
+  assert.ok(fiveMsgs.some((m) => m.includes('thumbCraftOk')), '썸네일 그림 AI 티 기준이 빠지면 막는다');
+  const legacyFive = {...structuredClone(newFiveOnly), episodeId: 'ep37-listen-frozen-questions'};
+  assert.deepEqual(blindReviewProblems(legacyFive), [], '다섯 기준으로 이미 검수를 마친 예외 시트는 소급해 막지 않는다');
 
   // 2026-11-27 재검수: 어떻게 분리해 점검했는지(reviewContext)가 비면 통과 기록이어도 막는다(초안 대화의 자가 통과 방지).
   for (const reviewContext of [undefined, '', '  ']) {
@@ -232,12 +242,12 @@ test('실제 비교 시트는 모두 파일 이름과 안 이름이 같다(같�
   }
 });
 
-test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 다섯 기준·소견·검수 모델과 함께 보인다', async () => {
+test('잠금 ③ 화면: 백지 눈 검수 결과가 승인 화면에 기준별 결과·소견·검수 모델과 함께 보인다', async () => {
   const {renderBlindReviewCard} = await import('../outlier-report-view.mjs');
   const html = renderBlindReviewCard({
     reviewedAt: '2026-11-28',
     reviewerModel: '시험 모델',
-    checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true},
+    checks: {mobileTitleOk: true, thumbOneSecOk: false, synergyOk: true, openingOneMinOk: true, antiSlopVoiceOk: true, midVisualLearningOk: true, thumbCraftOk: true},
     findings: ['썸네일 글자가 두 덩어리로 갈린다'],
     verdict: 'needs_fix',
   });
